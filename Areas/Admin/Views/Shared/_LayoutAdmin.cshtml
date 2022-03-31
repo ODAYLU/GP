@@ -58,78 +58,85 @@
 
                 <div class="sidebar-body  scrol">
                     <ul id="myList">
-                        <li class="main aa">
-                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
-                                <span class="icon">
-                                    <ion-icon name="home-outline"></ion-icon>
-                                </span>
-                                <span class="title">الرئيسية</span>
-                            </a>
-                        </li>
-                        <li class="" id="real estates">
-                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
-                                <span class="icon">
-                                    <ion-icon name="business-outline"></ion-icon>
-                                </span>
-                                <span class="title">العقارات</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Category">
-                                <span class="icon">
-                                    <ion-icon name="grid-outline"></ion-icon>
-                                </span>
-                                <span class="title">التصنيفات</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Type">
-                                <span class="icon">
-                                    <ion-icon name="pricetags-outline"></ion-icon>
-                                </span>
-                                <span class="title">الانواع</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="State">
-                                <span class="icon">
-                                    <ion-icon name="flag-outline"></ion-icon>
-                                </span>
-                                <span class="title">الدول</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="City">
-                                <span class="icon">
-                                    <ion-icon name="map-outline"></ion-icon>
-                                </span>
-                                <span class="title">المدن</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="list" href="nespaper.html">
-                                <span class="icon">
-                                    <ion-icon name="newspaper-outline"></ion-icon>
-                                </span>
-                                <span class="title">الاعلانات</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="list" href="crunssy.html">
-                                <span class="icon">
-                                    <ion-icon name="card-outline"></ion-icon>
-                                </span>
-                                <span class="title">العملات</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="list"asp-area="Admin" asp-controller="AdminOperation" asp-action="Service">
-                                <span class="icon">
-                                    <ion-icon name="list-outline"></ion-icon>
-                                </span>
-                                <span class="title">الخدمات</span>
-                            </a>
-                        </li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                    <li class="main aa">
+                        <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
+                            <span class="icon">
+                                <ion-icon name="home-outline"></ion-icon>
+                            </span>
+                            <span class="title">الرئيسية</span>
+                        </a>
+                    </li>
+                    <li class="" id="real estates">
+                        <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
+                            <span class="icon">
+                                <ion-icon name="business-outline"></ion-icon>
+                            </span>
+                            <span class="title">العقارات</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Category">
+                            <span class="icon">
+                                <ion-icon name="grid-outline"></ion-icon>
+                            </span>
+                            <span class="title">التصنيفات</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Type">
+                            <span class="icon">
+                                <ion-icon name="pricetags-outline"></ion-icon>
+                            </span>
+                            <span class="title">الانواع</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="State">
+                            <span class="icon">
+                                <ion-icon name="flag-outline"></ion-icon>
+                            </span>
+                            <span class="title">الدول</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="City">
+                            <span class="icon">
+                                <ion-icon name="map-outline"></ion-icon>
+                            </span>
+                            <span class="title">المدن</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a class="list" href="nespaper.html">
+                            <span class="icon">
+                                <ion-icon name="newspaper-outline"></ion-icon>
+                            </span>
+                            <span class="title">الاعلانات</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a class="list" href="crunssy.html">
+                            <span class="icon">
+                                <ion-icon name="card-outline"></ion-icon>
+                            </span>
+                            <span class="title">العملات</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Service">
+                            <span class="icon">
+                                <ion-icon name="list-outline"></ion-icon>
+                            </span>
+                            <span class="title">الخدمات</span>
+                        </a>
+                    </li>
+                         }
+                        else if (User.IsInRole(""))
+                        {
+
+                        }
                     </ul>
                 </div>
 
