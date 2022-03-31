@@ -1,0 +1,296 @@
+﻿@model GP.Models.Estate
+@inject GP.Models.ICategory cate  
+@inject GP.Models.IState STA  
+@inject GP.Models.ICity cIT  
+@inject GP.Models.IType tYP  
+@inject GP.Models.ICurrency cURR  
+@inject GP.Models.IService serv  
+
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+
+
+
+<h1>Index</h1>
+
+<h4>Estate</h4>
+<hr />
+<div class="row" dir="rtl">
+    <div class="col-md-6 ">
+        <form asp-action="Create"  enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <div class="form-group">
+                <label asp-for="name" class="control-label"> وصف بسيط للعقار </label>
+                <input asp-for="name" class="form-control" placeholder=""/>
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="description" class="control-label"> وصف العقار </label>
+                <input asp-for="description" class="form-control" placeholder=""/>
+                <span asp-validation-for="description" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <label asp-for="space" class="control-label"> مساحة العقار </label>
+                <input asp-for="space" class="form-control" placeholder="" />
+                <span asp-validation-for="space" class="text-danger"></span>
+            </div>
+
+                
+            <div class="form-group">
+                <label asp-for="price" class="control-label"> سعر العقار </label>
+                <input asp-for="price" class="form-control" placeholder="" />
+                <span asp-validation-for="price" class="text-danger"></span>
+            </div>
+          <div class="form-group">
+                <label asp-for="name_owner" class="control-label"> اسم المالك</label>
+                <input asp-for="name_owner" class="form-control" />
+                <span asp-validation-for="name_owner" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="phone_num" class="control-label">  رقم هاتف المالك  </label>
+                <input asp-for="phone_num" class="form-control" />
+                <span asp-validation-for="phone_num" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="categoryID" class="control-label"> نوع العقار  </label>
+                <select asp-for="categoryID" class ="form-control" asp-items="new SelectList(cate.GetAllSelected(),nameof(Category.Id),nameof(Category.category))">
+                         <option  selected disabled > نوع العقار --</option>
+                </select>
+    
+            </div>
+            
+            <div class="form-group">
+                <label asp-for="TypeID" class="control-label"> تصنيف العقار</label>
+                <select asp-for="TypeID" class ="form-control"  asp-items="new SelectList(tYP.GetAllSelected(),nameof( GP.Models.Type.Id),nameof( GP.Models.Type.type))">
+
+                    <option  selected disabled>Please select one</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="StateID" class="control-label"></label>
+                <select asp-for="StateID" class ="form-control"  asp-items="new SelectList(STA.GetAllSelected(),nameof(State.Id),nameof(State.name))">
+
+                    <option  selected disabled>Please select one</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CityID" class="control-label"></label>
+                <select asp-for="CityID" class ="form-control"  asp-items="new SelectList(cIT.GetAllSelected(),nameof(City.Id),nameof(City.name))">
+
+                    <option  selected disabled>Please select one</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="CurrencyID" class="control-label"></label>
+                <select asp-for="CurrencyID" class ="form-control"  asp-items="new SelectList(cURR.GetAllSelected(),nameof(Currency.Id),nameof(Currency.currency))">
+                    <option  selected disabled>Please select one</option>
+                </select>
+            </div>
+
+           <div class="form-group">
+                <label asp-for="Longitude" class="control-label"> longitude </label>
+                <input type="text" asp-for="Longitude" class ="form-control" placeholder="Longitude" />
+                 <span asp-validation-for="Longitude" class="text-danger"></span>
+            </div>
+
+             <div class="form-group">
+                <label asp-for="Latitude" class="control-label"> Latitude </label>
+                <input type="text" asp-for="Latitude" class ="form-control"  placeholder="Latitude" />
+                 <span asp-validation-for="Latitude" class="text-danger"></span>
+
+            </div>
+
+
+            
+             <div class="form-group">
+                <label class="control-label"> خدمات اضافية  </label>
+                 <select data-placeholder="اختر الخدمة" multiple class="chosen-select form-control" name="test"  asp-items="new SelectList(serv.GetAllSelected(),nameof(Services.Id),nameof(Services.Name))">
+               <option value="" > اختر الخدمة</option>
+                 
+                 </select>
+
+            </div>
+
+       
+               
+
+
+            <div id="googleMap" style="width: 100%; height: 450px; margin:12px 0;"></div>
+
+
+
+           <div class="form-group d-flex align-items-center" style="text-align:initial">
+
+                <label asp-for="Main_photo" class="control-label w-25">الصورة الاساسية</label>
+                <input asp-for="Main_photo" type="file" accept="image/*" name="image_main" class="form-control"   />
+                 <span asp-validation-for="Main_photo" class="text-danger"></span>
+
+            </div>
+                  <div class="form-group d-flex align-items-center" style="text-align:initial">
+
+                <label class="control-label w-25"> ( الاخرى(اختياري</label>
+                <input type="file" accept="image/*" name="images" class="form-control" multiple />
+
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    
+  
+
+<script src='https://maps.googleapis.com/maps/api/js?akey=PUT_YOUR_KEY_HERE_AND_FIX_akey_TO_key&language=ar&region=SA'></script><script  src="./script.js"></script>
+<script>
+          
+   
+
+    var gmapdata;
+var gmapmarker;
+var infoWindow;
+// This is a test Key will not work on your machine. YOU SHOULD CHANGE THIS API KEY.
+// const gmap_key = '&key=PUT_YOUR_KEY_HERE';
+const gmap_key = '';
+
+// This needs to be audited for the city!!
+var cityData = { CityId:0 };
+
+function GoogleMapInit(long,lat,zoom) {
+  var curpoint = new google.maps.LatLng(long, lat);
+
+  var myStyle = 
+  [
+    {
+      featureType: "administrative.country",
+      elementType: "labels",
+      stylers: [
+        { visibility: "off" }
+      ]
+    },{
+      featureType: "water",
+      elementType: "labels",
+      stylers: [
+        { visibility: "off" }
+      ]
+    }/*,{
+      featureType: "road",
+      elementType: "labels",
+      stylers: [
+        { visibility: "off" }
+      ]
+    }*/
+  ];
+
+  var gmapdata = new google.maps.Map(document.getElementById('googleMap'), {
+    mapTypeControlOptions: {
+      mapTypeIds: ['TESTMAPID', google.maps.MapTypeId.SATELLITE]
+    },
+    center: curpoint,
+    zoom: 16,
+    mapTypeId: 'TESTMAPID',
+    zoomControl: true,
+    // mapTypeControl: false,
+    scaleControl: false,
+    streetViewControl: false,
+    rotateControl: false,
+    fullscreenControl: true
+  });
+
+  gmapdata.mapTypes.set('TESTMAPID', new google.maps.StyledMapType(myStyle, { name: 'My TEST MAP' }));
+
+  gmapmarker = new google.maps.Marker({
+      map: gmapdata,
+      position: curpoint
+  });
+
+  google.maps.event.addListener(gmapdata, 'click', function (event) {
+    gmapmarker.setPosition(event.latLng);
+    jQuery('#Longitude').val(event.latLng.lng().toFixed(6));
+    jQuery('#Latitude').val(event.latLng.lat().toFixed(6));
+    jQuery.ajax({
+      url: "https://maps.googleapis.com/maps/api/geocode/json?language=ar&region=SA&latlng=" + event.latLng.lat().toFixed(6) + ',' + event.latLng.lng().toFixed(6) + gmap_key,
+      // contentType: json,
+      processData: false,
+      success: function (result) {
+          console.log(result);
+          jQuery('#edit-postal-code').val(GetLocationItem(result.results[0].address_components, "postal_code"));
+          jQuery('#edit-postal-code-suffix').val(GetLocationItem(result.results[0].address_components, "postal_code_suffix"));
+          jQuery('#edit-select-city').val(GetLocationItem(result.results[0].address_components, "locality"));
+          jQuery('#edit-district-name').val(GetLocationItem(result.results[0].address_components, "sublocality_level_1"));
+          jQuery('#edit-street-name').val(GetLocationItem(result.results[0].address_components, "route"));
+          if (!GetLocationItem(result.results[0].address_components, "street_number")) {
+            jQuery('#edit-building-number').val(GetLocationItem(result.results[0].address_components, "premise"));
+          } else {
+            jQuery('#edit-building-number').val(GetLocationItem(result.results[0].address_components, "street_number"));
+          }
+          
+          cityData.CityName = GetLocationItem(result.results[0].address_components, "locality");
+          // console.log(cityData.CityName);
+          try {
+            var cityObject = GetLocationObject(result.results, "locality");
+            cityData.Longitude = cityObject.geometry.location.lng;
+            cityData.Latitude = cityObject.geometry.location.lat;
+            // console.log(cityData);
+          } catch(err){}
+          jQuery('#full-address').val(result.results[0].formatted_address);
+      }, error: function (result) {
+          alert(result);
+      }
+    })
+    UpdateInfoWindow()
+  });
+
+  google.maps.event.addListener(gmapmarker, 'click', function () {
+      UpdateInfoWindow()
+      infoWindow.open(gmapdata, gmapmarker);
+  });
+  return false;
+}
+
+function GetLocationItem (object, key) {
+  for (var i = 0; i < object.length; i++) {
+    var typesList = object[i].types;
+    for (var j = 0; j < typesList.length; j++) {
+      if (typesList[j] == key) {
+        return object[i].long_name;
+      }
+    }
+  }
+}
+
+function GetLocationObject(object, key) {
+  for (var i = 0; i < object.length; i++) {
+    var typesList = object[i].types;
+    for (var j = 0; j < typesList.length; j++) {
+      if (typesList[j] == key) {
+        return object[i];
+      }
+    }
+  }
+}
+
+function UpdateInfoWindow() {
+  infoWindow.setContent("Longitude: " + gmapmarker.getPosition().lng().toFixed(6) + "<br>" + "Latitude: " + gmapmarker.getPosition().lat().toFixed(6));
+}
+
+jQuery(document).ready(function () {
+  // Set default value.
+  GoogleMapInit(24.820457,46.643868,16);
+});
+
+</script>
+}

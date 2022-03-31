@@ -1,0 +1,220 @@
+﻿@model GP.Models.PhotoEstate
+@inject GP.Models.IPhotoEstate list
+
+@{
+  
+
+     List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
+}
+
+<h1>CreateAndEdit</h1>
+
+<h4>State</h4>
+<hr />
+
+@if (GP.Models.Toast.ShowTost)
+{
+      GP.Models.Toast.ShowTost = false;
+    <div id="mymessage" class="toast align-items-center text-white bg-primary border-0" role="alert"  data-delay="10000" data-autohide="true" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                @GP.Models.Toast.Message
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+}
+
+
+ 
+<button type="button" class="btn btn-primary" onclick="AddCategory()">
+    Add new Photo
+</button>
+
+ <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" style="z-index=1024" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form  method="post"enctype="multipart/form-data" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row align-items-center pb-5">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        @{
+                           
+
+                          <div class="col-3" hidden id="InputId">
+                                <label class="form-label"   asp-for="Id">Id</label>
+                                <input class="form-control "   asp-for="Id">
+                                <span asp-validation-for="Id"  class="text-danger"></span>
+                          </div>
+                            
+                            
+                            
+                        }
+                        
+                   
+                        <div class="form-group">
+                                <label asp-for="ImagePath" class="control-label">الصورة</label>
+                                <input  type="file" name="file" asp-for="ImagePath" class="form-control"
+                
+                                onchange="document.getElementById('ProfilePicture').src=window.URL.createObjectURL(this.files[0])"
+                               />
+                                <span asp-validation-for="ImagePath" class="text-danger"></span>
+
+                                 <div>
+                                      <img   class="w-25 h-25" id="ProfilePicture"/>
+                                    </div>
+                         </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnSave" type="submit" value="Save" class="btn btn-primary"asp-route-id="0" asp-action="AddImage">Create</button>
+                    <button id="btnUpdate" type="submit" value="Update" class="btn btn-success" asp-action="UpdateImage">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-10">
+        <table class="table">
+    <thead>
+        <tr>
+             <th>
+                الترتيب
+            </th>
+           
+            <th>
+                الصورة
+            </th>
+            <th>
+                العمليات
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if(lst != null)
+        {
+            @foreach (PhotoEstate item in lst)
+            {
+                <tr>
+             <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+          
+            <td>
+                <img src="~/images/Estate/@item.ImagePath" class="w-25 h-25" />
+            </td>
+          
+                 <td class="text-center">
+                                <a asp-action="DeleteImage" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                                | <a  href="#" onclick="UpdateState(@item.Id,'@item.ImagePath');">Edit</a>
+            </td>
+         
+
+        </tr>
+
+        }
+}
+    </tbody>
+</table>
+
+
+
+
+
+        
+    </div>
+</div>
+@section Scripts{
+
+
+    <script>
+        var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
+            keyboard: true,
+
+        });
+        
+        function AddCategory() {
+           document.getElementById('ProfilePicture').src="";
+
+           
+            myModal.show();
+            
+            document.getElementById('btnUpdate').hidden = true;
+            document.getElementById('btnSave').hidden = false;
+            document.getElementById('Id').value = null;
+             document.getElementById('ImagePath').value = '';
+        }
+
+   
+        function UpdateState(id,path) 
+        {
+
+            document.getElementById('ProfilePicture').src='/images/Estate/'+path;
+
+            myModal.show();
+
+            document.getElementById('btnUpdate').hidden = false;
+            document.getElementById('btnSave').hidden = true;
+            document.getElementById('Id').value = id;
+             
+             document.getElementById('ImagePath').value = path;
+
+             
+  
+
+        }
+
+   
+  
+
+      
+    </script>
+   
+
+    @if (GP.Models.Toast.ShowModel)
+    {
+       
+
+        @if (GP.Models.Toast.isAdd)
+        {
+            
+            <script>document.getElementById('btnUpdate').hidden = true;
+
+
+                 document.getElementById('InputId').hidden=true;
+            </script>
+
+        }
+        else
+        {
+            <script>document.getElementById('btnSave').hidden = true;</script>
+
+        }
+
+         <script>
+            myModal.show();
+
+        </script>
+
+}
+else
+{
+    <script>
+
+        var myToastEl = document.getElementById('mymessage');
+        var myToast = bootstrap.Toast.getOrCreateInstance(myToastEl);
+        myToast.show();
+
+    </script>
+
+}
+
+}
