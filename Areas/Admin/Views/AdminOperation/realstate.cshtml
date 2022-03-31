@@ -1,0 +1,272 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+
+      <div class="p-5 "  style="padding-bottom: 500px;">
+           
+       
+
+           
+            <div id="c">
+
+
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                tabindex="2000" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-12"> 
+                                    <div class="form-group">
+                                        <label for="edit_name_en" class="my-3">الاسم انجليزي</label>
+                                        <input type="text" class="form-control" placeholder="الاسم انجليزي"
+                                            name="name_en" id="edit_name_en">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="edit_name_ar" class="my-3">الاسم عربي</label>
+                                        <input type="text" class="form-control" placeholder="الاسم عربي"
+                                            name="name_ar" id="edit_name_ar">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="edit_order" class="my-3">الترتيب</label>
+                                        <input type="number" class="form-control" placeholder="الترتيب" name="order"
+                                            id="edit_order">
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="icon" class="my-3">الأيقونة</label>
+                                    <div class="form-group">
+                                        <div class="fileinput fileinput-exists" data-provides="fileinput">
+                                            <div class="fileinput-preview thumbnail" data-trigger="fileinput"
+                                                style="width: 200px; height: 150px;">
+                                                <img id="edit_src_image"
+                                                    src="https://aqar.avocodes.com/ar/admin/countries" alt="">
+                                            </div>
+                                            <div>
+                                                <span
+                                                    class="btn btn-secondary btn-file waves-effect waves-float waves-light">
+                                                    <span class="fileinput-new"> اختر صوره</span>
+                                                    <span class="fileinput-exists"> اختر صوره</span>
+                                                    <input type="file" name="image"></span>
+                                            </div>
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" onclick="add">Understood</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="container px-3">
+                    <div class="row">
+                        <nav class="navbar navbar-expand-lg floating-nav navbar-light back mt-3">
+                            <div class="">
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul class="navbar-nav me-auto mb-2 mb-lg-0   ">
+                                        <li class=" main  nav-item d-sm-flex d-none  ">
+                                            <a class="nav-link active text-black" aria-current="page" href="dashbord.html">الرئيسية</a>
+                                        </li> 
+                                        <li class="nav-item d-sm-flex d-none ">
+                                            <a class="nav-link active text-black" aria-current="page" href="#">
+                                                <ion-icon name="chevron-back-outline"></ion-icon>
+                                            </a>
+                                        </li> 
+                                        <li class="nav-item d-sm-flex d-none">
+                                            <a class="nav-link active text-black" aria-current="page" href="realstate.html">العقارات</a>
+                                        </li>
+                                       
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <div class="container p-5 my-5 dash">
+                    <div class="row">
+                        <div class="col-3">
+                            <h4 class="">العقارات</h4>
+                        </div>
+                        <div class="col-9 form-group  d-flex justify-content-end">
+                            <button class="btn btn-outline-primary mx-2" type="button"><span><i class="bi bi-plus"></i> اضافة سجل
+                                    جديد</span>
+                            </button>
+                            <button disabled="true" id="delete_btn" class="delete-btn btn btn-outline-danger">
+                                <span><i class="bi bi-trash"></i>حذف</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <!-- <div class="col-3">
+                            <div class="form-group">
+                                <label>الاسم</label>
+                                <input type="text" class="form-control d-flex justify-content-end" placeholder="أدخل الاسم">
+                            </div>
+                        </div> -->
+                        <div class="col-12  mt-4">
+                            <div class="form-group d-flex justify-content-end">
+                                <button class="btn btn-outline-info" type="submit">
+                                    <span><i class="bi bi-search"></i>بحث</span>
+                                </button>
+                                <button class="btn btn-outline-secondary  me-2" type="submit">
+                                    <span><i class="bi bi-arrow-counterclockwise"></i>الغاء البحث</span>
+                                </button>
+                            </div>
+                        </div>
+            
+                    </div>
+                    <div class="row mt-4 d-flex justify-content-start">
+                        <div class="col-3 d-flex justify-content-start">
+                            <!-- <h6 class="d-flex mt-2 justify-content-strat">الخيارات</h6>
+                            <select class="form-select mx-3" aria-label="Default select example">
+                                <option selected>10</option>
+                                <option value="1">25</option>
+                                <option value="2">50</option>
+                                <option value="3">100</option>
+                            </select>
+                            <h6 class="d-flex mt-2 justify-content-end">أظهر</h6> -->
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col-12 justify-content-end">
+                            <form id="inserts">
+                                <table id="example" class="py-3 display hover row-border cell-border compact stripe">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2" data-checkbox="true" data-valign="middle"></th>
+                                        </tr>
+                                        <tr>
+                                            <th><input type="checkbox" class="table_ids custom-control-input dt-checkboxes"
+                                                    value="all" id="all"></th>
+                                            <th data-field="name" data-sortable="true">الاسم</th>
+                                            <th data-field="sort" data-sortable="true">الترتيب</th>
+                                            <th data-field="choice" data-sortable="true">الخيارات</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td><input name="genre" type="checkbox"
+                                                    class="table_ids custom-control-input dt-checkboxes"></td>
+                                            <td><img style="border-radius: 50%;" width="50" height="50"
+                                                    src="../images/jCeeessiJ1uVobNYw0FgAOEiZGXjDgq3JzPEseLA.png"></td>
+                                            </td>
+                                            <td>السعودية</td>
+                                            <td>1</td>
+                                            <td>
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                                    class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">تعديل</button>
+                                                <button id="btndel" type="button"
+                                                    class="btn btn-sm btn-outline-danger delete-btn">حذف</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><input name="genre" type="checkbox"
+                                                    class="table_ids custom-control-input dt-checkboxes"></td>
+                                            <td><img style="border-radius: 50%;" width="50" height="50"
+                                                    src="../images/jCeeessiJ1uVobNYw0FgAOEiZGXjDgq3JzPEseLA.png"></td>
+                                            </td>
+                                            <td>السعودية</td>
+                                            <td>1</td>
+                                            <td>
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                                    class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">تعديل</button>
+                                                <button type="button" class="btn btn-sm btn-outline-danger delete-btn">حذف</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><input name="genre" type="checkbox"
+                                                    class="table_ids custom-control-input dt-checkboxes"></td>
+                                            <td><img style="border-radius: 50%;" width="50" height="50"
+                                                    src="../images/jCeeessiJ1uVobNYw0FgAOEiZGXjDgq3JzPEseLA.png"></td>
+                                            </td>
+                                            <td>السعودية</td>
+                                            <td>1</td>
+                                            <td>
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                                    class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">تعديل</button>
+                                                <button type="button" class="btn btn-sm btn-outline-danger delete-btn">حذف</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><input name="genre" type="checkbox"
+                                                    class="table_ids custom-control-input dt-checkboxes"></td>
+                                            <td><img style="border-radius: 50%;" width="50" height="50"
+                                                    src="../images/jCeeessiJ1uVobNYw0FgAOEiZGXjDgq3JzPEseLA.png"></td>
+                                            </td>
+                                            <td>السعودية</td>
+                                            <td>1</td>
+                                            <td>
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                                    class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">تعديل</button>
+                                                <button type="button" class="btn btn-sm btn-outline-danger delete-btn">حذف</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><input name="genre" type="checkbox"
+                                                    class="table_ids custom-control-input dt-checkboxes"></td>
+                                            <td><img style="border-radius: 50%;" width="50" height="50"
+                                                    src="../images/7rjIQnWeTwHg7VWfwtdXwLvRpY1njh4KiHsBlB8Z.png"></td>
+                                            </td>
+                                            <td>قطر</td>
+                                            <td>2</td>
+                                            <td>
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                                    class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">تعديل</button>
+                                                <button type="button" class="btn btn-sm btn-outline-danger delete-btn">حذف</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td><input name="genre" type="checkbox"
+                                                    class="table_ids custom-control-input dt-checkboxes"></td>
+                                            <td><img style="border-radius: 50%;" width="50" height="50"
+                                                    src="../images/F9k0ztWKmtkCSz2U625SmFvJ9ymFBl2PL6JTCc99.png"></td>
+                                            </td>
+                                            <td>الامارات</td>
+                                            <td>3</td>
+                                            <td>
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                                                    class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">تعديل</button>
+                                                <button type="button" class="btn btn-sm btn-outline-danger delete-btn">حذف</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                           
+                        </div>
+                    </div>
+                </div>
+                
+              
+            </div>
+          
+      
+    </div>

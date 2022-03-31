@@ -4,14 +4,16 @@ using GP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220331153318_alterTableUser")]
+    partial class alterTableUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,18 +68,10 @@ namespace GP.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<long>("EstateId")
-                        .HasColumnType("bigint");
-
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EstateId");
 
                     b.HasIndex("UserId");
 
@@ -542,19 +536,11 @@ namespace GP.Migrations
 
             modelBuilder.Entity("GP.Models.Comments", b =>
                 {
-                    b.HasOne("GP.Models.Estate", "Estate")
-                        .WithMany()
-                        .HasForeignKey("EstateId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("GP.Models.AppUser", "AppUser")
                         .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("AppUser");
-
-                    b.Navigation("Estate");
                 });
 
             modelBuilder.Entity("GP.Models.Estate", b =>

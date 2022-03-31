@@ -6,21 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="~/Admin/css/style.css" rel="stylesheet" />
-
-    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
-    <link href="~/lib/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
-    <link rel="stylesheet" href="~/css/site.css" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="~/Admin/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/Admin/css/bootstrap-icons.css" rel="stylesheet" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Cairo:wght@300;400;500;700&family=Poppins:wght@400;500;700&family=Satisfy&display=swap"
-          rel="stylesheet">
     <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="~/Admin/css/style.css" rel="stylesheet" />
     <style>
+
     </style>
 </head>
 
@@ -143,7 +135,7 @@
                          }
                         else if (User.IsInRole(""))
                         {
-
+                            
                         }
                     </ul>
                 </div>
@@ -188,15 +180,200 @@
 
             </div>
         </header>
-        <div class="content">
-            <div class=" bg-light p-5 " style="padding-bottom: 500px;">
-                <div id="b">
+
+
+
+
 
                     @RenderBody()
                         
-                </div>
-            </div>
-        </div>
+  
+
+
+
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+
+        let btn = document.querySelector("#btn");
+        let sidebar = document.querySelector(".sidebar");
+        let scripthiden = document.querySelectorAll(".scripthiden");
+        let content = document.querySelectorAll(".content");
+        let list = document.querySelectorAll(".list");
+
+        btn.onclick = function () {
+            sidebar.classList.toggle("active");
+            for (let i = 0; i < scripthiden.length; i++) {
+                scripthiden[i].classList.toggle("active");
+            }
+            for (let i = 0; i < content.length; i++) {
+                content[i].classList.toggle("active");
+            }
+            for (let i = 0; i < list.length; i++) {
+                list[i].classList.toggle("active");
+            }
+        }
+
+
+        $(document).ready(function () {
+            $("#mySearch").on("keyup", function () {
+                var value = $(this).val().toLowerCase();
+                $("#myList li").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+
+        let body = document.querySelector(".body");
+        let cont = document.getElementsByClassName("cont");
+
+        const checkbox = document.getElementById('checkbox');
+
+
+        var toggle = false;
+        checkbox.addEventListener('change', () => {
+            body.classList.toggle('dark');
+            sidebar.classList.toggle('dark');
+
+            for (var i = 0; i < cont.length; i++) {
+                cont[i].classList.toggle('dark');
+            }
+
+            if (toggle === false) {
+                document.getElementById('changelogo').src = 'image/logodark.png';
+
+            } else {
+                document.getElementById('changelogo').src = '/image/logo.png';
+
+            }
+            toggle = !toggle;
+
+        })
+
+
+
+    </script>
+
+
+
+    <script>
+        $.extend(true, $.fn.dataTable.defaults, {
+            "searching": true,
+            "ordering": true
+        });
+        $(document).ready(function () {
+            var table = $('#example').DataTable({
+                search: {
+                    return: true,
+                },
+            });
+            // $('#example').DataTable();
+            $(".dataTables_info").hide();
+            // $("#example_filter").hide();
+            // $("#example_length").css({ "position": "absolute", "right": "0", "bottom": "288px" });
+            // $("#example_length").html('<label>أظهر<select class="mx-3" name="example_length" aria-controls="example" class=""><option value="10" >10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select>الخيارات</label>');
+            // $("#example_filter").html('<label>ابحث:<input type="search" class placeholder aria-controls="example"></label>');
+        });
+
+
+        //js
+        window.onload = function e() {
+
+            var form = document.getElementById('inserts');
+            var all = document.getElementById('all');
+            var oplist = form.elements.genre;
+            all.addEventListener('change', checkList);
+            function checkList() {
+                for (var i = 0; i < oplist.length; i++) {
+                    oplist[i].checked = all.checked;
+                }
+            }
+
+            for (var i = 0; i < oplist.length; i++) {
+                oplist[i].addEventListener('change', check);
+            }
+
+            function check(e) {
+                if (!e.target.checked) {
+                    all.checked = false;
+                }
+                for (var i = 0; i < oplist.length; i++) {
+
+                    if (!oplist[i].checked) {
+                        return;
+                    }
+
+                }
+                all.checked = true;
+            }
+
+            var search = document.getElementById('example_length').firstChild;
+            search.innerHTML = '<label>أظهر<select class="mx-3" name="example_length" aria-controls="example" class=""><option value="10" >10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select>الخيارات</label>';
+
+
+            var list = document.getElementById('btndel');
+            list.addEventListener('click', function (e) {
+                DeleteItem(e);
+            }, false);
+            function DeleteItem(e) {
+                var elm = e.target;
+                var a, li;
+                if (elm.nodeName.toLowerCase() == "button") {
+
+                    //a = elm.parentNode;
+                    //li = a.parentNode;
+                    //list.removeChild(li);
+
+                    li = elm.parentNode.parentNode;
+                    list.removeChild(li);
+                }
+                e.preventDefault();
+            }
+        };
+
+
+
+
+
+        function myFunction() {
+            var x = document.getElementById("myDIV");
+            if(window.innerWidth > 992){
+                x.style.display = "block";
+            }
+
+                if (x.style.display === "block") {
+                    x.style.display = "none";
+                }
+                else {
+                    x.style.display = "block";
+                    x.style.position = "ABSOLUTE";
+                    x.style.zIndex = "100";
+                    x.style.width = "250px";
+                    x.style.transition = "all 0.5s ease-out";
+                }
+          
+        }
+
+
+
+    </script>
+
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/jquery-3.5.1.js"></script>
+        <script src="js/jquery.min.js"></script>
+        <script src="js/sweetalert.min.js"></script>
+        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
+
         <script src="~/SweetAlert/sweetalert2@11.js"></script>
         <script src="~/lib/jquery/dist/jquery.min.js"></script>
         <script src="~/lib/bootstrap/js/bootstrap.js"></script>
