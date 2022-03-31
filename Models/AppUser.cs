@@ -20,8 +20,8 @@ namespace GP.Models
         public bool is_active { get; set; }
         public int memory { get; set; }
         public bool is_special { get; set; }
-        
 
+        public string Role_User { get; set; }
         public string decription { get; set; }
         
 
