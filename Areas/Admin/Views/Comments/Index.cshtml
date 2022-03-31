@@ -54,12 +54,12 @@
             <td><span style="display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap;">
 @item.Body
 	</span></td>
-            <td><a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            <td><a class="btn btn-primary"asp-route-Id="@item.Id" asp-controller="Comments"asp-action="Details">
 Details</a>
 </td>
             </tr>
            
-
+          //  data-bs-toggle="modal" data-bs-target="#staticBackdrop"
         }
     </tbody>
 </table>
