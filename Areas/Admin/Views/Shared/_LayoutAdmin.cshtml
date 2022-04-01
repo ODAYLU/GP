@@ -17,169 +17,176 @@
 </head>
 
 <body class="body" dir="rtl">
-        <header class="bg-white">
+    <header class="bg-white">
 
-            <div class="sidebar bg-white h-100 pt-1 end-0 " id="myDIV">
+        <div class="sidebar bg-white h-100 pt-1 end-0 " id="myDIV">
 
-                <div id="btn" class="morapag  bg-white rounded-circle border-0 iconpos ">
-                    <ion-icon class="p-2 fs-2  " name="chevron-forward-outline"></ion-icon>
-                </div>
+            <div id="btn" class="morapag  bg-white rounded-circle border-0 iconpos ">
+                <ion-icon class="p-2 fs-2  " name="chevron-forward-outline"></ion-icon>
+            </div>
 
-                <div id="btn " onclick="myFunction()" class="morapag close bg-white rounded-circle border-0 iconpos ">
-                    <ion-icon class="p-2 fs-2  " name="close-outline"></ion-icon>
-                </div>
+            <div id="btn " onclick="myFunction()" class="morapag close bg-white rounded-circle border-0 iconpos ">
+                <ion-icon class="p-2 fs-2  " name="close-outline"></ion-icon>
+            </div>
 
-                <div class="sidebar-header text-center pb-3">
-                    <a href="index.html" class="sidebar-logo text-decoration-none">
-                        <img class="img-fluid " style="max-width:67%;" src="~/Admin/images/logo.png">
-                    </a>
-                    <script>
+            <div class="sidebar-header text-center pb-3">
+                <a href="index.html" class="sidebar-logo text-decoration-none">
+                    <img class="img-fluid " style="max-width:67%;" src="~/Admin/images/logo.png">
+                </a>
+                <script>
 
-                    </script>
-
-                </div>
-
-                <div class="sidebar-search mb-3">
-                    <div class="search-body align-items-center ">
-                        <input type="text" class=" form-control shadow-none border-0 text-end" id="mySearch"
-                               placeholder="ابحث...">
-                        <ion-icon class="fs-2" name="search-outline"></ion-icon>
-                    </div>
-                </div>
-
-
-                <div class="sidebar-body  scrol">
-                    <ul id="myList">
-                        @if (User.IsInRole("Admin"))
-                        {
-                    <li class="main aa">
-                        <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
-                            <span class="icon">
-                                <ion-icon name="home-outline"></ion-icon>
-                            </span>
-                            <span class="title">الرئيسية</span>
-                        </a>
-                    </li>
-                    <li class="" id="real estates">
-                        <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
-                            <span class="icon">
-                                <ion-icon name="business-outline"></ion-icon>
-                            </span>
-                            <span class="title">العقارات</span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Category">
-                            <span class="icon">
-                                <ion-icon name="grid-outline"></ion-icon>
-                            </span>
-                            <span class="title">التصنيفات</span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Type">
-                            <span class="icon">
-                                <ion-icon name="pricetags-outline"></ion-icon>
-                            </span>
-                            <span class="title">الانواع</span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="State">
-                            <span class="icon">
-                                <ion-icon name="flag-outline"></ion-icon>
-                            </span>
-                            <span class="title">الدول</span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="City">
-                            <span class="icon">
-                                <ion-icon name="map-outline"></ion-icon>
-                            </span>
-                            <span class="title">المدن</span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a class="list" href="nespaper.html">
-                            <span class="icon">
-                                <ion-icon name="newspaper-outline"></ion-icon>
-                            </span>
-                            <span class="title">الاعلانات</span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a class="list" href="crunssy.html">
-                            <span class="icon">
-                                <ion-icon name="card-outline"></ion-icon>
-                            </span>
-                            <span class="title">العملات</span>
-                        </a>
-                    </li>
-                    <li class="">
-                        <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Service">
-                            <span class="icon">
-                                <ion-icon name="list-outline"></ion-icon>
-                            </span>
-                            <span class="title">الخدمات</span>
-                        </a>
-                    </li>
-                         }
-                        else if (User.IsInRole(""))
-                        {
-                            
-                        }
-                    </ul>
-                </div>
+                </script>
 
             </div>
 
-            <div class="content">
-                <div class="px-md-5 mx-md-3">
-                    <div class="row ">
-
-                        <div class="m-0 cont col-12  d-flex flex-row justify-content-between h-25 align-items-center">
-
-                            <div class="d-flex flex-row justify-content-between">
-                                <h2 class="font fs-2  p-3 pe-5">
-                                    <span class="show d-none" style="font-size:30px;cursor:pointer" onclick="myFunction()">&#9776;</span> لوحة التحكم
-                                </h2>
-                            </div>
+            <div class="sidebar-search mb-3">
+                <div class="search-body align-items-center ">
+                    <input type="text" class=" form-control shadow-none border-0 text-end" id="mySearch"
+                           placeholder="ابحث...">
+                    <ion-icon class="fs-2" name="search-outline"></ion-icon>
+                </div>
+            </div>
 
 
-                            <div class="d-flex align-items-center  justify-content-center ">
-                                <a class="px-2" href="#"><ion-icon class="fs-2 text-black" name="notifications-sharp"></ion-icon></a>
+            <div class="sidebar-body  scrol">
+                <ul id="myList">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="main aa">
+                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
+                                <span class="icon">
+                                    <ion-icon name="home-outline"></ion-icon>
+                                </span>
+                                <span class="title">الرئيسية</span>
+                            </a>
+                        </li>
+                        <li class="" id="real estates">
+                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
+                                <span class="icon">
+                                    <ion-icon name="business-outline"></ion-icon>
+                                </span>
+                                <span class="title">العقارات</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Category">
+                                <span class="icon">
+                                    <ion-icon name="grid-outline"></ion-icon>
+                                </span>
+                                <span class="title">التصنيفات</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Type">
+                                <span class="icon">
+                                    <ion-icon name="pricetags-outline"></ion-icon>
+                                </span>
+                                <span class="title">الانواع</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="State">
+                                <span class="icon">
+                                    <ion-icon name="flag-outline"></ion-icon>
+                                </span>
+                                <span class="title">الدول</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="City">
+                                <span class="icon">
+                                    <ion-icon name="map-outline"></ion-icon>
+                                </span>
+                                <span class="title">المدن</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="list" href="nespaper.html">
+                                <span class="icon">
+                                    <ion-icon name="newspaper-outline"></ion-icon>
+                                </span>
+                                <span class="title">الاعلانات</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="list" href="crunssy.html">
+                                <span class="icon">
+                                    <ion-icon name="card-outline"></ion-icon>
+                                </span>
+                                <span class="title">العملات</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Service">
+                                <span class="icon">
+                                    <ion-icon name="list-outline"></ion-icon>
+                                </span>
+                                <span class="title">الخدمات</span>
+                            </a>
+                        </li>
+                    }
+                    else if (User.IsInRole(""))
+                    {
 
-                                <div class="dropdown">
-                                    <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
-                                        <img width="50" src="~/Admin/images/Admin.png">
-                                    </button>
-                                    <ul class="dropdown-menu border-0 text-center ">
-                                        <partial name="_LoginPartial" />
-                                      
-                                    </ul>
-                                </div>
-                            </div>
+                    }
+                </ul>
+            </div>
 
+        </div>
 
+        <div class="content">
+            <div class="px-md-5 mx-md-3">
+                <div class="row ">
 
+                    <div class="m-0 cont col-12  d-flex flex-row justify-content-between h-25 align-items-center">
 
-
-
+                        <div class="d-flex flex-row justify-content-between">
+                            <h2 class="font fs-2  p-3 pe-5">
+                                <span class="show d-none" style="font-size:30px;cursor:pointer" onclick="myFunction()">&#9776;</span> لوحة التحكم
+                            </h2>
                         </div>
+
+
+                        <div class="d-flex align-items-center  justify-content-center ">
+                            <a class="px-2" href="#"><ion-icon class="fs-2 text-black" name="notifications-sharp"></ion-icon></a>
+
+                            <div class="dropdown">
+                                <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
+                                    <img width="50" src="~/Admin/images/Admin.png">
+                                </button>
+                                <ul class="dropdown-menu border-0 text-center ">
+                                    <partial name="_LoginPartial" />
+
+                                </ul>
+                            </div>
+                        </div>
+
+
+
+
+
+
                     </div>
                 </div>
+            </div>
+
+        </div>
+    </header>
+
+
+    <div class="content">
+        <div class=" p-5 " style="padding-bottom: 500px;">
+            <div id="b">
+                @RenderBody()
 
             </div>
-        </header>
+        </div>
+    </div>
 
 
 
 
 
-                    @RenderBody()
-                        
-  
 
 
 
@@ -334,50 +341,50 @@
 
         function myFunction() {
             var x = document.getElementById("myDIV");
-            if(window.innerWidth > 992){
+            if (window.innerWidth > 992) {
                 x.style.display = "block";
             }
 
-                if (x.style.display === "block") {
-                    x.style.display = "none";
-                }
-                else {
-                    x.style.display = "block";
-                    x.style.position = "ABSOLUTE";
-                    x.style.zIndex = "100";
-                    x.style.width = "250px";
-                    x.style.transition = "all 0.5s ease-out";
-                }
-          
+            if (x.style.display === "block") {
+                x.style.display = "none";
+            }
+            else {
+                x.style.display = "block";
+                x.style.position = "ABSOLUTE";
+                x.style.zIndex = "100";
+                x.style.width = "250px";
+                x.style.transition = "all 0.5s ease-out";
+            }
+
         }
 
 
 
     </script>
 
-        <script src="js/bootstrap.bundle.min.js"></script>
-        <script src="js/jquery-3.5.1.js"></script>
-        <script src="js/jquery.min.js"></script>
-        <script src="js/sweetalert.min.js"></script>
-        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.5.1.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/sweetalert.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
-        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 
 
-        <script src="~/SweetAlert/sweetalert2@11.js"></script>
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="~/lib/bootstrap/js/bootstrap.js"></script>
-        <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
-        <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
-        <script src="~/Admin/js/bootstrap.bundle.min.js"></script>
-        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="~/SweetAlert/sweetalert2@11.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
+    <script src="~/Admin/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 
-        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-        @await RenderSectionAsync("Scripts", required: false)
-    </body>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
 
 </html>

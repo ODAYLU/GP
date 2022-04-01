@@ -45,6 +45,14 @@ namespace GP
                 };
               var result = roleManager.CreateAsync(role).Result;
             }
+            if (!roleManager.RoleExistsAsync("Owner").Result)
+            {
+                var role = new IdentityRole
+                {
+                    Name = "Owner",
+                };
+                roleManager.CreateAsync(role);
+            }
             if (!roleManager.RoleExistsAsync("User").Result)
             {
                 var role = new IdentityRole
