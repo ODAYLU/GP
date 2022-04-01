@@ -17,16 +17,7 @@ namespace GP.Areas.Admin.Controllers
         private readonly IEstate services;
         private readonly IPhotoEstate _photoservices;
         private readonly IService_Estate _service_Estate;
-
-
-
-
         private readonly IWebHostEnvironment webHostEnvironment;
-
-
-
-
-
         public EstateController(GP.Models.IEstate Services, IWebHostEnvironment webHostEnvironment, IPhotoEstate photoservices, IService_Estate service_Estate)
         {
             services = Services;
@@ -39,7 +30,6 @@ namespace GP.Areas.Admin.Controllers
         public IActionResult Index()
         {
            IEnumerable<Estate>  list = services.GetAll();
-       
             return View(list);
         }
 
@@ -51,9 +41,6 @@ namespace GP.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Estate estate, IFormFile image_main, List<IFormFile> images, List<int> test)
         {
-        
-
-
             string webRootPath = webHostEnvironment.WebRootPath;
             string upload = webRootPath + @"\images\Estate\";
             string fileName = Guid.NewGuid().ToString();
