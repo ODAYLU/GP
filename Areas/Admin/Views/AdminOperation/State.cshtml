@@ -47,7 +47,7 @@
                         </div>
                     </div>
 
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button id="btnAdd" type="submit" class="btn btn-outline-primary">Add</button>
                     <button id="btnEdit" type="submit" class="btn btn-outline-primary">Edit</button>
                 </form>
@@ -179,7 +179,7 @@
                     processData: false,
                     contentType: false,
                     success: function () {
-                        $("#staticBackdrop").modal('hide');
+                        $("#btnClose").click();
                         var Table = $("#States").DataTable();
                         Table.draw();
                     }
@@ -208,7 +208,7 @@
                     processData: false,
                     contentType: false,
                     success: function () {
-                        $("#staticBackdrop").modal('hide');
+                        $("#btnClose").click();
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',

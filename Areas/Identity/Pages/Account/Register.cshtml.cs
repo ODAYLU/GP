@@ -70,8 +70,6 @@ namespace GP.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            public string Roles { get; set; }
-            [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
@@ -89,8 +87,6 @@ namespace GP.Areas.Identity.Pages.Account
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            Roles = _roleManager.Roles.ToList();
-            TempData["Roles"] = new SelectList(Roles, "Name", "Name");
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -99,23 +95,25 @@ namespace GP.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                string webRootPath = _webHostEnvironment.WebRootPath;
-                string upload = webRootPath + "/images/User/";
-                string fileName = Guid.NewGuid().ToString();
-                string extension = Path.GetExtension(Input.Image.FileName);
-                using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
-                {
-                    await Input.Image.CopyToAsync(fileStream);
-                }
                 var user = new AppUser
                 {
                     UserName = Input.Email,
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
-                    Role_User = Input.Roles,
-                    ImagePath = "/images/User/" + fileName + extension
                 };
+                if (Input.Image != null)
+                {
+                    string webRootPath = _webHostEnvironment.WebRootPath;
+                    string upload = webRootPath + "/images/User/";
+                    string fileName = Guid.NewGuid().ToString();
+                    string extension = Path.GetExtension(Input.Image.FileName);
+                    using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
+                    {
+                        await Input.Image.CopyToAsync(fileStream);
+                    }
+                    user.ImagePath = "/images/User/" + fileName + extension;
+                }
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
