@@ -20,7 +20,7 @@ namespace GP.Data
             base.OnModelCreating(builder);
             builder.Entity<Estate>().Property(c => c.OnDate).HasDefaultValueSql("Getdate()");
             builder.Entity<Estate>().Property(c => c.is_active).HasDefaultValueSql("1");
-
+         
         }
 
         public DbSet<Estate> TEstates { get; set; }

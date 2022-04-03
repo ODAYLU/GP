@@ -23,7 +23,7 @@ namespace GP.Models
 
         [DataType(dataType:DataType.ImageUrl)]
         public string ImagePath { get; set; }
-        public bool is_active { get; set; }
+        public bool is_active { get; set; } = true;
         public int memory { get; set; }
         public bool is_special { get; set; }
         public string decription { get; set; }
