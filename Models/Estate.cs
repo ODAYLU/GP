@@ -1,5 +1,6 @@
 ﻿using GP.Data;
 using GP.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -37,14 +38,12 @@ namespace GP.Models
 
         public DateTime OnDate { get; set; }
 
+        
+        [NotMapped]
+        public string[] list { get; set; }
 
-
-
-
-        public bool is_active { get; set; }
+        public bool is_active { get; set; } 
         public bool is_spacial { get; set; }
-
-
 
 
 

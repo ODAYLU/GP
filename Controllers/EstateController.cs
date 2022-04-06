@@ -15,15 +15,19 @@ namespace GP.Areas.Admin.Controllers
     public class EstateController : Controller
     {
         private readonly IEstate services;
+        private readonly IService servicesList; 
         private readonly IPhotoEstate _photoservices;
         private readonly IService_Estate _service_Estate;
         private readonly IWebHostEnvironment webHostEnvironment;
-        public EstateController(GP.Models.IEstate Services, IWebHostEnvironment webHostEnvironment, IPhotoEstate photoservices, IService_Estate service_Estate)
+
+
+        public EstateController(GP.Models.IEstate Services, IWebHostEnvironment webHostEnvironment, IPhotoEstate photoservices, IService_Estate service_Estate, IService servicesList)
         {
             services = Services;
             this.webHostEnvironment = webHostEnvironment;
             _photoservices = photoservices;
             _service_Estate = service_Estate;
+            this.servicesList = servicesList;
         }
 
         [HttpGet]
@@ -36,6 +40,10 @@ namespace GP.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+        
+            
+
+
             return View();
         }
         [HttpPost]
@@ -75,17 +83,21 @@ namespace GP.Areas.Admin.Controllers
             }
 
 
-            if (test.Count > 0)
+            if (estate.list.Count() > 0)
             {
-                for (int i = 0; i < test.Count(); i++)
+                for (int i = 0; i < estate.list.Count(); i++)
                 {
                     Service_Estate service = new Service_Estate();
                     service.EstateID = idPr;
-                    service.ServiceID = test[i];
+                    service.ServiceID = int.Parse(estate.list[i].Trim());
 
                     await _service_Estate.InsertService_Estate(service);
+
+
                 }
             }
+            GP.Models.Toast.ShowTost = true;
+            GP.Models.Toast.Message = "تم اضافة العقار بنجاح ";
             return RedirectToAction("Index");
         }
         [HttpGet]
@@ -106,15 +118,22 @@ namespace GP.Areas.Admin.Controllers
         [HttpGet]
         public async Task<ActionResult<Estate>> Edit(long id)
         {
-
-            //List<Services> list=  _service_Estate.GetALl(id).ToList();
+            List<Services> list=  _service_Estate.GetALl(id).ToList();
             // ViewBag.ser=list;
 
-
+          
             if (id != 0)
             {
 
                 Estate estate = await services.GetOne(id);
+                string [] vs = new string [list.Count];
+
+                for (int i = 0; i < list.Count; i++)
+                {
+                   vs[i] = list[i].Id.ToString();
+                }
+                estate.list = vs;
+                
 
                 return View(estate);
             }
@@ -127,12 +146,34 @@ namespace GP.Areas.Admin.Controllers
         [HttpPost]
         public async Task<ActionResult<Estate>> Edit(Estate estate)
         {
+            
             Estate old = await services.GetOne(estate.Id);
 
-            // List<Services> list = _service_Estate.GetALl(id).ToList();
+        
             if (estate != null)
             {
+               
+                    await _service_Estate.DeleteService_Estate(old.Id);
+
+
+                if (estate.list.Count() > 0)
+                {
+                    for (int i = 0; i < estate.list.Count(); i++)
+                    {
+                        Service_Estate service = new Service_Estate();
+                        service.EstateID = old.Id;
+                        service.ServiceID = int.Parse(estate.list[i].Trim());
+
+                        await _service_Estate.InsertService_Estate(service);
+
+
+                    }
+                }
+
+
                 estate.Main_photo = old.Main_photo;
+                estate.is_active= old.is_active;
+                estate.is_spacial=old.is_spacial;
                 await services.UpdateEstate(estate);
 
                 GP.Models.Toast.Message = "تم التعديل بنجاح";
@@ -140,6 +181,9 @@ namespace GP.Areas.Admin.Controllers
 
                 return RedirectToAction("Details", estate);
             }
+
+
+
 
             return NotFound();
         }

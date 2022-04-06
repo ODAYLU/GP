@@ -110,10 +110,11 @@
             
              <div class="form-group">
                 <label class="control-label"> خدمات اضافية  </label>
-                 <select data-placeholder="اختر الخدمة" multiple class="chosen-select form-control" name="test"  asp-items="new SelectList(serv.GetAllSelected(),nameof(Services.Id),nameof(Services.Name))">
-               <option value="" > اختر الخدمة</option>
-                 
-                 </select>
+
+
+                 @Html.ListBoxFor(model=> Model.list,new MultiSelectList(serv.GetAllSelected(),nameof(Services.Id),nameof(Services.Name)),new {id="mm",multiple="multiple"})
+
+
 
             </div>
 

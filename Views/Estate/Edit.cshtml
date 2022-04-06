@@ -18,12 +18,26 @@
     <div class="col-md-6 ">
         <form asp-action="Edit"  >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
+            <div class="form-group">
+                <label class="control-label"> خدمات اضافية  </label>
+
+                 @Html.ListBoxFor(model=> Model.list,new MultiSelectList(serv.GetAllSelected(),nameof(Services.Id),nameof(Services.Name)),new {id="mm",multiple="multiple"})
+
+
+
+            </div>
             <div class="form-group">
                 <label asp-for="name" class="control-label"> وصف بسيط للعقار </label>
                 <input asp-for="name" class="form-control" placeholder=""/>
                 <span asp-validation-for="name" class="text-danger"></span>
             </div>
+
+              <div class="form-group">
+                <label asp-for="OnDate" class="control-label"> تاريخ الاضافة </label>
+                <input asp-for="OnDate" class="form-control" placeholder="" readonly/>
+                <span asp-validation-for="OnDate" class="text-danger"></span>
+            </div>
+            
             <div class="form-group">
                 <label asp-for="description" class="control-label"> وصف العقار </label>
                 <input asp-for="description" class="form-control" placeholder=""/>
@@ -60,6 +74,7 @@
                 </select>
     
             </div>
+
             
             <div class="form-group">
                 <label asp-for="TypeID" class="control-label"> تصنيف العقار</label>
