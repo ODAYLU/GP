@@ -1,10 +1,16 @@
 ﻿@model GP.Models.PhotoEstate
 @inject GP.Models.IPhotoEstate list
+@inject GP.Models.IEstate _ser
 
 @{
-  
 
-     List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
+
+    List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
+
+    Estate estate = _ser.GetOnetoImage(ViewBag.id);
+
+    long x = ViewBag.id;
+    long idupp = 0;
 }
 
 <h1>CreateAndEdit</h1>
@@ -25,15 +31,21 @@
     </div>
 }
 
+<div class="col-12 justify-content-center">
+    <h2 class="text-center"> الصورة الاساسية</h2>
+<div class="d-flex justify-content-center">
+        <img src="~/images/Estate/@estate.Main_photo" width="70" height="70" class="d-block "/>
 
+</div>
+</div>
  
-<button type="button" class="btn btn-primary" onclick="AddCategory()">
+<a class="btn" href="#"  onclick="AddCategory()">
     Add new Photo
-</button>
+</a>
 
- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" style="z-index=1024" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+ <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <form  method="post"enctype="multipart/form-data" >
+        <form  method="post"enctype="multipart/form-data"asp-controller="Estate" >
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
@@ -72,8 +84,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="btnSave" type="submit" value="Save" class="btn btn-primary"asp-route-id="0" asp-action="AddImage">Create</button>
-                    <button id="btnUpdate" type="submit" value="Update" class="btn btn-success" asp-action="UpdateImage">Update</button>
+                    <button id="btnSave" type="submit" value="Save" class="btn btn-primary" asp-action="AddImage" asp-route-q="@x">Create</button>
+                    <button id="btnUpdate" type="submit" value="Update" class="btn btn-success" asp-action="EditImage" asp-route-id="@idupp">Update</button>
                 </div>
             </div>
         </form>
@@ -99,6 +111,7 @@
         </tr>
     </thead>
     <tbody>
+        <form method="post">
         @if(lst != null)
         {
             @foreach (PhotoEstate item in lst)
@@ -113,15 +126,13 @@
             </td>
           
                  <td class="text-center">
-                                <a asp-action="DeleteImage" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
-                                | <a  href="#" onclick="UpdateState(@item.Id,'@item.ImagePath');">Edit</a>
+                     <button type="submit" class="btn" asp-action="DeleteImage" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                    | <a class="btn" href="#" onclick="UpdateState(@item.Id,'@item.ImagePath');">Edit</a>
             </td>
-         
-
         </tr>
-
         }
 }
+      </form>
     </tbody>
 </table>
 
@@ -140,26 +151,34 @@
             keyboard: true,
 
         });
-        
-        function AddCategory() {
-           document.getElementById('ProfilePicture').src="";
-
+        var idUp=null;
+        function AddCategory(x) {
            
+
+           document.getElementById('ProfilePicture').src="";
+          
             myModal.show();
-            
+            var x = document.getElementsByClassName('modal-backdrop')[0];
+
+            x.remove();
             document.getElementById('btnUpdate').hidden = true;
             document.getElementById('btnSave').hidden = false;
             document.getElementById('Id').value = null;
              document.getElementById('ImagePath').value = '';
+
+            
         }
 
-   
         function UpdateState(id,path) 
         {
+            idUp = id;
 
             document.getElementById('ProfilePicture').src='/images/Estate/'+path;
 
             myModal.show();
+                        var x = document.getElementsByClassName('modal-backdrop')[0];
+
+            x.remove();
 
             document.getElementById('btnUpdate').hidden = false;
             document.getElementById('btnSave').hidden = true;
@@ -168,7 +187,7 @@
              document.getElementById('ImagePath').value = path;
 
              
-  
+   
 
         }
 
@@ -177,7 +196,11 @@
 
       
     </script>
-   
+
+   @idupp=idUp;
+
+   <script>
+   </script>
 
     @if (GP.Models.Toast.ShowModel)
     {

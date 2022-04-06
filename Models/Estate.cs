@@ -49,7 +49,6 @@ namespace GP.Models
 
 
 
-
         public int categoryID { get; set; }
         [ForeignKey("categoryID")]
         public Category Category { get; set; }
@@ -74,6 +73,7 @@ namespace GP.Models
     public interface IEstate
     {
         public Task<Estate> GetOne(long id);
+        public Estate GetOnetoImage(long id);
         public IEnumerable<Estate> GetAll();
         public Task<DbCRUD> InsertEstate(Estate estate);
         public Task<DbCRUD> UpdateEstate(Estate estate);
@@ -123,7 +123,13 @@ namespace GP.Models
                 .SingleOrDefaultAsync(c => c.Id == id);
 
 
-
+        public Estate GetOnetoImage(long id) =>
+            _context
+            .TEstates
+              .AsNoTracking()
+               .Include(c => c.Currency).Include(x => x.Category).Include(x => x.State).Include(x => x.Type).Include(x => x.Users).Include(x => x.City)
+               .SingleOrDefault(c => c.Id == id);
+        
         public async Task<DbCRUD> InsertEstate(Estate estate)
         {
             try

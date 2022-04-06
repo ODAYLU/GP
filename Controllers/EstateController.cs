@@ -29,7 +29,7 @@ namespace GP.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-           IEnumerable<Estate>  list = services.GetAll();
+            IEnumerable<Estate> list = services.GetAll();
             return View(list);
         }
 
@@ -56,7 +56,7 @@ namespace GP.Areas.Admin.Controllers
             long idPr = estate.Id;
             if (images.Count() > 0)
             {
-               
+
                 for (int i = 0; i < images.Count(); i++)
                 {
 
@@ -81,18 +81,18 @@ namespace GP.Areas.Admin.Controllers
                 {
                     Service_Estate service = new Service_Estate();
                     service.EstateID = idPr;
-                    service.ServiceID=test[i];
+                    service.ServiceID = test[i];
 
-                   await _service_Estate.InsertService_Estate(service);
+                    await _service_Estate.InsertService_Estate(service);
                 }
             }
-            return RedirectToAction("Edit");
+            return RedirectToAction("Index");
         }
         [HttpGet]
         public async Task<ActionResult<Estate>> Details(long id)
         {
 
-            if(id != 0)
+            if (id != 0)
             {
                 Estate estate = await services.GetOne(id);
                 return View(estate);
@@ -109,7 +109,7 @@ namespace GP.Areas.Admin.Controllers
 
             //List<Services> list=  _service_Estate.GetALl(id).ToList();
             // ViewBag.ser=list;
-          
+
 
             if (id != 0)
             {
@@ -133,12 +133,12 @@ namespace GP.Areas.Admin.Controllers
             if (estate != null)
             {
                 estate.Main_photo = old.Main_photo;
-                await  services.UpdateEstate(estate);
+                await services.UpdateEstate(estate);
 
                 GP.Models.Toast.Message = "تم التعديل بنجاح";
                 GP.Models.Toast.ShowTost = true;
 
-                return RedirectToAction("Details",estate);
+                return RedirectToAction("Details", estate);
             }
 
             return NotFound();
@@ -150,7 +150,7 @@ namespace GP.Areas.Admin.Controllers
         public async Task<ActionResult<Estate>> Delete(long id)
         {
 
-           
+
             if (id != 0)
             {
                 Estate estate = await services.GetOne(id);
@@ -181,12 +181,94 @@ namespace GP.Areas.Admin.Controllers
         public IActionResult ImageList(long id)
         {
             ViewBag.id = id;
-
-
             return View();
         }
+        [HttpPost]
+        public async Task<IActionResult> DeleteImage(long id)
+        {
+
+            if (id != 0)
+            {
+                PhotoEstate estate = await _photoservices.GetOne(id);
+                string webRootPath = webHostEnvironment.WebRootPath;
+                string oldfile = webRootPath + @"\images\Estate\" + estate.ImagePath;
+                if (System.IO.File.Exists(oldfile))
+                {
+                    System.IO.File.Delete(oldfile);
+                }
+
+                await _photoservices.DeletePhotoEstate(id);
+
+                ViewBag.id = estate.IdEstate;
+            }
+
+            return View("ImageList");
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> EditImage(long id)
+        {
+            PhotoEstate Newpro = await _photoservices.GetOne(id);
+
+            var file = HttpContext.Request.Form.Files;
+            if (file.Count() > 0)
+            {
+                string webRootPath = webHostEnvironment.WebRootPath;
+                string oldfile = webRootPath + @"\images\Estate\" + Newpro.ImagePath;
+                if (System.IO.File.Exists(oldfile))
+                {
+                    System.IO.File.Delete(oldfile);
+                }
 
 
+                string upload = webRootPath + @"\images\Estate\";
+                string fileName = Guid.NewGuid().ToString();
+                string extension = Path.GetExtension(file[0].FileName);
+                using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
+                {
+                    file[0].CopyTo(fileStream);
+                }
+                Newpro.ImagePath = fileName + extension;
 
+                await _photoservices.UpdatePhotoEstate(Newpro);
+
+            }
+            ViewBag.id = Newpro.IdEstate;
+
+            return View("ImageList");
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddImage(long q)
+        {
+
+            PhotoEstate Newpro = new PhotoEstate();
+            string webRootPath = webHostEnvironment.WebRootPath;
+
+            var file = HttpContext.Request.Form.Files;
+
+            if (file.Count() > 0)
+            {
+
+
+                string upload = webRootPath + @"\images\Estate\";
+                string fileName = Guid.NewGuid().ToString();
+                string extension = Path.GetExtension(file[0].FileName);
+                using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
+                {
+                    file[0].CopyTo(fileStream);
+                }
+                Newpro.ImagePath = fileName + extension;
+                Newpro.IdEstate = q;
+                await _photoservices.InsertPhotoEstate(Newpro);
+
+                ViewBag.id = q;
+
+               
+            }
+            return View("ImageList");
+
+        }
     }
-}
+ }

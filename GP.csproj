@@ -33,6 +33,8 @@
 
     <Folder Include="wwwroot\images\Estate\" />
 
+    <Folder Include="wwwroot\images\Estate\" />
+
     <Folder Include="wwwroot\images\User\" />
 
     <Folder Include="wwwroot\images\Types\" />
