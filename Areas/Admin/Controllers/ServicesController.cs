@@ -30,7 +30,7 @@ namespace GP.Controllers
             ModelState.Remove("Id");
             if (!ModelState.IsValid) return View();
 
-            if (vMService == null)
+            if (vMService.file == null)
             {
                 ModelState.AddModelError("ImagePath", "مطلوب ادخال صورة ggo]lm");
                 return View();

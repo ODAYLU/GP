@@ -26,7 +26,10 @@ namespace GP.Controllers
         {
             return View();
         }
-
+        public IActionResult User()
+        {
+            return View();
+        }
         public IActionResult Category()
         {
             CategoeyVM categoey = new CategoeyVM();

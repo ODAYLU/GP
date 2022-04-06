@@ -1,0 +1,205 @@
+﻿@model GP.Models.AppUser
+@{ ViewData["Title"] = "Home Page"; }
+
+<button hidden id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+        class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">
+    اضافة
+</button>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div style="margin:10px!important;">
+                <form id="formadd" method="post">
+                    <input id="inputId" type="text" hidden />
+                    <div class="form-group">
+                        <label> Number of Day Block</label>
+                        <input id="numDays" type="number" maxlength="30" min="1" name="day" />
+                    </div>
+                   
+                    <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="btnAdd" type="submit" class="btn btn-outline-primary">Ok</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<table id="Users" class="table table-striped table-bordered  flex-nowrap" style="direction:rtl;">
+    <thead>
+        <tr>
+            <th>الرقم</th>
+            <th> اسم الأول  </th>
+            <th> الإسم الأخير </th>
+            <th> الإيميل</th>
+            <th> الحالة</th>
+            <th>الصورة</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+@section Scripts{
+    @(await Html.PartialAsync("_ValidationScriptsPartial"));
+    <script type="text/javascript">
+        $(document).ready(function ()  {
+            $("#Users").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "responsive": true,
+                "lengthMenu": [10, 20, 30, 40, 50],
+                "language": {
+                    "search": "ابحث",
+                    "lengthMenu": "عرض _MENU_ صفوف"
+                },
+                "ajax": {
+                    "url": '/api/Api/GetUser',
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs": [{
+                    "targets": 0,
+                    "visible": false,
+                    "searchable": false
+                } ],
+                "columns": [
+                    { "data": "id", "name": "Id", "autowidth": true },
+                    { "data": "firstName", "name": "FirstName", "autowidth": true },
+                    { "data": "lastName", "name": "LastName", "autowidth": true },
+                    { "data": "userName", "name": "UserName", "autowidth": true },
+                    { "data": "is_active", "name": "is_active", "autowidth": true },
+                    //{ "data": "imagePath", "name": "ImagePath", "autowidth": true },
+                    {
+                        "render": function (data, type, row) { return '<img src="' + row.imagePath + '" class=" w-25 h-25" asp-append-version="true" />' },
+                        "orderable": false
+                    },
+                    {
+                        "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCategory("' + row.id + '"); > تفاصيل </a>' },
+                        "orderable": false
+                    },
+                    {
+                        "render": function (data, type, row)
+                        {
+                            if (row.is_active)
+                            {
+                                return '<a href="#" id="btnStates" class="btn btn-outline-danger" onclick=BlockUser("' + row.id + '"); > تقييد </a>'
+                            }
+                            else
+                            {
+                                return '<a href="#" id="btnStates" class="btn btn-outline-danger" onclick=UnBlockUser("' + row.id + '"); > تفعيل </a>'
+                            }
+                           
+                        },
+                        "orderable": false
+                    },
+                    {
+                        "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCategory("' + row.id + '"); > حذف </a>' },
+                        "orderable": false
+                    },
+
+                ]
+            });
+        });
+
+        
+        function DeleteCategory(Id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        method: 'Get',
+                        url: `/Admin/CategoryOperation/Delete/${Id}`,
+                        data: JSON.stringify({ id: Id }),
+                        success: function () {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                            var Table = $("#Categories").DataTable();
+                            Table.draw();
+                        }
+                    });
+
+                }
+            })  
+
+        }
+       
+        function img_pathUrl(input) {
+            $('#image')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
+        }
+        
+
+
+        $("#formadd").on("submit", function (e) {
+            e.preventDefault();
+        })
+        function UnBlockUser(Id) {
+            $.ajax({
+                method: 'Get',
+                url: `/Admin/UserOperation/UnBlockUser`,
+                data: { id: Id },
+                success: function () {
+                    Swal.fire(
+                        'التفعيل!',
+                        'تم فك القيد بنجاح.',
+                        'success'
+                    );
+                    var Table = $("#Users").DataTable();
+                    Table.draw(false);
+                }
+            });
+        }
+        function BlockUser(Id) {
+            $("#inputId").val(Id);
+                $("#Add").trigger("click");
+        }
+        $("#btnAdd").click(function () {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "أنت سوف تقوم تقييد المستخدم",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        method: 'Get',
+                        url: `/Admin/UserOperation/BlockUser`,
+                        data: { id: $("#inputId").val(), day: $("#numDays").val() },
+                        success: function () {
+                            Swal.fire(
+                                'Blocked!',
+                                'Your file has been Blocked.',
+                                'success'
+                            );
+                            
+                            $("#btnClose").click();
+                            var Table = $("#Users").DataTable();
+                            Table.draw();
+                        }
+                    });
+
+                }
+            })
+        });
+
+       </script>
+}
