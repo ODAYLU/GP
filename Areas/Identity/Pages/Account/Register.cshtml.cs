@@ -81,6 +81,8 @@ namespace GP.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
             public IFormFile Image { get; set; }
+
+            public string Role { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -101,6 +103,8 @@ namespace GP.Areas.Identity.Pages.Account
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
+                    memory = 10,
+                    NameRole = Input.Role
                 };
                 if (Input.Image != null)
                 {
@@ -114,13 +118,21 @@ namespace GP.Areas.Identity.Pages.Account
                     }
                     user.ImagePath = "/images/User/" + fileName + extension;
                 }
+                
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    var defaultrole = _roleManager.FindByNameAsync("User").Result;
-                    if (defaultrole != null)
+                    if (Input.Role == "User")
                     {
-                        IdentityResult roleresult = await _userManager.AddToRoleAsync(user, defaultrole.Name);
+                        await _userManager.AddToRoleAsync(user, "User");
+                    }
+                    else if(Input.Role == "Owner")
+                    {
+                        await _userManager.AddToRoleAsync(user, "Owner");
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "User");
                     }
                     _logger.LogInformation("User created a new account with password.");
 

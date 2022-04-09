@@ -27,8 +27,8 @@ namespace GP.Models
         public int memory { get; set; }
         public bool is_special { get; set; }
         public string decription { get; set; }
-        
-
+        public int NumberLikes { get; set; }
+        public string NameRole { get; set; }
     }
   
 }

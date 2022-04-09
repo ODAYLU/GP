@@ -7,9 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\C\**" />
     <Compile Remove="wwwroot\images\City\**" />
+    <Content Remove="Views\C\**" />
     <Content Remove="wwwroot\images\City\**" />
+    <EmbeddedResource Remove="Views\C\**" />
     <EmbeddedResource Remove="wwwroot\images\City\**" />
+    <None Remove="Views\C\**" />
     <None Remove="wwwroot\images\City\**" />
   </ItemGroup>
 
@@ -26,8 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-
-    <Folder Include="Views\C\" />
 
     <Folder Include="wwwroot\images\Category\" />
 

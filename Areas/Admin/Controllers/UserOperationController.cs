@@ -27,7 +27,22 @@ namespace GP.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult>  BlockUser(string id,string day)
+        public async Task<IActionResult> AddToMemory(string id, string count)
+        {
+            var user = _userManager.Users.Where(x => x.Id == id).FirstOrDefault();
+            user.memory = int.Parse(count);
+            if (user is null)
+            {
+                return View();
+            }
+
+            await _userManager.UpdateAsync(user);
+            await _context.SaveChangesAsync();
+            return Ok(user);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult>  BlockUser(string id)
         {
             var user = _userManager.Users.Where(x => x.Id == id).FirstOrDefault();
             user.is_active = false;
@@ -35,12 +50,8 @@ namespace GP.Areas.Admin.Controllers
             {
                 return View();
             }
-            
-            var endDate =  DateTime.Now.AddDays(int.Parse(day));
-
-          await  _userManager.SetLockoutEnabledAsync(user ,true);
-          await  _userManager.SetLockoutEndDateAsync(user,endDate); 
-          await  _userManager.UpdateAsync(user);
+            await _userManager.UpdateAsync(user);
+            await  _userManager.SetLockoutEnabledAsync(user ,true);
            await _context.SaveChangesAsync();
             return Ok(user);
         }
@@ -54,11 +65,9 @@ namespace GP.Areas.Admin.Controllers
             {
                 return View();
             }
-
-
+            await _userManager.UpdateAsync(user);
             await _userManager.SetLockoutEnabledAsync(user, false);
             await _userManager.SetLockoutEndDateAsync(user, DateTime.Now-TimeSpan.FromMinutes(1));
-            await _userManager.UpdateAsync(user);
             await _context.SaveChangesAsync();
             return Ok(user);
         }

@@ -3,7 +3,7 @@
 
 <button hidden id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
         class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">
-    اضافة
+    إضافة إلى الحافظة
 </button>
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -14,12 +14,15 @@
                 <form id="formadd" method="post">
                     <input id="inputId" type="text" hidden />
                     <div class="form-group">
-                        <label> Number of Day Block</label>
+                        <label>
+                            الإضافة إلى الحافظة
+                        </label>
                         <input id="numDays" type="number" maxlength="30" min="1" name="day" />
                     </div>
-                   
+
                     <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button id="btnAdd" type="submit" class="btn btn-outline-primary">Ok</button>
+                    <button id="btnAddMemory" type="submit" class="btn btn-outline-primary">Add</button>
                 </form>
             </div>
 
@@ -33,10 +36,12 @@
         <tr>
             <th>الرقم</th>
             <th> اسم الأول  </th>
-            <th> الإسم الأخير </th>
+            <th> الإسم الأخير</th>
             <th> الإيميل</th>
             <th> الحالة</th>
+            <th> الحافظة</th>
             <th>الصورة</th>
+            <th></th>
             <th></th>
             <th></th>
             <th></th>
@@ -74,6 +79,7 @@
                     { "data": "lastName", "name": "LastName", "autowidth": true },
                     { "data": "userName", "name": "UserName", "autowidth": true },
                     { "data": "is_active", "name": "is_active", "autowidth": true },
+                    { "data": "memory", "name": "memory", "autowidth": true },
                     //{ "data": "imagePath", "name": "ImagePath", "autowidth": true },
                     {
                         "render": function (data, type, row) { return '<img src="' + row.imagePath + '" class=" w-25 h-25" asp-append-version="true" />' },
@@ -99,15 +105,43 @@
                         "orderable": false
                     },
                     {
+                        "render": function (data, type, row) { return '<a href="#" id= "AddMemory" class="btn btn-outline-danger" onclick=AddToMemory("' + row.id + '"); > إضافة للحافظة  </a>' },
+                        "orderable": false
+                    },
+                    {
                         "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCategory("' + row.id + '"); > حذف </a>' },
                         "orderable": false
                     },
-
                 ]
             });
         });
 
-        
+        function AddToMemory(Id) {
+            $("#inputId").val(Id);
+            $("#Add").click();
+            $("#btnAdd").hide();
+            $("#btnAddMemory").show();
+        }
+
+        $("#btnAddMemory").click(function () {
+            $.ajax({
+                method: 'Get',
+                url: `/Admin/UserOperation/AddToMemory`,
+                data: { id: $("#inputId").val(), count: $("#numDays").val() },
+                success: function () {
+                    Swal.fire(
+                        'تمت بنجاح',
+                        'تم الاضافة للحافظة بنجاح',
+                        'success'
+                    );
+
+                    $("#btnClose").click();
+                    var Table = $("#Users").DataTable();
+                    Table.draw();
+                }
+            });
+        });
+
         function DeleteCategory(Id) {
             Swal.fire({
                 title: 'Are you sure?',
@@ -166,7 +200,38 @@
         }
         function BlockUser(Id) {
             $("#inputId").val(Id);
-                $("#Add").trigger("click");
+            $("#btnAdd").show();
+            $("#btnAddMemory").hide();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "أنت سوف تقوم تقييد المستخدم",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        method: 'Get',
+                        url: `/Admin/UserOperation/BlockUser`,
+                        data: { id: $("#inputId").val(), day: $("#numDays").val() },
+                        success: function () {
+                            Swal.fire(
+                                'Blocked!',
+                                'Your file has been Blocked.',
+                                'success'
+                            );
+
+                            $("#btnClose").click();
+                            var Table = $("#Users").DataTable();
+                            Table.draw();
+                        }
+                    });
+
+                }
+            })
         }
         $("#btnAdd").click(function () {
             Swal.fire({
