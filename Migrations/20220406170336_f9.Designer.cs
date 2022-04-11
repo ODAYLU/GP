@@ -4,14 +4,16 @@ using GP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220406170336_f9")]
+    partial class f9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -344,6 +346,9 @@ namespace GP.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long?>("EstateId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
@@ -351,6 +356,8 @@ namespace GP.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("EstateId");
 
                     b.ToTable("TServices");
                 });
@@ -631,6 +638,13 @@ namespace GP.Migrations
                     b.Navigation("Services");
                 });
 
+            modelBuilder.Entity("GP.Models.Services", b =>
+                {
+                    b.HasOne("GP.Models.Estate", null)
+                        .WithMany("ServicesEstates")
+                        .HasForeignKey("EstateId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -680,6 +694,11 @@ namespace GP.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("GP.Models.Estate", b =>
+                {
+                    b.Navigation("ServicesEstates");
                 });
 #pragma warning restore 612, 618
         }

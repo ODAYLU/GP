@@ -1,5 +1,6 @@
 ﻿using GP.Data;
 using GP.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -37,15 +38,12 @@ namespace GP.Models
 
         public DateTime OnDate { get; set; }
 
+        
+        [NotMapped]
+        public string[] list { get; set; }
 
-
-
-
-        public bool is_active { get; set; }
+        public bool is_active { get; set; } 
         public bool is_spacial { get; set; }
-
-
-
 
 
 
@@ -74,6 +72,7 @@ namespace GP.Models
     public interface IEstate
     {
         public Task<Estate> GetOne(long id);
+        public Estate GetOnetoImage(long id);
         public IEnumerable<Estate> GetAll();
         public Task<DbCRUD> InsertEstate(Estate estate);
         public Task<DbCRUD> UpdateEstate(Estate estate);
@@ -123,7 +122,13 @@ namespace GP.Models
                 .SingleOrDefaultAsync(c => c.Id == id);
 
 
-
+        public Estate GetOnetoImage(long id) =>
+            _context
+            .TEstates
+              .AsNoTracking()
+               .Include(c => c.Currency).Include(x => x.Category).Include(x => x.State).Include(x => x.Type).Include(x => x.Users).Include(x => x.City)
+               .SingleOrDefault(c => c.Id == id);
+        
         public async Task<DbCRUD> InsertEstate(Estate estate)
         {
             try

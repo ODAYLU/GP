@@ -31,7 +31,7 @@ namespace GP
             services.AddRazorPages();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging());
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders().AddDefaultUI();

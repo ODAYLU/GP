@@ -72,11 +72,17 @@
     @await RenderSectionAsync("Scripts", required: false)
         <script type="text/javascript">
     
-          $(document).ready($(".chosen-select").chosen({
-                no_results_text: "Oops, nothing found!"
-              })
+      //    $(document).ready($(".chosen-select").chosen({
+      //          no_results_text: "Oops, nothing found!",
+      //          rtl: true
+      //        })
       
-      ) 
+      //)
+      
+      $(function () {
+      
+            $("#mm").chosen();      
+      })
     
     </script>
 </body>
