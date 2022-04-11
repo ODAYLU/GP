@@ -1,11 +1,7 @@
-﻿@model GP.Models.Contact
+﻿@model GP.Models.ViewModels.ContactVM
 @{ ViewData["Title"] = "Home Page"; }
 
-<button id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-        class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">
-    اضافة
-</button>
-<hr />
+
 
 
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -27,42 +23,42 @@
                         <div class="col-12" hidden>
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">إسم المدينة</label>
-                                <input id="fname" asp-for="@Model.Name" class="form-control" required placeholder="City Name" name="name" />
+                                <input id="fname" asp-for="@Model.Name" class="form-control" required  name="Name" />
                                 <span asp-validation-for="@Model.Name" class="text-danger span"></span>
                             </div>
                         </div>
                         <div class="col-12" hidden>
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">إسم المدينة</label>
-                                <input id="InputEmail" asp-for="@Model.Email" class="form-control" required placeholder="City Name" name="name" />
+                                <input id="InputEmail" asp-for="@Model.Email" class="form-control" required  name="Email" />
                                 <span asp-validation-for="@Model.Email" class="text-danger span"></span>
                             </div>
                         </div>
                         <div class="col-12" hidden>
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">إسم المدينة</label>
-                                <input id="InputPh" asp-for="@Model.Phone" class="form-control" required placeholder="City Name" name="name" />
+                                <input id="InputPh" asp-for="@Model.Phone" class="form-control" required  name="Phone" />
                                 <span asp-validation-for="@Model.Phone" class="text-danger span"></span>
                             </div>
                         </div>
                         <div class="col-12" hidden>
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">إسم المدينة</label>
-                                <input id="InputObj" asp-for="@Model.Object" class="form-control" required placeholder="City Name" name="name" />
+                                <input id="InputObj" asp-for="@Model.Object" class="form-control" required name="Object" />
                                 <span asp-validation-for="@Model.Object" class="text-danger span"></span>
                             </div>
                         </div>
                         <div class="col-12" hidden>
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">إسم المدينة</label>
-                                <input id="InputDesc" asp-for="@Model.Description" class="form-control" required placeholder="City Name" name="name" />
+                                <input id="InputDesc" asp-for="@Model.Description" class="form-control" required  name="Description" />
                                 <span asp-validation-for="@Model.Description" class="text-danger span"></span>
                             </div>
                         </div>
                         <div class="col-12" >
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">الرد</label>
-                                <textarea id="InputReply" cols="5" rows="7" placeholder="ادخل الرد" required>
+                                <textarea id="InputReply"  asp-for="@Model.Msg" placeholder="ادخل الرد" required>
 
                                 </textarea>
                             </div>
@@ -87,7 +83,6 @@
             <th>العنوان</th>
             <th>الوصف</th>
             <th></th>
-            <th></th>
         </tr>
     </thead>
 </table>
@@ -107,7 +102,7 @@
                     "lengthMenu": "عرض _MENU_ صفوف"
                 },
                 "ajax": {
-                    "url": '/api/Api/GetCity',
+                    "url": '/api/Api/GetContact',
                     "type": "POST",
                     "datatype": "json"
                 },
@@ -124,12 +119,13 @@
                     { "data": "object", "name": "Object", "autowidth": true },
                     { "data": "description", "name": "Description", "autowidth": true },
                     {
-                        "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCustomer("' + row.id + '"); > Delete </a>' },
-                        "orderable": false
-                    },
-                    {
-                        "render": function (data, type, row, meta) { return '<a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal" onclick=ReplyMessage(' + JSON.stringify(row) + '); > Edit </a>' },
-                        "orderable": false
+                        "render": function (data, type, row, meta) {
+                            console.log(JSON.stringify(row));
+                            return '<button data-bs-toggle="modal" data-bs-target=\
+                            "#staticBackdrop" class="btn btn-sm btn-outline-primary ms-2" data - toggle="modal" onclick =\
+                            ReplyMessage('+JSON.stringify(row)+'); > رد </button > '
+                        },
+                            "orderable": false
                     },
 
                 ]
@@ -138,9 +134,8 @@
 
 
         function ReplyMessage(data) {
+            alert("qqqqqq");
             $(".span").text("");
-            $("#btnAdd").hide();
-            $("#btnEdit").show();
             $("#id").val(data.id);
             $("#fname").val(data.name);
             $("#InputEmail").val(data.email);
@@ -179,26 +174,15 @@
             })
 
         }
-        $("#Add").on("click", function () {
-            $("#btnAdd").show();
-            $("#btnEdit").hide();
-            $("input").val("");
-            $("textarea").val("");
-            $(".span").text("");
-        });
+      
         $("#btnReply").on("click", function () {
-            if ($("#fname").val() != "") {
-                var nameEdit = $("#fname").val();
-                for (var i = 0; i < nameEdit.length; i++) {
-                    nameEdit = nameEdit.replace(" ", "_");
-                }
-                $("#fname").val(nameEdit);
-                var data = new FormData($("#formadd").get(0));
-
+          
+            var data = new FormData($("#formadd").get(0));
+        
                 $.ajax({
                     method: 'Post',
                     url: '/Admin/Contact/ReceiveEmail',
-                    data: { data, msg: $("#InputReply").val() },
+                    data: data,
                     processData: false,
                     contentType: false,
                     success: function () {
@@ -214,7 +198,7 @@
                         Table.draw();
                     }
                 });
-            }
+            
 
 
 

@@ -43,8 +43,9 @@ namespace GP.Controllers
             };
 
             client.Send(message);
+            
             _contact.InsertContact(contact);
-            return View("Index");
+            return RedirectToAction(nameof(Index));
         }
 
     }

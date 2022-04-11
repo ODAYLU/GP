@@ -41,7 +41,7 @@ namespace GP.Models
         private readonly ApplicationDbContext _context;
         public ContactManagments(ApplicationDbContext context)
         {
-            this._context = context;
+            _context = context;
         }
         public async Task<DbCRUD> DeleteContact(long id)
         {
@@ -80,22 +80,23 @@ namespace GP.Models
 
         public async Task<DbCRUD> InsertContact(Contact comment)
         {
-            try
-            {
                 Contact com = await GetOne(comment.Id);
                 if (com != null)
                     return DbCRUD.isExisted;
-                await _context.TContacts.AddAsync(comment);
-                await _context.SaveChangesAsync();
-                return DbCRUD.success;
-            }
-            catch (System.Exception ex)
+
+            var data = new Contact()
             {
-                if (ex is SqlException)
-                    return DbCRUD.dbError;
-                else
-                    return DbCRUD.fail;
-            }
+                Id = comment.Id,
+                Name = comment.Name.Trim(),
+                Description = comment.Description.Trim(),
+                Email = comment.Email.Trim(),
+                Object = comment.Object.Trim(),
+                Phone = comment.Phone.Trim()
+            };
+                await _context.TContacts.AddAsync(data);
+                 _context.SaveChanges();
+                return DbCRUD.success;
+          
         }
 
         public async Task<DbCRUD> UpdateContact(Contact comment)
