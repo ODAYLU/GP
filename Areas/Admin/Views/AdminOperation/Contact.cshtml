@@ -1,0 +1,229 @@
+﻿@model GP.Models.Contact
+@{ ViewData["Title"] = "Home Page"; }
+
+<button id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+        class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">
+    اضافة
+</button>
+<hr />
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div style="margin:10px!important;">
+                <form id="formadd" method="post">
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-12">
+                            <div class="form-group" hidden>
+                                <label for="edit_name_en" class="my-3">الرقم</label>
+                                <input id="id" asp-for="@Model.Id" class="form-control" placeholder="Id" name="Id" />
+                                <span asp-validation-for="@Model.Id" class="text-danger span"></span>
+                            </div>
+                        </div>
+                        <div class="col-12" hidden>
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">إسم المدينة</label>
+                                <input id="fname" asp-for="@Model.Name" class="form-control" required placeholder="City Name" name="name" />
+                                <span asp-validation-for="@Model.Name" class="text-danger span"></span>
+                            </div>
+                        </div>
+                        <div class="col-12" hidden>
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">إسم المدينة</label>
+                                <input id="InputEmail" asp-for="@Model.Email" class="form-control" required placeholder="City Name" name="name" />
+                                <span asp-validation-for="@Model.Email" class="text-danger span"></span>
+                            </div>
+                        </div>
+                        <div class="col-12" hidden>
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">إسم المدينة</label>
+                                <input id="InputPh" asp-for="@Model.Phone" class="form-control" required placeholder="City Name" name="name" />
+                                <span asp-validation-for="@Model.Phone" class="text-danger span"></span>
+                            </div>
+                        </div>
+                        <div class="col-12" hidden>
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">إسم المدينة</label>
+                                <input id="InputObj" asp-for="@Model.Object" class="form-control" required placeholder="City Name" name="name" />
+                                <span asp-validation-for="@Model.Object" class="text-danger span"></span>
+                            </div>
+                        </div>
+                        <div class="col-12" hidden>
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">إسم المدينة</label>
+                                <input id="InputDesc" asp-for="@Model.Description" class="form-control" required placeholder="City Name" name="name" />
+                                <span asp-validation-for="@Model.Description" class="text-danger span"></span>
+                            </div>
+                        </div>
+                        <div class="col-12" >
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">الرد</label>
+                                <textarea id="InputReply" cols="5" rows="7" placeholder="ادخل الرد" required>
+
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="btnReply" type="submit" class="btn btn-outline-primary">Reply</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<table id="Cities" class="table table-striped table-bordered  flex-nowrap" style="direction:rtl;">
+    <thead>
+        <tr>
+            <th>الرقم</th>
+            <th> الإسم </th>
+            <th>الإيميل</th>
+            <th>رقم الجوال </th>
+            <th>العنوان</th>
+            <th>الوصف</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+
+@section Scripts{
+    @(await Html.PartialAsync("_ValidationScriptsPartial"));
+    <script type="text/javascript">$(document).ready(function () {
+
+            $("#Cities").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "responsive": true,
+                "lengthMenu": [10, 20, 30, 40, 50],
+                "language": {
+                    "search": "ابحث",
+                    "lengthMenu": "عرض _MENU_ صفوف"
+                },
+                "ajax": {
+                    "url": '/api/Api/GetCity',
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs": [{
+                    "targets": 0,
+                    "visible": false,
+                    "searchable": false
+                }],
+                "columns": [
+                    { "data": "id", "name": "Id", "autowidth": true },
+                    { "data": "name", "name": "Name", "autowidth": true },
+                    { "data": "email", "name": "Email", "autowidth": true },
+                    { "data": "phone", "name": "Phone", "autowidth": true },
+                    { "data": "object", "name": "Object", "autowidth": true },
+                    { "data": "description", "name": "Description", "autowidth": true },
+                    {
+                        "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCustomer("' + row.id + '"); > Delete </a>' },
+                        "orderable": false
+                    },
+                    {
+                        "render": function (data, type, row, meta) { return '<a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal" onclick=ReplyMessage(' + JSON.stringify(row) + '); > Edit </a>' },
+                        "orderable": false
+                    },
+
+                ]
+            });
+        });
+
+
+        function ReplyMessage(data) {
+            $(".span").text("");
+            $("#btnAdd").hide();
+            $("#btnEdit").show();
+            $("#id").val(data.id);
+            $("#fname").val(data.name);
+            $("#InputEmail").val(data.email);
+            $("#InputPh").val(data.phone);
+            $("#InputObj").val(data.object);
+            $("#InputDesc").val(data.description);
+        }
+        function DeleteCustomer(Id)
+        {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        method: 'Get',
+                        url: `/Admin/City/Delete/${Id}`,
+                        data: JSON.stringify({ id: Id }),
+                        success: function () {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                            var Table = $("#Cities").DataTable();
+                            Table.draw(false);
+                        }
+                    });
+
+                }
+            })
+
+        }
+        $("#Add").on("click", function () {
+            $("#btnAdd").show();
+            $("#btnEdit").hide();
+            $("input").val("");
+            $("textarea").val("");
+            $(".span").text("");
+        });
+        $("#btnReply").on("click", function () {
+            if ($("#fname").val() != "") {
+                var nameEdit = $("#fname").val();
+                for (var i = 0; i < nameEdit.length; i++) {
+                    nameEdit = nameEdit.replace(" ", "_");
+                }
+                $("#fname").val(nameEdit);
+                var data = new FormData($("#formadd").get(0));
+
+                $.ajax({
+                    method: 'Post',
+                    url: '/Admin/Contact/ReceiveEmail',
+                    data: { data, msg: $("#InputReply").val() },
+                    processData: false,
+                    contentType: false,
+                    success: function () {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'تم الرد بنجاح',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        $("#btnClose").click();
+                        var Table = $("#Cities").DataTable();
+                        Table.draw();
+                    }
+                });
+            }
+
+
+
+        });
+        $("#formadd").on("submit", function (e) {
+            e.preventDefault();
+        })
+       
+    </script>
+}
+
+

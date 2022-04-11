@@ -18,7 +18,7 @@ namespace GP.Areas.Admin.Controllers
             _contact = contact;
         }
 
-        public async Task<IActionResult> ReceiveEmail(Contact contact)
+        public IActionResult ReceiveEmail(Contact contact,string msg)
         {
             if (!ModelState.IsValid)
             {
@@ -31,7 +31,7 @@ namespace GP.Areas.Admin.Controllers
             message.Body = contact.Description;
             SmtpClient client = new SmtpClient("smtp.gmail.com", 465)
             {
-                Credentials = new NetworkCredential("odaytareqlobad@gmail.com", "Azxcv1234zxcv"),
+                Credentials = new NetworkCredential("aqaramlack123@gmail.com","a@1234567"),
                 Port = 587,
                 UseDefaultCredentials = false,
                 EnableSsl = true
