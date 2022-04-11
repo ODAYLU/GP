@@ -30,7 +30,7 @@ namespace GP.Controllers
                 return View();
             }
             MailAddress to = new MailAddress(contact.Email.Trim());
-            MailAddress from = new MailAddress("odaytareqlobad@gmail.com");
+            MailAddress from = new MailAddress("aqaramlack123@gmail.com");
             MailMessage message = new MailMessage(from, to);
             message.Subject = "وصلتنا رسالتك سوف نتواصل معك في أقرب وقت";
             message.Body = contact.Description;
