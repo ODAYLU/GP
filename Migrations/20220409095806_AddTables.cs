@@ -26,15 +26,16 @@ namespace GP.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    is_active = table.Column<bool>(type: "bit", nullable: true),
-                    memory = table.Column<int>(type: "int", nullable: true),
-                    is_special = table.Column<bool>(type: "bit", nullable: true),
+                    is_active = table.Column<bool>(type: "bit", nullable: false),
+                    memory = table.Column<int>(type: "int", nullable: false),
+                    is_special = table.Column<bool>(type: "bit", nullable: false),
                     decription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NumberLikes = table.Column<int>(type: "int", nullable: false),
+                    NameRole = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -244,26 +245,6 @@ namespace GP.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TComments",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Body = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TComments", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_TComments_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TEstates",
                 columns: table => new
                 {
@@ -330,21 +311,29 @@ namespace GP.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TReplaies",
+                name: "TComments",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    body = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CommentId = table.Column<long>(type: "bigint", nullable: false)
+                    Body = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Rating = table.Column<double>(type: "float", nullable: false),
+                    EstateId = table.Column<long>(type: "bigint", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TReplaies", x => x.Id);
+                    table.PrimaryKey("PK_TComments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TReplaies_TComments_CommentId",
-                        column: x => x.CommentId,
-                        principalTable: "TComments",
+                        name: "FK_TComments_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TComments_TEstates_EstateId",
+                        column: x => x.EstateId,
+                        principalTable: "TEstates",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -395,6 +384,26 @@ namespace GP.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "TReplaies",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    body = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CommentId = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TReplaies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TReplaies_TComments_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "TComments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -433,6 +442,11 @@ namespace GP.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TComments_EstateId",
+                table: "TComments",
+                column: "EstateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TComments_UserId",
@@ -523,10 +537,10 @@ namespace GP.Migrations
                 name: "TComments");
 
             migrationBuilder.DropTable(
-                name: "TEstates");
+                name: "TServices");
 
             migrationBuilder.DropTable(
-                name: "TServices");
+                name: "TEstates");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

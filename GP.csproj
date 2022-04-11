@@ -57,6 +57,10 @@
     <None Include="wwwroot\Admin\js\jquery-3.5.1.js" />
     <None Include="wwwroot\Admin\js\jquery.min.js" />
     <None Include="wwwroot\Admin\js\sweetalert.min.js" />
+    <None Include="wwwroot\Contact\css\fonts\bootstrap-icons.woff2" />
+    <None Include="wwwroot\Contact\js\app.js" />
+    <None Include="wwwroot\Contact\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\Contact\js\particles.min.js" />
   </ItemGroup>
 
 </Project>

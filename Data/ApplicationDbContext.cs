@@ -40,6 +40,7 @@ namespace GP.Data
 
 
         public DbSet<PhotoEstate> TPhotoEstate { get;set; }
+        public DbSet<Contact> TContacts { get;set; }
 
     }
 }

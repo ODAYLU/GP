@@ -64,6 +64,7 @@ namespace GP
             services.AddScoped<ICommments, CommentsManagments>();
             services.AddScoped<IState,StateManage>();
             services.AddScoped<IType,TypeManage>();
+            services.AddScoped<IContact,ContactManagments>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
