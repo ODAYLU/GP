@@ -11,11 +11,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace GP
+namespace GP.Controllers
 {
-    [Authorize("User")]
 
- 
     public class EstateController : Controller
     {
         private readonly IEstate services;

@@ -19,21 +19,33 @@ namespace GP.Models
         [Key, DisplayName("كود العفار")]
         [Range(1000, long.MaxValue)]
         public long Id { get; set; }
+        [Required(ErrorMessage = "الرجاء تحديد الموقع على الخريطة")]
+        [DisplayName("المحور الصادي ")]
         public string Longitude { get; set; }
+        [Required(ErrorMessage = "الرجاء تحديد الموقع على الخريطة")]
+        [DisplayName("المحور السيني ")]
         public string Latitude { get; set; }
-        [Required]
+        [Required(ErrorMessage ="الحقل مطلوب")]
+        [DisplayName("عنوان بسيط للعقار")]
         public string name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "الرجاء ادخال الوصف لتعزيز عقارك")]
+        [DisplayName("وصف العقار ")]
         public string description { get; set; }
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
+        [DisplayName("اسم المالك ")]
         public string name_owner { get; set; }
-        [Required]
-        public double space { get; set; }
-     
-        [Required]
-        public double price { get; set; }
-        [Required]
-        public double phone_num { get; set; }
+        [Required(ErrorMessage = "الحقل مطلوب")]
+        [DisplayName("مساحة العقار ")]
+        public double? space { get; set; }
+
+      
+        [DisplayName("سعر العقار ")]
+        [Required(ErrorMessage = "الحقل مطلوب")]
+        public double? price { get; set; }
+        [Required(ErrorMessage = "الحقل مطلوب")]
+        [DisplayName("رقم هاتف المالك")]
+        public double? phone_num { get; set; }
+        [Required(ErrorMessage = "الرجاء ادخال الصورة الرئيسية للعقار")]
         public string Main_photo { get; set; }
 
         public DateTime OnDate { get; set; }
@@ -47,20 +59,30 @@ namespace GP.Models
 
 
 
-
-        public int categoryID { get; set; }
+        [DisplayName(" نوع العقار ")]
+        [Required(ErrorMessage = "الحقل مطلوب")]
+        public int? categoryID { get; set; }
         [ForeignKey("categoryID")]
         public Category Category { get; set; }
-        public int TypeID { get; set; }
+        [DisplayName(" نوع العقار ")]
+        [Required(ErrorMessage = "الحقل مطلوب")]
+        public int? TypeID { get; set; }
         [ForeignKey("TypeID")]
         public Type Type { get; set; }
-        public long StateID { get; set; }
+        [DisplayName(" الدولة  ")]
+        [Required(ErrorMessage = "الحقل مطلوب")]
+        public long? StateID { get; set; }
         [ForeignKey("StateID")]
         public State State { get; set; }
-        public long CityID { get; set; }
+        [DisplayName(" المدينة  ")]
+        [Required(ErrorMessage = "الحقل مطلوب")]
+        public long? CityID { get; set; }
         [ForeignKey("CityID")]
+
         public City City { get; set; }
-        public int CurrencyID { get; set; }
+        [DisplayName(" العملة  ")]
+        [Required(ErrorMessage = "الحقل مطلوب")]
+        public int? CurrencyID { get; set; }
         [ForeignKey("CurrencyID")]
         public Currency Currency { get; set; }
         // اسم السمسار
