@@ -1,0 +1,144 @@
+﻿@model IEnumerable<GP.Models.Estate>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@if (GP.Models.Toast.ShowTost)
+{
+     
+       GP.Models.Toast.ShowTost = false;
+     
+    <div id="mymessage" class="toast align-items-center text-white bg-primary border-0" role="alert"  data-delay="10000" data-autohide="true" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                @GP.Models.Toast.Message
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+    </div>
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+      <th>
+           @Html.DisplayNameFor(model => model.Main_photo)
+      </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.space)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.name_owner)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.phone_num)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.is_active)
+            </th>
+           
+           
+            <th>
+                @Html.DisplayNameFor(model => model.State)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Currency)
+            </th>
+           
+            <th> Action </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+          <img src="~/images/Estate/@item.Main_photo"  class="rounded " height="50" width="50" style="border-radius: 50%">
+          </td>
+           
+            
+             <td>
+                @Html.DisplayFor(modelItem => item.Category.category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type.type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.space)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.name_owner)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone_num)
+            </td>
+          
+           <td>
+             @{
+                        @if (@item.is_active)
+                        {
+                             <div>true </div>
+                        }
+                        else
+                        {
+                           <div> false </div>
+                        }
+                    }
+           
+           
+           </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.State.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Currency.currency)
+            </td>
+           
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" >Details</a> |
+                <a asp-action="ImageList" asp-route-id="@item.Id" >الصور</a> |
+           
+                <a asp-action="Delete" asp-route-id="@item.Id" onclick=" return confirm(@item.Id)"  >Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section Scripts{
+     @(await Html.PartialAsync("_ValidationScriptsPartial"));
+
+         
+
+     <script>
+
+        var myToastEl = document.getElementById('mymessage');
+        var myToast = bootstrap.Toast.getOrCreateInstance(myToastEl);
+        myToast.show();
+
+    </script>
+}

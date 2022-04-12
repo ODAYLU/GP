@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace GP.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles ="Admin,User")]
     public class AdminOperationController : Controller
     {
         private readonly ILogger<AdminOperationController> _logger;
@@ -52,7 +52,10 @@ namespace GP.Controllers
         {
             return View();
         }
-
+        public IActionResult Estate()
+        {
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

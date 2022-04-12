@@ -141,9 +141,16 @@
                             </a>
                         </li>
                     }
-                    else if (User.IsInRole(""))
+                    else if (User.IsInRole("User"))
                     {
-
+                         <li class="">
+                            <a class="list" asp-controller="Estate" asp-action="Index">
+                                <span class="icon">
+                                    <ion-icon name="list-outline"></ion-icon>
+                                </span>
+                                <span class="title">العقارات</span>
+                            </a>
+                        </li>
                     }
                 </ul>
             </div>

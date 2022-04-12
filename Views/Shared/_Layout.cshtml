@@ -19,7 +19,7 @@
 
 
 </head>
-<body >
+<body dir="rtl">
 
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -67,23 +67,24 @@
     <script src="~/lib/bootstrap/js/bootstrap.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
       <script src="~/SweetAlert/sweetalert2@11.js"></script>
-    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+    <script src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
+<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
 
+    <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
-        <script type="text/javascript">
-    
-      //    $(document).ready($(".chosen-select").chosen({
-      //          no_results_text: "Oops, nothing found!",
-      //          rtl: true
-      //        })
+
+
       
-      //)
-      
-      $(function () {
-      
-            $("#mm").chosen();      
-      })
-    
-    </script>
+         <script>
+           $(function () {
+                $("#mm").chosen();      
+          })
+          window.onload=function (){
+              var x = document.getElementById("mm_chosen");
+              x.classList.add("w-100");
+          }
+  
+         </script>
+
 </body>
 </html>
