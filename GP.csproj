@@ -7,9 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\C\**" />
     <Compile Remove="wwwroot\images\City\**" />
+    <Content Remove="Views\C\**" />
     <Content Remove="wwwroot\images\City\**" />
+    <EmbeddedResource Remove="Views\C\**" />
     <EmbeddedResource Remove="wwwroot\images\City\**" />
+    <None Remove="Views\C\**" />
     <None Remove="wwwroot\images\City\**" />
   </ItemGroup>
 
@@ -26,8 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-
-    <Folder Include="Views\C\" />
 
     <Folder Include="wwwroot\images\Category\" />
 
@@ -55,6 +57,10 @@
     <None Include="wwwroot\Admin\js\jquery-3.5.1.js" />
     <None Include="wwwroot\Admin\js\jquery.min.js" />
     <None Include="wwwroot\Admin\js\sweetalert.min.js" />
+    <None Include="wwwroot\Contact\css\fonts\bootstrap-icons.woff2" />
+    <None Include="wwwroot\Contact\js\app.js" />
+    <None Include="wwwroot\Contact\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\Contact\js\particles.min.js" />
   </ItemGroup>
 
 </Project>

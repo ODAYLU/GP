@@ -39,6 +39,10 @@
                         <input asp-for="Input.ConfirmPassword" class="form-control" />
                         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                     </div>
+                    <select asp-for="Input.Role">
+                        <option value="User">Customer</option>
+                        <option value="Owner">Real Estate Owner</option>
+                    </select>
                     <button type="submit" class="btn btn-primary">Register</button>
                 </div>
                 <div class="col-md-6">

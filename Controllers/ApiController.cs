@@ -21,10 +21,12 @@ namespace GP.Controllers
         private readonly IState _state;
         private readonly IService _service;
         private readonly IType _type;
+        private readonly IContact _contact;
         private readonly UserManager<AppUser> _user;
 
         public ApiController(IEstate estate, ICategory category, ICity city, IState state
-            , IService service, IType type, UserManager<AppUser> user)
+            , IService service, IType type, UserManager<AppUser> user,
+            IContact contact)
         {
             _estate = estate;
             _category = category;
@@ -33,6 +35,7 @@ namespace GP.Controllers
             _service = service;
             _type = type;
            _user = user;
+            _contact = contact;
         }
         //[HttpPost]
         //public async Task<IActionResult> GetEstate()
@@ -63,19 +66,45 @@ namespace GP.Controllers
             var search = Request.Form["search[value]"];
             var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
             var sortDirecion = Request.Form["order[0][dir]"];
-
-            IQueryable<AppUser> users = _user.Users.AsQueryable();
+        
+            IQueryable<AppUser> users = _user.Users.Where(x => x.NameRole == "User").AsQueryable();
             if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
             {
                 users = users.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
             }
+           
+            users = users.Where(x => string.IsNullOrEmpty(search) ? true:
+            x.FirstName.Contains(search)|| x.LastName.Contains(search));
             var data = await users.Skip(skipe).Take(pageSize).ToListAsync();
             var recordsTotal = users.Count();
+            var jsonData = new { recordsFiltered = recordsTotal, recordsTotal, data};
+
+            return Ok(jsonData);
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetOwners()
+        {
+            var pageSize = int.Parse(Request.Form["length"]);
+            var skipe = int.Parse(Request.Form["start"]);
+            var search = Request.Form["search[value]"];
+            var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
+            var sortDirecion = Request.Form["order[0][dir]"];
+            
+            IQueryable<AppUser> users = _user.Users.Where(x => x.NameRole == "Owner").AsQueryable();
+            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
+            {
+                users = users.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
+            }
+            
+            users = users.Where(x => string.IsNullOrEmpty(search) ? true :
+            x.FirstName.Contains(search) || x.LastName.Contains(search) || x.UserName.Contains(search));
+            var data = await users.Skip(skipe).Take(pageSize).ToListAsync();
+            var recordsTotal = users.Count();
+            
             var jsonData = new { recordsFiltered = recordsTotal, recordsTotal, data };
 
             return Ok(jsonData);
         }
-
         [HttpPost]
         public async Task<IActionResult> GetCategory()
         {
@@ -96,7 +125,24 @@ namespace GP.Controllers
 
             return Ok(jsonData);
         }
-
+        [HttpPost]
+        public async Task<IActionResult> GetContact()
+        {
+            var pageSize = int.Parse(Request.Form["length"]);
+            var skipe = int.Parse(Request.Form["start"]);
+            var search = Request.Form["search[value]"];
+            var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
+            var sortDirecion = Request.Form["order[0][dir]"];
+            IQueryable<Contact> contacts = _contact.GetAll(search);
+            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
+            {
+                contacts = contacts.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
+            }
+            var data = await contacts.Skip(skipe).Take(pageSize).ToListAsync();
+            var recordsTotal = contacts.Count();
+            var jsonData = new { recordsFiltered = recordsTotal, recordsTotal, data };
+            return Ok(jsonData);
+        }
         [HttpPost]
         public async Task<IActionResult> GetCity()
         {
@@ -179,6 +225,8 @@ namespace GP.Controllers
 
             return Ok(jsonData);
         }
+
+        
 
     }
 }
