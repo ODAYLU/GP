@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace GP.Controllers
 {
-
+    [Area("Admin")]
     public class EstateController : Controller
     {
         private readonly IEstate services;

@@ -13,9 +13,7 @@ using System.Threading.Tasks;
 
 namespace GP
 {
-    [Authorize("User")]
-
- 
+    [AllowAnonymous]
     public class EstateController : Controller
     {
         private readonly IEstate services;

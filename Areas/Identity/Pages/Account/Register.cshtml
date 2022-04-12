@@ -2,71 +2,174 @@
 @model RegisterModel
 @{
     ViewData["Title"] = "Register";
-}
+    Layout = null;
+
+    }
 
 <h1>@ViewData["Title"]</h1>
 
-<div class="container">
+<!DOCTYPE html>
+<html lang="ar">
 
-        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
-            <hr />
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label asp-for="Input.FirstName"></label>
-                        <input asp-for="Input.FirstName" class="form-control" />
-                        <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="~/css/Login/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/Login/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/css/Login/bulma.min.css" rel="stylesheet" />
+    <link href="~/css/Login/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/Login/fonttext.css" rel="stylesheet" />
+    <link href="~/css/Login/login.css" rel="stylesheet" />
+    <style>
+    </style>
+</head>
+
+<body dir="rtl">
+    <section class="main-section">
+        <div class="circle-main"></div>
+        <div class="circle-main-m"></div>
+        <div class="circle-main-s"></div>
+
+        <div class="container white-bg">
+            <div class="columns background component-row">
+
+                <div class="column">
+                    <div class="padable">
+                        <h1>
+                            تسجيل جديد
+                            <span class="line"></span>
+                            <span>
+                                <!--الايقونات -->
+                            </span>
+
+                        </h1>
+
+                        <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+
+                            <div class="row">
+                                <div class="col">
+                                    <div class="field">
+                                        <div class="control has-icons-left has-icons-right">
+                                            <input asp-for="Input.FirstName" class="input rounded-pill is-medium fs-5" type="text" placeholder="الاسم الاول" value="" required>
+                                            <span class="icon is-small is-right">
+                                                <i class="fas fa-user"></i>
+                                            </span>
+                                        </div>
+                                        <p class="text-danger"></p>
+                                    </div>
+                                </div>
+
+                                <div class="col">
+                                    <div class="field">
+                                        <div class="control has-icons-left has-icons-right">
+                                            <input asp-for="Input.LastName" class="input rounded-pill is-medium fs-5" type="text" placeholder="اسم الثاني" value="" required>
+                                            <span class="icon is-small is-right">
+                                                <i class="fas fa-user"></i>
+                                            </span>
+                                        </div>
+                                        <p class="text-danger"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="control has-icons-left has-icons-right">
+
+                                    <input asp-for="Input.Email" class="input rounded-pill is-medium fs-5" type="email" placeholder="البريد الالكتروني" value="" required>
+                                    <span class="icon is-small is-right">
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                </div>
+                                <p class="text-danger"></p>
+                            </div>
+
+                            <div class="field">
+                                <div class="control has-icons-left has-icons-right">
+                                    <input asp-for="Input.Password" class="input rounded-pill is-medium fs-5" type="password" id="password" placeholder="كلمة المرور">
+                                    <span class="icon is-small is-right">
+                                        <i class="fa fa-lock"></i>
+                                    </span>
+                                    <span class="is-small position-absolute justify-content-center " style="color: #dbdbdb; left: 20px; top:10px;">
+
+
+                                    </span>
+                                </div>
+                                <p class="text-danger"></p>
+                            </div>
+
+                            <div class="field">
+                                <div class="control has-icons-left has-icons-right">
+                                    <input asp-for="Input.ConfirmPassword" class="input rounded-pill is-medium fs-5" placeholder="تاكيد كلمة المرور" value="" required>
+                                    <span class="icon is-small is-right">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </div>
+                                <p class="text-danger"></p>
+                            </div>
+
+
+                            <div class="field">
+                                <div class="form-check text-end fs-5 ">
+                                    <div class="form-check d-inline-block">
+                                        <label asp-for="Input.IsQwner">هل انت صاحب عقار؟</label>
+                                        <input asp-for="Input.IsQwner" id="InputCheck" />
+                                        </div>
+                                        
+
+
+                                    </div>
+                                    <p class="text-danger"></p>
+                                </div>
+                            <br />
+
+
+                            <div class="pb-3">
+                                <button type="submit" id="btnSubmit" class="col-12 btn bgcolors text-white rounded-pill">تسجيل دخول</button>
+                            </div>
+                            <div>
+                                <a class="colors" asp-route-returnUrl="@Model.ReturnUrl" asp-page="./Login">هل لديك حساب؟</a>
+                            </div>
+
+
+
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="Input.LastName"></label>
-                        <input asp-for="Input.LastName" class="form-control" />
-                        <span asp-validation-for="Input.LastName" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Input.Email"></label>
-                        <input asp-for="Input.Email" class="form-control" />
-                        <span asp-validation-for="Input.Email" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Input.Password"></label>
-                        <input asp-for="Input.Password" class="form-control" />
-                        <span asp-validation-for="Input.Password" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Input.ConfirmPassword"></label>
-                        <input asp-for="Input.ConfirmPassword" class="form-control" />
-                        <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                    </div>
-                    <select asp-for="Input.Role">
-                        <option value="User">Customer</option>
-                        <option value="Owner">Real Estate Owner</option>
-                    </select>
-                    <button type="submit" class="btn btn-primary">Register</button>
                 </div>
-                <div class="col-md-6">
-                    
-                    <img id="image" src="/images/unknown-person-icon-Image-from.png"  class="img-fluid"/>
-                    <div class="custom-control">
-                        <label class="custom-file-label" asp-for="Input.Image"></label>
-                        <input asp-for="Input.Image" class=" custom-file-input" onchange="img_pathUrl(this)" />
-                        <span asp-validation-for="Input.Image" class="text-danger"></span>
+
+                <div class="column d-md-none d-lg-block">
+                    <div class="illustrator ">
+                        <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_4u33kbls.json" background="transparent" speed="2" style="width: 600px; height: 700px;left:0px; position: absolute;z-index: 100;" autoplay></lottie-player>
+                        <div class="circle"></div>
                     </div>
                 </div>
+
             </div>
+        </div>
 
 
-        </form>
+    </section>
 
-   
-</div>
+    
+
+    <script src="~/js/Login/all.js"></script>
+    <script src="~/js/Login/bootstrap.bundle.min.js"></script>
+    <script src="~/js/Login/lottie-player.js"></script>
+
+</body>
+
+</html>
+
+
+
+
+
+
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-<script>
-    function img_pathUrl(input) {
-        $('#image')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
-    }
-</script>
+   
+    <script>
+        function img_pathUrl(input) {
+            $('#image')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
+        }
+    </script>
 }
