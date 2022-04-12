@@ -27,6 +27,17 @@ namespace GP.Areas.Admin.Controllers
             {
                 return View();
             }
+            var con = new Contact
+            {
+                Description = contact.Description,
+                Email = contact.Email,
+                Id = contact.Id,
+                IsReply = true,
+                Name = contact.Name,
+                Object = contact.Object,
+                Phone = contact.Phone
+            };
+            _contact.UpdateContact(con);
             MailAddress to = new MailAddress(contact.Email.Trim());
             MailAddress from = new MailAddress("aqaramlack123@gmail.com");
             MailMessage message = new MailMessage(from, to);
@@ -41,7 +52,7 @@ namespace GP.Areas.Admin.Controllers
             };
 
             client.Send(message);
-            _contact.DeleteContact(contact.Id);
+            
             return Ok("");
         }
     }

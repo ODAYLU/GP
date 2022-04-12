@@ -12,6 +12,7 @@ namespace GP.Models
 {
     public class Contact
     {
+        [Key]
         public long Id { get; set; }
         [Required]
         public string Name { get; set; }
@@ -19,12 +20,13 @@ namespace GP.Models
         [EmailAddress]
         public string Email { get; set; }
         [Required]
-        [DataType(DataType.PhoneNumber)]
         public string Phone  { get; set; }
         [Required]
         public string Object  { get; set; }
         [Required]
         public string Description  { get; set; }
+
+        public bool IsReply { get; set; }
     }
 
     public interface IContact
@@ -51,8 +53,8 @@ namespace GP.Models
             {
                 try
                 {
-                    _context.Remove(com);
-                    await _context.SaveChangesAsync();
+                    _context.TContacts.Remove(com);
+                     _context.SaveChanges();
 
                     return DbCRUD.success;
                 }
@@ -80,23 +82,32 @@ namespace GP.Models
 
         public async Task<DbCRUD> InsertContact(Contact comment)
         {
-                Contact com = await GetOne(comment.Id);
-                if (com != null)
-                    return DbCRUD.isExisted;
-
-            var data = new Contact()
+              
+            //Contact data = new Contact()
+            //{
+            //    Name = comment.Name.Trim(),
+            //    Description = comment.Description.Trim(),
+            //    Email = comment.Email.Trim(),
+            //    Object = comment.Object.Trim(),
+            //    Phone = comment.Phone.Trim()
+               
+            //};
+            try
             {
-                Id = comment.Id,
-                Name = comment.Name.Trim(),
-                Description = comment.Description.Trim(),
-                Email = comment.Email.Trim(),
-                Object = comment.Object.Trim(),
-                Phone = comment.Phone.Trim()
-            };
-                await _context.TContacts.AddAsync(data);
-                 _context.SaveChanges();
+                var cate = await GetOne(comment.Id);
+                if (cate != null)
+                    return DbCRUD.isExisted;
+                _context.TContacts.Add(comment);
+                _context.SaveChanges();
                 return DbCRUD.success;
-          
+            }
+            catch (System.Exception ex)
+            {
+                if (ex is SqlException)
+                    return DbCRUD.dbError;
+                else
+                    return DbCRUD.fail;
+            }
         }
 
         public async Task<DbCRUD> UpdateContact(Contact comment)

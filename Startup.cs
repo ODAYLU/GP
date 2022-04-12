@@ -31,7 +31,7 @@ namespace GP
             services.AddRazorPages();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging());
+                    Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging(), ServiceLifetime.Transient);
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders().AddDefaultUI();
@@ -64,7 +64,7 @@ namespace GP
             services.AddScoped<ICommments, CommentsManagments>();
             services.AddScoped<IState,StateManage>();
             services.AddScoped<IType,TypeManage>();
-            services.AddScoped<IContact,ContactManagments>();
+            services.AddTransient<IContact,ContactManagments>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

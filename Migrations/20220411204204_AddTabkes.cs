@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GP.Migrations
 {
-    public partial class AddTables : Migration
+    public partial class AddTabkes : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -81,6 +81,23 @@ namespace GP.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TCity", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TContacts",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Object = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TContacts", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -520,6 +537,9 @@ namespace GP.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "TContacts");
 
             migrationBuilder.DropTable(
                 name: "TPhotoEstate");

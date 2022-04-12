@@ -29,6 +29,7 @@ namespace GP.Controllers
             {
                 return View();
             }
+            _contact.InsertContact(contact);
             MailAddress to = new MailAddress(contact.Email.Trim());
             MailAddress from = new MailAddress("aqaramlack123@gmail.com");
             MailMessage message = new MailMessage(from, to);
@@ -43,8 +44,8 @@ namespace GP.Controllers
             };
 
             client.Send(message);
+
             
-            _contact.InsertContact(contact);
             return RedirectToAction(nameof(Index));
         }
 

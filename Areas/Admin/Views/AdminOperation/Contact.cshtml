@@ -58,9 +58,7 @@
                         <div class="col-12" >
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">الرد</label>
-                                <textarea id="InputReply"  asp-for="@Model.Msg" placeholder="ادخل الرد" required>
-
-                                </textarea>
+                                <input id="InputReply" asp-for="@Model.Msg" required />
                             </div>
                         </div>
                     </div>
@@ -119,12 +117,19 @@
                     { "data": "object", "name": "Object", "autowidth": true },
                     { "data": "description", "name": "Description", "autowidth": true },
                     {
-                        "render": function (data, type, row, meta) {
-                            console.log(JSON.stringify(row));
-                            return '<button data-bs-toggle="modal" data-bs-target=\
+                        
+                        "render": function (data, type, row, meta)
+                        {
+                            if (row.isReply) {
+                                return '<button class="btn btn-sm btn-outline-primary" disabled> تم الرد </button >'
+                            } else {
+                                return '<button  data-bs-toggle="modal" data-bs-target=\
                             "#staticBackdrop" class="btn btn-sm btn-outline-primary ms-2" data - toggle="modal" onclick =\
-                            ReplyMessage('+JSON.stringify(row)+'); > رد </button > '
-                        },
+                            ReplyMessage('+ row.id + ',this); > رد </button >'
+                            }
+                          
+                         
+                         },
                             "orderable": false
                     },
 
@@ -133,15 +138,17 @@
         });
 
 
-        function ReplyMessage(data) {
-            alert("qqqqqq");
+        function ReplyMessage(Id) {
+            var table = $("#Cities").DataTable();
+            var data = table.data().filter(function (elm) { return elm.id == Id });
             $(".span").text("");
-            $("#id").val(data.id);
-            $("#fname").val(data.name);
-            $("#InputEmail").val(data.email);
-            $("#InputPh").val(data.phone);
-            $("#InputObj").val(data.object);
-            $("#InputDesc").val(data.description);
+            $("#id").val(data[0].id);
+            $("#fname").val(data[0].name);
+            $("#InputEmail").val(data[0].email);
+            $("#InputPh").val(data[0].phone);
+            $("#InputObj").val(data[0].object);
+            $("#InputDesc").val(data[0].description);
+           
         }
         function DeleteCustomer(Id)
         {
@@ -176,9 +183,10 @@
         }
       
         $("#btnReply").on("click", function () {
-          
+
+           
+
             var data = new FormData($("#formadd").get(0));
-        
                 $.ajax({
                     method: 'Post',
                     url: '/Admin/Contact/ReceiveEmail',
@@ -193,13 +201,13 @@
                             showConfirmButton: false,
                             timer: 1500
                         })
-                        $("#btnClose").click();
+                       
                         var Table = $("#Cities").DataTable();
                         Table.draw();
                     }
                 });
             
-
+            $("#btnClose").click();
 
 
         });
