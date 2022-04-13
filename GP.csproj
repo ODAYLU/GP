@@ -61,6 +61,10 @@
     <None Include="wwwroot\Contact\js\app.js" />
     <None Include="wwwroot\Contact\js\bootstrap.bundle.min.js" />
     <None Include="wwwroot\Contact\js\particles.min.js" />
+    <None Include="wwwroot\MainLayout\assets\css\bootstrap\bootstrap.min.css.map" />
+    <None Include="wwwroot\MainLayout\assets\css\fonts\bootstrap-icons.woff2" />
+    <None Include="wwwroot\MainLayout\assets\js\main.js" />
+    <None Include="wwwroot\MainLayout\assets\js\swiper-bundle.min.js" />
   </ItemGroup>
 
 </Project>
