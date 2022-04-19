@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 namespace GP.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles ="Admin,User")]
+    [Authorize(Roles = "Admin,User")]
     public class AdminOperationController : Controller
     {
         private readonly ILogger<AdminOperationController> _logger;
@@ -59,6 +59,10 @@ namespace GP.Controllers
             return View();
         }
         public IActionResult Type()
+        {
+            return View();
+        }
+        public IActionResult Currency ()
         {
             return View();
         }

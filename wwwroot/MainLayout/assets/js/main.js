@@ -54,48 +54,7 @@ var swiper = new Swiper(".mySwiper", {
   var rent = document.getElementsByClassName('rent');
   var salandrent = document.getElementsByClassName('salerent');
  
-    function a(){
-      
-    for(var i = 0 ; i < all.length; i++ ){
-        sal[i].classList.remove('dn');
-        rent[i].classList.remove('dn');
-        salandrent[i].classList.remove('dn');
-    
-    }
-
-    }
-    function b(){
-      
-      for(var i = 0 ; i < all.length; i++ ){
-        
-        rent[i].classList.add('dn');
-        salandrent[i].classList.add('dn');
-        sal[i].classList.remove('dn');
-
-      }
-
-      }
-      function c(){
-      
-      for(var i = 0 ; i < all.length; i++ ){
-        sal[i].classList.add('dn');
-        salandrent[i].classList.add('dn');
-        rent[i].classList.remove('dn');
-
-      }
-
-      }
   
-      function d(){
-      
-      for(var i = 0 ; i < all.length; i++ ){
-        rent[i].classList.add('dn');
-        sal[i].classList.add('dn');
-        salandrent[i].classList.remove('dn');
-
-      }
-
-      }
       window.addEventListener('load', (event) => {
         document.getElementsByClassName('swiper-pagination')[0].children[4].click();
        

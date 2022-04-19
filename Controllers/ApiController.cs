@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace GP.Controllers
 {
+    //DataTable
     [Route("api/[controller]/[action]")]
     [ApiController]
     public class ApiController : ControllerBase
@@ -225,6 +226,8 @@ namespace GP.Controllers
 
             return Ok(jsonData);
         }
+
+
 
         
 

@@ -14,11 +14,13 @@ namespace GP.Areas.Admin.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly ApplicationDbContext _context;
+        private readonly SignInManager<AppUser> signInManager;
 
-        public UserOperationController(UserManager<AppUser> userManager, ApplicationDbContext context)
+        public UserOperationController(UserManager<AppUser> userManager, ApplicationDbContext context,SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _context = context;
+            this.signInManager = signInManager;
         }
 
         public IActionResult Index()
@@ -52,6 +54,9 @@ namespace GP.Areas.Admin.Controllers
             }
             await _userManager.UpdateAsync(user);
             await  _userManager.SetLockoutEnabledAsync(user ,true);
+            
+            
+           await signInManager.SignOutAsync();
            await _context.SaveChangesAsync();
             return Ok(user);
         }

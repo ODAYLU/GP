@@ -42,7 +42,7 @@ namespace GP.Controllers
                 UseDefaultCredentials = false,
                 EnableSsl = true
             };
-
+            
             client.Send(message);
 
             
