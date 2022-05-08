@@ -61,6 +61,11 @@ namespace GP
         [HttpPost]
         public async Task<IActionResult> CreateTemp(Estate estate, IFormFile image_main, List<IFormFile> images)
         {
+            if(image_main == null)
+            {
+                ModelState.AddModelError("image_main", "أضف الصورة الاساسية على الاقل");
+                return View(estate);
+            }
             ModelState.Remove(nameof(estate.Id));
             ModelState.Remove(nameof(estate.Main_photo));
             if (!ModelState.IsValid) return View(estate);
@@ -170,7 +175,7 @@ namespace GP
                
                     await _service_Estate.DeleteService_Estate(old.Id);
 
-                if(estate != null)
+                if(estate.list != null)
                 {
                     if (estate.list.Count() > 0)
                     {
@@ -193,6 +198,7 @@ namespace GP
                 estate.Main_photo = old.Main_photo;
                 estate.is_active= old.is_active;
                 estate.is_spacial=old.is_spacial;
+                estate.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 await services.UpdateEstate(estate);
 
                 GP.Models.Toast.Message = "تم التعديل بنجاح";

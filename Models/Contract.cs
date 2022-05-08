@@ -1,9 +1,12 @@
 ﻿using GP.Data;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 using System.Threading.Tasks;
 using static GP.Models.Enum;
 
@@ -12,15 +15,12 @@ namespace GP.Models
     public class Contract
     {
         [Key]
-        public int Id { get; set; }
+        public long Id { get; set; }
 
-       
-        [Required(ErrorMessage = "الحقل مطلوب")]
-        [Display(Name ="اسم المالك")]
+        [Display(Name = "اسم المالك ")]
         public string SallerName { get; set; }
 
-        [Required(ErrorMessage = "الحقل مطلوب")]
-        [DisplayName("رقم هاتف المالك")]
+        [Display(Name = "رقم  الهاتف ")]
         public double? Sallerphone_num { get; set; }
         [Required(ErrorMessage = "الحقل مطلوب")]
         [DisplayName("  العقد ")]
@@ -34,21 +34,24 @@ namespace GP.Models
         [DisplayName("رقم هاتف المشتري ")]
         public double? Buyerphone_num { get; set; }
 
-
-        [Required(ErrorMessage = "الرجاء تحديد الموقع على الخريطة")]
-        [DisplayName("المحور الصادي ")]
+        [Display(Name = "الاحداثي السيني  ")]
         public string Longitude { get; set; }
-        [Required(ErrorMessage = "الرجاء تحديد الموقع على الخريطة")]
-        [DisplayName("المحور السيني ")]
+        [Display(Name = "الاحداثي الصادي   ")]
         public string Latitude { get; set; }
+        [Display(Name = "تاريخ كتابة العقد  ")]
         public DateTime OnDate { get; set; }
 
-
+        [Display(Name = " تاريخ نهاية العقد ")]
         public DateTime up_to_date { get; set; }
-
+        [Display(Name = "نوع العقار  ")]
+        public string Type { get; set; }
+        [Display(Name = "تصنيف العقار  ")]
+        public string category { get; set; }
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public AppUser Users { get; set; }
+
+
     }
 
 
@@ -71,17 +74,34 @@ namespace GP.Models
         }
         public IEnumerable<Contract> GetAll()
         {
-            throw new NotImplementedException();
+            IEnumerable<Contract> list = _context.TContract.AsEnumerable();
+            return list;
         }
 
-        public Task<Contract> GetOne(long id)
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<Contract> GetOne(long id) => await _context
+                   .TContract
+                   .AsNoTracking()
+                   .SingleOrDefaultAsync(c => c.Id == id);
 
-        public Task<DbCRUD> InsertContract(Contract contract)
+
+        public async Task<DbCRUD> InsertContract(Contract contract)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Contract EST = await GetOne(contract.Id);
+                if (EST != null)
+                    return DbCRUD.isExisted;
+                await _context.TContract.AddAsync(contract);
+                await _context.SaveChangesAsync();
+                return DbCRUD.success;
+            }
+            catch (System.Exception ex)
+            {
+                if (ex is SqlException)
+                    return DbCRUD.dbError;
+                else
+                    return DbCRUD.fail;
+            }
         }
 
         public Task<DbCRUD> UpdateContract(Contract contract)

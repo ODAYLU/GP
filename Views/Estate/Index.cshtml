@@ -123,7 +123,11 @@
                 <a asp-action="Details" asp-route-id="@item.Id" >Details</a> |
                 <a asp-action="ImageList" asp-route-id="@item.Id" >الصور</a> |
            
-                <a asp-action="Delete" asp-route-id="@item.Id" onclick=" return confirm(@item.Id)"  >Delete</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" onclick=" return confirm(@item.Id)"  >Delete</a>|
+
+                <a asp-controller="Contract"  asp-action="CreateContract" asp-route-id="@item.Id" >كتابة العقد</a> |
+
+
             </td>
         </tr>
 }

@@ -66,6 +66,7 @@ namespace GP
             services.AddScoped<ICommments, CommentsManagments>();
             services.AddScoped<IState,StateManage>();
             services.AddScoped<IType,TypeManage>();
+            services.AddScoped<IContract, ContractManage>();
             services.AddScoped<InformationGen>();
             services.AddTransient<IContact,ContactManagments>();
         }
