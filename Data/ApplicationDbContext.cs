@@ -13,8 +13,6 @@ namespace GP.Data
             : base(options)
         {
         }
-
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -44,6 +42,8 @@ namespace GP.Data
         public DbSet<Contact> TContacts { get;set; }
         public DbSet<InformationGen> TInformatiomGensT { get;set; }
         public DbSet<Message> Messages { get;set; }
+
+        public DbSet<Contract> TContract { get;set; }
 
 
     }

@@ -3,23 +3,23 @@ using GP.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace GP
 {
-<<<<<<< HEAD
     
-=======
-    [AllowAnonymous]
->>>>>>> 0a3f23db9868cfd8ada0f651eeb343889bb1ef6e
+    [Authorize(Roles ="Owner")]
     public class EstateController : Controller
     {
+        private readonly UserManager<AppUser> _userManager;
         private readonly IEstate services;
         private readonly IService servicesList; 
         private readonly IPhotoEstate _photoservices;
@@ -27,8 +27,9 @@ namespace GP
         private readonly IWebHostEnvironment webHostEnvironment;
 
 
-        public EstateController(GP.Models.IEstate Services, IWebHostEnvironment webHostEnvironment, IPhotoEstate photoservices, IService_Estate service_Estate, IService servicesList)
+        public EstateController(UserManager<AppUser> userManager , GP.Models.IEstate Services, IWebHostEnvironment webHostEnvironment, IPhotoEstate photoservices, IService_Estate service_Estate, IService servicesList)
         {
+            this._userManager = userManager;
             services = Services;
             this.webHostEnvironment = webHostEnvironment;
             _photoservices = photoservices;
@@ -39,7 +40,8 @@ namespace GP
         [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<Estate> list = services.GetAll();
+            string UserId1 = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            List<Estate> list = services.GetAll().Where(x=>x.UserId== UserId1 && x.is_active==true).ToList();
             return View(list);
         }
 
@@ -70,7 +72,9 @@ namespace GP
             {
                 await image_main.CopyToAsync(fileStream);
             }
-            estate.Main_photo = "/images/Estate/" + fileName + extension;
+            estate.Main_photo =  fileName + extension;
+            var user = _userManager.GetUserAsync(User);
+            estate.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             await services.InsertEstate(estate);
 
 
@@ -166,20 +170,24 @@ namespace GP
                
                     await _service_Estate.DeleteService_Estate(old.Id);
 
-
-                if (estate.list.Count() > 0)
+                if(estate != null)
                 {
-                    for (int i = 0; i < estate.list.Count(); i++)
+                    if (estate.list.Count() > 0)
                     {
-                        Service_Estate service = new Service_Estate();
-                        service.EstateID = old.Id;
-                        service.ServiceID = int.Parse(estate.list[i].Trim());
+                        for (int i = 0; i < estate.list.Count(); i++)
+                        {
+                            Service_Estate service = new Service_Estate();
+                            service.EstateID = old.Id;
+                            service.ServiceID = int.Parse(estate.list[i].Trim());
 
-                        await _service_Estate.InsertService_Estate(service);
+                            await _service_Estate.InsertService_Estate(service);
 
 
+                        }
                     }
+
                 }
+             
 
 
                 estate.Main_photo = old.Main_photo;

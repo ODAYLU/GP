@@ -7,133 +7,329 @@
 @inject GP.Models.IService serv  
 
 @{
-    ViewData["Title"] = "Index";
-
+ViewData["Title"] = "تعديل العقار";
+    
 }
-<h1>Index</h1>
-
-<h4>Estate</h4>
-<hr />
-<div class="row" dir="rtl">
-    <div class="col-md-6 ">
-        <form asp-action="Edit"  >
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label class="control-label"> خدمات اضافية  </label>
-
-                 @Html.ListBoxFor(model=> Model.list,new MultiSelectList(serv.GetAllSelected(),nameof(Services.Id),nameof(Services.Name)),new {id="mm",multiple="multiple"})
 
 
+<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+<link href="~/css/style.css" rel="stylesheet" />
+<link rel="stylesheet" href="~/css/c.css">
 
-            </div>
-            <div class="form-group">
-                <label asp-for="name" class="control-label"> وصف بسيط للعقار </label>
-                <input asp-for="name" class="form-control" placeholder=""/>
-                <span asp-validation-for="name" class="text-danger"></span>
-            </div>
 
+<section class="pt-5">
+    <div class="container-fluid">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12">
+                <div class="wizard">
+                    <div class="wizard-inner">
+                        <div class="connecting-line"></div>
+                       @* <ul class="nav nav-tabs justify-content-between" role="tablist">
+                            <li role="presentation" class="active">
+                                <a href="#step1" data-toggle="tab" aria-controls="step1" role="tab" aria-expanded="true"><span class="round-tab">1 </span> <i>عن العقار</i></a>
+                            </li>
+                            <li role="presentation" class="disabled">
+                                <a href="#step2" data-toggle="tab" aria-controls="step2" role="tab" aria-expanded="false"><span class="round-tab">2</span> <i>مكان العقار</i></a>
+                            </li>
+
+                            <li role="presentation" class="disabled">
+                                <a href="#step4" data-toggle="tab" aria-controls="step4" role="tab"><span class="round-tab">3</span> <i>معلومات اضافية</i></a>
+                            </li>
+                        </ul>*@
+                    </div>
+                
+                    <form role="form" asp-action="Edit"  class="login-box text-end">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="tab-content" id="main_form">
+                            <div class="tab-pane active" role="tabpanel" id="step1">
+                                <h4 class="text-center">عن العقار</h4>
+                                <div class="row  justify-content-center">
+                                    <div class="col-10 ">
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label asp-for="name" class="control-label"> وصف بسيط للعقار </label>
+                                                <input asp-for="name" class="form-control rounded-3" placeholder="مثال: شقة للبيع في منطقة كذا بسعر مميز"/>
+                                                <span asp-validation-for="name" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="form-group">
+                                                <label asp-for="description" class="control-label"> وصف العقار </label>
+                                                <textarea asp-for="description" class="form-control rounded-3" rows="8" placeholder="مثال: شقة بإطلالة مميزة على البحر المتوسط، تبعد عن شاطئ البحر 500 متر، في منطقة سكنية هادئة لمن ينظر لنوم هادئ وبيئة مناسبة للسكن، يتوفر في المنطقة جميع الإحتياجات تشمل سوبرماركت كبير، مسجد قريب، نادي رياضي ومواصلات عامة."></textarea>
+                                                <span asp-validation-for="description" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="d-lg-flex">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label asp-for="space" class="control-label"> مساحة العقار  <span class="text-secondary px-2 fw-light">(2م)</span></label>
+                                                    <input asp-for="space" type="number" class="form-control rounded-3" placeholder="مثال: 500" />
+                                                    <span asp-validation-for="space" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                                        
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label asp-for="price" class="control-label"> سعر العقار </label>
+                                                    <input asp-for="price" type="number" س class="form-control rounded-pill" placeholder="مثال: 500$" />
+                                                    <span asp-validation-for="price" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label asp-for="categoryID" class="control-label"> نوع العقار  </label>
+                                                    <select asp-for="categoryID" class ="form-control rounded-3" asp-items="new SelectList(cate.GetAllSelected(),nameof(Category.Id),nameof(Category.category))">
+                                                                <option  selected disabled > نوع العقار --</option>
+                                                    </select>
+                                                    <span asp-validation-for="categoryID" class="text-danger"></span>
+                                                </div>
+                                                          
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label asp-for="TypeID" class="control-label"> تصنيف العقار</label>
+                                                    <select asp-for="TypeID" class ="form-control rounded-3"  asp-items="new SelectList(tYP.GetAllSelected(),nameof( GP.Models.Type.Id),nameof( GP.Models.Type.type))">
+                                                
+                                                        <option  selected disabled>Please select one</option>
+                                                    </select>
+                                                    <span asp-validation-for="TypeID" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>                                                    
+                                    </div>
+                                               
+
+
+                                              
+                                                
+                                                
+                                </div>
+                             @*   <ul class="list-inline d-flex justify-content-center">
+                                    <li><button type="button" class="btn btn-success rounded-pill next-step">التالي</button></li>
+                                </ul>*@
+                            </div>
+
+
+
+                            <div class="tab-pane active" role="tabpanel" id="step2">
+                                <h4 class="text-center">مكان العقار</h4>
+                                <div class="row  justify-content-center">
+                                    <div class="col-10 ">
+                                        <div class="d-flex">
+                                                        
+                                            <div class="col"> 
+                                                <div class="form-group">
+                                                    <label asp-for="StateID" class="control-label">الدولة</label>
+                                                    <select asp-for="StateID" class ="form-control rounded-3"  asp-items="new SelectList(STA.GetAllSelected(),nameof(State.Id),nameof(State.name))">
+                                                        <option  selected disabled>اختر الدولة</option>
+                                                    </select>
+                                                    <span asp-validation-for="StateID" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col"> 
+                                                <div class="form-group">
+                                                    <label asp-for="CityID" class="control-label">المدينة</label>
+                                                    <select asp-for="CityID" class ="form-control rounded-3"  asp-items="new SelectList(cIT.GetAllSelected(),nameof(City.Id),nameof(City.name))">
+                                                
+                                                        <option  selected disabled>اختر المدينة</option>
+                                                    </select>
+                                                    <span asp-validation-for="CityID" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label asp-for="CurrencyID" class="control-label">العملة</label>
+                                                    <select asp-for="CurrencyID" class ="form-control rounded-3"  asp-items="new SelectList(cURR.GetAllSelected(),nameof(Currency.Id),nameof(Currency.currency))">
+                                                        <option  selected disabled>اختر العملة</option>
+                                                    </select>
+                                                    <span asp-validation-for="CurrencyID" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                     @*   <div class="d-flex">
+
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label asp-for="Longitude" class="control-label"> نقطة x </label>
+                                                    <input type="text" asp-for="Longitude" class ="form-control rounded-3" placeholder="x" />
+                                                        <span asp-validation-for="Longitude" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label asp-for="Latitude" class="control-label"> نقطة y </label>
+                                                    <input type="text" asp-for="Latitude" class ="form-control rounded-3"  placeholder="y" />
+                                                        <span asp-validation-for="Latitude" class="text-danger"></span>
+                                                
+                                                </div>
+                                            </div>
+                                                    
+                                                        
+                                        </div>*@
+                                                   
+                                        <div class="col">
+                                            <div id="googleMap" style="width: 100%; height: 450px;"></div>
+                                        </div>
+                                                    
+                                    </div>
+  
+                                </div>
+                              @*  <ul class="list-inline d-flex justify-content-center">
+                                    <li class=" px-2 "><button type="button" class="btn btn-success rounded-pill next-step">التالي</button></li>
+
+                                    <li class=" px-2 "><button type="button" class="btn btn-secondary rounded-pill prev-step">رجوع</button></li>
+
+                                </ul>*@
+                                         
+                            </div>
+
+
+
+       
+                            <div class="tab-pane active" role="tabpanel" id="step4">
+                                <h4 class="text-center"></h4>
+                                <div class="row  justify-content-center">
+                                    <div class="col-10 ">
+                                        <div class="d-flex">
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label asp-for="name_owner" class="control-label"> اسم المالك</label>
+                                                    <input asp-for="name_owner" class="form-control rounded-3" placeholder="محمد " />
+                                                    <span asp-validation-for="name_owner" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-group">
+                                                    <label asp-for="phone_num" class="control-label">  رقم هاتف المالك  </label>
+                                                    <input asp-for="phone_num" class="form-control rounded-3" placeholder="05999999"/>
+                                                    <span asp-validation-for="phone_num" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col">
+                                            <div class="form-group" >
+                                                <label class="control-label"> خدمات اضافية  </label>
+                                                    
+                                                @Html.ListBoxFor(model=> Model.list,new MultiSelectList(serv.GetAllSelected(),nameof(Services.Id),nameof(Services.Name)),new {id="mm",multiple="multiple"})
+                                            </div>
+                                        </div>
+
+
+                                      @*      <div class="col">
+                                                <div class="form-group d-flex align-items-center" style="text-align:initial">
+                                                    <label asp-for="Main_photo" class="control-label w-25">الصورة الاساسية</label>
+                                                    <input asp-for="Main_photo" type="file" accept="image/*" id='fileName' name="image_main" class="form-control rounded-3"   onchange="document.getElementById('myImg').src = window.URL.createObjectURL(this.files[0])"  />
+                                                    <span asp-validation-for="Main_photo" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col text-center">
+                                                    <img class="img-fluid w-25"  id='myImg'>
+                                            </div>
+                                                       
+                                            <div class="col">
+                                                <div class="form-group d-flex align-items-center" style="text-align:initial">
+                                                    <label class="control-label w-25"> ( الاخرى(اختياري</label>
+
+                                                    <input id="uploadInput"  type="file" placeholder="يبلرتالاىت" accept="image/*"  name="images" class="form-control rounded-3"  multiple>
+                                                                
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-around" id="imgbox">
+                                                               
+                                            </div>
+
+                                            <script>
+
+                                                var selectedFile = document.getElementById('uploadInput').files[0];
+                                                var list = document.getElementById("imgbox");
+                                                  
+                                                function updateSize() {
+                                                    let nBytes = 0,
+                                                        oFiles = this.files,
+                                                        nFiles = oFiles.length;
+                                                  
+                                                    list.innerHTML = "";
+                                                  
+                                                    for (let nFileId = 0; nFileId < nFiles; nFileId++) {
+                                                        nBytes += oFiles[nFileId].size;
+                                                  
+                                                  
+                                                        const li = document.createElement("div");
+                                                        list.appendChild(li);
+                                                  
+                                                        const img = document.createElement("img");
+                                                        img.src = URL.createObjectURL(this.files[nFileId]);
+                                                        img.height = 60;
+                                                                  
+                                                        li.appendChild(img);
+                                                          
+                                                    }
+                                                    let sOutput = nBytes + " bytes";
+                                                }
+                                                document.getElementById("uploadInput").addEventListener("change", updateSize, false);
+                                                            
+                                                    document.getElementById("fileSelect").addEventListener("click", function (e) {
+                                                        e.preventDefault();
+                                                        if (document.getElementById("uploadInput")) {document.getElementById("uploadInput").click();}
+                                                    }, false);
+                                                  
+                                            </script>
+                                                       *@
+                                               
+                                                   <div class="col">
+                                                       
               <div class="form-group">
                 <label asp-for="OnDate" class="control-label"> تاريخ الاضافة </label>
                 <input asp-for="OnDate" class="form-control" placeholder="" readonly/>
                 <span asp-validation-for="OnDate" class="text-danger"></span>
             </div>
-            
-            <div class="form-group">
-                <label asp-for="description" class="control-label"> وصف العقار </label>
-                <input asp-for="description" class="form-control" placeholder=""/>
-                <span asp-validation-for="description" class="text-danger"></span>
-            </div>
-           
-            <div class="form-group">
-                <label asp-for="space" class="control-label"> مساحة العقار </label>
-                <input asp-for="space" class="form-control" placeholder="" />
-                <span asp-validation-for="space" class="text-danger"></span>
-            </div>
+                                                   </div>
+                                                    
+                                                        
+                                    </div>
+  
+                                </div>
+                                <ul class="list-inline d-flex justify-content-center align-items-end">
+                                    <li class=" px-2 "><input type="submit" value="تحديث العقار" class="btn btn-success rounded-pill "/></li>
 
-                
-            <div class="form-group">
-                <label asp-for="price" class="control-label"> سعر العقار </label>
-                <input asp-for="price" class="form-control" placeholder="" />
-                <span asp-validation-for="price" class="text-danger"></span>
-            </div>
-          <div class="form-group">
-                <label asp-for="name_owner" class="control-label"> اسم المالك</label>
-                <input asp-for="name_owner" class="form-control" />
-                <span asp-validation-for="name_owner" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="phone_num" class="control-label">  رقم هاتف المالك  </label>
-                <input asp-for="phone_num" class="form-control" />
-                <span asp-validation-for="phone_num" class="text-danger"></span>
+                                    <li class=" px-2 "><button type="button" class="btn btn-secondary rounded-pill prev-step">رجوع</button></li>
 
-            </div>
-            <div class="form-group">
-                <label asp-for="categoryID" class="control-label"> نوع العقار  </label>
-                <select asp-for="categoryID" class ="form-control" asp-items="new SelectList(cate.GetAllSelected(),nameof(Category.Id),nameof(Category.category))">
-                         <option  selected disabled > نوع العقار --</option>
-                </select>
-    
-            </div>
+                                </ul>
+                                         
+                            </div>
 
-            
-            <div class="form-group">
-                <label asp-for="TypeID" class="control-label"> تصنيف العقار</label>
-                <select asp-for="TypeID" class ="form-control"  asp-items="new SelectList(tYP.GetAllSelected(),nameof( GP.Models.Type.Id),nameof( GP.Models.Type.type))">
 
-                    <option  selected disabled>Please select one</option>
-                </select>
+                            <div class="clearfix"></div>
+                        </div>
+                                    
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="StateID" class="control-label"></label>
-                <select asp-for="StateID" class ="form-control"  asp-items="new SelectList(STA.GetAllSelected(),nameof(State.Id),nameof(State.name))">
-
-                    <option  selected disabled>Please select one</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="CityID" class="control-label"></label>
-                <select asp-for="CityID" class ="form-control"  asp-items="new SelectList(cIT.GetAllSelected(),nameof(City.Id),nameof(City.name))">
-
-                    <option  selected disabled>Please select one</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label asp-for="CurrencyID" class="control-label"></label>
-                <select asp-for="CurrencyID" class ="form-control"  asp-items="new SelectList(cURR.GetAllSelected(),nameof(Currency.Id),nameof(Currency.currency))">
-                    <option  selected disabled>Please select one</option>
-                </select>
-            </div>
-
-           <div class="form-group">
-                <label asp-for="Longitude" class="control-label"> longitude </label>
-                <input type="text" asp-for="Longitude" class ="form-control" placeholder="Longitude" />
-                 <span asp-validation-for="Longitude" class="text-danger"></span>
-            </div>
-
-             <div class="form-group">
-                <label asp-for="Latitude" class="control-label"> Latitude </label>
-                <input type="text" asp-for="Latitude" class ="form-control"  placeholder="Latitude" />
-                 <span asp-validation-for="Latitude" class="text-danger"></span>
-
-            </div>
-            <div id="googleMap" style="width: 100%; height: 450px; margin:12px 0;"></div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
-</div>
+</section>
+
 
 <div>
-    <a asp-action="Index">Back to List</a>
+<a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {
+   
+<script src='https://maps.googleapis.com/maps/api/js?akey=PUT_YOUR_KEY_HERE_AND_FIX_akey_TO_key&language=ar&region=SA'></script>
 
-<script src='https://maps.googleapis.com/maps/api/js?akey=PUT_YOUR_KEY_HERE_AND_FIX_akey_TO_key&language=ar&region=SA'></script><script  src="./script.js"></script>
+
 <script>
+          
+   
 
-    var gmapdata;
+var gmapdata;
 var gmapmarker;
 var infoWindow;
 // This is a test Key will not work on your machine. YOU SHOULD CHANGE THIS API KEY.
@@ -144,127 +340,188 @@ const gmap_key = '';
 var cityData = { CityId:0 };
 
 function GoogleMapInit(long,lat,zoom) {
-  var curpoint = new google.maps.LatLng(long, lat);
+var curpoint = new google.maps.LatLng(long, lat);
 
-  var myStyle = 
-  [
-    {
-      featureType: "administrative.country",
-      elementType: "labels",
-      stylers: [
-        { visibility: "off" }
-      ]
-    },{
-      featureType: "water",
-      elementType: "labels",
-      stylers: [
-        { visibility: "off" }
-      ]
-    }/*,{
-      featureType: "road",
-      elementType: "labels",
-      stylers: [
-        { visibility: "off" }
-      ]
-    }*/
-  ];
+var myStyle = 
+[
+{
+featureType: "administrative.country",
+elementType: "labels",
+stylers: [
+{ visibility: "off" }
+]
+},{
+featureType: "water",
+elementType: "labels",
+stylers: [
+{ visibility: "off" }
+]
+}/*,{
+featureType: "road",
+elementType: "labels",
+stylers: [
+{ visibility: "off" }
+]
+}*/
+];
 
-  var gmapdata = new google.maps.Map(document.getElementById('googleMap'), {
-    mapTypeControlOptions: {
-      mapTypeIds: ['TESTMAPID', google.maps.MapTypeId.SATELLITE]
-    },
-    center: curpoint,
-    zoom: 16,
-    mapTypeId: 'TESTMAPID',
-    zoomControl: true,
-    // mapTypeControl: false,
-    scaleControl: false,
-    streetViewControl: false,
-    rotateControl: false,
-    fullscreenControl: true
-  });
+var gmapdata = new google.maps.Map(document.getElementById('googleMap'), {
+mapTypeControlOptions: {
+mapTypeIds: ['TESTMAPID', google.maps.MapTypeId.SATELLITE]
+},
+center: curpoint,
+zoom: 16,
+mapTypeId: 'TESTMAPID',
+zoomControl: true,
+// mapTypeControl: false,
+scaleControl: false,
+streetViewControl: false,
+rotateControl: false,
+fullscreenControl: true
+});
 
-  gmapdata.mapTypes.set('TESTMAPID', new google.maps.StyledMapType(myStyle, { name: 'My TEST MAP' }));
+gmapdata.mapTypes.set('TESTMAPID', new google.maps.StyledMapType(myStyle, { name: 'My TEST MAP' }));
 
-  gmapmarker = new google.maps.Marker({
-      map: gmapdata,
-      position: curpoint
-  });
+gmapmarker = new google.maps.Marker({
+map: gmapdata,
+position: curpoint
+});
 
-  google.maps.event.addListener(gmapdata, 'click', function (event) {
-    gmapmarker.setPosition(event.latLng);
-    jQuery('#Longitude').val(event.latLng.lng().toFixed(6));
-    jQuery('#Latitude').val(event.latLng.lat().toFixed(6));
-    jQuery.ajax({
-      url: "https://maps.googleapis.com/maps/api/geocode/json?language=ar&region=SA&latlng=" + event.latLng.lat().toFixed(6) + ',' + event.latLng.lng().toFixed(6) + gmap_key,
-      // contentType: json,
-      processData: false,
-      success: function (result) {
-          console.log(result);
-          jQuery('#edit-postal-code').val(GetLocationItem(result.results[0].address_components, "postal_code"));
-          jQuery('#edit-postal-code-suffix').val(GetLocationItem(result.results[0].address_components, "postal_code_suffix"));
-          jQuery('#edit-select-city').val(GetLocationItem(result.results[0].address_components, "locality"));
-          jQuery('#edit-district-name').val(GetLocationItem(result.results[0].address_components, "sublocality_level_1"));
-          jQuery('#edit-street-name').val(GetLocationItem(result.results[0].address_components, "route"));
-          if (!GetLocationItem(result.results[0].address_components, "street_number")) {
-            jQuery('#edit-building-number').val(GetLocationItem(result.results[0].address_components, "premise"));
-          } else {
-            jQuery('#edit-building-number').val(GetLocationItem(result.results[0].address_components, "street_number"));
-          }
+google.maps.event.addListener(gmapdata, 'click', function (event) {
+gmapmarker.setPosition(event.latLng);
+jQuery('#Longitude').val(event.latLng.lng().toFixed(6));
+jQuery('#Latitude').val(event.latLng.lat().toFixed(6));
+jQuery.ajax({
+url: "https://maps.googleapis.com/maps/api/geocode/json?language=ar&region=SA&latlng=" + event.latLng.lat().toFixed(6) + ',' + event.latLng.lng().toFixed(6) + gmap_key,
+// contentType: json,
+processData: false,
+success: function (result) {
+console.log(result);
+jQuery('#edit-postal-code').val(GetLocationItem(result.results[0].address_components, "postal_code"));
+jQuery('#edit-postal-code-suffix').val(GetLocationItem(result.results[0].address_components, "postal_code_suffix"));
+jQuery('#edit-select-city').val(GetLocationItem(result.results[0].address_components, "locality"));
+jQuery('#edit-district-name').val(GetLocationItem(result.results[0].address_components, "sublocality_level_1"));
+jQuery('#edit-street-name').val(GetLocationItem(result.results[0].address_components, "route"));
+if (!GetLocationItem(result.results[0].address_components, "street_number")) {
+jQuery('#edit-building-number').val(GetLocationItem(result.results[0].address_components, "premise"));
+} else {
+jQuery('#edit-building-number').val(GetLocationItem(result.results[0].address_components, "street_number"));
+}
           
-          cityData.CityName = GetLocationItem(result.results[0].address_components, "locality");
-          // console.log(cityData.CityName);
-          try {
-            var cityObject = GetLocationObject(result.results, "locality");
-            cityData.Longitude = cityObject.geometry.location.lng;
-            cityData.Latitude = cityObject.geometry.location.lat;
-            // console.log(cityData);
-          } catch(err){}
-          jQuery('#full-address').val(result.results[0].formatted_address);
-      }, error: function (result) {
-          alert(result);
-      }
-    })
-    UpdateInfoWindow()
-  });
+cityData.CityName = GetLocationItem(result.results[0].address_components, "locality");
+// console.log(cityData.CityName);
+try {
+var cityObject = GetLocationObject(result.results, "locality");
+cityData.Longitude = cityObject.geometry.location.lng;
+cityData.Latitude = cityObject.geometry.location.lat;
+// console.log(cityData);
+} catch(err){}
+jQuery('#full-address').val(result.results[0].formatted_address);
+}, error: function (result) {
+alert(result);
+}
+})
+UpdateInfoWindow()
+});
 
-  google.maps.event.addListener(gmapmarker, 'click', function () {
-      UpdateInfoWindow()
-      infoWindow.open(gmapdata, gmapmarker);
-  });
-  return false;
+google.maps.event.addListener(gmapmarker, 'click', function () {
+UpdateInfoWindow()
+infoWindow.open(gmapdata, gmapmarker);
+});
+return false;
 }
 
 function GetLocationItem (object, key) {
-  for (var i = 0; i < object.length; i++) {
-    var typesList = object[i].types;
-    for (var j = 0; j < typesList.length; j++) {
-      if (typesList[j] == key) {
-        return object[i].long_name;
-      }
-    }
-  }
+for (var i = 0; i < object.length; i++) {
+var typesList = object[i].types;
+for (var j = 0; j < typesList.length; j++) {
+if (typesList[j] == key) {
+return object[i].long_name;
+}
+}
+}
 }
 
 function GetLocationObject(object, key) {
-  for (var i = 0; i < object.length; i++) {
-    var typesList = object[i].types;
-    for (var j = 0; j < typesList.length; j++) {
-      if (typesList[j] == key) {
-        return object[i];
-      }
-    }
-  }
+for (var i = 0; i < object.length; i++) {
+var typesList = object[i].types;
+for (var j = 0; j < typesList.length; j++) {
+if (typesList[j] == key) {
+return object[i];
+}
+}
+}
 }
 
 function UpdateInfoWindow() {
-  infoWindow.setContent("Longitude: " + gmapmarker.getPosition().lng().toFixed(6) + "<br>" + "Latitude: " + gmapmarker.getPosition().lat().toFixed(6));
+infoWindow.setContent("Longitude: " + gmapmarker.getPosition().lng().toFixed(6) + "<br>" + "Latitude: " + gmapmarker.getPosition().lat().toFixed(6));
 }
 
 jQuery(document).ready(function () {
-  // Set default value.
-  GoogleMapInit(24.820457,46.643868,16);
+// Set default value.
+GoogleMapInit(24.820457,46.643868,16);
 });
 
+
+
+
+
+
+
 </script>
+
+<script>
+// ------------step-wizard-------------
+$(document).ready(function () {
+$('.nav-tabs > li a[title]').tooltip();
+
+//Wizard
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+var target = $(e.target);
+
+if (target.parent().hasClass('disabled')) {
+return false;
+}
+});
+
+$(".next-step").click(function (e) {
+
+var active = $('.wizard .nav-tabs li.active');
+active.next().removeClass('disabled');
+nextTab(active);
+
+});
+$(".prev-step").click(function (e) {
+
+var active = $('.wizard .nav-tabs li.active');
+prevTab(active);
+
+});
+});
+
+function nextTab(elem) {
+$(elem).next().find('a[data-toggle="tab"]').click();
+}
+function prevTab(elem) {
+$(elem).prev().find('a[data-toggle="tab"]').click();
+}
+
+
+$('.nav-tabs').on('click', 'li', function() {
+$('.nav-tabs li.active').removeClass('active');
+$(this).addClass('active');
+});
+
+
+
+
+
+    
+        
+       
+
+</script>
+
+
 }

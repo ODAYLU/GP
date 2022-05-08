@@ -50,7 +50,9 @@ namespace GP.Models
 
         public DateTime OnDate { get; set; }
 
-        
+
+
+
         [NotMapped]
         public string[] list { get; set; }
 
