@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
-
+    <link href="~/css/Chat.css" rel="stylesheet" />
 
 
     <title>@ViewData["Title"]</title>
@@ -298,21 +298,12 @@
     <script src="~/SweetAlert/sweetalert2@11.js"></script>
     <script src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
-
+    <script src="~/js/Chat.js"></script>
     <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
 
 
-    <script>
-        $(function () {
-            $("#mm").chosen();
-        })
-        window.onload = function () {
-            var x = document.getElementById("mm_chosen");
-            x.classList.add("w-100");
-        }
-
-    </script>
+   
 </body>
 </html>

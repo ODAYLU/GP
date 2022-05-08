@@ -62,7 +62,7 @@ namespace GP.Controllers
         {
             return View();
         }
-        public IActionResult Currency ()
+        public IActionResult Currency()
         {
             return View();
         }

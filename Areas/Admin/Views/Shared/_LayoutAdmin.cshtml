@@ -1,244 +1,265 @@
 ﻿<!DOCTYPE html>
-<html lass="loaded semi-dark-layout" lang="ar">
+<html lang="ar">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="~/Admin/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/Admin/css/bootstrap-icons.css" rel="stylesheet" />
+    <title>لوحة التحكم</title>
+    <link rel="shortcut icon" href="~/assets/img/logo/logo.png">
+    <link href="~/assets/css/chart/mobiscroll.javascript.min.css" rel="stylesheet" />
+    <script src="~/assets/js/Chartmobiscroll.javascript.min.js"></script>
+    <link href="~/assets/bootstrap/bootstrap4.min.css" rel="stylesheet">
+    <link href="~/assets/bootstrap/bootstrap5.min.css" rel="stylesheet">
+    <link href="~/assets/bootstrap/font-awesome.min.css" rel="stylesheet">
+    <link href="~/assets/bootstrap/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/assets/bootstrap/animate.min.css" rel="stylesheet">
+    <link href="~/assets/css/style.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
-    <link href="~/Admin/css/style.css" rel="stylesheet" />
-    <style>
-    </style>
+    <link href="~/css/c.css" rel="stylesheet" />
+    <link href="~/css/login.css" rel="stylesheet" />
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/Login/login.css" rel="stylesheet" />
+   
 </head>
 
-<body class="body" dir="rtl">
-    <header class="bg-white">
+<body dir="rtl">
+    <div class="container" id="lod">
+        <h6 class="position-absolute mx-auto">انتظر قليلا لو سمحت</h6>
+        <div id="loading"></div>
+    </div>
 
-        <div class="sidebar bg-white h-100 pt-1 end-0 " id="myDIV">
+    <main id="main" style="display: block;">
+        <header class="bgcolors">
+            <div class="sidebar  h-100 end-0 " id="myDIV">
 
-            <div id="btn" class="morapag  bg-white rounded-circle border-0 iconpos ">
-                <ion-icon class="p-2 fs-2  " name="chevron-forward-outline"></ion-icon>
-            </div>
-
-            <div id="btn " onclick="myFunction()" class="morapag close bg-white rounded-circle border-0 iconpos ">
-                <ion-icon class="p-2 fs-2  " name="close-outline"></ion-icon>
-            </div>
-
-            <div class="sidebar-header text-center pb-3">
-                <a href="index.html" class="sidebar-logo text-decoration-none">
-                    <img class="img-fluid " style="max-width:67%;" src="~/Admin/images/logo.png">
-                </a>
-                <script>
-
-                </script>
-
-            </div>
-
-            <div class="sidebar-search mb-3">
-                <div class="search-body align-items-center ">
-                    <input type="text" class=" form-control shadow-none border-0 text-end" id="mySearch"
-                           placeholder="ابحث...">
-                    <ion-icon class="fs-2" name="search-outline"></ion-icon>
+                <div class="sidebar-header d-flex justify-content-center pb-3 ">
+                    <a href="dashbord.html" class="sidebar-logo">
+                        <img src="~/assets/img/logo/logowit.png" class="logo" id="logo" />
+                    </a>
                 </div>
-            </div>
 
-
-            <div class="sidebar-body  scrol">
-                <ul id="myList">
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li id="main" class=" aa">
-                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
+                <div id="btn " onclick="myFunction()" class="close bg-white rounded-circle border-0 iconpos ">
+                    <i class="bi bi-x fs-1 "></i>
+                </div>
+                <div class="sidebar-body  scrol">
+                    <ul id="myList">
+                        <li class="main aa">
+                            <a class="list aa" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
+                                <span class="title ">الرئيسية</span>
                                 <span class="icon">
-                                    <ion-icon name="home-outline"></ion-icon>
+                                    <i class="bi bi-house-door"></i>
                                 </span>
-                                <span class="title">الرئيسية</span>
                             </a>
                         </li>
                         <li class="" id="real estates">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
-                                <span class="icon">
-                                    <ion-icon name="business-outline"></ion-icon>
-                                </span>
                                 <span class="title">العقارات</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="User">
                                 <span class="icon">
-                                    <ion-icon name="grid-outline"></ion-icon>
+                                    <i class="bi bi-building"></i>
                                 </span>
-                                <span class="title">المستخدمين</span>
                             </a>
                         </li>
                         <li class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Category">
-                                <span class="icon">
-                                    <ion-icon name="grid-outline"></ion-icon>
-                                </span>
                                 <span class="title">التصنيفات</span>
+                                <span class="icon">
+
+                                    <i class="bi bi-columns-gap"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="User">
+                                <span class="title">المستخدمين</span>
+                                <span class="icon">
+
+                                    <i class="bi bi-columns-gap"></i>
+                                </span>
                             </a>
                         </li>
                         <li class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Type">
-                                <span class="icon">
-                                    <ion-icon name="pricetags-outline"></ion-icon>
-                                </span>
                                 <span class="title">الانواع</span>
+                                <span class="icon">
+                                    <i class="bi bi-tags"></i>
+                                </span>
+
                             </a>
                         </li>
                         <li class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="State">
-                                <span class="icon">
-                                    <ion-icon name="flag-outline"></ion-icon>
-                                </span>
                                 <span class="title">الدول</span>
+                                <span class="icon">
+                                    <i class="bi bi-flag"></i>
+                                </span>
+
                             </a>
                         </li>
                         <li class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="City">
-                                <span class="icon">
-                                    <ion-icon name="map-outline"></ion-icon>
-                                </span>
                                 <span class="title">المدن</span>
+                                <span class="icon">
+                                    <i class="bi bi-map"></i>
+                                </span>
+
                             </a>
                         </li>
                         <li class="">
-                            <a class="list" href="nespaper.html">
-                                <span class="icon">
-                                    <ion-icon name="newspaper-outline"></ion-icon>
-                                </span>
+                            <a class="list">
                                 <span class="title">الاعلانات</span>
+                                <span class="icon">
+                                    <i class="bi bi-newspaper"></i>
+                                </span>
+
                             </a>
                         </li>
                         <li class="">
-                            <a class="list" href="crunssy.html">
-                                <span class="icon">
-                                    <ion-icon name="card-outline"></ion-icon>
-                                </span>
+                            <a class="list">
                                 <span class="title">العملات</span>
+                                <span class="icon">
+                                    <i class="bi bi-credit-card"></i>
+                                </span>
+
                             </a>
                         </li>
+                        <li class="" >
+                            <a class="list" asp-area="Admin" asp-controller="Comments" asp-action="Index">
+                                <span class="title">التعليقات</span>
+                                <span class="icon">
+                                    <i class="bi bi-credit-card"></i>
+                                </span>
+
+                            </a>
+                        </li>
+                        
                         <li class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Service">
-                                <span class="icon">
-                                    <ion-icon name="list-outline"></ion-icon>
-                                </span>
                                 <span class="title">الخدمات</span>
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a class="list" asp-area="Admin" asp-controller="Comments" asp-action="Index">
                                 <span class="icon">
-                                    <ion-icon name="list-outline"></ion-icon>
+                                    <i class="bi bi-list-ul"></i>
                                 </span>
-                                <span class="title">التعليقات</span>
+
                             </a>
                         </li>
                         <li class="">
-                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Contact">
+                            <a class="list" asp-area="Admin" asp-controller="InformationGen" asp-action="Index">
+                                <span class="title">المعلومات العامة</span>
                                 <span class="icon">
-                                    <ion-icon name="list-outline"></ion-icon>
+                                    <i class="bi bi-list-ul"></i>
                                 </span>
-                                <span class="title">رسائل الإيميل</span>
+
                             </a>
                         </li>
-                    }
-                    else if (User.IsInRole("User"))
-                    {
-                         <li class="">
-                            <a class="list" asp-controller="Estate" asp-action="Index">
-                                <span class="icon">
-                                    <ion-icon name="list-outline"></ion-icon>
-                                </span>
-                                <span class="title">العقارات</span>
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </div>
+                    </ul>
+                </div>
 
-        </div>
-
-        <div class="content">
-            <div class="px-md-5 mx-md-3">
-                <div class="row ">
-
-                    <div class="m-0 cont col-12  d-flex flex-row justify-content-between h-25 align-items-center">
-
-                        <div class="d-flex flex-row justify-content-between">
-                            <h2 class="font fs-2  p-3 pe-5">
-                                <span class="show d-none" style="font-size:30px;cursor:pointer" onclick="myFunction()">&#9776;</span> لوحة التحكم
-                            </h2>
+                <div class=" bottom-0">
+                    <div class="sidebar-search">
+                        <div class="search-body align-items-center text-white ">
+                            <input type="text" class=" form-control shadow-none border-0 text-end" id="mySearch"
+                                   placeholder="ابحث...">
+                            <ion-icon class="fs-2" name="search-outline"></ion-icon>
                         </div>
-
-
-                        <div class="d-flex align-items-center  justify-content-center ">
-                            <a class="px-2" href="#"><ion-icon class="fs-2 text-black" name="notifications-sharp"></ion-icon></a>
-
-                            <div class="dropdown">
-                                <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
-                                    <img width="50" src="~/Admin/images/Admin.png">
-                                </button>
-                                <ul class="dropdown-menu border-0 text-center ">
-                                    <partial name="_LoginPartial" />
-
-                                </ul>
-                            </div>
-                        </div>
-
-
-
-
-
-
                     </div>
                 </div>
             </div>
 
-        </div>
-    </header>
+            <div class="container-fluid p-0">
+                <div class="content">
+                    <ul class="nav p-0 align-items-center">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">
+                                <p class="text-white fs-2">
+                                    <span class="show d-none px-1" style="font-size:30px;cursor:pointer;"
+                                          onclick="myFunction()">&#9776;</span>
+                                    <span id="btnss" class="text-white d-lg-inline-block d-none">
+                                        <i class="bi bi-chevron-right"></i>
+                                    </span>
+                                    لوحة التحكم
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item me-auto ps-2 ">
+                            <div class="toggle-container">
+                                <button class="theme-btn text-white light" onclick="setTheme('light')"
+                                        title="Light mode">
+                                    <i class="bi bi-brightness-high-fill"></i>
+                                </button>
+                                <button class="theme-btn text-white dark" onclick="setTheme('dark')" title="Dark mode">
+                                    <i class="bi bi-moon-stars-fill"></i>
+                                </button>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class=" start-0 text-white fs-2" href="#">
+                                <i class="bi bi-bell-fill"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle fs-2 text-white" data-bs-toggle="dropdown" href="#"
+                               role="button" aria-expanded="false">
+                                <i class="bi bi-person-bounding-box"></i>
+                            </a>
+                            <ul class="dropdown-menu text-center">
+
+                                <partial name="_LoginAdminPartial" />
+
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
 
 
-    <div class="content">
-        <div class=" p-5 " style="padding-bottom: 500px;">
-            <div id="b">
-                @RenderBody()
+
+
+
 
             </div>
-        </div>
-    </div>
+        </header>
 
 
 
+        <article class="content m-5">
+            @RenderBody()
+        </article>
+    </main>
 
 
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="~/js/Chat.js"></script>
+    <script src="~/js/Estate.js"></script>
+    <script src="~/js/site.js"></script>
+    <script src="~/js/Login/lottie-player.js"></script>
+    <script src="~/js/Login/all.js"></script>
+    <script src="~/js/Login/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/bootstrap/bootstrap5.bundle.min.js"></script>
+    <script src="~/assets/bootstrap/ajax_query.min.js"></script>
+    <script src="~/assets/bootstrap/jquery-3.1.0.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="~/assets/bootstrap/Chart.min.js"></script>
+    <script src="~/assets/js/animate.js"></script>
+    <script src="~/assets/js/loding.js"></script>
+    <script src="~/assets/js/Calendar.js" type="text/javascript"></script>
+    <script src="~/assets/js/Chart.js" type="text/javascript"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+    <!-- <script src="~/assets/js/index.js"></script> -->
 
-
-
-
-
-
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-
-        let btn = document.querySelector("#btn");
+        let btn = document.querySelector("#btnss");
         let sidebar = document.querySelector(".sidebar");
         let scripthiden = document.querySelectorAll(".scripthiden");
         let content = document.querySelectorAll(".content");
         let list = document.querySelectorAll(".list");
-
+        let logo = document.getElementById("logo");
+        logo.style.display = "block";
         btn.onclick = function () {
             sidebar.classList.toggle("active");
             for (let i = 0; i < scripthiden.length; i++) {
                 scripthiden[i].classList.toggle("active");
+                logo.style.display = "none"
             }
             for (let i = 0; i < content.length; i++) {
                 content[i].classList.toggle("active");
@@ -246,7 +267,10 @@
             for (let i = 0; i < list.length; i++) {
                 list[i].classList.toggle("active");
             }
+            logo.classList.toggle("active");
         }
+
+
 
 
         $(document).ready(function () {
@@ -259,36 +283,49 @@
         });
 
 
+        window.onresize = changeDisplaySize;
+
+        function changeDisplaySize() {
+            var x = document.getElementById("myDIV");
+
+            if (window.innerWidth > 992) {
+
+                x.classList.toggle("showNav")
+            }
+        }
+        function myFunction() {
+            var x = document.getElementById("myDIV");
+
+
+
+            x.classList.toggle("showNav")
+
+
+
+        }
+
+
+
+
+        function setTheme(themeName) {
+            localStorage.setItem('theme', themeName);
+            document.documentElement.className = themeName;
+        }
+        (function () {
+            if (localStorage.getItem('theme')) {
+                setTheme(localStorage.getItem('theme'))
+            } else {
+                setTheme('theme-dark-blue')
+            }
+
+        })();
+
+
+
 
 
 
     </script>
-
-
-
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery-3.5.1.js"></script>
-    <script src="js/jquery.min.js"></script>
-    <script src="js/sweetalert.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-
-
-    <script src="~/SweetAlert/sweetalert2@11.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
-    <script src="~/lib/datatables/js/jquery.dataTables.js"></script>
-    <script src="~/lib/datatables/js/dataTables.bootstrap4.js"></script>
-    <script src="~/Admin/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

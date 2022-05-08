@@ -1,5 +1,9 @@
-﻿using GP.Models;
+﻿using GP.Data;
+using GP.Hubs;
+using GP.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +16,18 @@ namespace GP.Controllers
     public class ContactUserController : Controller
     {
         private readonly IContact _contact;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly SignInManager<AppUser> _signInManager;
+        private readonly ApplicationDbContext _context;
 
-        public ContactUserController(IContact contact)
+        public ContactUserController(IContact contact,UserManager<AppUser> userManager
+            , ApplicationDbContext context
+            , SignInManager<AppUser> signInManager)
         {
             _contact = contact;
+            _userManager = userManager;
+            _context = context;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index()
@@ -47,6 +59,41 @@ namespace GP.Controllers
 
             
             return RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> Chat()
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+            ViewBag.CurrentUserName = currentUser.UserName;
+            ViewBag.Users = ConnectedUser.IDs;
+            var message = await _context.Messages.ToListAsync();
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetUsers(string text)
+        {
+            List<AppUser> lstUser = new List<AppUser>();
+            var Ids = text.Split(',');
+            foreach (var item in Ids)
+            {
+              var user  = await _userManager.FindByIdAsync(item);
+                lstUser.Add(user);
+            }
+            return Ok(lstUser);
+        }
+        public async Task<IActionResult> Create(Message message)
+        {
+            if (ModelState.IsValid)
+            {
+                message.UserName = User.Identity.Name;
+                var sender = await _userManager.GetUserAsync(User);
+                message.UserId = sender.Id;
+                await _context.Messages.AddAsync(message);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            return BadRequest();
         }
 
     }

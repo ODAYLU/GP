@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,6 +14,10 @@ namespace GP.Models
 
     public class AppUser : IdentityUser
     {
+        public AppUser()
+        {
+            Messages = new HashSet<Message>();
+        }
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
@@ -29,6 +35,7 @@ namespace GP.Models
         public string decription { get; set; }
         public int NumberLikes { get; set; }
         public string NameRole { get; set; }
+        public virtual ICollection<Message> Messages { get; set; }
     }
   
 }

@@ -47,16 +47,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Admin\css\bootstrap.min.css.map" />
-    <None Include="wwwroot\Admin\css\fonts\bootstrap-icons.woff2" />
-    <None Include="wwwroot\Admin\fontawesome\fontawesome\js\all.min.js" />
-    <None Include="wwwroot\Admin\js\bootstrap.bundle.min.js" />
-    <None Include="wwwroot\Admin\js\bootstrap.bundle.min.js.map" />
-    <None Include="wwwroot\Admin\js\ionicons.esm.js" />
-    <None Include="wwwroot\Admin\js\ionicons.js" />
-    <None Include="wwwroot\Admin\js\jquery-3.5.1.js" />
-    <None Include="wwwroot\Admin\js\jquery.min.js" />
-    <None Include="wwwroot\Admin\js\sweetalert.min.js" />
+    <None Include="wwwroot\assets\bootstrap\ajax_query.min.js" />
+    <None Include="wwwroot\assets\bootstrap\bootstrap5.bundle.min.js" />
+    <None Include="wwwroot\assets\bootstrap\Chart.min.js" />
+    <None Include="wwwroot\assets\bootstrap\font\fonts\bootstrap-icons.woff2" />
+    <None Include="wwwroot\assets\bootstrap\jquery-3.1.0.min.js" />
+    <None Include="wwwroot\assets\font\SLXGc1nY6HkvalIhTps.woff2" />
+    <None Include="wwwroot\assets\font\SLXGc1nY6HkvalIkTpu0xg.woff2" />
+    <None Include="wwwroot\assets\font\SLXGc1nY6HkvalIvTpu0xg.woff2" />
+    <None Include="wwwroot\assets\js\animate.js" />
+    <None Include="wwwroot\assets\js\Calendar.js" />
+    <None Include="wwwroot\assets\js\Chart.js" />
+    <None Include="wwwroot\assets\js\Chartmobiscroll.javascript.min.js" />
+    <None Include="wwwroot\assets\js\index.js" />
+    <None Include="wwwroot\assets\js\loding.js" />
     <None Include="wwwroot\Contact\css\fonts\bootstrap-icons.woff2" />
     <None Include="wwwroot\Contact\js\app.js" />
     <None Include="wwwroot\Contact\js\bootstrap.bundle.min.js" />
