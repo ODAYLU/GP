@@ -194,6 +194,9 @@ namespace GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsReply")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -234,19 +237,24 @@ namespace GP.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("CityID")
+                    b.Property<long?>("CityID")
+                        .IsRequired()
                         .HasColumnType("bigint");
 
-                    b.Property<int>("CurrencyID")
+                    b.Property<int?>("CurrencyID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("Latitude")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Longitude")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Main_photo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("OnDate")
@@ -254,16 +262,19 @@ namespace GP.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("Getdate()");
 
-                    b.Property<long>("StateID")
+                    b.Property<long?>("StateID")
+                        .IsRequired()
                         .HasColumnType("bigint");
 
-                    b.Property<int>("TypeID")
+                    b.Property<int?>("TypeID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("categoryID")
+                    b.Property<int?>("categoryID")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<string>("description")
@@ -286,13 +297,16 @@ namespace GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("phone_num")
+                    b.Property<double?>("phone_num")
+                        .IsRequired()
                         .HasColumnType("float");
 
-                    b.Property<double>("price")
+                    b.Property<double?>("price")
+                        .IsRequired()
                         .HasColumnType("float");
 
-                    b.Property<double>("space")
+                    b.Property<double?>("space")
+                        .IsRequired()
                         .HasColumnType("float");
 
                     b.HasKey("Id");
@@ -310,6 +324,68 @@ namespace GP.Migrations
                     b.HasIndex("categoryID");
 
                     b.ToTable("TEstates");
+                });
+
+            modelBuilder.Entity("GP.Models.InformationGen", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlFacebook")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlInstegrame")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UrlTwitter")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TInformatiomGensT");
+                });
+
+            modelBuilder.Entity("GP.Models.Message", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ReceiverId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Time")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ReceiverId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("GP.Models.PhotoEstate", b =>
@@ -628,6 +704,21 @@ namespace GP.Migrations
                     b.Navigation("Users");
                 });
 
+            modelBuilder.Entity("GP.Models.Message", b =>
+                {
+                    b.HasOne("GP.Models.AppUser", "Receiver")
+                        .WithMany()
+                        .HasForeignKey("ReceiverId");
+
+                    b.HasOne("GP.Models.AppUser", "Sender")
+                        .WithMany("Messages")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Receiver");
+
+                    b.Navigation("Sender");
+                });
+
             modelBuilder.Entity("GP.Models.PhotoEstate", b =>
                 {
                     b.HasOne("GP.Models.Estate", "estate")
@@ -718,6 +809,11 @@ namespace GP.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("GP.Models.AppUser", b =>
+                {
+                    b.Navigation("Messages");
                 });
 #pragma warning restore 612, 618
         }

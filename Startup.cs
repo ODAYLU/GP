@@ -1,4 +1,5 @@
 using GP.Data;
+using GP.Hubs;
 using GP.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,10 +32,11 @@ namespace GP
             services.AddRazorPages();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging());
+                    Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging(), ServiceLifetime.Transient);
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders().AddDefaultUI();
+            services.AddSignalR();
             services.Configure<IdentityOptions>(options =>
             {
                 // Default Lockout settings.
@@ -64,7 +66,8 @@ namespace GP
             services.AddScoped<ICommments, CommentsManagments>();
             services.AddScoped<IState,StateManage>();
             services.AddScoped<IType,TypeManage>();
-            services.AddScoped<IContact,ContactManagments>();
+            services.AddScoped<InformationGen>();
+            services.AddTransient<IContact,ContactManagments>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -89,12 +92,19 @@ namespace GP
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            
             app.UseAuthentication();
+            
             app.UseAuthorization();
-           SeedData.Seed(userManager,roleManager);
+            
+            SeedData.Seed(userManager,roleManager);
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/chat");
+            });
+            app.UseEndpoints(endpoints =>
+            {   
+               
                 endpoints.MapRazorPages();
                 endpoints.MapControllerRoute(
                     name: "Admin",
@@ -102,6 +112,7 @@ namespace GP
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                
             });
         }
     }

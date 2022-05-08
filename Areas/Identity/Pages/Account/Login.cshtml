@@ -1,17 +1,131 @@
 ﻿@page
 @model LoginModel
 
-@{
+@{ 
     ViewData["Title"] = "Log in";
-}
+    Layout = null;
+
+    }
 
 
 <h1>@ViewData["Title"]</h1>
 
+<!DOCTYPE html>
+<html lang="ar">
 
-    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<div class="row">
+    <link href="~/css/Login/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/Login/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/css/Login/bulma.min.css" rel="stylesheet" />
+    <link href="~/css/Login/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/Login/fonttext.css" rel="stylesheet" />
+    <link href="~/css/Login/login.css" rel="stylesheet" />
+</head>
+
+<body dir="rtl">
+    <section class="main-section">
+        <div class="circle-main"></div>
+        <div class="circle-main-m"></div>
+        <div class="circle-main-s"></div>
+
+        <div class="container white-bg">
+            <div class="columns background component-row">
+
+                <div class="column ">
+                    <div class="padable">
+                        <h1>
+                            تسجيل دخول
+                            <span class="line"></span>
+                            <span>
+                                <!--الايقونات -->
+                            </span>
+
+                        </h1>
+
+                        <form id="account" method="post">
+                            <div class="field">
+                                <div class="control has-icons-left has-icons-right">
+                                    <input asp-for="Input.Email" class="input rounded-pill is-medium" type="text" placeholder="البريد الالكتروني" value="" required>
+                                    <span class="icon is-small is-right">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </div>
+                                <p class="text-danger"></p>
+                            </div>
+
+                            <div class="field">
+                                <div class="control has-icons-left has-icons-right">
+                                    <input asp-for="Input.Password" class="input rounded-pill is-medium" type="password"  id="password" placeholder="كلمة المرور">
+                                    <span class="icon is-small is-right">
+                                        <i class="fa fa-lock"></i>
+                                    </span>
+                                    <span class="is-small position-absolute justify-content-center " style="color: #dbdbdb; left: 20px; top:10px;">
+                                        <i class="bi bi-eye-slash" id="togglePassword"></i>
+
+                                    </span>
+                                </div>
+                                <p class="text-danger"></p>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input asp-for="Input.RememberMe" />
+                                        تذكرني
+                                    </label>
+                                </div>
+                            </div>
+
+                            <br />
+
+                            <div class="pb-3">
+                                <button type="submit" class="col-12 btn bgcolors text-white rounded-pill">تسجيل دخول</button>
+                            </div>
+                            <div>
+                                <a class="colors" asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">انشاء حساب</a>
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+
+                <div class="column d-md-none d-lg-block">
+                    <div class="illustrator ">
+                        <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_4u33kbls.json" background="transparent" speed="2" style="width: 550px; height: 500px;left:10px; position: absolute;z-index: 100;" autoplay></lottie-player>
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </section>
+
+    <script>
+        const togglePassword = document.querySelector("#togglePassword");
+        const password = document.querySelector("#password");
+
+        togglePassword.addEventListener("click", function () {
+            const type = password.getAttribute("type") === "password" ? "text" : "password";
+            password.setAttribute("type", type);
+            this.classList.toggle("bi-eye");
+        });
+    </script>
+    <script src="~/js/Login/all.js"></script>
+    <script src="~/js/Login/bootstrap.bundle.min.js"></script>
+    <script src="~/js/Login/lottie-player.js"></script>
+</body>
+
+</html>
+
+
+@*<div class="row">
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
@@ -57,30 +171,25 @@
         <section>
             <h4>Use another service to log in.</h4>
             <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
+            @{ if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                            {
+                <div>
+                    <p>
+                        There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                        for details on setting up this ASP.NET application to support logging in via external services.
+                    </p>
+                </div> }
+                            else
+                            {
+                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
                     <div>
                         <p>
-                            There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
-                            for details on setting up this ASP.NET application to support logging in via external services.
+                            @foreach (var provider in Model.ExternalLogins)
+                            {
+            <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>}
                         </p>
                     </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
+                </form> } }
         </section>
     </div>
 </div>
@@ -96,5 +205,5 @@
             password.setAttribute("type", type);
             this.classList.toggle("bi-eye");
         });
-    </script>
+    </script>*@
 }

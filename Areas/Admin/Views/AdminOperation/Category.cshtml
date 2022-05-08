@@ -57,7 +57,7 @@
 </div>
 
     
-<table id="Categories" class="table table-striped table-bordered  flex-nowrap" style="direction:rtl;">
+<table id="Categories" class="table table-striped table-bordered w-100 flex-nowrap" style="direction:rtl;">
     <thead>
         <tr>
             <th>الرقم</th>
@@ -83,6 +83,10 @@
                     "search": "ابحث",
                     "lengthMenu": "عرض _MENU_ صفوف"
                 },
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ],
                 "ajax": {
                     "url": '/api/Api/GetCategory',
                     "type": "POST",

@@ -13,7 +13,11 @@ using System.Threading.Tasks;
 
 namespace GP
 {
+<<<<<<< HEAD
     
+=======
+    [AllowAnonymous]
+>>>>>>> 0a3f23db9868cfd8ada0f651eeb343889bb1ef6e
     public class EstateController : Controller
     {
         private readonly IEstate services;
@@ -40,6 +44,13 @@ namespace GP
         }
 
         [HttpGet]
+        public  IActionResult GetEstate()
+        {
+            var data =  services.GetAll();
+            return Ok(data);
+        }
+        
+        [HttpGet]
         public IActionResult CreateTemp()
         {
 
@@ -59,7 +70,7 @@ namespace GP
             {
                 await image_main.CopyToAsync(fileStream);
             }
-            estate.Main_photo = fileName + extension;
+            estate.Main_photo = "/images/Estate/" + fileName + extension;
             await services.InsertEstate(estate);
 
 
@@ -85,17 +96,17 @@ namespace GP
             }
 
 
-            if (estate.list.Count() > 0)
-            {
-                for (int i = 0; i < estate.list.Count(); i++)
-                {
-                    Service_Estate service = new Service_Estate();
-                    service.EstateID = idPr;
-                    service.ServiceID = int.Parse(estate.list[i].Trim());
-                    await _service_Estate.InsertService_Estate(service);
+            //if (estate.list.Count() > 0)
+            //{
+            //    for (int i = 0; i < estate.list.Count(); i++)
+            //    {
+            //        Service_Estate service = new Service_Estate();
+            //        service.EstateID = idPr;
+            //        service.ServiceID = int.Parse(estate.list[i].Trim());
+            //        await _service_Estate.InsertService_Estate(service);
 
-                }
-            }
+            //    }
+            //}
             GP.Models.Toast.ShowTost = true;
             GP.Models.Toast.Message = "تم اضافة العقار بنجاح ";
             return RedirectToAction("Index");

@@ -1,82 +1,309 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - GP</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link href="~/css/login.css" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-      <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/> 
-
-
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link href="~/MainLayout/assets/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/MainLayout/assets/css/index.css" rel="stylesheet" />
+    <link href="~/MainLayout/assets/css/swiper-bundle.min.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css'>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
+    <link href="~/css/Chat.css" rel="stylesheet" />
 
 
+    <title>@ViewData["Title"]</title>
+    <style>
+        .swiper {
+            width: 90%;
+            height: 70%;
+        }
 
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+            width: 25%;
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+
+            .swiper-slide img {
+                display: block;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .swiper-pagination {
+            position: relative;
+            top: 5px;
+        }
+    </style>
 
 </head>
 <body dir="rtl">
 
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GP</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Estate" asp-action="">State</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-primary" asp-area="" asp-controller="ContactUser" asp-action="Index">تواصل معنا</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">Admin</a>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
+
+    <header class="position-sticky top-0 bg-white" style="z-index: 60;  transition: 0.2s">
+
+
+
+        <section class="bg-success  rounded-end   topgreen ">
+            <div class="container-fluid   ">
+                <div class="row d-none d-md-block  ">
+                    <nav class="navbar-expand-sm ">
+                        <ul class="navbar-nav justify-content-center">
+
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white " href="#"><i class="fa fa-google-plus" aria-hidden="true"></i> </a>
+                            </li>
+
+
+                            <li class="nav-item pe-5">
+                                <a class="nav-link text-white  pe-5" href="#">9705688333020+ <i class="fa fa-phone"></i></a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white  pe-3" href="#">Amlak@gemail.com  <i class="px-1 fa fa-envelope"></i> </a>
+                            </li>
+
+                        </ul>
+
+                    </nav>
                 </div>
             </div>
-        </nav>
+
+
+
+        </section>
+        <div class="topgreen ">
+
+            <nav class="navbar navbar-expand-sm bg-white navbar-light sticky-top ">
+                <div class="container-fluid">
+                    <a class="navbar-brand d-lg-none" href="#">
+                        <img class="img-fluid" width="100" src="~/MainLayout/assets/imges/logo.png">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                        <ul class="navbar-nav ">
+                            <li class="nav-item" >
+                                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">الرئيسية</a>
+                            </li>
+                            <li class="nav-item" >
+                                <a class="nav-link" asp-area="" asp-controller="ContactUser" asp-action="Index">تواصل معنا</a>
+                            </li>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">لوحة التحكم</a>
+                                </li>
+                           
+                            }
+                        </ul>
+                     
+                        <div class="me-auto">
+                            
+                            <div class="row">
+                                <div class="col">
+                                    @if (User.IsInRole("Owner") || User.IsInRole("Admin"))
+                                    {
+                                            <a asp-controller="Estate" asp-action="CreateTemp" class="btn rounded-5 btn-outline-success">
+                                                اضافة عقار
+                                            </a>
+                                    }
+                                   
+                                    
+                                        
+                                    
+                                </div>
+                                
+                                <div class="col">
+                                    <div class="dropdown">
+                                        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
+                                            <img width="50" src="~/Admin/images/Admin.png">
+                                        </button>
+                                        <ul class="dropdown-menu border-0 text-center ">
+                                            <partial name="_LoginPartial" />
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+
+        <div class="d-none d-lg-inline-block">
+            <img class="img-fluid logo position-absolute p-3 navbar-brand" width="10%" src="~/MainLayout/assets/imges/logo.png" alt="logo">
+        </div>
+
+
+
+
+
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+
+    <script>
+        window.onscroll = function s() {
+
+            document.getElementById('haed').setAttribute("style", "background-color:rgba(0,0,0, 0.4)");
+
+        }
+    </script>
+
+
+    
+    @RenderBody()
+   
 
 
 
+
+    <footer class="">
+        <div class=" container-fluid   d-flex flex-column bg">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <img class="img-fluid w-50" src="~/MainLayout/assets/imges/logo.png">
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Email</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">phone</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-3  col-md-6 col-sm-12">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <h4 class="title pb-3"> عن أملاك  </h4>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <h4 class="title pb-3"> عن أملاك  </h4>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <h4 class="title pb-3"> عن أملاك  </h4>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="">
+            <div class="row  f_bg d-flex flex-row-reverse  justify-content-between text-center  pt-3 ">
+                <div class="col-lg-6">
+                    <div class="social-links text-white">
+
+                        <a href="#"><i class="fab fa-facebook-f ccc"></i></a>
+                        <a href="#"><i class="fab fa-twitter ccc"></i></a>
+                        <a href="#"><i class="fab fa-instagram ccc"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in ccc"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="text-white">
+                        <p>جميع الحقوق محفوظة </p>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+    </footer>
+
+    <div id="customID" class="cta hide"></div>
+
+    <script src="~/MainLayout/assets/js/swiper-bundle.min.js"></script>
+
+    <script src="~/MainLayout/assets/js/main.js"></script>
+
+    
     <script src="https://unpkg.com/lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src='https://use.fontawesome.com/releases/v5.3.1/js/all.js'></script>
-       <script src="~/SweetAlert/sweetalert2@11.js"></script>
+    <script src="~/SweetAlert/sweetalert2@11.js"></script>
     <script src="https://unpkg.com/lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src='https://use.fontawesome.com/releases/v5.3.1/js/all.js'></script>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/js/bootstrap.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-      <script src="~/SweetAlert/sweetalert2@11.js"></script>
+    <script src="~/SweetAlert/sweetalert2@11.js"></script>
     <script src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
-<script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
-
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
+    <script src="~/js/Chat.js"></script>
     <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
 
+<<<<<<< HEAD
       
          <script>
            $(function () {
@@ -89,6 +316,9 @@
           }
   
          </script>
+=======
+>>>>>>> 0a3f23db9868cfd8ada0f651eeb343889bb1ef6e
 
+   
 </body>
 </html>

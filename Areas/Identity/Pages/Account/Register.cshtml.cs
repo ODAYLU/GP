@@ -83,6 +83,7 @@ namespace GP.Areas.Identity.Pages.Account
             public IFormFile Image { get; set; }
 
             public string Role { get; set; }
+            public bool IsQwner { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -92,11 +93,19 @@ namespace GP.Areas.Identity.Pages.Account
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
-        {
+          {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                if (Input.IsQwner)
+                {
+                    Input.Role = "Owner";
+                }
+                else
+                {
+                    Input.Role = "User";
+                }
                 var user = new AppUser
                 {
                     UserName = Input.Email,
