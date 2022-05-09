@@ -50,7 +50,9 @@ namespace GP.Models
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public AppUser Users { get; set; }
-
+        public long IDEstet { get; set; }
+        [ForeignKey("IDEstet")]
+        public Estate Estate { get; set; }
 
     }
 

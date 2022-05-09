@@ -24,15 +24,12 @@ namespace GP.Controllers
 
             IEnumerable<Contract> list = _services.GetAll();
             return View(list);
-           
+
         }
 
         [HttpGet]
-    
         public async Task<IActionResult> CreateContract(long id)
-        
         {
-
             Estate estate = await  _estate.GetOne(id);
             if(estate == null) return NotFound();
             if(estate.TypeID == 1)
@@ -58,6 +55,8 @@ namespace GP.Controllers
         public async Task<IActionResult> CreateContract(Contract contract)
         {
             Estate estate = await _estate.GetOne(IdEstate.Id);
+
+            contract.Id = 0;
 
             if (!ModelState.IsValid)
             {
@@ -94,6 +93,7 @@ namespace GP.Controllers
             contract.category = estate.Category.category;
             contract.Type = estate.Type.type;
             contract.UserId= User.FindFirstValue(ClaimTypes.NameIdentifier);
+            contract.IDEstet = estate.Id;
 
 
             estate.is_active = false;
@@ -103,8 +103,10 @@ namespace GP.Controllers
 
 
 
-            return View("Index");
+            return RedirectToAction(nameof(Index));
         }
+
+
 
 
 

@@ -9,6 +9,7 @@
 <h1>@ViewBag.TypeOfContract</h1>
 
 <form method="post" asp-action="CreateContract">
+    <input asp-for="Id" hidden/>
 
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
