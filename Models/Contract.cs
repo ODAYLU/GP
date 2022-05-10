@@ -54,6 +54,10 @@ namespace GP.Models
         [ForeignKey("IDEstet")]
         public Estate Estate { get; set; }
 
+
+
+        public int isDone { get; set; }
+
     }
 
 
@@ -73,6 +77,27 @@ namespace GP.Models
         public ContractManage(ApplicationDbContext context)
         {
             this._context = context;
+        }
+
+
+        public async Task<DbCRUD> UpdateContract(Contract contract)
+        {
+            try
+            {
+                Contract EST = await GetOne(contract.Id);
+                if (EST == null)
+                    return DbCRUD.isNotExisted;
+                _context.TContract.Update(contract);
+                await _context.SaveChangesAsync();
+                return DbCRUD.success;
+            }
+            catch (System.Exception ex)
+            {
+                if (ex is SqlException)
+                    return DbCRUD.dbError;
+                else
+                    return DbCRUD.fail;
+            }
         }
         public IEnumerable<Contract> GetAll()
         {
@@ -106,9 +131,6 @@ namespace GP.Models
             }
         }
 
-        public Task<DbCRUD> UpdateContract(Contract contract)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }

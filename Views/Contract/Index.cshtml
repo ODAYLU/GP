@@ -4,6 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
+
 <h1>Index</h1>
 
 <p>
@@ -46,7 +47,10 @@
                 @Html.DisplayNameFor(model => model.category)
             </th>
            
-            <th></th>
+            <th>
+
+                
+            </th>
         </tr>
     </thead>
     <tbody>
@@ -85,13 +89,82 @@
             <td>
                 @Html.DisplayFor(modelItem => item.category)
             </td>
-          
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+                @{
+                    if(item.Type == "بيع" )
+                    {
+
+                        if (item.isDone == 1)
+                        {
+                                <td>
+                 <a href="#" class="btn btn-success" >   إعادة تفعيل العقار</a>  
+                            </td>
+                        }
+                        else
+                        {
+                                        <td>
+                <a href="/Contract/M/@item.Id" onclick="confirm('done')" class="btn btn-danger js-delete"  data-id="@item.Id">sf</a>
+                 </td>
+                            
+                        }
+            
+                        }
+
+                        
+                    }
+                
         </tr>
 }
     </tbody>
 </table>
+
+
+
+@section Scripts{
+
+
+    
+    <script>
+
+
+        
+        $(document).ready(function () {
+            $('.js-delete').on('click',function(){
+                var btn = $(this);
+
+
+
+                bootbox.confirm({
+                    message: "Are you sure that you need to delete this user ?",
+                    buttons: {
+                        confirm: {
+                            label: 'Yes',
+                            className: 'btn-danger'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-success'
+                        }
+                    },
+                    callback: function (result) {
+                        //console.log('This was logged in the callback: ' + result);
+                        if(result){
+                            $.ajax({
+                                url:'Contract/M/'+btn.data('id'),
+                                
+                               
+                            })
+                        }
+                    }
+                });
+
+
+                
+
+
+
+
+
+            });
+        });
+    </script>
+}

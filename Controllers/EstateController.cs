@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace GP
 {
     
-    [Authorize(Roles ="Owner")]
+    //[Authorize(Roles ="Owner")]
     public class EstateController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -120,17 +120,17 @@ namespace GP
             GP.Models.Toast.Message = "تم اضافة العقار بنجاح ";
             return RedirectToAction("Index");
         }
-        [HttpGet]
-        public async Task<ActionResult<Estate>> Details(long id)
+        //[HttpGet]
+        public IActionResult Details(long id)
         {
 
-            if (id != 0)
-            {
-                Estate estate = await services.GetOne(id);
-                return View(estate);
-            }
-
-            return NotFound();
+            //if (id != 0)
+            //{
+            //    Estate estate = await services.GetOne(id);
+            //    return View(estate);
+            //}
+            ViewBag.msg = "msg";
+            return View();
 
         }
 
