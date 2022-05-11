@@ -1,0 +1,63 @@
+﻿@page
+@model GP.Areas.Identity.Pages.Account.Manage.ProfileNewModel
+@{
+
+  
+}
+
+
+  <link href="~/assetsSaja/css/Profiel.css" rel="stylesheet" />
+  <link href="~/assetsSaja/css/style.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+    <div class="col-lg-12  order-content">
+              
+        <div class="form_main  col-12">
+                    <h4 class="heading"> البيانات  <strong> الشخصية   </strong>   <span></span></h4>
+                    <div class="form">
+
+                    <form action="" method="" id="contactFrm" name="contactFrm">
+                        <div class="row">
+                            <div class="col-12">
+                              <input type="text" required="" placeholder="الاسم " value="" name="name" class="txt">
+                            </div>
+                            <div class="col-12">
+                              <input type="text" required="" placeholder="الايميل" value="" name="email" class="txt">
+                            </div>
+                            <div class="col-12">
+                              <input type="password" required="" placeholder="كلمة المرور" value="" name="password" class="txt">
+                            </div>
+                            <div class="col-12">
+                              <textarea type="text"  required="" rows="4" placeholder="وصف" cols="50" name="descrption" form="contactFrm" class="txt"></textarea>
+                            </div>
+                  
+                              <div class="col-lg-5 col-12">
+                                <input type="text" required="" placeholder="رقم الهاتف " value="" name="tel" class="txt">
+                              </div>
+                              <div class="col-lg-5 col-12">
+                                <input type="text" required="" placeholder=" الموقع الالكتروني " value="" name="website" class="txt ">
+                              </div>
+                              <div class="col-lg-5 col-12">
+                                <input type="text" required="" placeholder="موقع تواصل 1 " value="" name="fasebook" class="txt ">
+                              </div>
+                              <div class="col-lg-5 col-12">
+                                <input type="text" required="" placeholder="موقع تواصل 2 " value="" name="twitter" class="txt ">
+                              </div>
+                            </div>
+                          
+                      
+                        <br>
+                        <button type="button" class="btn btn-default btn1">تحديث</button>
+                    </form>
+                </div>
+                </div>
+                
+      </div>
+
+@section Scripts{
+  
+  <script src="~/assetsSaja/js/Provile.js"></script>
+
+
+}
