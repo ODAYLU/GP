@@ -1,6 +1,6 @@
 ﻿@model GP.Models.Comments;
 @{
-     
+
     ViewData["Title"] = "";
 }
 @*<button id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
@@ -31,18 +31,18 @@
                                 @*~/images/unknown-person-icon-Image-from.png*@
 
                                 <label for="edit_name_en" class="my-3">صورة العقار </label>
-                                <img  id="image" src=""  alt="Estate" />
-                                <input id="fname" asp-for="@Model.Body" class="form-control" required name="name"/>
+                                <img id="image" src="" alt="Estate" />
+                                <input id="fname" asp-for="@Model.Body" class="form-control" required name="name" />
                                 <span asp-validation-for="@Model.Body" class="text-danger span"></span>
                             </div>
                         </div>
-                       @* <div class="col-12">
+                        @* <div class="col-12">
                             <div class="form-group">
 
-                                <label asp-for="@Model.Body" class="my-3"> التعليقات </label>
-                                <input id="fname" asp-for="@Model.Body" class="form-control" required name="name" />
+                            <label asp-for="@Model.Body" class="my-3"> التعليقات </label>
+                            <input id="fname" asp-for="@Model.Body" class="form-control" required name="name" />
                             </div>
-                        </div>*@
+                            </div>*@
 
                     </div>
 
@@ -126,13 +126,17 @@
          $.ajax({
          type:"POST",
         url: `/Admin/Comments/Details/${Id}`,
-        
+
         dataType: "json",
              success: function (data) {
-                 console.log(data);
-          
-           document.getElementById("image").src=`/images/Estate/${data}`;
-        }
+                 console.log(data[0]);
+                 console.log(data[0].comments);
+                 console.log(data[0].comments.estate);
+                 console.log(data[0].comments.estate.main_photo);
+                 var image=data[0].comments.estate.main_photo;
+
+                document.getElementById("image").src=`/images/Estate/${image}`;
+             }
         ,
        error: function (xhr, exception) {
            console.log(exception);

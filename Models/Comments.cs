@@ -70,7 +70,6 @@ namespace GP.Models
 
         public IQueryable<Comments> GetAll(string search = "")=>_context
                     .TComments
-
                     .AsNoTracking().Where(x => string.IsNullOrEmpty(search)? true :
                        (x.Body.Contains(search))
                     )
