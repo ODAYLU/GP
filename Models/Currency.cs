@@ -22,7 +22,7 @@ namespace GP.Models
     {
         public IQueryable<Currency> GetAllSelected();
         public Task<Currency> GetOne(long id);
-        public List<Currency> GetAll();
+        public IQueryable<Currency> GetAll(string search = "");
         public Task<DbCRUD> InsertCurrency(Currency curre);
         public Task<DbCRUD> UpdateCurrency(Currency city);
         public Task<DbCRUD> DeleteCurrency(long id);
@@ -60,10 +60,12 @@ namespace GP.Models
             }
         }
 
-        public List<Currency> GetAll() => _context
+        public IQueryable<Currency> GetAll(string search = "") => _context
                     .TCurrency
-                    .AsNoTracking()
-                    .ToList();
+                    .AsNoTracking().Where(x => string.IsNullOrEmpty(search) ? true :
+                       (x.currency.Contains(search))
+                    )
+                    .AsQueryable();
 
         public async Task<Currency> GetOne(long id) => await _context
                 .TCurrency

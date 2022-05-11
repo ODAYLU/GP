@@ -26,6 +26,30 @@
 </div>
 
 
+<!-- Button trigger modal -->
+<a type="button" class="btn btn-primary" asp-action="Create" asp-controller="Comments">
+ Create 
+</a>
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      ....
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 
 <table class="table table-stripped">
     <thead>
@@ -38,6 +62,9 @@
             </th> 
             <th>
                 Comment
+            </th>
+            <th>
+                Rating
             </th>
         
             <th>
@@ -53,7 +80,9 @@
             <td>@item.AppUser</td>
             <td><span style="display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap;">
 @item.Body
-	</span></td>
+	</span></td><td>
+@item.Rating
+	</td>
             <td><a class="btn btn-primary"asp-route-Id="@item.Id" asp-controller="Comments"asp-action="Details">
 Details</a>
 </td>

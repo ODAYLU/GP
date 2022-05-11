@@ -52,8 +52,16 @@ namespace GP.Controllers
         {
             return View();
         }
+         public IActionResult Currency()
+        {
+            return View();
+        }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }      
+        public IActionResult Comments()
         {
             return View();
         }

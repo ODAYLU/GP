@@ -24,32 +24,17 @@ namespace GP.Controllers
             this.webHostEnvironment = webHostEnvironment;
         }
 
-
-
-        [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Create(VMCurrency VMcurrency)
+        public async Task<IActionResult> Create(Currency currency)
         {
+            ModelState.Remove("Id");
+            //currency.currency=
             if (!ModelState.IsValid) return View();
+            await _services.InsertCurrency(currency);
+            return Ok(currency);
 
-            if (VMcurrency == null)
-            {
-                 return View();
-            }
 
            
-            Models.Currency model = new Models.Currency();
-            model.Id = VMcurrency.Id;
-            model.currency = VMcurrency.currency;
-
-            await _services.InsertCurrency(model);
-
-            return RedirectToAction("Index");
         }
 
 
@@ -77,7 +62,7 @@ namespace GP.Controllers
 
             Models.Currency currency= await _services.GetOne(long.Parse(id));            
             await _services.DeleteCurrency(long.Parse(id));
-            return RedirectToAction("Index");
+            return Ok(currency);
         }
     }
 }
