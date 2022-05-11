@@ -27,8 +27,7 @@ namespace GP.Models
         [DataType(dataType: DataType.PhoneNumber)]
         public string ContactNumber { get; set; }
 
-        [DataType(dataType:DataType.ImageUrl)]
-        public string ImagePath { get; set; }
+        public byte[] ProfilePicture { get; set; }
         public bool is_active { get; set; } = true;
         public int memory { get; set; }
         public bool is_special { get; set; }

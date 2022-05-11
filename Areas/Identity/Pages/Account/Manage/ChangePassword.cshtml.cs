@@ -16,6 +16,7 @@ namespace GP.Areas.Identity.Pages.Account.Manage
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<ChangePasswordModel> _logger;
 
+    
         public ChangePasswordModel(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,

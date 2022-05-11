@@ -115,18 +115,18 @@ namespace GP.Areas.Identity.Pages.Account
                     memory = 10,
                     NameRole = Input.Role
                 };
-                if (Input.Image != null)
-                {
-                    string webRootPath = _webHostEnvironment.WebRootPath;
-                    string upload = webRootPath + "/images/User/";
-                    string fileName = Guid.NewGuid().ToString();
-                    string extension = Path.GetExtension(Input.Image.FileName);
-                    using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
-                    {
-                        await Input.Image.CopyToAsync(fileStream);
-                    }
-                    user.ImagePath = "/images/User/" + fileName + extension;
-                }
+                //if (Input.Image != null)
+                //{
+                //    string webRootPath = _webHostEnvironment.WebRootPath;
+                //    string upload = webRootPath + "/images/User/";
+                //    string fileName = Guid.NewGuid().ToString();
+                //    string extension = Path.GetExtension(Input.Image.FileName);
+                //    using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
+                //    {
+                //        await Input.Image.CopyToAsync(fileStream);
+                //    }
+                //    user.ImagePath = "/images/User/" + fileName + extension;
+                //}
                 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
