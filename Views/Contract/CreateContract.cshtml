@@ -5,6 +5,8 @@
 @{
     bool isSales = ViewBag.TypeEstate==1 ? true : false;
     Estate estate = _ser.GetOnetoImage(IdEstate.Id);
+            Layout = "~/Views/Shared/_LayoutOwner.cshtml";
+
 }
 <h1>@ViewBag.TypeOfContract</h1>
 

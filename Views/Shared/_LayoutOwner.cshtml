@@ -193,9 +193,9 @@
     <div class="row">
         <div class="col-3">
         
-      <div class="container">
+   
         <div class="row profile">
-        <div class="col-lg-3 col-12">
+      
           <div class="profile-sidebar">
             <!-- SIDEBAR USERPIC -->
             <div class="profile-userpic">
@@ -204,7 +204,6 @@
                   <span class="glyphicon glyphicon-camera"></span>
                   <span>تغيير الصورة</span>
                 </label>
-                <input id="file" type="file" onchange="loadFile(event)"  class="d-none"/>
                 <img src="https://cdn.pixabay.com/photo/2017/08/06/21/01/louvre-2596278_960_720.jpg"  class="img-responsive "  id="output"    width="200" />
               </div>
             </div>
@@ -246,17 +245,25 @@
 
                                         <i class="glyphicon glyphicon-user"></i>
                                         <span class="mx-2"></span>
-                                                           بيانات شخصية
+                                                     العقارات
 
 
 
 
                    </a>
                 </li>
-                <li>
-                  <a href="#">
-                  <i class="glyphicon glyphicon-flag"></i>
-                  <span class="hidden-xs">مساعدة  </span></a>
+                 <li class=" ">
+
+                    <a class="nav-link" id="profile"  asp-controller="Contract" asp-action="Index" asp-area="">     
+
+                                        <i class="glyphicon glyphicon-user"></i>
+                                        <span class="mx-2"></span>
+                                              العقود
+
+
+
+
+                   </a>
                 </li>
                                 <li>
                   <a href="#">
@@ -307,8 +314,7 @@
              
                                                   
                   
-          </div>
-        </div>
+     
         
       </div>
     </div>

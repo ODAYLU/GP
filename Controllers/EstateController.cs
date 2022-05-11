@@ -120,17 +120,16 @@ namespace GP
             GP.Models.Toast.Message = "تم اضافة العقار بنجاح ";
             return RedirectToAction("Index");
         }
-        //[HttpGet]
-        public IActionResult Details(long id)
+        [HttpGet]
+        public async Task<IActionResult> Detalis(long id)
         {
 
-            //if (id != 0)
-            //{
-            //    Estate estate = await services.GetOne(id);
-            //    return View(estate);
-            //}
-            ViewBag.msg = "msg";
-            return View();
+            if (id != 0)
+            {
+                Estate estate = await services.GetOne(id);
+                return View(estate);
+            }
+          return View();
 
         }
 
