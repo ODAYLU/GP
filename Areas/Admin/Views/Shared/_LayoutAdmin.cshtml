@@ -14,13 +14,14 @@
     <link href="~/assets/bootstrap/font-awesome.min.css" rel="stylesheet">
     <link href="~/assets/bootstrap/bootstrap-icons.css" rel="stylesheet">
     <link href="~/assets/bootstrap/animate.min.css" rel="stylesheet">
-    <link href="~/assets/css/style.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="~/css/c.css" rel="stylesheet" />
     <link href="~/css/login.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/Login/login.css" rel="stylesheet" />
-   
+    <link href="~/assets/css/style.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+
 </head>
 
 <body dir="rtl">
@@ -123,7 +124,7 @@
 
                             </a>
                         </li>
-                        <li class="" >
+                        <li class="">
                             <a class="list" asp-area="Admin" asp-controller="Comments" asp-action="Index">
                                 <span class="title">التعليقات</span>
                                 <span class="icon">
@@ -132,7 +133,7 @@
 
                             </a>
                         </li>
-                        
+
                         <li class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Service">
                                 <span class="title">الخدمات</span>
@@ -164,7 +165,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="container-fluid p-0">
                 <div class="content">
                     <ul class="nav p-0 align-items-center">
@@ -202,7 +202,71 @@
                                 <i class="bi bi-person-bounding-box"></i>
                             </a>
                             <ul class="dropdown-menu text-center">
+                                <li>
+                                    <a class="dropdown-item d-flex justify-content-between align-items-center"
+                                       href="#">
+                                        اسم الادمن <img src="assets/img/pages/profille.png"
+                                                        class="img-fluid w-25">
+                                    </a>
+                                </li>
+                                <li><a class="dropdown-item" href="#">الصفحة الشخصية</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item d-flex justify-content-between align-items-center"
+                                       href="#">تسجيل خروج<i class="bi bi-box-arrow-left fs-3"></i></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
 
+
+
+
+
+
+            </div>
+            @*<div class="container-fluid p-0">
+                <div class="content">
+                    <ul class="nav p-0 align-items-center">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#">
+                                <p class="text-white fs-2">
+                                    <span class="show d-none px-1" style="font-size:30px;cursor:pointer;"
+                                          onclick="myFunction()">&#9776;</span>
+                                    <span id="btnss" class="text-white d-lg-inline-block d-none">
+                                        <i class="bi bi-chevron-right"></i>
+                                    </span>
+                                    لوحة التحكم
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item me-auto ps-2 ">
+                            <div class="toggle-container">
+                                <button class="theme-btn text-white light" onclick="setTheme('light')"
+                                        title="Light mode">
+                                    <i class="bi bi-brightness-high-fill"></i>
+                                </button>
+                                <button class="theme-btn text-white dark" onclick="setTheme('dark')" title="Dark mode">
+                                    <i class="bi bi-moon-stars-fill"></i>
+                                </button>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class=" start-0 text-white fs-2" href="#">
+                                <i class="bi bi-bell-fill"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle fs-2 text-white" data-bs-toggle="dropdown" href="#"
+                               role="button" aria-expanded="false">
+                                <i class="bi bi-person-bounding-box"></i>
+                            </a>
+                            <ul class="dropdown-menu text-center">
+                                <li>Person</li>
+                                <li></li>
                                 <partial name="_LoginAdminPartial" />
 
                             </ul>
@@ -216,7 +280,7 @@
 
 
 
-            </div>
+            </div>*@
         </header>
 
 

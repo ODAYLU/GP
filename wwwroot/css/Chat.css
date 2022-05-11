@@ -35,11 +35,17 @@
     transition: .5s
 }
 
-    .people-list .chat-list li {
-        padding: 10px 15px;
-        list-style: none;
-        border-radius: 3px
+@media (min-width:500px) {
+    .chat-list {
+        display:block;
     }
+}
+
+.people-list .chat-list li {
+    padding: 10px 15px;
+    list-style: none;
+    border-radius: 3px
+}
 
         .people-list .chat-list li:hover {
             background: #efefef;
@@ -78,12 +84,15 @@
     padding: 15px 20px;
     border-bottom: 2px solid #f4f7f6
 }
-
-    .chat .chat-header img {
-        float: left;
-        border-radius: 40px;
-        width: 40px
-    }
+.chatText{
+    height:200px;
+    overflow:auto;
+}
+.chat .chat-header img {
+    float: left;
+    border-radius: 40px;
+    width: 40px
+}
 
     .chat .chat-header .chat-about {
         float: left;
