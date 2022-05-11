@@ -1,6 +1,7 @@
 ﻿using GP.Models;
 using GP.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,21 +13,34 @@ using System.Threading.Tasks;
 namespace GP.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles = "Admin,User")]
     public class AdminOperationController : Controller
     {
         private readonly ILogger<AdminOperationController> _logger;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly IEstate _estate;
 
-        public AdminOperationController(ILogger<AdminOperationController> logger)
+        public AdminOperationController(ILogger<AdminOperationController> logger,
+            UserManager<AppUser> userManager,
+            IEstate estate
+            )
         {
             _logger = logger;
+            _userManager = userManager;
+            _estate = estate;
         }
 
         public IActionResult Index()
         {
+            ViewBag.Users = _userManager.Users.Count();
+            ViewBag.Estate = _estate.GetAll().Count();
             return View();
         }
         public IActionResult User()
+        {
+            return View();
+        }
+        public IActionResult Estate()
         {
             return View();
         }
@@ -52,7 +66,11 @@ namespace GP.Controllers
         {
             return View();
         }
-         public IActionResult Currency()
+        public IActionResult Currency()
+        {
+            return View();
+        }
+        public IActionResult Contact()
         {
             return View();
         }

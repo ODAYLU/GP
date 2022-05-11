@@ -62,7 +62,7 @@ namespace GP.Controllers
 
             Models.Currency currency= await _services.GetOne(long.Parse(id));            
             await _services.DeleteCurrency(long.Parse(id));
-            return Ok(currency);
+            return Ok("Index");
         }
     }
 }

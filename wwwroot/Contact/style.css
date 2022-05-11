@@ -1,0 +1,44 @@
+:root {
+  font-family: "Cairo", sans-serif !important;
+}
+body {
+  direction: rtl;
+  font-family: "Cairo", sans-serif !important;
+}
+
+/* Start Contact */
+h2,h5,p{
+  color: #003c30;
+}
+
+.contact:hover{
+  color: white;
+  background-color: #4FBDBA;
+  transform: translateY(-15px);
+  transition: transform 0.5s;
+}
+
+.contact:hover h2{
+  color: white;
+}
+
+.contact:hover h5{
+  color: white;
+}
+
+.contact:hover p{
+  color: white;
+}
+.form-control:focus {
+  color: #212529;
+  background-color: #fff;
+  border-color: #003c30;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(13, 109, 253, 0);
+}
+
+/* End Contact */
+
+/* Start Profile */
+
+/* End Profile */

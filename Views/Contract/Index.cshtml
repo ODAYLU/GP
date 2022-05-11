@@ -1,0 +1,170 @@
+﻿@model IEnumerable<GP.Models.Contract>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SallerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sallerphone_num)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BuyerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Buyerphone_num)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Longitude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Latitude)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OnDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.up_to_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.category)
+            </th>
+           
+            <th>
+
+                
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SallerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sallerphone_num)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuyerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Buyerphone_num)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Longitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Latitude)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OnDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.up_to_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.category)
+            </td>
+                @{
+                    if(item.Type == "بيع" )
+                    {
+
+                        if (item.isDone == 1)
+                        {
+                                <td>
+                 <a href="#" class="btn btn-success" >   إعادة تفعيل العقار</a>  
+                            </td>
+                        }
+                        else
+                        {
+                                        <td>
+                <a href="/Contract/M/@item.Id" onclick="confirm('done')" class="btn btn-danger js-delete"  data-id="@item.Id">sf</a>
+                 </td>
+                            
+                        }
+            
+                        }
+
+                        
+                    }
+                
+        </tr>
+}
+    </tbody>
+</table>
+
+
+
+@section Scripts{
+
+
+    
+    <script>
+
+
+        
+        $(document).ready(function () {
+            $('.js-delete').on('click',function(){
+                var btn = $(this);
+
+
+
+                bootbox.confirm({
+                    message: "Are you sure that you need to delete this user ?",
+                    buttons: {
+                        confirm: {
+                            label: 'Yes',
+                            className: 'btn-danger'
+                        },
+                        cancel: {
+                            label: 'No',
+                            className: 'btn-success'
+                        }
+                    },
+                    callback: function (result) {
+                        //console.log('This was logged in the callback: ' + result);
+                        if(result){
+                            $.ajax({
+                                url:'Contract/M/'+btn.data('id'),
+                                
+                               
+                            })
+                        }
+                    }
+                });
+
+
+                
+
+
+
+
+
+            });
+        });
+    </script>
+}

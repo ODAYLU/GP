@@ -9,4 +9,9 @@
         public static string Message { get; set; } = "";
     }
 
+    public static class IdEstate
+    {
+        public static long Id { get; set; }
+    }
+
 }

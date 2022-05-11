@@ -1,0 +1,102 @@
+﻿@model Contact
+
+    <link rel="stylesheet" href="~/Contact/css/fonts/bootstrap-icons.woff" />
+    <link rel="stylesheet" href="~/Contact/css/fonts/bootstrap-icons.woff2" />
+    <link href="~/Contact/style.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500&display=swap" rel="stylesheet">
+    <div class="container  my-5 shadow rounded-3 p-5">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-4 d-flex justify-content-center align-items-center">
+                <h2>تواصل معنا</h2>
+            </div>
+        </div>
+        <div class="row my-5 d-flex justify-content-center align-items-center">
+            <div class="col-md-3 p-3 mt-3 mt-md-0 justify-content-center align-items-center rounded-3 shadow contact">
+                <h2 class="text-center"><i class="bi bi-telephone"></i></h2>
+                <h5 class="text-center my-4">اتصل بنا</h5>
+                <p class="text-center">0567463880</p>
+            </div>
+            <div class="col-md-3 p-3 mt-3 mt-md-0 mx-4 justify-content-center align-items-center rounded-3 shadow contact">
+                <a href="mailto:aqaramlack123@gmail.com">
+                    <h2 class="text-center"><i class="bi bi-envelope"></i></h2>
+                    <h5 class="text-center my-4">تواصل عبر البريد</h5>
+                    <p class="text-center">aqaramlack123@gmail.com</p>
+                </a>
+            </div>
+            <div class="col-md-3 p-3 mt-3 mt-md-0 justify-content-center align-items-center rounded-3 shadow contact">
+                <a href="https://api.whatsapp.com/send?phone=+972598112693">
+                    <h2 class="text-center"><i class="bi bi-whatsapp"></i></h2>
+                    <h5 class="text-center my-4">أرسل لنا</h5>
+                    <p class="text-center">واتس اب</p>
+                </a>
+            </div>
+        </div>
+        <div class="row  d-flex justify-content-center align-items-center">
+            <h2 class="text-center mt-5">أرسل لنا</h2>
+        </div>
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-md-9">
+                <form asp-action="SendEmail" method="post">
+                    <div class="container p-3">
+                        <div class="row">
+                            <div class=" col-lg-6">
+                                <label for="exampleInputfirstname1" class="form-label">
+                                    الاسم
+                                    :
+                                </label>
+                                <input asp-for="@Model.Name" class="form-control rounded-3" id="exampleInputfirstname1"
+                                       aria-describedby="firstnameHelp" />
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="exampleInputEmail1" class="form-label">الايميل :</label>
+                                <input asp-for="@Model.Email" class="form-control rounded-3" id="exampleInputEmail1"
+                                       aria-describedby="emailHelp">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class=" col-lg-6">
+                                <label for="exampleInputphone1" class="form-label">
+                                    رقم الهاتف
+                                    :
+                                </label>
+                                <input asp-for="@Model.Phone" class="form-control rounded-3" id="exampleInputphone1"
+                                       aria-describedby="phoneHelp">
+                            </div>
+                            <div class="col-lg-6">
+                                <label for="exampleInputsubject1" class="form-label">الموضوع :</label>
+                                <input asp-for="@Model.Object" class="form-control rounded-3" id="exampleInputsubject1"
+                                       aria-describedby="subjectHelp">
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">
+                                    الوصف
+                                    :
+                                </label>
+                                <textarea asp-for="@Model.Description" class="form-control rounded-3" id="exampleFormControlTextarea1"
+                                          rows="7"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-lg-12 justify-content-start mt-3">
+                                <button type="submit" class="btn btn-outline-dark rounded-3 px-4 float-start">
+                                    ارسال
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    @section Scripts{
+
+        <script src="~/Contact/js/app.js"></script>
+        <script src="~/Contact/js/particles.min.js"></script>
+    }

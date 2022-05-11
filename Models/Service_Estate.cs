@@ -25,6 +25,8 @@ namespace GP.Models
     }
     public interface IService_Estate 
     {
+        public List<Service_Estate> GetAllEstate(long id);
+        public string Vs(long id);
         public Task<Service_Estate> Getone(long id);
         public IQueryable<Services> GetALl(long id);
         public Task<DbCRUD> InsertService_Estate(Service_Estate service_Estate);
@@ -39,14 +41,30 @@ namespace GP.Models
         {
             this._context= context; 
         }
+
+        public string Vs (long id)
+        {
+
+            string x = _context.TService_Estate.Where(s => s.EstateID == id).ToString();
+
+            return x;
+
+
+        }
         public async Task<DbCRUD> DeleteService_Estate(long id)
         {
-            Service_Estate service = await Getone(id);
+           List<Service_Estate> service =  _context.TService_Estate.Where(x=>x.EstateID==id).ToList();
             try
             {
                 if (service!=null)
                 {
-                    _context.Remove(service);
+                    for (int i = 0; i < service.Count(); i++)
+                    {
+                        _context.TService_Estate.Remove(service[i]);
+                    }
+                   
+
+                    await  _context.SaveChangesAsync();
 
                     return DbCRUD.success;
                 }
@@ -61,9 +79,7 @@ namespace GP.Models
 
         public IQueryable<Services> GetALl(long id)
         {
-          List<Service_Estate> list_ser=  _context.TService_Estate.Where(s => s.EstateID == id).Include(x=>x.Services).ToList();
-
-
+           List<Service_Estate> list_ser=  _context.TService_Estate.Where(s => s.EstateID == id).Include(x=>x.Services).ToList();
            List<Services> services = new List<Services>();
 
             for(int i = 0; i < list_ser.Count; i++)
@@ -73,6 +89,11 @@ namespace GP.Models
             }
 
             return services.AsQueryable();
+        }
+        public List<Service_Estate> GetAllEstate(long id)
+        {
+            List<Service_Estate> list_ser = _context.TService_Estate.Where(s => s.EstateID == id).AsNoTracking().ToList();
+            return list_ser;
         }
 
 

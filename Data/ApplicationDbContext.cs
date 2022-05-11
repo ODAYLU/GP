@@ -13,14 +13,14 @@ namespace GP.Data
             : base(options)
         {
         }
-
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             builder.Entity<Estate>().Property(c => c.OnDate).HasDefaultValueSql("Getdate()");
+            builder.Entity<Contract>().Property(c => c.OnDate).HasDefaultValueSql("Getdate()");
             builder.Entity<Estate>().Property(c => c.is_active).HasDefaultValueSql("1");
-         
+            builder.Entity<Message>().HasOne(a => a.Sender).WithMany(x => x.Messages)
+                .HasForeignKey(x => x.UserId);
         }
 
         public DbSet<Estate> TEstates { get; set; }
@@ -40,6 +40,12 @@ namespace GP.Data
 
 
         public DbSet<PhotoEstate> TPhotoEstate { get;set; }
+        public DbSet<Contact> TContacts { get;set; }
+        public DbSet<InformationGen> TInformatiomGensT { get;set; }
+        public DbSet<Message> Messages { get;set; }
+
+        public DbSet<Contract> TContract { get;set; }
+
 
     }
 }

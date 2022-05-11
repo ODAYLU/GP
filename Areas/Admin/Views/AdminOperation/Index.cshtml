@@ -1,25 +1,254 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model GP.Models.AppUser
+@{ ViewData["Title"] = "Home Page"; }
+
+
+
+<div class="  row    text-sm-center  d-flex justify-content-around ">
+
+    <div class=" ff cont  col-xl-2  col-sm-5 mb-sm-3   bg-white rounded-3 p-5  ">عدد العقارات المعروضة  @ViewBag.Estate</div>
+    <div class=" ff cont  col-xl-2    col-sm-5 mb-sm-3  bg-white rounded-3 p-5 ">عدد المستخدمين @ViewBag.Users </div>
+    <div class=" ff cont col-xl-2    col-sm-5  mb-sm-3 bg-white rounded-3 p-5 "> saja</div>
+    <div class=" ff cont  col-xl-2    col-sm-5 mb-sm-3  bg-white rounded-3 p-5 "> saja</div>
+
+</div>
+<div class="row mt-5 justify-content-around  ">
+    <button hidden id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+            class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">
+        إضافة إلى الحافظة
+    </button>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div style="margin:10px!important;">
+                    <form id="formadd" method="post">
+                        <input id="inputId" type="text" hidden />
+                        <div class="form-group">
+                            <label>
+                                الإضافة إلى الحافظة
+                            </label>
+                            <input id="numDays" type="number" maxlength="30" min="1" name="day" />
+                        </div>
+
+                        <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button id="btnAdd" type="submit" class="btn btn-outline-primary">Ok</button>
+                        <button id="btnAddMemory" type="submit" class="btn btn-outline-primary">Add</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <table id="Owners" class="table table-striped table-bordered w-100 flex-nowrap" style="direction:rtl;">
+        <thead>
+            <tr>
+                <th>الرقم</th>
+                <th> اسم الأول  </th>
+                <th> الإسم الأخير</th>
+                <th> الإيميل</th>
+                <th> الحالة</th>
+                <th> الحافظة</th>
+                <th>الصورة</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+
+</div>
+
+@section Scripts{
+    @(await Html.PartialAsync("_ValidationScriptsPartial"));
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#Owners").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "responsive": true,
+                "lengthMenu": [10, 20, 30, 40, 50],
+                "language": {
+                    "search": "ابحث",
+                    "lengthMenu": "عرض _MENU_ صفوف"
+                },
+                "ajax": {
+                    "url": '/api/Api/GetOwners',
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs": [{
+                    "targets": 0,
+                    "visible": false,
+                    "searchable": false
+                }],
+                "columns": [
+                    { "data": "id", "name": "Id", "autowidth": true },
+                    { "data": "firstName", "name": "FirstName", "autowidth": true },
+                    { "data": "lastName", "name": "LastName", "autowidth": true },
+                    { "data": "userName", "name": "UserName", "autowidth": true },
+                    {
+                        "render": function (data, type, row) {
+                            if (row.is_active) {
+                                return '<span>نشط</span>'
+                            }
+                            else {
+                                return '<span>غير نشط</span>'
+                            }
+
+                        },
+                        "orderable": false
+                    },
+
+                    { "data": "memory", "name": "memory", "autowidth": true },
+                    {
+                        "render": function (data, type, row) { return '<img src="' + row.imagePath + '" class=" w-25 h-25" asp-append-version="true" />' },
+                        "orderable": false
+                    },
+                    {
+                        "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCategory("' + row.id + '"); > تفاصيل </a>' },
+                        "orderable": false
+                    },
+                    {
+                        "render": function (data, type, row) {
+                            if (row.is_active) {
+                                return '<a href="#" id="btnStates" class="btn btn-outline-danger" onclick=BlockUser("' + row.id + '"); > تقييد </a>'
+                            }
+                            else {
+                                return '<a href="#" id="btnStates" class="btn btn-outline-danger" onclick=UnBlockUser("' + row.id + '"); > تفعيل </a>'
+                            }
+
+                        },
+                        "orderable": false
+                    },
+                    {
+                        "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=AddToMemory("' + row.id + '"); > إضافة للحافظة  </a>' },
+                        "orderable": false
+                    },
+                    {
+                        "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCategory("' + row.id + '"); > حذف </a>' },
+                        "orderable": false
+                    },
+                ]
+            });
+        });
+
+        function AddToMemory(Id) {
+            $("#inputId").val(Id);
+            $("#Add").click();
+            $("#btnAdd").hide();
+            $("#btnAddMemory").show();
+        }
+
+        $("#btnAddMemory").click(function () {
+            $.ajax({
+                method: 'Get',
+                url: `/Admin/UserOperation/AddToMemory`,
+                data: { id: $("#inputId").val(), count: $("#numDays").val() },
+                success: function () {
+                    Swal.fire(
+                        'تمت بنجاح',
+                        'تم الاضافة للحافظة بنجاح',
+                        'success'
+                    );
+
+                    $("#btnClose").click();
+                    var Table = $("#Owners").DataTable();
+                    Table.draw();
+                }
+            });
+        });
+
+        function DeleteCategory(Id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        method: 'Get',
+                        url: `/Admin/CategoryOperation/Delete/${Id}`,
+                        data: JSON.stringify({ id: Id }),
+                        success: function () {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                            var Table = $("#Owners").DataTable();
+                            Table.draw();
+                        }
+                    });
+
+                }
+            })
+
+        }
+
+        $("#formadd").on("submit", function (e) {
+            e.preventDefault();
+        })
+        function UnBlockUser(Id) {
+            $.ajax({
+                method: 'Get',
+                url: `/Admin/UserOperation/UnBlockUser`,
+                data: { id: Id },
+                success: function () {
+                    Swal.fire(
+                        'التفعيل!',
+                        'تم فك القيد بنجاح.',
+                        'success'
+                    );
+                    var Table = $("#Owners").DataTable();
+                    Table.draw(false);
+                }
+            });
+        }
+        function BlockUser(Id) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "أنت سوف تقوم تقييد المستخدم",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        method: 'Get',
+                        url: `/Admin/UserOperation/BlockUser`,
+                        data: { id: Id },
+                        success: function () {
+                            Swal.fire(
+                                'Blocked!',
+                                'Your file has been Blocked.',
+                                'success'
+                            );
+
+                            $("#btnClose").click();
+                            var Table = $("#Owners").DataTable();
+                            Table.draw();
+                        }
+                    });
+
+                }
+            })
+
+        }
+
+
+    </script>
 }
-
-
-
-                <div class="  row    text-sm-center  d-flex justify-content-around ">
-
-                    <div class=" ff cont  col-xl-2  col-sm-5 mb-sm-3   bg-white rounded-3 p-5  "> saja</div>
-                    <div class=" ff cont  col-xl-2    col-sm-5 mb-sm-3  bg-white rounded-3 p-5 "> sakja</div>
-                    <div class=" ff cont col-xl-2    col-sm-5  mb-sm-3 bg-white rounded-3 p-5 "> saja</div>
-                    <div class=" ff cont  col-xl-2    col-sm-5 mb-sm-3  bg-white rounded-3 p-5 "> saja</div>
-
-                </div>
-                <div class="row mt-5 justify-content-around  ">
-
-                    <div class=" overflow-auto cont  col-xxl-5 col-sm-12 mb-sm-5 mark bg-white rounded-4 p-7  ">
-
-                    </div>
-                    <div class=" overflow-auto cont  col-xxl-5 col-sm-12 mb-sm-5  mark bg-white rounded-4 p-7  ">
-
-                    </div>
-                </div>
 
 

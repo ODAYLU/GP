@@ -10,5 +10,12 @@
             isExisted,
             isNotExisted
         }
+
+        public enum SatateContract
+        {
+            nonactive,
+           
+            active
+        }
     }
 }

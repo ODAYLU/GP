@@ -1,0 +1,80 @@
+﻿@model GP.Models.InformationGen
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<h4>InformationGen</h4>
+<a class="btn btn-outline-primary" onclick="OpenForm()">تعديل</a>
+<hr />
+<div class="row">
+    <div class="">
+        <form asp-action="Index">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">الإيميل</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label">رقم الهاتف</label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UrlFacebook" class="control-label">رابط فيسبوك</label>
+                <input asp-for="UrlFacebook" class="form-control" />
+                <span asp-validation-for="UrlFacebook" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UrlTwitter" class="control-label">رابط تويتر</label>
+                <input asp-for="UrlTwitter" class="form-control" />
+                <span asp-validation-for="UrlTwitter" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UrlInstegrame" class="control-label"> رابط انستقرام</label>
+                <input asp-for="UrlInstegrame" class="form-control" />
+                <span asp-validation-for="UrlInstegrame" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="حفظ" class="btn btn-outline-primary" />
+            </div>
+            <br />
+        </form>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    $(document).ready(function () {
+        $('input').attr("Disabled", true);
+    });
+    function OpenForm() {
+        $('input').attr("Disabled", false);
+    }
+    $('form').on("submit", function () {
+        var data = $('form').serialize();
+        $.ajax({
+            url: "/Admin/InformationGen/SaveInformation",
+            method: "GET",
+            data: data,
+            success: function () {
+                $('input').attr("Disabled", true);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'تم التعديل بنجاح',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        });
+    });
+</script>
+}
