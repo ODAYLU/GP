@@ -3,19 +3,23 @@ using GP.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace GP
 {
-    [AllowAnonymous]
+    
+    //[Authorize(Roles ="Owner")]
     public class EstateController : Controller
     {
+        private readonly UserManager<AppUser> _userManager;
         private readonly IEstate services;
         private readonly IService servicesList; 
         private readonly IPhotoEstate _photoservices;
@@ -23,8 +27,9 @@ namespace GP
         private readonly IWebHostEnvironment webHostEnvironment;
 
 
-        public EstateController(GP.Models.IEstate Services, IWebHostEnvironment webHostEnvironment, IPhotoEstate photoservices, IService_Estate service_Estate, IService servicesList)
+        public EstateController(UserManager<AppUser> userManager , GP.Models.IEstate Services, IWebHostEnvironment webHostEnvironment, IPhotoEstate photoservices, IService_Estate service_Estate, IService servicesList)
         {
+            this._userManager = userManager;
             services = Services;
             this.webHostEnvironment = webHostEnvironment;
             _photoservices = photoservices;
@@ -35,7 +40,8 @@ namespace GP
         [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<Estate> list = services.GetAll();
+            string UserId1 = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            List<Estate> list = services.GetAll().Where(x=>x.UserId== UserId1 && x.is_active==true).ToList();
             return View(list);
         }
 
@@ -55,6 +61,11 @@ namespace GP
         [HttpPost]
         public async Task<IActionResult> CreateTemp(Estate estate, IFormFile image_main, List<IFormFile> images)
         {
+            if(image_main == null)
+            {
+                ModelState.AddModelError("image_main", "أضف الصورة الاساسية على الاقل");
+                return View(estate);
+            }
             ModelState.Remove(nameof(estate.Id));
             ModelState.Remove(nameof(estate.Main_photo));
             if (!ModelState.IsValid) return View(estate);
@@ -66,7 +77,9 @@ namespace GP
             {
                 await image_main.CopyToAsync(fileStream);
             }
-            estate.Main_photo = "/images/Estate/" + fileName + extension;
+            estate.Main_photo =  fileName + extension;
+            var user = _userManager.GetUserAsync(User);
+            estate.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             await services.InsertEstate(estate);
 
 
@@ -107,17 +120,17 @@ namespace GP
             GP.Models.Toast.Message = "تم اضافة العقار بنجاح ";
             return RedirectToAction("Index");
         }
-        [HttpGet]
-        public async Task<ActionResult<Estate>> Details(long id)
+        //[HttpGet]
+        public IActionResult Details(long id)
         {
 
-            if (id != 0)
-            {
-                Estate estate = await services.GetOne(id);
-                return View(estate);
-            }
-
-            return NotFound();
+            //if (id != 0)
+            //{
+            //    Estate estate = await services.GetOne(id);
+            //    return View(estate);
+            //}
+            ViewBag.msg = "msg";
+            return View();
 
         }
 
@@ -162,25 +175,30 @@ namespace GP
                
                     await _service_Estate.DeleteService_Estate(old.Id);
 
-
-                if (estate.list.Count() > 0)
+                if(estate.list != null)
                 {
-                    for (int i = 0; i < estate.list.Count(); i++)
+                    if (estate.list.Count() > 0)
                     {
-                        Service_Estate service = new Service_Estate();
-                        service.EstateID = old.Id;
-                        service.ServiceID = int.Parse(estate.list[i].Trim());
+                        for (int i = 0; i < estate.list.Count(); i++)
+                        {
+                            Service_Estate service = new Service_Estate();
+                            service.EstateID = old.Id;
+                            service.ServiceID = int.Parse(estate.list[i].Trim());
 
-                        await _service_Estate.InsertService_Estate(service);
+                            await _service_Estate.InsertService_Estate(service);
 
 
+                        }
                     }
+
                 }
+             
 
 
                 estate.Main_photo = old.Main_photo;
                 estate.is_active= old.is_active;
                 estate.is_spacial=old.is_spacial;
+                estate.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 await services.UpdateEstate(estate);
 
                 GP.Models.Toast.Message = "تم التعديل بنجاح";

@@ -301,11 +301,27 @@
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
 
     <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
+
+      <script src="~/lib/bootbox.js/bootbox.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
     <script src="~/lib/aspnet/signalr/dist/browser/signalr.js"></script>
 
     <script src="~/js/Chat.js"></script>
+
+<<<<<<< HEAD
+      
+         <script>
+           $(function () {
+                $("#mm").chosen();  
+                
+          })
+          window.onload=function (){
+              var x = document.getElementById("mm_chosen");
+              x.classList.add("w-100");
+          }
+  
+         </script>
 
 
 </body>

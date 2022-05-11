@@ -32,7 +32,7 @@ namespace GP.Models
     public interface ICommments
     {
         public Task<Comments> GetOne(long id);
-        public IEnumerable<Comments> GetAll();
+        public IQueryable<Comments> GetAll(string search = "");
         public Task<DbCRUD> InsertComment(Comments comment);
         public Task<DbCRUD> UpdateComment(Comments comment);
         public Task<DbCRUD> DeleteComment(long id);
@@ -68,16 +68,19 @@ namespace GP.Models
 
         }
 
-        public  IEnumerable<Comments> GetAll()
-        {
-            IEnumerable<Comments> lst =  _context.TComments.AsNoTracking().Include(c=>c.AppUser).AsEnumerable();
-            return lst;
-        }
+        public IQueryable<Comments> GetAll(string search = "")=>_context
+                    .TComments
+
+                    .AsNoTracking().Where(x => string.IsNullOrEmpty(search)? true :
+                       (x.Body.Contains(search))
+                    )
+                    .AsQueryable();
+       
 
         public async Task<Comments> GetOne(long id) => await _context
                 .TComments
                 .AsNoTracking()
-                .Include(c => c.AppUser)
+                .Include(c => c.AppUser).Include(x=>x.Estate)
                 .SingleOrDefaultAsync(c => c.Id == id);
 
         public async Task<DbCRUD> InsertComment(Comments comment)

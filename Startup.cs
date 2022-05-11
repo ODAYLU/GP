@@ -30,6 +30,7 @@ namespace GP
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging(), ServiceLifetime.Transient);
@@ -57,8 +58,8 @@ namespace GP
             services.AddControllersWithViews();
             services.AddScoped<IEstate,ProductManage>();
             services.AddScoped<ICategory,CategoryManage>();
-            services.AddScoped<ICategory,CategoryManage>();
-            services.AddScoped<ICity,CityManage>();
+            services.AddScoped<IReplaies,ManageReplayies>();
+             services.AddScoped<ICity,CityManage>();
             services.AddScoped<ICurrency,CurrencyManage>();
             services.AddScoped<IPhotoEstate,PhotoEstateManage>();
             services.AddScoped<IService,ServicesManage>();
@@ -66,6 +67,7 @@ namespace GP
             services.AddScoped<ICommments, CommentsManagments>();
             services.AddScoped<IState,StateManage>();
             services.AddScoped<IType,TypeManage>();
+            services.AddScoped<IContract, ContractManage>();
             services.AddScoped<InformationGen>();
             services.AddTransient<IContact,ContactManagments>();
         }
@@ -106,6 +108,7 @@ namespace GP
             {   
                
                 endpoints.MapRazorPages();
+                endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "Admin",
                     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");

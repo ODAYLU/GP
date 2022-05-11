@@ -14,6 +14,10 @@
       "provider": "unpkg",
       "library": "@aspnet/signalr@1.0.27",
       "destination": "wwwroot/lib/aspnet/signalr/"
+    },
+    {
+      "library": "bootbox.js@5.5.3",
+      "destination": "wwwroot/lib/bootbox.js/"
     }
   ]
 }

@@ -40,6 +40,10 @@ namespace GP.Controllers
         {
             return View();
         }
+        public IActionResult Estate()
+        {
+            return View();
+        }
         public IActionResult Category()
         {
             CategoeyVM categoey = new CategoeyVM();
@@ -72,6 +76,10 @@ namespace GP.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }      
+        public IActionResult Comments()
         {
             return View();
         }

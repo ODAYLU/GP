@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220505140602_AlterTableMassages")]
-    partial class AlterTableMassages
+    [Migration("20220511052802_AddTables")]
+    partial class AddTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -214,6 +214,69 @@ namespace GP.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TContacts");
+                });
+
+            modelBuilder.Entity("GP.Models.Contract", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BuyerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Buyerphone_num")
+                        .IsRequired()
+                        .HasColumnType("float");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("IDEstet")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Latitude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Longitude")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("OnDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("Getdate()");
+
+                    b.Property<string>("SallerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("Sallerphone_num")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("isDone")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("up_to_date")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IDEstet");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TContract");
                 });
 
             modelBuilder.Entity("GP.Models.Currency", b =>
@@ -643,7 +706,7 @@ namespace GP.Migrations
             modelBuilder.Entity("GP.Models.Comments", b =>
                 {
                     b.HasOne("GP.Models.Estate", "Estate")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("EstateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -655,6 +718,23 @@ namespace GP.Migrations
                     b.Navigation("AppUser");
 
                     b.Navigation("Estate");
+                });
+
+            modelBuilder.Entity("GP.Models.Contract", b =>
+                {
+                    b.HasOne("GP.Models.Estate", "Estate")
+                        .WithMany()
+                        .HasForeignKey("IDEstet")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GP.Models.AppUser", "Users")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Estate");
+
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("GP.Models.Estate", b =>
@@ -816,6 +896,11 @@ namespace GP.Migrations
             modelBuilder.Entity("GP.Models.AppUser", b =>
                 {
                     b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("GP.Models.Estate", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }
