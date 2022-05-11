@@ -125,10 +125,17 @@
           myModal.show();
          $.ajax({
          type:"POST",
-         url:`/Admin/Comments/Details/${Id}`,
+        url: `/Admin/Comments/Details/${Id}`,
+        
+        dataType: "json",
          success:function(data){
              console.log("Jenin");
-        console.log(data);
+             var line;
+
+             for (var i = 0; i < data.length; i++) {
+                 line = data[i].split2(',');
+                 console.log(line);
+             }
            document.getElementById("image").src=`/images/Estate/${data}`;
         }
         ,

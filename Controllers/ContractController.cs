@@ -109,7 +109,7 @@ namespace GP
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]        
-        public async Task<IActionResult> M(long id)
+        public async Task<IActionResult> EeEstate(long id)
 
         {
             var user = await _userManager.GetUserAsync(User);
