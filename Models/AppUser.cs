@@ -18,14 +18,23 @@ namespace GP.Models
         {
             Messages = new HashSet<Message>();
         }
-        [Display(Name = "First Name")]
+        [Display(Name = "الاسم الاول ")]
         public string FirstName { get; set; }
 
-        [Display(Name = "Last Name")]
+        [Display(Name = "الاسم الثاني ")]
         public string LastName {get; set;}
 
         [DataType(dataType: DataType.PhoneNumber)]
+        [Display(Name ="رقم الوتس آب")]
         public string ContactNumber { get; set; }
+        [Display(Name = "الفيس بوك")]
+        public string facebook { get; set; }
+
+        [Display(Name = " تويتر")]
+        public string twitter { get; set; }
+
+        [Display(Name = "الانستقرام  ")]
+        public string instigram { get; set; }
 
         public byte[] ProfilePicture { get; set; }
         public bool is_active { get; set; } = true;

@@ -16,9 +16,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.css" />
     <link href="~/css/Chat.css" rel="stylesheet" />
      <link href="~/assetsSaja/css/Profiel.css" rel="stylesheet" />
-  <link href="~/assetsSaja/css/style.css" rel="stylesheet" />
+     <link href="~/assetsSaja/css/style.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+      
 
 
     <title>@ViewData["Title"]</title>
@@ -64,6 +65,18 @@
 </head>
 <body dir="rtl">
 
+
+  
+   
+    @{
+        @inject UserManager<AppUser> _userManager;
+        var user = await _userManager.GetUserAsync(User);
+
+
+
+
+
+    }
 
     <header class="position-sticky top-0 bg-white" style="z-index: 60;  transition: 0.2s">
 
@@ -133,7 +146,7 @@
                             
                             <div class="row">
                                 <div class="col">
-                                    @if (User.IsInRole("Owner") || User.IsInRole("Admin"))
+                                    @if (User.IsInRole("Owner") )
                                     {
                                             <a asp-controller="Estate" asp-action="CreateTemp" class="btn rounded-5 btn-outline-success">
                                                 اضافة عقار
@@ -200,21 +213,35 @@
             <!-- SIDEBAR USERPIC -->
             <div class="profile-userpic">
               <div class="profile-pic">
-                <label class="-label" for="file">
-                  <span class="glyphicon glyphicon-camera"></span>
-                  <span>تغيير الصورة</span>
+                <label   class="d-block" style="height:165px;width:165px"
+     >
+                 
                 </label>
-                <img src="https://cdn.pixabay.com/photo/2017/08/06/21/01/louvre-2596278_960_720.jpg"  class="img-responsive "  id="output"    width="200" />
+                 @{
+                     
+                     if (@user.ProfilePicture is not null)
+                {
+                    <img id="prof" class="profile-picture" alt="Profile" src="data:image/*;base64,@(Convert.ToBase64String(@user.ProfilePicture))"/>
+                }
+
+                else
+                {
+                    <img  class="profile-picture" alt="Profile" src="https://cdn.pixabay.com/photo/2017/08/06/21/01/louvre-2596278_960_720.jpg"/>
+
+                }
+                }
               </div>
             </div>
             <!-- END SIDEBAR USERPIC -->
             <!-- SIDEBAR USER TITLE -->
             <div class="profile-usertitle">
               <div class="profile-usertitle-name">
-                سجا عوض الله
+               @user.FirstName @user.LastName
               </div>
               <div class="profile-usertitle-job">
                 صاحب عقار
+                <br /><br />
+                @user.UserName
               </div>
             </div>
             <!-- END SIDEBAR USER TITLE -->
@@ -294,21 +321,38 @@
               <!-- END STAT -->
                <div class="">
                   <h4 class="profile-desc-title"> عن صاحب العقار</h4>
-                  <span class="profile-desc-text"> عن صاحب العقارات عن صاحب العقارات </span>
+                  <span class="profile-desc-text"> @user.decription </span>
+                                  <div class="d-flex justify-content-around my-3">
                   <div class="margin-top-20 profile-desc-link">
-                    <i class="bi bi-globe"></i>
-                      <a href="https://www.apollowebstudio.com">apollowebstudio.com</a>
+                  
+                      <a href="@user.facebook">
+
+                            <i class="bi bi-facebook"></i>
+                      </a>
                      
                   </div>
                   <div class="margin-top-20 profile-desc-link">
-                    <i class="bi bi-twitter"></i>
-                      <a href="https://www.twitter.com/jasondavisfl/">jasondavisfl</a>
+                
+                      <a href="@user.twitter">
+
+                              <i class="bi bi-twitter"></i>
+                      </a>
                      
                   </div>
                   <div class="margin-top-20 profile-desc-link">
-                    <i class="bi bi-facebook"></i>
-                      <a href="https://www.facebook.com/">JasonDavisFL</a>
+                   
+                      <a href="@user.instigram">
+                           <i class="bi bi-instagram"></i>
+                      </a>
                      
+</div>
+              <div class="margin-top-20 profile-desc-link">
+                    
+                      <a href="https://wa.me/@user.ContactNumber">
+                          <i class="bi bi-whatsapp"></i>
+                      </a>
+                     
+</div>
 </div></div>
 </div>                   
              

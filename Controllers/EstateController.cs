@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace GP
 {
     
-    //[Authorize(Roles ="Owner")]
+    [Authorize(Roles ="Owner")]
     public class EstateController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -120,8 +120,8 @@ namespace GP
             GP.Models.Toast.Message = "تم اضافة العقار بنجاح ";
             return RedirectToAction("Index");
         }
-        [HttpGet]
-        public async Task<IActionResult> Detalis(long id)
+       // [HttpGet]
+        public async Task<ActionResult<Estate>> Detalis(long id)
         {
 
             if (id != 0)
@@ -205,20 +205,39 @@ namespace GP
 
                 return RedirectToAction("Details", estate);
             }
+            return NotFound();
+        }
 
+        [HttpGet]
+        public async Task<IActionResult> X(long id)
+        {
 
+            if (id != 0)
+            {
+                Estate estate = await services.GetOne(id);
+                if (estate.publish)
+                {
+                    estate.publish = false;
+                }
 
+                else
+                {
+                    estate.publish = true;
+                }
+              
+                await services.UpdateEstate(estate);
+
+                return RedirectToAction("Index");
+
+            }
 
             return NotFound();
         }
 
 
-
         [HttpGet]
         public async Task<ActionResult<Estate>> Delete(long id)
         {
-
-
             if (id != 0)
             {
                 Estate estate = await services.GetOne(id);
@@ -228,8 +247,6 @@ namespace GP
                 {
                     System.IO.File.Delete(oldfile);
                 }
-
-
 
                 await services.DeleteEstate(id);
 

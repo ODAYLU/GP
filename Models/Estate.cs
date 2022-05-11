@@ -57,9 +57,8 @@ namespace GP.Models
         public string[] list { get; set; }
 
         public bool is_active { get; set; } 
+        public bool publish { get; set; }
         public bool is_spacial { get; set; }
-
-
 
         [DisplayName(" نوع العقار ")]
         [Required(ErrorMessage = "الحقل مطلوب")]

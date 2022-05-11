@@ -1,4 +1,5 @@
 ﻿using GP.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GP
 {
- 
+    [Authorize(Roles = "Owner")]
     public class ContractController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -100,6 +101,7 @@ namespace GP
 
 
             estate.is_active = false;
+            estate.publish = false;
             await  _estate.UpdateEstate(estate);
 
             await _services.InsertContract(contract);
