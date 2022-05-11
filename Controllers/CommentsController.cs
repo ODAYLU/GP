@@ -10,6 +10,7 @@ namespace GP
     public class CommentsController : Controller
     {
         private readonly ICommments _context;
+
         public CommentsController(ICommments context)
         {
             this._context = context;
@@ -48,9 +49,14 @@ namespace GP
 
         public async Task<IActionResult> Details(long id)
         {
-            if (id != null && id != 0)
+            if (id != 0)
             {
                 Comments com = await _context.GetOne(id);
+
+
+
+
+
                 return View(com);
             }
             return NotFound();

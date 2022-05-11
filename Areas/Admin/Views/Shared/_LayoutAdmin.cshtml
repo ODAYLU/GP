@@ -116,7 +116,7 @@
                             </a>
                         </li>
                         <li class="">
-                            <a class="list">
+                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Currency">
                                 <span class="title">العملات</span>
                                 <span class="icon">
                                     <i class="bi bi-credit-card"></i>
@@ -308,6 +308,7 @@
     <script src="~/assets/js/loding.js"></script>
     <script src="~/assets/js/Calendar.js" type="text/javascript"></script>
     <script src="~/assets/js/Chart.js" type="text/javascript"></script>
+    <script src="~/SweetAlert/sweetalert2@11.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <!-- <script src="~/assets/js/index.js"></script> -->
 

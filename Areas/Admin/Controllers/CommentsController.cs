@@ -73,9 +73,14 @@ namespace GP.Areas.Admin.Controllers
                 //  var Data = JsonSerializer.Serialize(data);
                 var replaies = await _replaies.GetCommentReplies(id);
                 var dataRep = await replaies.ToListAsync();
-                var recordsTotal = dataRep.Count();
-                var jsonData = new { recordsFiltered = replaies, recordsTotal, data = dataRep };
-                return Ok(jsonData);
+                ////var recordsTotal = dataRep.Count();
+                ////var jsonData = new { recordsFiltered = replaies, recordsTotal, data = dataRep };
+                //List<string> x = new List<string>();
+                //foreach (var item in dataRep)
+                //{
+                //    x.Add($"{item.body},{item.CommentId},{image} ");
+                //}
+                return Ok(dataRep);
             }
             else
                 return NotFound();

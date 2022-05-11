@@ -1,6 +1,6 @@
 ﻿@model GP.Models.Comments;
 @{
-     
+
     ViewData["Title"] = "";
 }
 @*<button id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
@@ -31,18 +31,20 @@
                                 @*~/images/unknown-person-icon-Image-from.png*@
 
                                 <label for="edit_name_en" class="my-3">صورة العقار </label>
-                                <img  id="image" src=""  alt="Estate" />
-                                <input id="fname" asp-for="@Model.Body" class="form-control" required name="name"/>
+                                <img id="image" src="" alt="Estate" />
+                                <input id="fname" asp-for="@Model.Body" class="form-control" required name="name" />
                                 <span asp-validation-for="@Model.Body" class="text-danger span"></span>
                             </div>
                         </div>
-                       @* <div class="col-12">
+                        <div id="reps">
+                         </div>
+                        @* <div class="col-12">
                             <div class="form-group">
 
-                                <label asp-for="@Model.Body" class="my-3"> التعليقات </label>
-                                <input id="fname" asp-for="@Model.Body" class="form-control" required name="name" />
+                            <label asp-for="@Model.Body" class="my-3"> التعليقات </label>
+                            <input id="fname" asp-for="@Model.Body" class="form-control" required name="name" />
                             </div>
-                        </div>*@
+                            </div>*@
 
                     </div>
 
@@ -112,25 +114,45 @@
                    "orderable": false
                 },
             ],
-        });j
+        });
     });
 
     function Details(Id)
     {
           var table = $("#Comments").DataTable();
-        var data = table.data().filter(function(elm) {return elm.id == Id});
+          var data = table.data().filter(function(elm) {return elm.id == Id});
            // console.log(data[0]);
-        var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'),{
-        keyboard: false});
-          myModal.show();
-         $.ajax({
-         type:"POST",
-         url:`/Admin/Comments/Details/${Id}`,
-         success:function(data){
-             console.log("Jenin");
-        
-           document.getElementById("image").src=`/images/Estate/${data}`;
-        }
+           var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'),{
+           keyboard: false});
+           myModal.show();
+           $.ajax({
+           type:"POST",
+           url: `/Admin/Comments/Details/${Id}`,
+           dataType: "json",
+               success: function (data) 
+               {
+                   //   console.log(data.length);
+                   // console.log(data[0].comments);
+                    var image=data[0].comments.estate.main_photo;
+                    document.getElementById("image").src=`/images/Estate/${image}`;
+                    var dat=data.length;
+                    console.log(data[0].body);
+                    for(let i=0;i<dat;i++)
+                    {
+                       const node = document.createElement("p");
+                       const textnode = document.createTextNode(data[i].body);
+                          node.appendChild(textnode);
+                       document.getElementById("reps").appendChild(node);
+
+                          //    const imge=document.createElement("img");
+                          //    const txtimge=document.createTextNode("\images\Estate\f62f701d-40e6-4ade-acf9-c7225f968f48.jpeg");
+                         //    imge.appendChild(txtimge);
+                         //    document.getElementById("reps").appendChild(imge);
+                        //
+                    }
+
+
+               }
         ,
        error: function (xhr, exception) {
            console.log(exception);
@@ -155,6 +177,19 @@
          });
           document.getElementById("fname").value=data[0].body;
     }
+
+
+    
+     $('#btnClose').on("click",function(){
+         console.log("Clear");
+           var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'),{
+           keyboard: false});
+           myModal.hide();
+       var div=document.getElementById("reps");
+       div.innerHTML=" ";
+
+
+     })
     function EditItem(data) {
         $(".span").text("");
         $("#btnAdd").hide();
@@ -269,6 +304,7 @@
                 }
             });
         }
+
 
     })
 

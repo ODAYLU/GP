@@ -1,4 +1,5 @@
 ﻿using GP.Data;
+using GP.Hubs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -47,7 +48,7 @@ namespace GP.Models
         }
         public async Task<DbCRUD> DeleteComment(long id)
         {
-
+            
             Comments com = await GetOne(id);
             if (com!=null)
             {
@@ -70,7 +71,6 @@ namespace GP.Models
 
         public IQueryable<Comments> GetAll(string search = "")=>_context
                     .TComments
-
                     .AsNoTracking().Where(x => string.IsNullOrEmpty(search)? true :
                        (x.Body.Contains(search))
                     )
