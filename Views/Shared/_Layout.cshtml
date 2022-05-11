@@ -110,10 +110,10 @@
                     </button>
                     <div class="collapse navbar-collapse" id="collapsibleNavbar">
                         <ul class="navbar-nav ">
-                            <li class="nav-item" >
+                            <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">الرئيسية</a>
                             </li>
-                            <li class="nav-item" >
+                            <li class="nav-item">
                                 <a class="nav-link" asp-area="" asp-controller="ContactUser" asp-action="Index">تواصل معنا</a>
                             </li>
                             @if (User.IsInRole("Admin"))
@@ -121,26 +121,26 @@
                                 <li class="nav-item">
                                     <a class="nav-link" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">لوحة التحكم</a>
                                 </li>
-                           
+
                             }
                         </ul>
-                     
+
                         <div class="me-auto">
-                            
+
                             <div class="row">
                                 <div class="col">
                                     @if (User.IsInRole("Owner") || User.IsInRole("Admin"))
                                     {
-                                            <a asp-controller="Estate" asp-action="CreateTemp" class="btn rounded-5 btn-outline-success">
-                                                اضافة عقار
-                                            </a>
+                                        <a asp-controller="Estate" asp-action="CreateTemp" class="btn rounded-5 btn-outline-success">
+                                            اضافة عقار
+                                        </a>
                                     }
-                                   
-                                    
-                                        
-                                    
+
+
+
+
                                 </div>
-                                
+
                                 <div class="col">
                                     <div class="dropdown">
                                         <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown">
@@ -153,8 +153,8 @@
                                     </div>
                                 </div>
                             </div>
-                            
-                            
+
+
 
 
                         </div>
@@ -184,9 +184,9 @@
     </script>
 
 
-    
+
     @RenderBody()
-   
+
 
 
 
@@ -285,7 +285,8 @@
 
     <script src="~/MainLayout/assets/js/main.js"></script>
 
-    
+
+
     <script src="https://unpkg.com/lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src='https://use.fontawesome.com/releases/v5.3.1/js/all.js'></script>
     <script src="~/SweetAlert/sweetalert2@11.js"></script>
@@ -298,12 +299,15 @@
     <script src="~/SweetAlert/sweetalert2@11.js"></script>
     <script src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
     <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js'></script>
-    <script src="~/js/Chat.js"></script>
+
     <script src="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.jquery.min.js"></script>
 
       <script src="~/lib/bootbox.js/bootbox.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
+    <script src="~/lib/aspnet/signalr/dist/browser/signalr.js"></script>
+
+    <script src="~/js/Chat.js"></script>
 
 <<<<<<< HEAD
       
@@ -320,6 +324,5 @@
          </script>
 
 
-   
 </body>
 </html>
