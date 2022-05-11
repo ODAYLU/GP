@@ -128,14 +128,9 @@
         url: `/Admin/Comments/Details/${Id}`,
         
         dataType: "json",
-         success:function(data){
-             console.log("Jenin");
-             var line;
-
-             for (var i = 0; i < data.length; i++) {
-                 line = data[i].split2(',');
-                 console.log(line);
-             }
+             success: function (data) {
+                 console.log(data);
+          
            document.getElementById("image").src=`/images/Estate/${data}`;
         }
         ,
