@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220510222100_f99")]
-    partial class f99
+    [Migration("20220511094541_we")]
+    partial class we
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -706,7 +706,7 @@ namespace GP.Migrations
             modelBuilder.Entity("GP.Models.Comments", b =>
                 {
                     b.HasOne("GP.Models.Estate", "Estate")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("EstateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -896,6 +896,11 @@ namespace GP.Migrations
             modelBuilder.Entity("GP.Models.AppUser", b =>
                 {
                     b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("GP.Models.Estate", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }
