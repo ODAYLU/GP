@@ -56,7 +56,7 @@
     </div>
 </div>
 
-<table id="Comments" class="table table-striped table-bordered  flex-nowrap" style="direction:rtl;">
+<table id="Comments" class="table table-striped table-bordered w-100 flex-nowrap" style="direction:rtl;">
     <thead>
         <tr>
             <th>الرقم</th>
@@ -112,7 +112,7 @@
                    "orderable": false
                 },
             ],
-        });j
+        });
     });
 
     function Details(Id)
@@ -128,7 +128,7 @@
          url:`/Admin/Comments/Details/${Id}`,
          success:function(data){
              console.log("Jenin");
-        
+        console.log(data);
            document.getElementById("image").src=`/images/Estate/${data}`;
         }
         ,

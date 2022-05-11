@@ -20,6 +20,7 @@ namespace GP.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IEstate _estate;
 
+
         public AdminOperationController(ILogger<AdminOperationController> logger,
             UserManager<AppUser> userManager,
             IEstate estate
