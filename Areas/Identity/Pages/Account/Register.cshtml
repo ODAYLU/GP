@@ -45,13 +45,13 @@
                         </h1>
 
                         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-
-                            <div class="row">
+                            <span class="text-danger">@ViewData["Error"]</span>
+                              <div class="row">
                                 <div class="col">
                                     <div class="field">
                                         <div class="control has-icons-left has-icons-right">
-                                            <input asp-for="Input.FirstName" class="input rounded-pill is-medium fs-5" type="text" placeholder="الاسم الاول" value="" required>
-                                            <span class="icon is-small is-right">
+                                            <input asp-for="Input.FirstName" class="input rounded-pill is-medium fs-5" type="text" placeholder="الاسم الاول" value="" required />
+                                            <span asp-validation-for="Input.FirstName" class="icon is-small is-right">
                                                 <i class="fas fa-user"></i>
                                             </span>
                                         </div>
@@ -62,8 +62,8 @@
                                 <div class="col">
                                     <div class="field">
                                         <div class="control has-icons-left has-icons-right">
-                                            <input asp-for="Input.LastName" class="input rounded-pill is-medium fs-5" type="text" placeholder="اسم الثاني" value="" required>
-                                            <span class="icon is-small is-right">
+                                            <input asp-for="Input.LastName" class="input rounded-pill is-medium fs-5" type="text" placeholder="اسم الثاني" value="" required />
+                                            <span asp-validation-for="Input.LastName" class="icon is-small is-right">
                                                 <i class="fas fa-user"></i>
                                             </span>
                                         </div>
@@ -74,8 +74,8 @@
                             <div class="field">
                                 <div class="control has-icons-left has-icons-right">
 
-                                    <input asp-for="Input.Email" class="input rounded-pill is-medium fs-5" type="email" placeholder="البريد الالكتروني" value="" required>
-                                    <span class="icon is-small is-right">
+                                    <input asp-for="Input.Email" class="input rounded-pill is-medium fs-5" type="email" placeholder="البريد الالكتروني" value="" required />
+                                    <span asp-validation-for="Input.Email" class="icon is-small is-right">
                                         <i class="fas fa-envelope"></i>
                                     </span>
                                 </div>
@@ -99,7 +99,7 @@
                             <div class="field">
                                 <div class="control has-icons-left has-icons-right">
                                     <input asp-for="Input.ConfirmPassword" class="input rounded-pill is-medium fs-5" placeholder="تاكيد كلمة المرور" value="" required>
-                                    <span class="icon is-small is-right">
+                                    <span asp-validation-for="Input.ConfirmPassword" class="icon is-small is-right">
                                         <i class="fas fa-user"></i>
                                     </span>
                                 </div>
@@ -112,12 +112,13 @@
                                     <div class="form-check d-inline-block">
                                         <label asp-for="Input.IsQwner">هل انت صاحب عقار؟</label>
                                         <input asp-for="Input.IsQwner" id="InputCheck" />
-                                        </div>
+                                        <span asp-validation-for="Input.IsQwner" class="text-danger" ></span>
+                                    </div>
                                         
 
 
                                     </div>
-                                    <p class="text-danger"></p>
+                                  
                                 </div>
                             <br />
 

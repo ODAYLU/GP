@@ -1,4 +1,5 @@
 ﻿using GP.Data;
+using GP.Hubs;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
@@ -47,7 +48,7 @@ namespace GP.Models
         }
         public async Task<DbCRUD> DeleteComment(long id)
         {
-
+            
             Comments com = await GetOne(id);
             if (com!=null)
             {

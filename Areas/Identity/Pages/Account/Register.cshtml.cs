@@ -168,10 +168,10 @@ namespace GP.Areas.Identity.Pages.Account
                 }
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    ViewData["Error"] = error.Description;
+                    ModelState.AddModelError("Input", error.Description);
                 }
             }
-
             // If we got this far, something failed, redisplay form
             return Page();
         }
