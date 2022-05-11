@@ -1,6 +1,7 @@
 ﻿using GP.Data;
 using GP.Hubs;
 using GP.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -61,15 +62,37 @@ namespace GP.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize]
         public async Task<IActionResult> Chat()
         {
             var currentUser = await _userManager.GetUserAsync(User);
-            ViewBag.CurrentUserName = currentUser.UserName;
-            ViewBag.Users = ConnectedUser.IDs;
+            ViewBag.CurrentUserName = currentUser.Id;
+            ViewBag.Users = await _userManager.Users.Where(x => x.is_active).ToListAsync();
             var message = await _context.Messages.ToListAsync();
             return View();
         }
 
+        [Authorize]
+        public async Task<IActionResult> GetMessages(string ReciverId)
+        {
+            List<Message> data;
+            string SenderId = _userManager.GetUserId(User);
+            if(SenderId == ReciverId)
+            {
+                 data = await _context.Messages.Where(x => x.ReceiverId == ReciverId &&  x.ReceiverId == x.UserId).ToListAsync();
+            }
+            else
+            {
+                data = await _context.Messages.Where(x =>
+                        (x.ReceiverId == ReciverId || x.ReceiverId == SenderId)
+                        && (x.UserId == ReciverId || x.UserId == SenderId) 
+                        ).ToListAsync();
+              
+            }
+            return Ok(data);
+        }
+
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> GetUsers(string text)
         {

@@ -58,8 +58,8 @@ namespace GP
             services.AddControllersWithViews();
             services.AddScoped<IEstate,ProductManage>();
             services.AddScoped<ICategory,CategoryManage>();
-            services.AddScoped<ICategory,CategoryManage>();
-            services.AddScoped<ICity,CityManage>();
+            services.AddScoped<IReplaies,ManageReplayies>();
+             services.AddScoped<ICity,CityManage>();
             services.AddScoped<ICurrency,CurrencyManage>();
             services.AddScoped<IPhotoEstate,PhotoEstateManage>();
             services.AddScoped<IService,ServicesManage>();

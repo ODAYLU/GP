@@ -3,62 +3,114 @@
 
 
 
-<div class="  row    text-sm-center  d-flex justify-content-around ">
+    <div class="container-fluid p-lg-5 mb-5">
+        <section class="row text-center mb-3">
+            <div class="col-12 col-md-6 col-lg-3 p-3 ">
+                <div class="d-flex justify-content-center align-items-center bgshadow py-3 rounded-3">
+                    <span class="bgicon p-3 rounded-circle mx-2">
+                        <i class="bi bi-people fs-3 p-1"></i>
+                    </span>
+                    <span class="fonttext">
+                        <p class="fs-4 fw-bold m-0">@ViewBag.Users</p>
+                        <p class="fs-5 m-0">عدد زوار الموقع</p>
+                    </span>
+                </div>
+                <div class="d-flex justify-content-center align-items-center bgshadow py-3 rounded-3">
+                    <span class="bgicon p-3 rounded-circle mx-2">
+                        <i class="bi bi-people fs-3 p-1"></i>
+                    </span>
+                    <span class="fonttext">
+                        <p class="fs-4 fw-bold m-0">@ViewBag.Estate</p>
+                        <p class="fs-5 m-0">عدد العقارات في الموقع</p>
+                    </span>
+                </div>
+                <div class="d-flex justify-content-center align-items-center bgshadow py-3 rounded-3">
+                    <span class="bgicon p-3 rounded-circle mx-2">
+                        <i class="bi bi-people fs-3 p-1"></i>
+                    </span>
+                    <span class="fonttext">
+                        <p class="fs-4 fw-bold m-0">@ViewBag.Estate</p>
+                        <p class="fs-5 m-0">عدد العقارات في الموقع</p>
+                    </span>
+                </div>
+                <div class="d-flex justify-content-center align-items-center bgshadow py-3 rounded-3">
+                    <span class="bgicon p-3 rounded-circle mx-2">
+                        <i class="bi bi-people fs-3 p-1"></i>
+                    </span>
+                    <span class="fonttext">
+                        <p class="fs-4 fw-bold m-0">@ViewBag.Estate</p>
+                        <p class="fs-5 m-0">عدد العقارات في الموقع</p>
+                    </span>
+                </div>
+            </div>
 
-    <div class=" ff cont  col-xl-2  col-sm-5 mb-sm-3   bg-white rounded-3 p-5  ">عدد العقارات المعروضة  @ViewBag.Estate</div>
-    <div class=" ff cont  col-xl-2    col-sm-5 mb-sm-3  bg-white rounded-3 p-5 ">عدد المستخدمين @ViewBag.Users </div>
-    <div class=" ff cont col-xl-2    col-sm-5  mb-sm-3 bg-white rounded-3 p-5 "> saja</div>
-    <div class=" ff cont  col-xl-2    col-sm-5 mb-sm-3  bg-white rounded-3 p-5 "> saja</div>
+        </section>
 
-</div>
-<div class="row mt-5 justify-content-around  ">
-    <button hidden id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-            class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">
-        إضافة إلى الحافظة
-    </button>
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="row justify-content-between g-3">
+            <button hidden id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+                    class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">
+                إضافة إلى الحافظة
+            </button>
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div style="margin:10px!important;">
-                    <form id="formadd" method="post">
-                        <input id="inputId" type="text" hidden />
-                        <div class="form-group">
-                            <label>
-                                الإضافة إلى الحافظة
-                            </label>
-                            <input id="numDays" type="number" maxlength="30" min="1" name="day" />
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div style="margin:10px!important;">
+                            <form id="formadd" method="post">
+                                <input id="inputId" type="text" hidden />
+                                <div class="form-group">
+                                    <label>
+                                        الإضافة إلى الحافظة
+                                    </label>
+                                    <input id="numDays" type="number" maxlength="30" min="1" name="day" />
+                                </div>
+
+                                <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button id="btnAdd" type="submit" class="btn btn-outline-primary">Ok</button>
+                                <button id="btnAddMemory" type="submit" class="btn btn-outline-primary">Add</button>
+                            </form>
                         </div>
 
-                        <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button id="btnAdd" type="submit" class="btn btn-outline-primary">Ok</button>
-                        <button id="btnAddMemory" type="submit" class="btn btn-outline-primary">Add</button>
-                    </form>
+                    </div>
                 </div>
-
             </div>
+
+
+            <table id="Owners" class="table table-striped table-bordered w-100 flex-nowrap" style="direction:rtl;">
+                <thead>
+                    <tr>
+                        <th>الرقم</th>
+                        <th> اسم الأول  </th>
+                        <th> الإسم الأخير</th>
+                        <th> الإيميل</th>
+                        <th> الحالة</th>
+                        <th> الحافظة</th>
+                        <th>الصورة</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
+
+        </div>
+
+
+
+        <div class="row">
+
         </div>
     </div>
 
 
-    <table id="Owners" class="table table-striped table-bordered w-100 flex-nowrap" style="direction:rtl;">
-        <thead>
-            <tr>
-                <th>الرقم</th>
-                <th> اسم الأول  </th>
-                <th> الإسم الأخير</th>
-                <th> الإيميل</th>
-                <th> الحالة</th>
-                <th> الحافظة</th>
-                <th>الصورة</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-    </table>
+
+
+
+
+<div class="row mt-5 justify-content-around  ">
+   
 
 </div>
 

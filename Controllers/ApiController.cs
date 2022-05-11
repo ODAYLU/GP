@@ -24,10 +24,11 @@ namespace GP.Controllers
         private readonly IType _type;
         private readonly IContact _contact;
         private readonly UserManager<AppUser> _user;
+        private readonly ICurrency _currency;   
+        private readonly ICommments _commments;
 
-        public ApiController(IEstate estate, ICategory category, ICity city, IState state
-            , IService service, IType type, UserManager<AppUser> user,
-            IContact contact)
+        public ApiController(IEstate estate, ICategory category, ICity city, IState state,ICurrency currency,ICommments commments
+            , IService service, IType type, UserManager<AppUser> user)
         {
             _estate = estate;
             _category = category;
@@ -36,7 +37,8 @@ namespace GP.Controllers
             _service = service;
             _type = type;
            _user = user;
-            _contact = contact;
+            _currency=currency;
+            _commments = commments;
         }
         //[HttpPost]
         //public async Task<IActionResult> GetEstate()
@@ -165,6 +167,29 @@ namespace GP.Controllers
             return Ok(jsonData);
         }
 
+
+
+         [HttpPost]
+        public async Task<IActionResult> GetCurrency()
+        {
+            var pageSize = int.Parse(Request.Form["length"]);
+            var skipe = int.Parse(Request.Form["start"]);
+            var search = Request.Form["search[value]"];
+            var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
+            var sortDirecion = Request.Form["order[0][dir]"];
+
+            IQueryable<Currency> currencies= _currency.GetAll(search);
+            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
+            {
+                currencies = currencies.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
+            }
+            var data = await currencies.Skip(skipe).Take(pageSize).ToListAsync();
+            var recordsTotal = currencies.Count();
+            var jsonData = new { recordsFiltered = recordsTotal, recordsTotal, data };
+
+            return Ok(jsonData);
+        }
+
         [HttpPost]
         public async Task<IActionResult> GetState()
         {
@@ -227,9 +252,28 @@ namespace GP.Controllers
             return Ok(jsonData);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> GetComments()
+        {
+            var pageSize = int.Parse(Request.Form["length"]);
+            var skipe = int.Parse(Request.Form["start"]);
+            var search = Request.Form["search[value]"];
+            var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
+            var sortDirecion = Request.Form["order[0][dir]"];
+
+            IQueryable<Comments> comments= _commments.GetAll(search);
+            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
+            {
+                comments = comments.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
+            }
+            var data = await comments.Skip(skipe).Take(pageSize).ToListAsync();
+            var recordsTotal = comments.Count();
+            var jsonData = new { recordsFiltered = recordsTotal, recordsTotal, data };
+
+            return Ok(jsonData);
+        }
 
 
         
-
     }
 }

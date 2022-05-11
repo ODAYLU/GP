@@ -1,0 +1,277 @@
+﻿@model GP.Models.Comments;
+@{
+     
+    ViewData["Title"] = "";
+}
+@*<button id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+    class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">
+    اضافة
+    </button>*@
+<hr />
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div style="margin:10px!important;">
+                <form id="formadd" method="post">
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-12">
+                            <div class="form-group" hidden>
+                                <label for="edit_name_en" class="my-3">الرقم</label>
+                                <input id="id" asp-for="@Model.Id" class="form-control" placeholder="Id" name="Id" />
+                                <span asp-validation-for="@Model.Id" class="text-danger span"></span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                @*~/images/unknown-person-icon-Image-from.png*@
+
+                                <label for="edit_name_en" class="my-3">صورة العقار </label>
+                                <img  id="image" src=""  alt="Estate" />
+                                <input id="fname" asp-for="@Model.Body" class="form-control" required name="name"/>
+                                <span asp-validation-for="@Model.Body" class="text-danger span"></span>
+                            </div>
+                        </div>
+                       @* <div class="col-12">
+                            <div class="form-group">
+
+                                <label asp-for="@Model.Body" class="my-3"> التعليقات </label>
+                                <input id="fname" asp-for="@Model.Body" class="form-control" required name="name" />
+                            </div>
+                        </div>*@
+
+                    </div>
+
+                    <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="btnAdd" type="submit" class="btn btn-outline-primary">Add</button>
+                    @*<button id="btnEdit" type="submit" class="btn btn-outline-primary">Edit</button> *@
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<table id="Comments" class="table table-striped table-bordered w-100 flex-nowrap" style="direction:rtl;">
+    <thead>
+        <tr>
+            <th>الرقم</th>
+            <th>العقار</th>
+
+            <th> التعليق </th>
+            <th> التقييم </th>
+            <th></th>
+
+        </tr>
+    </thead>
+</table>
+
+@section Scripts{
+    @(await Html.PartialAsync("_ValidationScriptsPartial"));
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#Comments").DataTable({
+            "processing": true,
+            "serverSide": true,
+            "filter": true,
+            "responsive": true,
+            "lengthMenu": [10, 20, 30, 40, 50],
+            "language": {
+                "search": "ابحث",
+                "lengthMenu": "عرض _MENU_ صفوف"
+            },
+            "ajax": {
+                "url": '/api/Api/GetComments',
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columnDefs": [{
+                "targets": 0,
+                "visible": false,
+                "searchable": false
+            }],
+            "columns": [
+                { "data": "id", "name": "Id", "autowidth": true },
+                {
+                    "data":"estate","name":"Estate", "autowidth": true
+                },
+                {
+                    "data":"body","name":"Body",
+                    "render":function (data,type,row){
+                        return `<a id="d" href="#" style="color:black; text-decoration: none;display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap;" onclick=Details(${row.id})>${data}</a>`
+                    },
+                 },
+                 {"data":"rating","name":"Rating","autowidth": true},
+                {
+                   "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCustomer("' + row.id + '"); > Delete </a>' },
+                   "orderable": false
+                },
+            ],
+        });j
+    });
+
+    function Details(Id)
+    {
+          var table = $("#Comments").DataTable();
+        var data = table.data().filter(function(elm) {return elm.id == Id});
+           // console.log(data[0]);
+        var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'),{
+        keyboard: false});
+          myModal.show();
+         $.ajax({
+         type:"POST",
+         url:`/Admin/Comments/Details/${Id}`,
+         success:function(data){
+             console.log("Jenin");
+        
+           document.getElementById("image").src=`/images/Estate/${data}`;
+        }
+        ,
+       error: function (xhr, exception) {
+           console.log(exception);
+           console.log(xhr);
+            var msg = "";
+            if (xhr.status === 0) {
+                msg = "Not connect.\n Verify Network." + xhr.responseText;
+            } else if (xhr.status == 404) {
+                msg = "Requested page not found. [404]" + xhr.responseText;
+            } else if (xhr.status == 500) {
+                msg = "Internal Server Error [500]." +  xhr.responseText;
+            } else if (exception === "parsererror") {
+                msg = "Requested JSON parse failed.";
+            } else if (exception === "timeout") {
+                msg = "Time out error." + xhr.responseText;
+            } else if (exception === "abort") {
+                msg = "Ajax request aborted.";
+            } else {
+                msg = "Error:" + xhr.status + " " + xhr.responseText;
+            }
+            }
+         });
+          document.getElementById("fname").value=data[0].body;
+    }
+    function EditItem(data) {
+        $(".span").text("");
+        $("#btnAdd").hide();
+        $("#btnEdit").show();
+        $("#id").val(data.id);
+        $("#fname").val(data.name);
+    }
+    function DeleteCustomer(Id)
+    {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    method: 'Get',
+                    url: `/Admin/City/Delete/${Id}`,
+                    data: JSON.stringify({ id: Id }),
+                    success: function () {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                        var Table = $("#Cities").DataTable();
+                        Table.draw(false);
+                    }
+                });
+
+            }
+        })
+
+    }
+    $("#Add").on("click", function () {
+        $("#btnAdd").show();
+        $("#btnEdit").hide();
+        $("input").val("");
+        $(".span").text("");
+    });
+    function img_pathUrl(input) {
+        $('#image')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
+    }
+    $("#btnAdd").on("click", function () {
+
+
+        if ($("#fname").val() != "") {
+            var nameEdit = $("#fname").val();
+            for (var i = 0; i < nameEdit.length; i++) {
+                nameEdit = nameEdit.replace(" ", "_");
+            }
+            $("#fname").val(nameEdit);
+            var data = new FormData($("#formadd").get(0));
+
+            $.ajax({
+                method: 'Post',
+                url: '/Admin/City/Create',
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function () {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Item has been added successfully',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    $("#btnClose").click();
+                    var Table = $("#Cities").DataTable();
+                    Table.draw();
+                }
+            });
+        }
+
+
+
+    });
+    $("#formadd").on("submit", function (e) {
+        e.preventDefault();
+    })
+    $("#btnEdit").on("click", function () {
+        if ($("#fname").val() != "") {
+            var nameEdit = $("#fname").val();
+            for (var i = 0; i < nameEdit.length; i++) {
+                nameEdit = nameEdit.replace(" ", "_");
+            }
+            $("#fname").val(nameEdit);
+            var data = new FormData($("#formadd").get(0));
+
+            $.ajax({
+                method: 'Post',
+                url: '/Admin/City/Edit',
+                data: data,
+                processData: false,
+                contentType: false,
+                success: function () {
+                    $("#btnClose").click();
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'تم التعديل بنجاح',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    var Table = $("#Cities").DataTable();
+                    Table.draw();
+                }
+            });
+        }
+
+    })
+
+</script>
+}
+

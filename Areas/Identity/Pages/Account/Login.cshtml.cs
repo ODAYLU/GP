@@ -15,7 +15,7 @@ using Microsoft.Extensions.Logging;
 
 using GP.Models;
 using GP.Data;
-
+using GP.Hubs;
 
 namespace GP.Areas.Identity.Pages.Account
 {
@@ -98,6 +98,7 @@ namespace GP.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    user.is_active = true;
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }

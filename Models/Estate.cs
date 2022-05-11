@@ -91,6 +91,7 @@ namespace GP.Models
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public AppUser Users { get; set; }
+        public List<Comments> Comments { get; set; }    
 
     }
     public interface IEstate
@@ -142,7 +143,7 @@ namespace GP.Models
         public async Task<Estate> GetOne(long id) => await _context
                 .TEstates
                 .AsNoTracking()
-                .Include(c => c.Currency).Include(x => x.Category).Include(x => x.State).Include(x => x.Type).Include(x => x.Users).Include(x => x.City)
+                .Include(c => c.Currency).Include(x => x.Category).Include(x => x.State).Include(x => x.Type).Include(x => x.Users).Include(x => x.City).Include(x=>x.Comments)
                 .SingleOrDefaultAsync(c => c.Id == id);
 
 
