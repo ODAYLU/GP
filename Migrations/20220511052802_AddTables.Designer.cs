@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220508165403_f2")]
-    partial class f2
+    [Migration("20220511052802_AddTables")]
+    partial class AddTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -235,6 +235,9 @@ namespace GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("IDEstet")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Latitude")
                         .HasColumnType("nvarchar(max)");
 
@@ -242,7 +245,9 @@ namespace GP.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("OnDate")
-                        .HasColumnType("datetime2");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("Getdate()");
 
                     b.Property<string>("SallerName")
                         .HasColumnType("nvarchar(max)");
@@ -259,10 +264,15 @@ namespace GP.Migrations
                     b.Property<string>("category")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("isDone")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("up_to_date")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IDEstet");
 
                     b.HasIndex("UserId");
 
@@ -696,7 +706,7 @@ namespace GP.Migrations
             modelBuilder.Entity("GP.Models.Comments", b =>
                 {
                     b.HasOne("GP.Models.Estate", "Estate")
-                        .WithMany()
+                        .WithMany("Comments")
                         .HasForeignKey("EstateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -712,9 +722,17 @@ namespace GP.Migrations
 
             modelBuilder.Entity("GP.Models.Contract", b =>
                 {
+                    b.HasOne("GP.Models.Estate", "Estate")
+                        .WithMany()
+                        .HasForeignKey("IDEstet")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("GP.Models.AppUser", "Users")
                         .WithMany()
                         .HasForeignKey("UserId");
+
+                    b.Navigation("Estate");
 
                     b.Navigation("Users");
                 });
@@ -878,6 +896,11 @@ namespace GP.Migrations
             modelBuilder.Entity("GP.Models.AppUser", b =>
                 {
                     b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("GP.Models.Estate", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

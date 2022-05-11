@@ -31,6 +31,8 @@
 
   <ItemGroup>
 
+    <Folder Include="Migrations\" />
+
     <Folder Include="wwwroot\images\Category\" />
 
     <Folder Include="wwwroot\images\Estate\" />

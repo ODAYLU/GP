@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GP.Migrations
 {
-    public partial class AddTabkes : Migration
+    public partial class AddTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -93,7 +93,8 @@ namespace GP.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Object = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsReply = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -111,6 +112,23 @@ namespace GP.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TCurrency", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TInformatiomGensT",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UrlFacebook = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UrlTwitter = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UrlInstegrame = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TInformatiomGensT", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -262,20 +280,49 @@ namespace GP.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Time = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ReceiverId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Messages_AspNetUsers_ReceiverId",
+                        column: x => x.ReceiverId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Messages_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TEstates",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Longitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Latitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Longitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Latitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     name_owner = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     space = table.Column<double>(type: "float", nullable: false),
                     price = table.Column<double>(type: "float", nullable: false),
                     phone_num = table.Column<double>(type: "float", nullable: false),
-                    Main_photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Main_photo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OnDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "Getdate()"),
                     is_active = table.Column<bool>(type: "bit", nullable: false, defaultValueSql: "1"),
                     is_spacial = table.Column<bool>(type: "bit", nullable: false),
@@ -350,6 +397,44 @@ namespace GP.Migrations
                     table.ForeignKey(
                         name: "FK_TComments_TEstates_EstateId",
                         column: x => x.EstateId,
+                        principalTable: "TEstates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TContract",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SallerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sallerphone_num = table.Column<double>(type: "float", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BuyerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Buyerphone_num = table.Column<double>(type: "float", nullable: false),
+                    Longitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Latitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "Getdate()"),
+                    up_to_date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    category = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    IDEstet = table.Column<long>(type: "bigint", nullable: false),
+                    isDone = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TContract", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TContract_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TContract_TEstates_IDEstet",
+                        column: x => x.IDEstet,
                         principalTable: "TEstates",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -461,6 +546,16 @@ namespace GP.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Messages_ReceiverId",
+                table: "Messages",
+                column: "ReceiverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Messages_UserId",
+                table: "Messages",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TComments_EstateId",
                 table: "TComments",
                 column: "EstateId");
@@ -468,6 +563,16 @@ namespace GP.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_TComments_UserId",
                 table: "TComments",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TContract_IDEstet",
+                table: "TContract",
+                column: "IDEstet");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TContract_UserId",
+                table: "TContract",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -539,7 +644,16 @@ namespace GP.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Messages");
+
+            migrationBuilder.DropTable(
                 name: "TContacts");
+
+            migrationBuilder.DropTable(
+                name: "TContract");
+
+            migrationBuilder.DropTable(
+                name: "TInformatiomGensT");
 
             migrationBuilder.DropTable(
                 name: "TPhotoEstate");
