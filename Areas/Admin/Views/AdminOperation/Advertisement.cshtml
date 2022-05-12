@@ -152,11 +152,12 @@
                     { "data": "phoneNumber", "name": "PhoneNumber", "autowidth": true },
                     { "data": "description", "name": "Description", "autowidth": true },
                     { "data": "link", "name": "Link", "autowidth": true },
+                     { "data": "price", "name": "Price", "autowidth": true },
                      {
-                        "render": function (data, type, row) { return '<img src="' + row.Photo + '" class=" w-25 h-25" asp-append-version="true" />' },
+                        "render": function (data, type, row) { return '<img src="/images/Advertisement/' + row.photo + '" class=" w-25 h-25" asp-append-version="true" />' },
                         "orderable": false
                     },
-                    { "data": "price", "name": "Price", "autowidth": true },
+                   
                     { "data": "startDate", "name": "StartDate", "autowidth": true },
                     { "data": "endDate", "name": "EndDate", "autowidth": true },
                     {
@@ -194,7 +195,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         method: 'Get',
-                        url: `/Admin/City/Delete/${Id}`,
+                        url: `/Admin/Advertisement/Delete/${Id}`,
                         data: JSON.stringify({ id: Id }),
                         success: function () {
                             Swal.fire(
@@ -202,7 +203,7 @@
                                 'Your file has been deleted.',
                                 'success'
                             )
-                            var Table = $("#Cities").DataTable();
+                            var Table = $("#Advertisement").DataTable();
                             Table.draw(false);
                         }
                     });
