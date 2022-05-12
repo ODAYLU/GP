@@ -4,14 +4,16 @@ using GP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220512213940_addAdvertisement")]
+    partial class addAdvertisement
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -634,28 +636,6 @@ namespace GP.Migrations
                     b.ToTable("Ttype");
                 });
 
-            modelBuilder.Entity("GP.Models.likedEstates", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("IdEstate")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("IdUser")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdEstate");
-
-                    b.HasIndex("IdUser");
-
-                    b.ToTable("TlikedEstates");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -930,23 +910,6 @@ namespace GP.Migrations
                     b.Navigation("Estate");
 
                     b.Navigation("Services");
-                });
-
-            modelBuilder.Entity("GP.Models.likedEstates", b =>
-                {
-                    b.HasOne("GP.Models.Estate", "Estate")
-                        .WithMany()
-                        .HasForeignKey("IdEstate")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GP.Models.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("IdUser");
-
-                    b.Navigation("Estate");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -23,7 +23,7 @@ namespace GP.Models
         public double PhoneNumber { get; set; }
         [Required,DisplayName("ايميل الشركة ")]
         public string Email { get; set; }
-        [DisplayName("هاتف الشركة ")]
+        [DisplayName(" صورة المعلن عنه ")]
         [Required(ErrorMessage = "الرجاء ادخال الصورة")]
         public string Photo { get; set; }
         [Required,DisplayName("رابط الاعلان ")]
