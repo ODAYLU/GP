@@ -151,7 +151,10 @@
                     { "data": "email", "name": "Email", "autowidth": true },
                     { "data": "phoneNumber", "name": "PhoneNumber", "autowidth": true },
                     { "data": "description", "name": "Description", "autowidth": true },
-                    { "data": "link", "name": "Link", "autowidth": true },
+                   {
+                        "render": function (data, type, row) { return '<a href="'+row.link+'">'+row.link+'</a>' },
+                        "orderable": false
+                    },
                      { "data": "price", "name": "Price", "autowidth": true },
                      {
                         "render": function (data, type, row) { return '<img src="/images/Advertisement/' + row.photo + '" class=" w-25 h-25" asp-append-version="true" />' },
