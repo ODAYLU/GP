@@ -45,6 +45,8 @@ namespace GP.Data
 
         public DbSet<Contract> TContract { get;set; }
 
+        public DbSet<likedEstates> TlikedEstates { get; set; }
+
 
     }
 }
