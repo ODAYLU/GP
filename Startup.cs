@@ -70,6 +70,8 @@ namespace GP
             services.AddScoped<IContract, ContractManage>();
             services.AddScoped<InformationGen>();
             services.AddTransient<IContact,ContactManagments>();
+
+            services.AddTransient<IlikedEstates, likedEstatesManage>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
