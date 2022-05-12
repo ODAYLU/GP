@@ -63,6 +63,7 @@ namespace GP
             services.AddScoped<ICurrency,CurrencyManage>();
             services.AddScoped<IPhotoEstate,PhotoEstateManage>();
             services.AddScoped<IService,ServicesManage>();
+            services.AddScoped<IAdvertisement, ManageAdvertisement>();
             services.AddScoped<IService_Estate, ManageService_Estate>();
             services.AddScoped<ICommments, CommentsManagments>();
             services.AddScoped<IState,StateManage>();
@@ -70,8 +71,6 @@ namespace GP
             services.AddScoped<IContract, ContractManage>();
             services.AddScoped<InformationGen>();
             services.AddTransient<IContact,ContactManagments>();
-
-            services.AddTransient<IlikedEstates, likedEstatesManage>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
