@@ -47,12 +47,7 @@ namespace GP.Models
         public double? phone_num { get; set; }
         [Required(ErrorMessage = "الرجاء ادخال الصورة الرئيسية للعقار")]
         public string Main_photo { get; set; }
-
         public DateTime OnDate { get; set; }
-
-
-
-
         [NotMapped]
         public string[] list { get; set; }
 
@@ -90,8 +85,6 @@ namespace GP.Models
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public AppUser Users { get; set; }
-           
-
     }
     public interface IEstate
     {

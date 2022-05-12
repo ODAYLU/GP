@@ -10,30 +10,30 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace GP.Areas.Admin.Controllers
+namespace GP
 {
-    [Area("Admin")]
-    [Authorize(Roles = "Admin")]
-    public class CommentsController : Controller
+    public class CommmentsController : Controller
     {
         private readonly ICommments _context;
         private readonly IReplaies _replaies;
         private readonly IEstate _estate;
         private readonly IWebHostEnvironment _webHostEnvironment;
-
-        public CommentsController(ICommments context, IWebHostEnvironment webHostEnvironment, IReplaies replaies, IEstate estate)
+        public CommmentsController(ICommments context, IWebHostEnvironment webHostEnvironment, IReplaies replaies, IEstate estate)
         {
             this._context = context;
             this._estate = estate;
             this._replaies = replaies;
             this._webHostEnvironment = webHostEnvironment;
         }
+        public IActionResult Commments()
+        {
+            return View();
+        }
         public IActionResult Index()
         {
             IEnumerable<Comments> lst = _context.GetAll();
             return View(lst);
         }
-
         [HttpGet]
         public IActionResult Create()
         {
@@ -59,34 +59,44 @@ namespace GP.Areas.Admin.Controllers
 
             return RedirectToAction("/Index");
         }
+        [HttpPost]
+        public async Task<IActionResult> DeleteComment(long id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            //  Comments com = await _context.GetOne(id);
+            await _context.DeleteComment(id);
+            return Ok();
 
+        }
         [HttpPost]
         public async Task<IActionResult> Details(long id)
         {
             if (id != 0)
             {
                 Comments com = await _context.GetOne(id);
-                Estate data = await _estate.GetOne(com.EstateId);
-                string image = data.Main_photo;
-                // ViewBag.image = data.Main_photo;
-                //     TempData["Image"] = data.Main_photo;
-                //  var Data = JsonSerializer.Serialize(data);
                 var replaies = await _replaies.GetCommentReplies(id);
-                var dataRep = await replaies.ToListAsync();
-                ////var recordsTotal = dataRep.Count();
-                ////var jsonData = new { recordsFiltered = replaies, recordsTotal, data = dataRep };
-                //List<string> x = new List<string>();
-                //foreach (var item in dataRep)
-                //{
-                //    x.Add($"{item.body},{item.CommentId},{image} ");
-                //}
-                return Ok(dataRep);
+                 return Ok(replaies);
             }
             else
                 return NotFound();
 
-
+            //Estate data = await _estate.GetOne(com.EstateId);
+            //string image = data.Main_photo;
+            // ViewBag.image = data.Main_photo;
+            //     TempData["Image"] = data.Main_photo;
+            //  var Data = JsonSerializer.Serialize(data);
+            ////var recordsTotal = dataRep.Count();
+            ////var jsonData = new { recordsFiltered = replaies, recordsTotal, data = dataRep };
+            //List<string> x = new List<string>();
+            //foreach (var item in dataRep)
+            //{
+            //    x.Add($"{item.body},{item.CommentId},{image} ");
+            //}
         }
 
     }
 }
+    

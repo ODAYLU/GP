@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GP.Migrations
 {
-    public partial class f1 : Migration
+    public partial class ne : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,6 +29,9 @@ namespace GP.Migrations
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ContactNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    facebook = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    twitter = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    instigram = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ProfilePicture = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     is_active = table.Column<bool>(type: "bit", nullable: false),
                     memory = table.Column<int>(type: "int", nullable: false),
@@ -325,6 +328,7 @@ namespace GP.Migrations
                     Main_photo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OnDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "Getdate()"),
                     is_active = table.Column<bool>(type: "bit", nullable: false, defaultValueSql: "1"),
+                    publish = table.Column<bool>(type: "bit", nullable: false),
                     is_spacial = table.Column<bool>(type: "bit", nullable: false),
                     categoryID = table.Column<int>(type: "int", nullable: false),
                     TypeID = table.Column<int>(type: "int", nullable: false),
@@ -493,11 +497,18 @@ namespace GP.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     body = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CommentId = table.Column<long>(type: "bigint", nullable: false)
+                    CommentId = table.Column<long>(type: "bigint", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TReplaies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TReplaies_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_TReplaies_TComments_CommentId",
                         column: x => x.CommentId,
@@ -614,6 +625,11 @@ namespace GP.Migrations
                 name: "IX_TReplaies_CommentId",
                 table: "TReplaies",
                 column: "CommentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TReplaies_UserId",
+                table: "TReplaies",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TService_Estate_EstateID",

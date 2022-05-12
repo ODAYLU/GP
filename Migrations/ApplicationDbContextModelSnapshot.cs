@@ -92,6 +92,12 @@ namespace GP.Migrations
                     b.Property<string>("decription")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("facebook")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("instigram")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("is_active")
                         .HasColumnType("bit");
 
@@ -100,6 +106,9 @@ namespace GP.Migrations
 
                     b.Property<int>("memory")
                         .HasColumnType("int");
+
+                    b.Property<string>("twitter")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -368,6 +377,9 @@ namespace GP.Migrations
                         .IsRequired()
                         .HasColumnType("float");
 
+                    b.Property<bool>("publish")
+                        .HasColumnType("bit");
+
                     b.Property<double?>("space")
                         .IsRequired()
                         .HasColumnType("float");
@@ -481,6 +493,9 @@ namespace GP.Migrations
                     b.Property<long>("CommentId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("body")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -488,6 +503,8 @@ namespace GP.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CommentId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("TReplaies");
                 });
@@ -817,6 +834,12 @@ namespace GP.Migrations
                         .HasForeignKey("CommentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("GP.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("AppUser");
 
                     b.Navigation("Comments");
                 });
