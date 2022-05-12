@@ -26,9 +26,10 @@ namespace GP.Controllers
         private readonly UserManager<AppUser> _user;
         private readonly ICurrency _currency;   
         private readonly ICommments _commments;
+        private readonly IAdvertisement _advertisement;
 
         public ApiController(IEstate estate, ICategory category, ICity city, IState state,ICurrency currency,ICommments commments
-            , IService service, IType type, UserManager<AppUser> user)
+            , IService service, IType type, UserManager<AppUser> user, IAdvertisement advertisement)
         {
             _estate = estate;
             _category = category;
@@ -39,6 +40,7 @@ namespace GP.Controllers
            _user = user;
             _currency=currency;
             _commments = commments;
+            _advertisement=advertisement;
         }
         //[HttpPost]
         //public async Task<IActionResult> GetEstate()
@@ -167,8 +169,6 @@ namespace GP.Controllers
             return Ok(jsonData);
         }
 
-
-
          [HttpPost]
         public async Task<IActionResult> GetCurrency()
         {
@@ -270,6 +270,25 @@ namespace GP.Controllers
             var recordsTotal = comments.Count();
             var jsonData = new { recordsFiltered = recordsTotal, recordsTotal, data };
 
+            return Ok(jsonData);
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetAdvertisement()
+        {
+            var pageSize = int.Parse(Request.Form["length"]);
+            var skipe = int.Parse(Request.Form["start"]);
+            var search = Request.Form["search[value]"];
+            var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
+            var sortDirecion = Request.Form["order[0][dir]"];
+
+            IQueryable<Advertisement> Advertisement =await _advertisement.GetAll(search);
+            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
+            {
+                Advertisement = Advertisement.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
+            }
+            var data = await Advertisement.Skip(skipe).Take(pageSize).ToListAsync();
+            var recordsTotal = Advertisement.Count();
+            var jsonData = new { recordsFiltered = recordsTotal, recordsTotal, data };
             return Ok(jsonData);
         }
 
