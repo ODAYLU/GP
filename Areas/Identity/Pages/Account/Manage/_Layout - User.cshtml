@@ -1,0 +1,53 @@
+﻿@{
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
+    {
+        Layout = (string)parentLayout;
+    }
+    else
+    {
+        //Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+
+        Layout = "/Views/Shared/_Layout.cshtml";
+    }
+}
+    @inject UserManager<AppUser> _userManager;
+   
+    @{
+            var user = await _userManager.GetUserAsync(User);
+
+    }  
+    
+     <link href="~/css/styleUser.css" rel="stylesheet" />
+
+     <div class="container shadow my-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-3">
+               <div class="">
+
+         <div class="">
+                    <a href="/Identity/Account/Manage/PersonalUser" class="tabLinks rounded-3 btn  btn-danger" onclick="openTab(event, 'personal', 'arrow1')" id="defaultOpen">
+                        <i class="bi bi-person text-white"></i>
+                        <span class="text-white me-2">المعلومات الشخصية</span>
+                        <i id="arrow1" class=" arrow fa-solid fa-caret-left"></i>
+                    </a>
+                    <a asp-controller="likedEstates" asp-area="" asp-action="Index" class="tabLinks rounded-3 btn btn-danger" onclick="openTab(event, 'aqar', 'arrow2')">
+                        <i class="bi bi-building text-white"></i>
+                        <span class="text-white me-2">العقارات</span>
+                        <i id="arrow2" class=" arrow fa-solid fa-caret-left"></i>
+                    </a>
+                </div>
+                </div>
+                  </div>
+  <div class="col-9">
+     @RenderBody()
+  </div>
+</div>
+</div>
+
+        
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+    
+      
+}

@@ -2,6 +2,17 @@
 
 @{
     ViewData["Title"] = "Index";
+
+    if (User.IsInRole("User"))
+    {
+        Layout = "/Areas/Identity/Pages/Account/Manage/_Layout - User.cshtml";
+
+    }
+
+    else if (User.IsInRole("Owner"))
+    {
+           Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
+    }
 }
 
 <h1>Index</h1>

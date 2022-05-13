@@ -17,6 +17,7 @@ namespace GP
             SeedUsers(userManager);
         }
 
+        public static bool IsPserosalPhoto { get; set; }
         public static void SeedUsers(
             UserManager<AppUser> userManager)
         {

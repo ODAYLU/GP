@@ -2,8 +2,16 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_LayoutOwner.cshtml";
+   // Layout = "~/Views/Shared/_LayoutOwner.cshtml";
 
+
+
+       if (User.IsInRole("Owner"))
+    {
+        Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
+      
+    }
+       
 }
 
 @{

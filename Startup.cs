@@ -70,6 +70,7 @@ namespace GP
             services.AddScoped<IType,TypeManage>();
             services.AddScoped<IContract, ContractManage>();
             services.AddScoped<InformationGen>();
+            services.AddScoped<IlikedEstates, likedEstatesManage>();
             services.AddTransient<IContact,ContactManagments>();
         }
 
