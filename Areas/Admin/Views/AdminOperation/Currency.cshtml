@@ -1,8 +1,8 @@
-﻿@model GP.Models.ViewModels.VMCurrency;
+﻿@model GP.Models.Currency;
 @{
     ViewData["Title"] = "Home Page";
 }
-
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <button id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
         class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">
     اضافة
@@ -18,18 +18,19 @@
             <div style="margin:10px!important;">
                 <form id="formadd" method="post">
                     <div class="row">
-                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="col-12">
                             <div class="form-group" hidden>
                                 <label for="edit_name_en" class="my-3">الرقم</label>
                                 <input id="id" asp-for="@Model.Id" class="form-control" placeholder="Id" name="Id" />
-                             </div>
+                                <span asp-validation-for="@Model.Id" class="text-danger span"></span>
+                            </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">إسم العملة</label>
-                                <input id="fname" asp-for="@Model.currency" class="form-control"  placeholder="اسم العملة" name="currency" />
-                               @* <span asp-validation-for="@Model.currency" class="text-danger span"></span>*@
+                                <input id="fname" asp-for="@Model.currency" class="form-control" required placeholder="اسم العملة "name="currency" />
+                                <span asp-validation-for="@Model.currency" class="text-danger span"></span>
                             </div>
                         </div>
                     </div>
@@ -43,7 +44,6 @@
         </div>
     </div>
 </div>
-
 <table id="Currencies" class="table table-striped w-100 table-bordered  flex-nowrap" style="direction:rtl;">
     <thead>
         <tr>
@@ -88,7 +88,7 @@
                         "orderable": false
                     },
                     {
-                        "render": function (data, type, row, meta) { return '<a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal" onclick=EditItem(' + JSON.stringify(row) + '); > Edit </a>' },
+                        "render": function (data,type,  row, meta) { return '<a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal" onclick=EditItem(' + row.id + '); > Edit </a>' },
                         "orderable": false
                     },
 
@@ -97,12 +97,15 @@
         });
 
 
-        function EditItem(data) {
+        function EditItem(Id) {
+            console.log(Id);
+             var table = $("#Currencies").DataTable();
+            var data = table.data().filter(function (elm) { return elm.id == Id });
             $(".span").text("");
             $("#btnAdd").hide();
             $("#btnEdit").show();
-            $("#id").val(data.id);
-            $("#fname").val(data.name);
+            $("#id").val(data[0].id);
+            $("#fname").val(data[0].currency);
         }
         function DeleteCustomer(Id) 
         {
@@ -118,7 +121,7 @@
                 if (result.isConfirmed) {
                     $.ajax({
                         method: 'Get',
-                        url: `/Admin/Curency/Delete/${Id}`,
+                        url: `/Admin/Currency/Delete/${Id}`,
                         data: JSON.stringify({ id: Id }),
                         success: function () {
                             Swal.fire(
@@ -141,12 +144,9 @@
             $("input").val("");
             $(".span").text("");
         });
-        //function img_pathUrl(input) {
-        //    $('#image')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
-        //}
+      
         $("#btnAdd").on("click", function () {
-
-
+            
             if ($("#fname").val() != "") {
                 var nameEdit = $("#fname").val();
                 for (var i = 0; i < nameEdit.length; i++) {
@@ -157,12 +157,12 @@
 
                 $.ajax({
                     method: 'Post',
-                    url: '/Admin/Curency/Create',
+                    url: '/Admin/Currency/Create',
                     data: data,
                     processData: false,
                     contentType: false,
                     success: function () {
-                        console.log("Success");
+                        console.log("jenin");
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
@@ -191,7 +191,7 @@
                 }
                 $("#fname").val(nameEdit);
                 var data = new FormData($("#formadd").get(0));
-
+                console.log(nameEdit);
                 $.ajax({
                     method: 'Post',
                     url: '/Admin/Currency/Edit',

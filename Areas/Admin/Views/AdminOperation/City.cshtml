@@ -1,4 +1,4 @@
-﻿@model GP.Models.ViewModels.VMCity
+﻿@model GP.Models.City
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -191,7 +191,7 @@
                 }
                 $("#fname").val(nameEdit);
                 var data = new FormData($("#formadd").get(0));
-
+                console.log(data);
                 $.ajax({
                     method: 'Post',
                     url: '/Admin/City/Edit',
