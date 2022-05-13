@@ -13,22 +13,21 @@ namespace GP.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = "Admin")]
-    public class  CurencyController : Controller
+    public class  CurrencyController : Controller
     {
         private readonly ICurrency _services;
-        private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public CurencyController(Models.ICurrency service, IWebHostEnvironment webHostEnvironment)
+        public CurrencyController(ICurrency service, IWebHostEnvironment webHostEnvironment)
         {
             this._services = service;
-            this.webHostEnvironment = webHostEnvironment;
+            this._webHostEnvironment = webHostEnvironment;
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(Currency currency)
         {
             ModelState.Remove("Id");
-            //currency.currency=
             if (!ModelState.IsValid) return View();
             await _services.InsertCurrency(currency);
             return Ok(currency);
@@ -40,15 +39,15 @@ namespace GP.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Edit(VMCurrency VMcurrency)
+        public async Task<IActionResult> Edit(Currency currency)
         {
             if (!ModelState.IsValid) return View();
 
-            Models.Currency Newpro =  _services.GetOne(VMcurrency.Id).Result;
+            Models.Currency Newpro =  _services.GetOne(currency.Id).Result;
             
 
-            Newpro.Id =VMcurrency.Id;
-            Newpro.currency = VMcurrency.currency;
+            Newpro.Id = currency.Id;
+            Newpro.currency = currency.currency;
 
             await _services.UpdateCurrency(Newpro);
 
