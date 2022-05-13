@@ -36,53 +36,53 @@
                          <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">الاسم الاخير لصاحب الشركة</label>
-                                <input id="lname" asp-for="@Model.LastName" class="form-control" required placeholder="" name="name" />
+                                <input id="lname" asp-for="@Model.LastName" class="form-control" required placeholder="" name="LastName" />
                                 <span asp-validation-for="@Model.LastName" class="text-danger span"></span>
                             </div>
                         </div> <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">ايميل الشركة </label>
-                                <input id="email" asp-for="@Model.Email" class="form-control" required placeholder="" name="name" />
+                                <input id="email" asp-for="@Model.Email" class="form-control" required placeholder="" name="Email" />
                                 <span asp-validation-for="@Model.Email" class="text-danger span"></span>
                             </div>
                         </div> <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">هاتف الشركة </label>
-                                <input id="phone" asp-for="@Model.PhoneNumber" class="form-control" required placeholder="" name="name" />
+                                <input id="phone" asp-for="@Model.PhoneNumber" class="form-control" required placeholder="" name="PhoneNumber" />
                                 <span asp-validation-for="@Model.PhoneNumber" class="text-danger span"></span>
                             </div>
                         </div> <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">رابط الاعلان</label>
-                                <input id="link" asp-for="@Model.Link" class="form-control" required placeholder="" name="name" />
+                                <input id="link" asp-for="@Model.Link" class="form-control" required placeholder="" name="Link" />
                                 <span asp-validation-for="@Model.Link" class="text-danger span"></span>
                             </div>
                         </div> <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">صورة الاعلان </label>
-                                <input id="image" asp-for="@Model.image" class="form-control" required placeholder="" name="name" />
+                                <input id="image" asp-for="@Model.image" class="form-control" required placeholder="" name="image" />
                                 <span asp-validation-for="@Model.image" class="text-danger span"></span>
                             </div>
                              <div class="form-group">
                                 <label for="edit_name_en" class="my-3">الوصف</label>
-                                <input id="desc" asp-for="@Model.Description" class="form-control" required placeholder="" name="name" />
+                                <input id="desc" asp-for="@Model.Description" class="form-control" required placeholder="" name="Description" />
                                 <span asp-validation-for="@Model.Description" class="text-danger span"></span>
                             </div>
                               <div class="form-group">
                                 <label for="edit_name_en" class="my-3">السعر</label>
-                                <input id="price" asp-for="@Model.Price" class="form-control" required placeholder="" name="name" />
+                                <input id="price" asp-for="@Model.Price" class="form-control" required placeholder="" name="Price" />
                                 <span asp-validation-for="@Model.Price" class="text-danger span"></span>
                             </div>
                         </div> <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">تاريخ الابتداء</label>
-                                <input id="sdate" asp-for="@Model.StartDate" class="form-control" required placeholder="" name="name" />
+                                <input id="sdate" asp-for="@Model.StartDate" class="form-control" required placeholder="" name="StartDate" />
                                 <span asp-validation-for="@Model.StartDate" class="text-danger span"></span>
                             </div>
                         </div> <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">تاريخ الانتهاء</label>
-                                <input id="edate" asp-for="@Model.EndDate" class="form-control" required placeholder="" name="name" />
+                                <input id="edate" asp-for="@Model.EndDate" class="form-control" required placeholder="" name="EndDate" />
                                 <span asp-validation-for="@Model.EndDate" class="text-danger span"></span>
                             </div>
                             
@@ -113,8 +113,8 @@
             <th>الصورة</th>
             <th>تاريخ الابتداء</th>
             <th>تاريخ الانتهاء</th>
-            <th></th>
-            <th></th>
+            <th>حذف</th>
+            <th>تعديل</th>
         </tr>
     </thead>
 </table>
@@ -223,6 +223,7 @@
         });
         function img_pathUrl(input) {
             $('#image')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
+            console.log((window.URL ? URL : webkitURL).createObjectURL(input.files[0]));
         }
         $("#btnAdd").on("click", function () {
 
@@ -234,10 +235,10 @@
                 }
                 $("#fname").val(nameEdit);
                 var data = new FormData($("#formadd").get(0));
-
+                console.log(data);
                 $.ajax({
                     method: 'Post',
-                    url: '/Admin/City/Create',
+                    url: '/Admin/Advertisement/Create',
                     data: data,
                     processData: false,
                     contentType: false,
@@ -250,7 +251,7 @@
                             timer: 1500
                         })
                         $("#btnClose").click();
-                        var Table = $("#Cities").DataTable();
+                        var Table = $("#Advertisement").DataTable();
                         Table.draw();
                     }
                 });
