@@ -18,7 +18,7 @@ namespace GP.Models.ViewModels
         [Required, DisplayName("ايميل الشركة ")]
         public string Email { get; set; }
         [DisplayName(" صورة المعلن عنه ")]
-        [Required(ErrorMessage = "الرجاء ادخال الصورة")]
+       // [Required(ErrorMessage = "الرجاء ادخال الصورة")]
         public string Photo { get; set; }
         [Required, DisplayName("رابط الاعلان ")]
         public string Link { get; set; }

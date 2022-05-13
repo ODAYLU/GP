@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using static GP.Models.Enum;
@@ -14,6 +15,8 @@ namespace GP.Models
     public class Advertisement
     {
         [Key,DisplayName("كود الاعلان")]
+       // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public long Id{ get; set; }
         [Required,DisplayName("الاسم الاول لصاحب الشركة ")]
         public string FirstName{ get; set; }
@@ -102,7 +105,7 @@ namespace GP.Models
                 Advertisement ads = await GetOne(Advertisement.Id);
                 if (ads != null)
                     return DbCRUD.isExisted;
-                await _context.TAdvertisement.AddAsync(ads);
+                await _context.TAdvertisement.AddAsync(Advertisement);
                 await _context.SaveChangesAsync();
                 return DbCRUD.success;
             }
@@ -122,7 +125,7 @@ namespace GP.Models
                 Advertisement ads = await GetOne(Advertisement.Id);
                 if (ads == null)
                     return DbCRUD.isNotExisted;
-                _context.TAdvertisement.Update(ads);
+                _context.TAdvertisement.Update(Advertisement);
                 await _context.SaveChangesAsync();
                 return DbCRUD.success;
             }

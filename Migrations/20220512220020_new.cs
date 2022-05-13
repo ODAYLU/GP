@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GP.Migrations
 {
-    public partial class f : Migration
+    public partial class @new : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -57,6 +57,28 @@ namespace GP.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TAdvertisement",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<double>(type: "float", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Photo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Link = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TAdvertisement", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -445,6 +467,32 @@ namespace GP.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TlikedEstates",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdUser = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    IdEstate = table.Column<long>(type: "bigint", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TlikedEstates", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TlikedEstates_AspNetUsers_IdUser",
+                        column: x => x.IdUser,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TlikedEstates_TEstates_IdEstate",
+                        column: x => x.IdEstate,
+                        principalTable: "TEstates",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TPhotoEstate",
                 columns: table => new
                 {
@@ -617,6 +665,16 @@ namespace GP.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TlikedEstates_IdEstate",
+                table: "TlikedEstates",
+                column: "IdEstate");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TlikedEstates_IdUser",
+                table: "TlikedEstates",
+                column: "IdUser");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TPhotoEstate_IdEstate",
                 table: "TPhotoEstate",
                 column: "IdEstate");
@@ -663,6 +721,9 @@ namespace GP.Migrations
                 name: "Messages");
 
             migrationBuilder.DropTable(
+                name: "TAdvertisement");
+
+            migrationBuilder.DropTable(
                 name: "TContacts");
 
             migrationBuilder.DropTable(
@@ -670,6 +731,9 @@ namespace GP.Migrations
 
             migrationBuilder.DropTable(
                 name: "TInformatiomGensT");
+
+            migrationBuilder.DropTable(
+                name: "TlikedEstates");
 
             migrationBuilder.DropTable(
                 name: "TPhotoEstate");
