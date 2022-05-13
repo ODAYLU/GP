@@ -30,13 +30,56 @@ namespace GP.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(VMAdvertisement vmads)
         {
+            // ModelState.Remove("Id");
+            //// vmads.Photo = $"/images/Advertisement/{vmads.image}";
+            // if (!ModelState.IsValid) return View();
+
+            // if (vmads.image == null)
+            // {
+            //     ModelState.AddModelError("ImagePath", "مطلوب ادخال صورة");
+            //     return View();
+            // }
+
+            // string webRootPath = _webHostEnvironment.WebRootPath;
+            // string upload = webRootPath + @"\images\Advertisement\";
+            // string fileName = Guid.NewGuid().ToString();
+            // string extension = Path.GetExtension(vmads.image.FileName);
+            // using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
+            // {
+            //     await vmads.image.CopyToAsync(fileStream);
+            // }
+            // vmads.Photo = @"\images\Advertisement\" + fileName + extension;
+            // Advertisement model = new Advertisement();
+            //model.Id = vmads.Id;
+            //model.Photo = vmads.Photo;
+            //model.PhoneNumber = vmads.PhoneNumber;
+            //model.FirstName = vmads.FirstName;
+            //model.LastName = vmads.LastName;
+            //model.Email = vmads.Email;
+            //model.StartDate = vmads.StartDate;
+            //model.EndDate = vmads.EndDate;
+            //model.Link = vmads.Link;
+            //model.Description = vmads.Description;
+            //model.Price = vmads.Price;
+            // await _services.InsertAdvertisement(model);
+
+            // return Ok(model);
+
+
+
+
+
+
+
+
+            ////////////////////////////////
+            ModelState.Remove("Photo");
             ModelState.Remove("Id");
-           // vmads.Photo = $"/images/Advertisement/{vmads.image}";
             if (!ModelState.IsValid) return View();
 
             if (vmads.image == null)
             {
-                ModelState.AddModelError("ImagePath", "مطلوب ادخال صورة");
+                ModelState.AddModelError("Photo", "مطلوب ادخال صورة للتصنيف");
                 return View();
             }
 
@@ -48,42 +91,85 @@ namespace GP.Areas.Admin.Controllers
             {
                 await vmads.image.CopyToAsync(fileStream);
             }
-            vmads.Photo = @"\images\Advertisement\" + fileName + extension;
-            Advertisement model = new Advertisement();
-            model.Id = vmads.Id;
-            model.Photo = vmads.Photo;
-            model.PhoneNumber = vmads.PhoneNumber;
-            model.FirstName = vmads.FirstName;
-            model.LastName = vmads.LastName;
-            model.Email = vmads.Email;
-            model.StartDate = vmads.StartDate;
-            model.EndDate = vmads.EndDate;
-            model.Link = vmads.Link;
-            model.Description = vmads.Description;
-            model.Price = vmads.Price;
+            vmads.Photo= @"\images\Advertisement\" + fileName + extension;
+            Advertisement model = new Advertisement
+            {
+            PhoneNumber = vmads.PhoneNumber,
+            FirstName = vmads.FirstName,
+            LastName = vmads.LastName,
+            Email = vmads.Email,
+            StartDate = vmads.StartDate,
+            EndDate = vmads.EndDate,
+            Link = vmads.Link,
+            Description = vmads.Description,
+            Price = vmads.Price,
+            Photo = vmads.Photo
+            };
+
             await _services.InsertAdvertisement(model);
-           
             return Ok(model);
+
         }
 
 
         [HttpPost]
         public async Task<IActionResult> Edit(VMAdvertisement ads)
         {
-            
+            //ModelState.Remove("Photo");
+            //if (!ModelState.IsValid) return View();
+            //Advertisement newads = await _services.GetOne(ads.Id);
+            //if (ads.image != null)
+            //{
+            //    // حذف الصورة القديمه من المجلد 
+            //    string webRootPath = _webHostEnvironment.WebRootPath;
+            //    string oldfile = webRootPath + @"/images/Advertisement/" + newads.Photo;
+            //    if (System.IO.File.Exists(oldfile))
+            //    {
+            //        System.IO.File.Delete(oldfile);
+            //    }
+            //    // اضافة الصورة الجديده
+
+            //    string upload = webRootPath + @"/images/Advertisement/";
+            //    string fileName = Guid.NewGuid().ToString();
+            //    string extension = Path.GetExtension(ads.image.FileName);
+            //    using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
+            //    {
+            //        await ads.image.CopyToAsync(fileStream);
+            //    }
+            //    newads.Photo = @"/images/Advertisement/" + fileName + extension;
+            //}
+
+            //newads.Id = ads.Id;
+            //newads.Photo = ads.Photo;
+            //newads.PhoneNumber = ads.PhoneNumber;
+            //newads.FirstName = ads.FirstName;
+            //newads.LastName = ads.LastName;
+            //newads.Email = ads.Email;
+            //newads.StartDate = ads.StartDate;
+            //newads.EndDate = ads.EndDate;
+            //newads.Link = ads.Link;
+            //newads.Description = ads.Description;
+            //newads.Price = ads.Price;
+
+            //await _services.UpdateAdvertisement(newads);
+
+            //return Ok(newads);
+
+            ModelState.Remove("Photo");
             if (!ModelState.IsValid) return View();
-            Advertisement newads = await _services.GetOne(ads.Id);
+
+
+            Advertisement Newpro = await _services.GetOne(ads.Id);
             if (ads.image != null)
             {
                 // حذف الصورة القديمه من المجلد 
                 string webRootPath = _webHostEnvironment.WebRootPath;
-                string oldfile = webRootPath + @"\images\Advertisement\" + newads.Photo;
+                string oldfile = webRootPath + Newpro.Photo;
                 if (System.IO.File.Exists(oldfile))
                 {
                     System.IO.File.Delete(oldfile);
                 }
                 // اضافة الصورة الجديده
-
                 string upload = webRootPath + @"\images\Advertisement\";
                 string fileName = Guid.NewGuid().ToString();
                 string extension = Path.GetExtension(ads.image.FileName);
@@ -91,24 +177,28 @@ namespace GP.Areas.Admin.Controllers
                 {
                     await ads.image.CopyToAsync(fileStream);
                 }
-                newads.Photo = @"\images\Advertisement\" + fileName + extension;
+                Newpro.Photo = @"\images\Advertisement\" + fileName + extension;
             }
 
-            newads.Id = ads.Id;
-            newads.Photo = ads.Photo;
-            newads.PhoneNumber = ads.PhoneNumber;
-            newads.FirstName = ads.FirstName;
-            newads.LastName = ads.LastName;
-            newads.Email = ads.Email;
-            newads.StartDate = ads.StartDate;
-            newads.EndDate = ads.EndDate;
-            newads.Link = ads.Link;
-            newads.Description = ads.Description;
-            newads.Price = ads.Price;
+            Newpro.Id = ads.Id;
+            Newpro.PhoneNumber = ads.PhoneNumber;
+            Newpro.FirstName = ads.FirstName;
+            Newpro.LastName = ads.LastName;
+            Newpro.Email = ads.Email;
+            Newpro.StartDate = ads.StartDate;
+            Newpro.EndDate = ads.EndDate;
+            Newpro.Link = ads.Link;
+            Newpro.Description = ads.Description;
+            Newpro.Price = ads.Price;
 
-            await _services.UpdateAdvertisement(newads);
 
-            return Ok(newads);
+
+            await _services.UpdateAdvertisement(Newpro);
+
+            return Ok(Newpro);
+
+
+
 
 
 

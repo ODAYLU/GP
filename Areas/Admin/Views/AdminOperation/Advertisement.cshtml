@@ -60,9 +60,14 @@
                         </div> <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">صورة الاعلان </label>
-                                <input id="image" asp-for="@Model.image" class="form-control" required placeholder="" name="image" />
+                                <input id="image" asp-for="@Model.image" class="form-control" required onchange="img_pathUrl(this)" placeholder="" name="image" />
                                 <span asp-validation-for="@Model.image" class="text-danger span"></span>
                             </div>
+                              <div class="col-12">
+                            <div class="form-group">
+                                <img id="phot" src="" alt="..."  class="w-25 h-25" asp-append-version="true" />
+                            </div>
+                        </div>
                              <div class="form-group">
                                 <label for="edit_name_en" class="my-3">الوصف</label>
                                 <input id="desc" asp-for="@Model.Description" class="form-control" required placeholder="" name="Description" />
@@ -89,9 +94,9 @@
                         </div>
                     </div>
 
-                    <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="btnAdd" type="submit" class="btn btn-outline-primary">Add</button>
-                    <button id="btnEdit" type="submit" class="btn btn-outline-primary">Edit</button>
+                    <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                    <button id="btnAdd" type="submit" class="btn btn-outline-primary">إضافة</button>
+                    <button id="btnEdit" type="submit" class="btn btn-outline-primary">تعديل</button>
                 </form>
             </div>
 
@@ -157,18 +162,18 @@
                     },
                      { "data": "price", "name": "Price", "autowidth": true },
                      {
-                        "render": function (data, type, row) { return '<img src="/images/Advertisement/' + row.photo + '" class=" w-25 h-25" asp-append-version="true" />' },
+                        "render": function (data, type, row) { return '<img src="' + row.photo + '" class=" w-25 h-25" asp-append-version="true" />' },
                         "orderable": false
                     },
                    
                     { "data": "startDate", "name": "StartDate", "autowidth": true },
                     { "data": "endDate", "name": "EndDate", "autowidth": true },
                     {
-                        "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCustomer("' + row.id + '"); > Delete </a>' },
+                        "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCustomer("' + row.id + '"); > حذف </a>' },
                         "orderable": false
                     },
                     {
-                        "render": function (data, type, row, meta) { return '<a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal" onclick=EditItem(' + JSON.stringify(row) + '); > Edit </a>' },
+                         "render": function (data,type,row ,meta) { return '<a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal" onclick=EditItem("' + row.id + '");  > تعديل </a>' },
                         "orderable": false
                     },
 
@@ -176,13 +181,25 @@
             });
         });
 
-
-        function EditItem(data) {
+        function EditItem(Id) {
+         //  console.log(Id);
+           var table = $("#Advertisement").DataTable();
+            var data = table.data().filter(function (elm) { return elm.id == Id });
             $(".span").text("");
             $("#btnAdd").hide();
             $("#btnEdit").show();
-            $("#id").val(data.id);
-            $("#fname").val(data.name);
+            $("#id").val(data[0].id);
+            $("#fname").val(data[0].firstName);
+            $("#lname").val(data[0].lastName);
+            $("#phone").val(data[0].phoneNumber);
+            $("#email").val(data[0].email);
+            $("#desc").val(data[0].description); 
+            $("#edate").val(data[0].endDate);
+            $("#sdate").val(data[0].startDate); 
+            $("#link").val(data[0].link); 
+            $("#price").val(data[0].price);
+            $("#image").val(data[0].image);
+             $("#phot").attr("src", data[0].photo);
         }
         function DeleteCustomer(Id) 
         {
@@ -222,7 +239,7 @@
             $(".span").text("");
         });
         function img_pathUrl(input) {
-            $('#image')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
+            $('#phot')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
             console.log((window.URL ? URL : webkitURL).createObjectURL(input.files[0]));
         }
         $("#btnAdd").on("click", function () {
@@ -271,10 +288,10 @@
                 }
                 $("#fname").val(nameEdit);
                 var data = new FormData($("#formadd").get(0));
-
+                console.log(data);
                 $.ajax({
                     method: 'Post',
-                    url: '/Admin/City/Edit',
+                    url: '/Admin/Advertisement/Edit',
                     data: data,
                     processData: false,
                     contentType: false,
@@ -287,7 +304,7 @@
                             showConfirmButton: false,
                             timer: 1500
                         })
-                        var Table = $("#Cities").DataTable();
+                        var Table = $("#Advertisement").DataTable();
                         Table.draw();
                     }
                 });
