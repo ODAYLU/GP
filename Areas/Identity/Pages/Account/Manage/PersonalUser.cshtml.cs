@@ -1,24 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using GP.Models;
+﻿using GP.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace GP.Areas.Identity.Pages.Account.Manage
 {
-    public partial class IndexModel : PageModel
+    public class PersonalUserModel : PageModel
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<ChangePasswordModel> _logger;
 
-        public IndexModel(
+        public PersonalUserModel(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
 
@@ -27,9 +25,8 @@ namespace GP.Areas.Identity.Pages.Account.Manage
             _userManager = userManager;
             _signInManager = signInManager;
 
-            _logger = logger;   
+            _logger = logger;
         }
-
         public string Username { get; set; }
 
         [TempData]
@@ -37,11 +34,6 @@ namespace GP.Areas.Identity.Pages.Account.Manage
 
         [BindProperty]
         public InputModel Input { get; set; }
-
-
-
-
-
         public class InputModel
         {
             [Phone]
@@ -59,30 +51,6 @@ namespace GP.Areas.Identity.Pages.Account.Manage
             [Display(Name = "الاسم الثاني ")]
             [Required(ErrorMessage = "الحقل مطلوب")]
             public string lastName { get; set; }
-            [Required(ErrorMessage ="الحقل مطلوب")]
-            [Display(Name = " الوصف")]
-
-            public string description { get; set; }
-
-
-            [Required(ErrorMessage = "الحقل مطلوب")]
-            [Display(Name = " الفيس بوك")]
-
-            public string face { get; set; }
-
-
-            [Required(ErrorMessage = "الحقل مطلوب")]
-            [Display(Name = " تويتر")]
-
-            public string twitter { get; set; }
-
-
-
-            [Required(ErrorMessage = "الحقل مطلوب")]
-            [Display(Name = " انستقرام")]
-
-            public string insta { get; set; }
-
 
             [Display(Name = "ProfilePicture")]
             public byte[] ProfilePicture { get; set; }
@@ -91,33 +59,26 @@ namespace GP.Areas.Identity.Pages.Account.Manage
 
 
         }
-
         private async Task LoadAsync(AppUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var userNow =  await _userManager.GetUserAsync(User);
+            var userNow = await _userManager.GetUserAsync(User);
 
             Username = userName;
 
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
-                fristName= userNow.FirstName, lastName= userNow.LastName,
-                description=userNow.decription,
-                face=userNow.facebook,
-                insta= userNow.instigram,
-                twitter=userNow.twitter,
-                ContactNumber= userNow.ContactNumber
+                fristName = userNow.FirstName,
+                lastName = userNow.LastName,
+                ContactNumber = userNow.ContactNumber
 
 
             };
         }
-
         public async Task<IActionResult> OnGetAsync()
         {
-
-            SeedData.IsPserosalPhoto = true;
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -128,9 +89,9 @@ namespace GP.Areas.Identity.Pages.Account.Manage
             return Page();
         }
 
+
         public async Task<IActionResult> OnPostAsync()
         {
-            SeedData.IsPserosalPhoto = true;
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -149,11 +110,7 @@ namespace GP.Areas.Identity.Pages.Account.Manage
 
             user.FirstName = Input.fristName;
             user.LastName = Input.lastName;
-            user.decription=Input.description;
 
-            user.facebook = Input.face;
-            user.twitter=Input.twitter;
-            user.instigram = Input.insta;
             user.ContactNumber = Input.ContactNumber;
 
 
@@ -162,7 +119,7 @@ namespace GP.Areas.Identity.Pages.Account.Manage
 
 
 
-        
+
 
             if (Input.PhoneNumber != phoneNumber)
             {
@@ -181,24 +138,14 @@ namespace GP.Areas.Identity.Pages.Account.Manage
                     await file.CopyToAsync(datastrem);
                     user.ProfilePicture = datastrem.ToArray();
                 }
-                
+
 
             }
 
             await _userManager.UpdateAsync(user);
-
-
-
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
         }
-
-
-
-   
-
-    
-       
     }
 }
