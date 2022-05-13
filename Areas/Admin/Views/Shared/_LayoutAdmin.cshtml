@@ -160,19 +160,20 @@
                         <div class="search-body align-items-center text-white ">
                             <input type="text" class=" form-control shadow-none border-0 text-end" id="mySearch"
                                    placeholder="ابحث...">
-                            <ion-icon class="fs-2" name="search-outline"></ion-icon>
+                            <i class="bi bi-search fs-4"></i>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="container-fluid p-0">
+
+                        <div class="container-fluid p-0">
                 <div class="content">
                     <ul class="nav p-0 align-items-center">
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="#">
                                 <p class="text-white fs-2">
                                     <span class="show d-none px-1" style="font-size:30px;cursor:pointer;"
-                                          onclick="myFunction()">&#9776;</span>
+                                        onclick="myFunction()">&#9776;</span>
                                     <span id="btnss" class="text-white d-lg-inline-block d-none">
                                         <i class="bi bi-chevron-right"></i>
                                     </span>
@@ -180,10 +181,11 @@
                                 </p>
                             </a>
                         </li>
+
                         <li class="nav-item me-auto ps-2 ">
                             <div class="toggle-container">
                                 <button class="theme-btn text-white light" onclick="setTheme('light')"
-                                        title="Light mode">
+                                    title="Light mode">
                                     <i class="bi bi-brightness-high-fill"></i>
                                 </button>
                                 <button class="theme-btn text-white dark" onclick="setTheme('dark')" title="Dark mode">
@@ -196,103 +198,44 @@
                                 <i class="bi bi-bell-fill"></i>
                             </a>
                         </li>
+
+
+
+
+
+
+
+
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle fs-2 text-white" data-bs-toggle="dropdown" href="#"
-                               role="button" aria-expanded="false">
-                                <i class="bi bi-person-bounding-box"></i>
+                            <a class="nav-link dropdown-toggle fs-2 text-white" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false"><i class="bi bi-person-bounding-box"></i>
                             </a>
                             <ul class="dropdown-menu text-center">
-                                <li>
-                                    <a class="dropdown-item d-flex justify-content-between align-items-center"
-                                       href="#">
-                                        اسم الادمن <img src="assets/img/pages/profille.png"
-                                                        class="img-fluid w-25">
-                                    </a>
-                                </li>
-                                <li><a class="dropdown-item" href="#">الصفحة الشخصية</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li>
-                                    <a class="dropdown-item d-flex justify-content-between align-items-center"
-                                       href="#">تسجيل خروج<i class="bi bi-box-arrow-left fs-3"></i></a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-
-
-
-
-
-            </div>
-            @*<div class="container-fluid p-0">
-                <div class="content">
-                    <ul class="nav p-0 align-items-center">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">
-                                <p class="text-white fs-2">
-                                    <span class="show d-none px-1" style="font-size:30px;cursor:pointer;"
-                                          onclick="myFunction()">&#9776;</span>
-                                    <span id="btnss" class="text-white d-lg-inline-block d-none">
-                                        <i class="bi bi-chevron-right"></i>
-                                    </span>
-                                    لوحة التحكم
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item me-auto ps-2 ">
-                            <div class="toggle-container">
-                                <button class="theme-btn text-white light" onclick="setTheme('light')"
-                                        title="Light mode">
-                                    <i class="bi bi-brightness-high-fill"></i>
-                                </button>
-                                <button class="theme-btn text-white dark" onclick="setTheme('dark')" title="Dark mode">
-                                    <i class="bi bi-moon-stars-fill"></i>
-                                </button>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class=" start-0 text-white fs-2" href="#">
-                                <i class="bi bi-bell-fill"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle fs-2 text-white" data-bs-toggle="dropdown" href="#"
-                               role="button" aria-expanded="false">
-                                <i class="bi bi-person-bounding-box"></i>
-                            </a>
-                            <ul class="dropdown-menu text-center">
-                                <li>Person</li>
-                                <li></li>
                                 <partial name="_LoginAdminPartial" />
-
                             </ul>
                         </li>
+
+
+
+
                     </ul>
-
                 </div>
+            </div>
 
 
 
 
-
-
-            </div>*@
         </header>
 
 
 
-        <article class="content m-5">
-            @RenderBody()
+        <article class="content">
+            <div class="container-fluid p-lg-5 mb-5">
+                 @RenderBody()       
+            </div>           
         </article>
     </main>
 
 
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="~/js/Chat.js"></script>
     <script src="~/js/Estate.js"></script>
     <script src="~/js/site.js"></script>
@@ -313,6 +256,30 @@
     <!-- <script src="~/assets/js/index.js"></script> -->
 
     <script>
+
+
+
+
+
+        /*Dropdown Menu*/
+$('.dropdown').click(function () {
+        $(this).attr('tabindex', 1).focus();
+        $(this).toggleClass('active');
+        $(this).find('.dropdown-menu').slideToggle(300);
+    });
+    $('.dropdown').focusout(function () {
+        $(this).removeClass('active');
+        $(this).find('.dropdown-menu').slideUp(300);
+    });
+    $('.dropdown .dropdown-menu li').click(function () {
+        $(this).parents('.dropdown').find('span').text($(this).text());
+        $(this).parents('.dropdown').find('input').attr('value', $(this).attr('id'));
+    });
+/*End Dropdown Menu*/
+
+
+
+
         let btn = document.querySelector("#btnss");
         let sidebar = document.querySelector(".sidebar");
         let scripthiden = document.querySelectorAll(".scripthiden");
@@ -336,8 +303,6 @@
         }
 
 
-
-
         $(document).ready(function () {
             $("#mySearch").on("keyup", function () {
                 var value = $(this).val().toLowerCase();
@@ -354,23 +319,13 @@
             var x = document.getElementById("myDIV");
 
             if (window.innerWidth > 992) {
-
-                x.classList.toggle("showNav")
+                x.classList.toggle("showNav");
             }
         }
         function myFunction() {
             var x = document.getElementById("myDIV");
-
-
-
-            x.classList.toggle("showNav")
-
-
-
+            x.classList.toggle("showNav");
         }
-
-
-
 
         function setTheme(themeName) {
             localStorage.setItem('theme', themeName);
@@ -384,10 +339,6 @@
             }
 
         })();
-
-
-
-
 
 
     </script>
