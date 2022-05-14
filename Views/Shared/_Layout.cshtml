@@ -76,7 +76,7 @@
               <i class="bi bi-person-bounding-box"></i>
             </a>
             <ul class="dropdown-menu text-center m-2">
-                <partial name="_LoginPartial" />
+             
              <li>
                   <a class="dropdown-item" asp-controller="Estate" asp-action="CreateTemp">
                   تسجيل ددخول 
@@ -86,17 +86,17 @@
                             @{
                                 if (User.IsInRole("Owner"))
                                 {
-                                     <li><a class="dropdown-item d-flex justify-content-center align-items-center" href="/Areas/Identity/Pages/Account/Manage/Index">الصفحة الشخصية</a></li>
+                                     <li><a class="dropdown-item d-flex justify-content-center align-items-center"asp-area="Identity" asp-page="/Account/Manage/Index" >الصفحة الشخصية</a></li>
                                 }
                                 else if (User.IsInRole("User"))
                                 {
-                                     <li><a class="dropdown-item d-flex justify-content-center align-items-center" href="/Areas/Identity/Pages/Account/Manage/PersonalUser">الصفحة الشخصية</a></li>
+                                     <li><a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Manage/PersonalUser">الصفحة الشخصية</a></li>
                                 }
                             }
               @if (User.IsInRole("Owner") )
               {
                 <li>
-                  <a class="dropdown-item" asp-controller="Estate" asp-action="CreateTemp">
+                  <a class="dropdown-item" asp-area="" asp-controller="Estate" asp-action="CreateTemp">
                   اضافة عقار
                   <i class="bi bi-building"></i>
                 </a>
