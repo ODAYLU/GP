@@ -386,8 +386,7 @@ select:focus-visible {
 
 .front>img {
   border-radius: 12px;
-  width: 300px !important;
-  height: 240px !important;
+ 
 }
 
 .front .streamers img:nth-child(1) {
