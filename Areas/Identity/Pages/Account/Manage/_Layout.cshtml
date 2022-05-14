@@ -1,268 +1,174 @@
-﻿@using GP
-@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
-    {
-        Layout = (string)parentLayout;
-    }
-    else
-    {
-        //Layout = "/Areas/Identity/Pages/_Layout.cshtml";
-         Layout = "/Views/Shared/_Layout.cshtml";
-    }
-}
-    @inject UserManager<AppUser> _userManager;
-   
-@{
+﻿  @using GP
+  @{
+  if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
+  {
+  Layout = (string)parentLayout;
+  }
+  else
+  {
+  //Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+  Layout = "/Views/Shared/_Layout.cshtml";
+  }
+  }
+  @inject UserManager<AppUser> _userManager;
+    @{
     var user = await _userManager.GetUserAsync(User);
-
-
-  
-
     }
 
 
-  <link href="~/assetsSaja/css/Profiel.css" rel="stylesheet" />
-  <link href="~/assetsSaja/css/style.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 
+    <section class="">
+      <div class="container py-4">
+        <div class="row">
+          <div class="col-12 col-lg-3">
 
-  
-                  
-    <div class="row">
-        <div class="col-3">
-        
-      <div class="container">
-        <div class="row profile">
-        <div class="col-lg-3 col-12">
-          <div class="profile-sidebar">
-            <!-- SIDEBAR USERPIC -->
-            <div class="profile-userpic">
-                            @{
-                    if (SeedData.IsPserosalPhoto)
+            <div class="profile-sidebar text-center">
+              <div class="pt-4 ">
+                @{
+                if (SeedData.IsPserosalPhoto)
+                {
+                <div class="profile-pic">
+                  <label class="-label" for="file">
+                    <span class="glyphicon glyphicon-camera"></span>
+                    <span>تغيير الصورة</span>
+                  </label>
+                  @{
+
+                  if (user.ProfilePicture is not null)
+                  {
+                  <img id="prof" class="profile-picture" alt="Profile"
+                    src="data:image/*;base64,@(Convert.ToBase64String(user.ProfilePicture))" />
+                  }
+
+                  else
+                  {
+                  <img id="prof" class="profile-picture" alt="Profile"
+                    src="https://cdn.pixabay.com/photo/2017/08/06/21/01/louvre-2596278_960_720.jpg" />
+
+                  }
+                  }
+                  <input onclick="clickOn()" id="file" class="d-none" />
+
+
+                </div>
+                }
+
+                else
+                {
+                <div class="profile-userpic">
+                  <div class="profile-pic">
+                    <label class="d-block" style="height:165px;width:165px">
+
+                    </label>
+                    @{
+
+                    if (@user.ProfilePicture is not null)
                     {
-                                     <div class="profile-pic">
-                <label class="-label" for="file">
-                  <span class="glyphicon glyphicon-camera"></span>
-                  <span>تغيير الصورة</span>
-                </label>
-                 @{
-                     
-                     if (user.ProfilePicture is not null)
-                {
-                    <img id="prof" class="profile-picture" alt="Profile" src="data:image/*;base64,@(Convert.ToBase64String(user.ProfilePicture))"/>
-                }
+                    <img id="prof" class="profile-picture" alt="Profile"
+                      src="data:image/*;base64,@(Convert.ToBase64String(@user.ProfilePicture))" />
+                    }
 
-                else
-                {
-                    <img  id="prof" class="profile-picture" alt="Profile" src="https://cdn.pixabay.com/photo/2017/08/06/21/01/louvre-2596278_960_720.jpg"/>
+                    else
+                    {
+                    <img class="profile-picture " alt="Profile"
+                      src="https://cdn.pixabay.com/photo/2017/08/06/21/01/louvre-2596278_960_720.jpg" />
 
+                    }
+                    }
+                  </div>
+                </div>
                 }
                 }
-                <input onclick="clickOn()" id="file"     class="d-none"/>
-                
 
-                                    </div>
-                                }
-
-                                else
-                                {
-                                    <div class="profile-userpic">
-              <div class="profile-pic">
-                <label   class="d-block" style="height:165px;width:165px"
-     >
-                 
-                </label>
-                 @{
-                     
-                     if (@user.ProfilePicture is not null)
-                {
-                    <img id="prof" class="profile-picture" alt="Profile" src="data:image/*;base64,@(Convert.ToBase64String(@user.ProfilePicture))"/>
-                }
-
-                else
-                {
-                    <img  class="profile-picture" alt="Profile" src="https://cdn.pixabay.com/photo/2017/08/06/21/01/louvre-2596278_960_720.jpg"/>
-
-                }
-                }
               </div>
-            </div>
-                                }
-                            }
-            </div>
-            <!-- END SIDEBAR USERPIC -->
-            <!-- SIDEBAR USER TITLE -->
-            <div class="profile-usertitle">
-              <div class="profile-usertitle-name">
-             @user.FirstName  @user.LastName
+
+              <div class="pt-3">
+                <p class="fs-5 fw-bold"> @user.FirstName @user.LastName</p>
+                <p class="fs-5 fw-bold"> @user.Email</p>
+                <p class="fs-6 pb-2 px-1">صاحب عقار</p>
+                <p class="fs-6 pb-2 px-1">@user.decription </p>
               </div>
-              <div class="profile-usertitle-job">
-                صاحب عقار
-                <br />
-
-                  <br />
-                    <br />
-                 @user.Email
-              </div>
-            </div>
-            <!-- END SIDEBAR USER TITLE -->
-            <!-- SIDEBAR MENU -->
-         
 
 
 
-            <div class="profile-usermenu">
-              <ul class="nav">
-               
-                <li class=" ">
-
-                    <a class="nav-link " id="profile" href="/Identity/Account/Manage/Index" >     
-
-                                        <i class="glyphicon glyphicon-user"></i>
-                                        <span class="mx-2"></span>
-                                                           بيانات شخصية
-
-
-
-
-                   </a>
+              <ul class="nav text-end py-4 p-0 flex-column ulborder">
+                <li class="nav-item active">
+                  <a class="nav-link fs-5" href="/Identity/Account/Manage/Index"><i
+                      class="px-2 bi bi-person-fill"></i>بيانات شخصية
+                  </a>
                 </li>
-               <li class=" ">
-
-                    <a class="nav-link" id="profile"  asp-controller="Estate" asp-action="Index" asp-area="">     
-
-                                        <i class="glyphicon glyphicon-user"></i>
-                                        <span class="mx-2"></span>
-                                                           العقارات 
-
-
-
-
-                   </a>
+                <li class="nav-item">
+                  <a class="nav-link fs-5" id="profile" asp-controller="Estate" asp-action="Index" asp-area=""><i
+                      class="px-2 bi bi-bookmark-fill"></i>العقارات </a>
                 </li>
-               <li class=" ">
-
-                    <a class="nav-link" id="profile"  asp-controller="Contract" asp-action="Index" asp-area="">     
-
-                                        <i class="glyphicon glyphicon-user"></i>
-                                        <span class="mx-2"></span>
-                                                        العقود
-
-
-
-
-                   </a>
+                <li class="nav-item">
+                  <a class="nav-link fs-5" id="profile" asp-controller="Contract" asp-action="Index" asp-area=""><i
+                      class="px-2 bi bi-flag-fill"></i>العقود</a>
                 </li>
-                                <li>
-                  <a href="#">
-                  <i class="glyphicon glyphicon-shopping-cart"></i>
-                  <span class="hidden-xs"> التسوق </span> </a>
-                                
+                <li class="nav-item">
+                  <a class="nav-link fs-5" id="profile" asp-controller="Contract" asp-action="Index" asp-area=""><i
+                      class="px-2 bi bi-flag-fill"></i>العقود</a>
                 </li>
-                            
+                <li class="nav-item">
+                  <a class="nav-link fs-5" id="profile" asp-controller="Contract" asp-action="Index" asp-area=""><i
+                      class="px-2 bi bi-flag-fill"></i>العقود</a>
+                </li>
               </ul>
-            </div>
-            <!-- END MENU -->
-            <div class="portlet light bordered">
-              <!-- STAT -->
-              <div class="row list-separated profile-stat">
-                <div class="col-md-4 col-sm-4 col-xs-6">
+              <div class="py-4">
+                <div class="row my-2 profile-stat">
+                  <div class="col-4">
                     <div class="uppercase profile-stat-title"> 37 </div>
                     <div class="uppercase profile-stat-text"> المشاريع </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-6">
+                  </div>
+                  <div class="col-4">
                     <div class="uppercase profile-stat-title"> 51 </div>
                     <div class="uppercase profile-stat-text"> مهام </div>
-                </div>
-                <div class="col-md-4 col-sm-4 col-xs-6">
+                  </div>
+                  <div class="col-4">
                     <div class="uppercase profile-stat-title"> 61 </div>
                     <div class="uppercase profile-stat-text"> تحميلات </div>
+                  </div>
                 </div>
-            </div>                      
-              <!-- END STAT -->
-               <div class="my-5">
-                  <h4 class="profile-desc-title my-3"> عن صاحب العقار</h4>
-                  <span class="profile-desc-text my-5"> @user.decription </span>
-                 <div class="d-flex justify-content-around my-3">
-                  <div class="margin-top-20 profile-desc-link">
-                  
-                      <a href="@user.facebook">
-
-                            <i class="bi bi-facebook"></i>
-                      </a>
-                     
-                  </div>
-                  <div class="margin-top-20 profile-desc-link">
-                
-                      <a href="@user.twitter">
-
-                              <i class="bi bi-twitter"></i>
-                      </a>
-                     
-                  </div>
-                  <div class="margin-top-20 profile-desc-link">
-                   
-                      <a href="@user.instigram">
-                           <i class="bi bi-instagram"></i>
-                      </a>
-                     
-</div>
-              <div class="margin-top-20 profile-desc-link">
-                    
-                      <a href="https://wa.me/@user.ContactNumber">
-                          <i class="bi bi-whatsapp"></i>
-                      </a>
-                     
-</div>
-</div>
-</div>
-</div>                   
-             
-                                                  
-                  
+                <div class="d-flex justify-content-around my-3">
+                  <a href="@user.facebook" class="profile-stat-title">
+                    <i class="bi bi-facebook"></i>
+                  </a>
+                  <a href="@user.twitter" class="profile-stat-title">
+                    <i class="bi bi-twitter"></i>
+                  </a>
+                  <a href="@user.instigram" class="profile-stat-title">
+                    <i class="bi bi-instagram"></i>
+                  </a>
+                  <a href="https://wa.me/@user.ContactNumber" class="profile-stat-title">
+                    <i class="bi bi-whatsapp"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-9">
+            <div class="profile-content">
+              @RenderBody()
+            </div>
           </div>
         </div>
-        
       </div>
-    </div>
+    </section>
 
 
-
-        </div>
-          <div class="col-9">
-
-
-                @RenderBody()
-            </div>
-        <div>
-
-          
-      </div>
-
-      </div>
-        
-
-   
-
-
-
-         
-        
-
-@section Scripts {
+    @section Scripts {
     @RenderSection("Scripts", required: false)
 
-     <script src="~/assetsSaja/js/Provile.js"></script>
+    <script>
+      function clickOn() {
+        var x = document.getElementsByClassName('custom-file-input')[0];
+        x.click();
+      }
 
-
-
-     <script>
-        function clickOn(){
-            var x = document.getElementsByClassName('custom-file-input')[0];
-            x.click();
-        }
-
-       
-     </script>
-}
+      var loadFile = function (event) {
+        var image = document.getElementById("output");
+        var imgs = image.src = URL.createObjectURL(event.target.files[0]);
+      };
+    </script>
+    }
