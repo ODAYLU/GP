@@ -1,0 +1,317 @@
+﻿@model GP.Models.ViewModels.VMAdvertisement
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<button id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+        class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">
+    اضافة
+</button>
+<hr />
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div style="margin:10px!important;">
+                <form id="formadd" method="post">
+                    <div class="row">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="col-12">
+                            <div class="form-group" hidden>
+                                <label for="edit_name_en" class="my-3">الرقم</label>
+                                <input id="id" asp-for="@Model.Id" class="form-control" placeholder="Id" name="Id" />
+                                <span asp-validation-for="@Model.Id" class="text-danger span"></span>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">الاسم الاول لصاحب الشركة</label>
+                                <input id="fname" asp-for="@Model.FirstName" class="form-control" required placeholder="" name="FirstName" />
+                                <span asp-validation-for="@Model.FirstName" class="text-danger span"></span>
+                            </div>
+                        </div>
+                         <div class="col-12">
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">الاسم الاخير لصاحب الشركة</label>
+                                <input id="lname" asp-for="@Model.LastName" class="form-control" required placeholder="" name="LastName" />
+                                <span asp-validation-for="@Model.LastName" class="text-danger span"></span>
+                            </div>
+                        </div> <div class="col-12">
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">ايميل الشركة </label>
+                                <input id="email" asp-for="@Model.Email" class="form-control" required placeholder="" name="Email" />
+                                <span asp-validation-for="@Model.Email" class="text-danger span"></span>
+                            </div>
+                        </div> <div class="col-12">
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">هاتف الشركة </label>
+                                <input id="phone" asp-for="@Model.PhoneNumber" class="form-control" required placeholder="" name="PhoneNumber" />
+                                <span asp-validation-for="@Model.PhoneNumber" class="text-danger span"></span>
+                            </div>
+                        </div> <div class="col-12">
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">رابط الاعلان</label>
+                                <input id="link" asp-for="@Model.Link" class="form-control" required placeholder="" name="Link" />
+                                <span asp-validation-for="@Model.Link" class="text-danger span"></span>
+                            </div>
+                        </div> <div class="col-12">
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">صورة الاعلان </label>
+                                <input id="image" asp-for="@Model.image" class="form-control" required onchange="img_pathUrl(this)" placeholder="" name="image" />
+                                <span asp-validation-for="@Model.image" class="text-danger span"></span>
+                            </div>
+                              <div class="col-12">
+                            <div class="form-group">
+                                <img id="phot" src="" alt="..."  class="w-25 h-25" asp-append-version="true" />
+                            </div>
+                        </div>
+                             <div class="form-group">
+                                <label for="edit_name_en" class="my-3">الوصف</label>
+                                <input id="desc" asp-for="@Model.Description" class="form-control" required placeholder="" name="Description" />
+                                <span asp-validation-for="@Model.Description" class="text-danger span"></span>
+                            </div>
+                              <div class="form-group">
+                                <label for="edit_name_en" class="my-3">السعر</label>
+                                <input id="price" asp-for="@Model.Price" class="form-control" required placeholder="" name="Price" />
+                                <span asp-validation-for="@Model.Price" class="text-danger span"></span>
+                            </div>
+                        </div> <div class="col-12">
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">تاريخ الابتداء</label>
+                                <input id="sdate" asp-for="@Model.StartDate" class="form-control" required placeholder="" name="StartDate" />
+                                <span asp-validation-for="@Model.StartDate" class="text-danger span"></span>
+                            </div>
+                        </div> <div class="col-12">
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">تاريخ الانتهاء</label>
+                                <input id="edate" asp-for="@Model.EndDate" class="form-control" required placeholder="" name="EndDate" />
+                                <span asp-validation-for="@Model.EndDate" class="text-danger span"></span>
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                    <button id="btnAdd" type="submit" class="btn btn-outline-primary">إضافة</button>
+                    <button id="btnEdit" type="submit" class="btn btn-outline-primary">تعديل</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<table id="Advertisement" class="table table-striped table-bordered w-100 flex-nowrap" style="direction:rtl;">
+    <thead>
+        <tr>
+            <th>الرقم</th>
+            <th> الاسم الاول  </th>
+            <th>الاسم الاخر </th>
+            <th>الايميل </th>
+            <th>رقم الهاتف </th>
+            <th>الوصف</th>
+            <th>الرابط</th>
+            <th>السعر </th>
+            <th>الصورة</th>
+            <th>تاريخ الابتداء</th>
+            <th>تاريخ الانتهاء</th>
+            <th>حذف</th>
+            <th>تعديل</th>
+        </tr>
+    </thead>
+</table>
+
+@section Scripts{
+    @(await Html.PartialAsync("_ValidationScriptsPartial"));
+    <script type="text/javascript">
+        $(document).ready(function () {
+            
+            $("#Advertisement").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "responsive": true,
+                "lengthMenu": [10, 20, 30, 40, 50],
+                "language": {
+                    "search": "ابحث",
+                    "lengthMenu": "عرض _MENU_ صفوف"
+                },
+                "ajax": {
+                    "url": '/api/Api/GetAdvertisement',
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs": [{
+                    "targets": 0,
+                    "visible": false,
+                    "searchable": false
+                }],
+                "columns": [
+                    { "data": "id", "name": "Id", "autowidth": true },
+                    { "data": "firstName", "name": "FirstName", "autowidth": true },
+                    { "data": "lastName", "name": "LastName", "autowidth": true },
+                    { "data": "email", "name": "Email", "autowidth": true },
+                    { "data": "phoneNumber", "name": "PhoneNumber", "autowidth": true },
+                    { "data": "description", "name": "Description", "autowidth": true },
+                   {
+                        "render": function (data, type, row) { return '<a href="'+row.link+'">'+row.link+'</a>' },
+                        "orderable": false
+                    },
+                     { "data": "price", "name": "Price", "autowidth": true },
+                     {
+                        "render": function (data, type, row) { return '<img src="' + row.photo + '" class=" w-25 h-25" asp-append-version="true" />' },
+                        "orderable": false
+                    },
+                   
+                    { "data": "startDate", "name": "StartDate", "autowidth": true },
+                    { "data": "endDate", "name": "EndDate", "autowidth": true },
+                    {
+                        "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCustomer("' + row.id + '"); > حذف </a>' },
+                        "orderable": false
+                    },
+                    {
+                         "render": function (data,type,row ,meta) { return '<a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal" onclick=EditItem("' + row.id + '");  > تعديل </a>' },
+                        "orderable": false
+                    },
+
+                ]
+            });
+        });
+
+        function EditItem(Id) {
+         //  console.log(Id);
+           var table = $("#Advertisement").DataTable();
+            var data = table.data().filter(function (elm) { return elm.id == Id });
+            $(".span").text("");
+            $("#btnAdd").hide();
+            $("#btnEdit").show();
+            $("#id").val(data[0].id);
+            $("#fname").val(data[0].firstName);
+            $("#lname").val(data[0].lastName);
+            $("#phone").val(data[0].phoneNumber);
+            $("#email").val(data[0].email);
+            $("#desc").val(data[0].description); 
+            $("#edate").val(data[0].endDate);
+            $("#sdate").val(data[0].startDate); 
+            $("#link").val(data[0].link); 
+            $("#price").val(data[0].price);
+            $("#image").val(data[0].image);
+             $("#phot").attr("src", data[0].photo);
+        }
+        function DeleteCustomer(Id) 
+        {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        method: 'Get',
+                        url: `/Admin/Advertisement/Delete/${Id}`,
+                        data: JSON.stringify({ id: Id }),
+                        success: function () {
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                            var Table = $("#Advertisement").DataTable();
+                            Table.draw(false);
+                        }
+                    });
+
+                }
+            })
+
+        }
+        $("#Add").on("click", function () {
+            $("#btnAdd").show();
+            $("#btnEdit").hide();
+            $("input").val("");
+            $(".span").text("");
+        });
+        function img_pathUrl(input) {
+            $('#phot')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
+            console.log((window.URL ? URL : webkitURL).createObjectURL(input.files[0]));
+        }
+        $("#btnAdd").on("click", function () {
+
+
+            if ($("#fname").val() != "") {
+                var nameEdit = $("#fname").val();
+                for (var i = 0; i < nameEdit.length; i++) {
+                    nameEdit = nameEdit.replace(" ", "_");
+                }
+                $("#fname").val(nameEdit);
+                var data = new FormData($("#formadd").get(0));
+                console.log(data);
+                $.ajax({
+                    method: 'Post',
+                    url: '/Admin/Advertisement/Create',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function () {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Item has been added successfully',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        $("#btnClose").click();
+                        var Table = $("#Advertisement").DataTable();
+                        Table.draw();
+                    }
+                });
+            }
+
+
+
+        });
+        $("#formadd").on("submit", function (e) {
+            e.preventDefault();
+        })
+        $("#btnEdit").on("click", function () {
+            if ($("#fname").val() != "") {
+                var nameEdit = $("#fname").val();
+                for (var i = 0; i < nameEdit.length; i++) {
+                    nameEdit = nameEdit.replace(" ", "_");
+                }
+                $("#fname").val(nameEdit);
+                var data = new FormData($("#formadd").get(0));
+                console.log(data);
+                $.ajax({
+                    method: 'Post',
+                    url: '/Admin/Advertisement/Edit',
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    success: function () {
+                        $("#btnClose").click();
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'تم التعديل بنجاح',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        var Table = $("#Advertisement").DataTable();
+                        Table.draw();
+                    }
+                });
+            }
+
+        })
+
+    </script>
+}
+

@@ -54,14 +54,18 @@ namespace GP.Models
             {
                 try
                 {
-                    _context.Remove(com);
+                    if (com == null)
+                        return DbCRUD.isNotExisted;
+                    _context.TComments.Remove(com);
                     await _context.SaveChangesAsync();
-
                     return DbCRUD.success;
                 }
-                catch (Exception er)
+                catch (System.Exception ex)
                 {
-                    throw er;
+                    if (ex is SqlException)
+                        return DbCRUD.dbError;
+                    else
+                        return DbCRUD.fail;
                 }
 
             }
@@ -71,8 +75,7 @@ namespace GP.Models
 
         public IQueryable<Comments> GetAll(string search = "")=>_context
                     .TComments
-
-                    .AsNoTracking().Where(x => string.IsNullOrEmpty(search)? true :
+                    .AsNoTracking().Include(c=>c.AppUser).Where(x => string.IsNullOrEmpty(search)? true :
                        (x.Body.Contains(search))
                     )
                     .AsQueryable();

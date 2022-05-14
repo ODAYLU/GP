@@ -29,8 +29,7 @@ namespace GP.Data
         public DbSet<City> TCity { get; set; }
         public DbSet<Currency> TCurrency { get; set; }
         public DbSet<Service_Estate> TService_Estate { get; set; }
-
-
+        public DbSet<Advertisement> TAdvertisement { get; set; }
         public DbSet<Models.Type> Ttype { get; set; }
 
         public DbSet<Services> TServices { get; set; }
@@ -45,6 +44,8 @@ namespace GP.Data
         public DbSet<Message> Messages { get;set; }
 
         public DbSet<Contract> TContract { get;set; }
+
+        public DbSet<likedEstates> TlikedEstates { get; set; }
 
 
     }

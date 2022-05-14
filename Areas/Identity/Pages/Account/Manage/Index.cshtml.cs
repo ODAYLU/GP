@@ -38,12 +38,21 @@ namespace GP.Areas.Identity.Pages.Account.Manage
         [BindProperty]
         public InputModel Input { get; set; }
 
+
+
+
+
         public class InputModel
         {
             [Phone]
             [Display(Name = "رقم التواصل")]
             [Required(ErrorMessage = "الحقل مطلوب")]
             public string PhoneNumber { get; set; }
+
+            [Phone]
+            [Display(Name = "رقم الوتس آب")]
+            [Required(ErrorMessage = "الحقل مطلوب")]
+            public string ContactNumber { get; set; }
             [Required(ErrorMessage = "الحقل مطلوب")]
             [Display(Name = "الاسم الاول")]
             public string fristName { get; set; }
@@ -54,6 +63,25 @@ namespace GP.Areas.Identity.Pages.Account.Manage
             [Display(Name = " الوصف")]
 
             public string description { get; set; }
+
+
+            [Required(ErrorMessage = "الحقل مطلوب")]
+            [Display(Name = " الفيس بوك")]
+
+            public string face { get; set; }
+
+
+            [Required(ErrorMessage = "الحقل مطلوب")]
+            [Display(Name = " تويتر")]
+
+            public string twitter { get; set; }
+
+
+
+            [Required(ErrorMessage = "الحقل مطلوب")]
+            [Display(Name = " انستقرام")]
+
+            public string insta { get; set; }
 
 
             [Display(Name = "ProfilePicture")]
@@ -76,7 +104,11 @@ namespace GP.Areas.Identity.Pages.Account.Manage
             {
                 PhoneNumber = phoneNumber,
                 fristName= userNow.FirstName, lastName= userNow.LastName,
-                description=userNow.decription
+                description=userNow.decription,
+                face=userNow.facebook,
+                insta= userNow.instigram,
+                twitter=userNow.twitter,
+                ContactNumber= userNow.ContactNumber
 
 
             };
@@ -84,6 +116,8 @@ namespace GP.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGetAsync()
         {
+
+            SeedData.IsPserosalPhoto = true;
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -96,6 +130,7 @@ namespace GP.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnPostAsync()
         {
+            SeedData.IsPserosalPhoto = true;
             var user = await _userManager.GetUserAsync(User);
             if (user == null)
             {
@@ -115,6 +150,13 @@ namespace GP.Areas.Identity.Pages.Account.Manage
             user.FirstName = Input.fristName;
             user.LastName = Input.lastName;
             user.decription=Input.description;
+
+            user.facebook = Input.face;
+            user.twitter=Input.twitter;
+            user.instigram = Input.insta;
+            user.ContactNumber = Input.ContactNumber;
+
+
 
 
 

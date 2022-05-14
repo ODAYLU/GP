@@ -20,6 +20,7 @@ namespace GP.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly IEstate _estate;
 
+
         public AdminOperationController(ILogger<AdminOperationController> logger,
             UserManager<AppUser> userManager,
             IEstate estate
@@ -80,6 +81,10 @@ namespace GP.Controllers
             return View();
         }      
         public IActionResult Comments()
+        {
+            return View();
+        }
+        public IActionResult Advertisement()
         {
             return View();
         }

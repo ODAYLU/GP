@@ -19,6 +19,53 @@ namespace GP.Migrations
                 .HasAnnotation("ProductVersion", "5.0.16")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("GP.Models.Advertisement", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Link")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("PhoneNumber")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Photo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TAdvertisement");
+                });
+
             modelBuilder.Entity("GP.Models.AppUser", b =>
                 {
                     b.Property<string>("Id")
@@ -92,6 +139,12 @@ namespace GP.Migrations
                     b.Property<string>("decription")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("facebook")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("instigram")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("is_active")
                         .HasColumnType("bit");
 
@@ -100,6 +153,9 @@ namespace GP.Migrations
 
                     b.Property<int>("memory")
                         .HasColumnType("int");
+
+                    b.Property<string>("twitter")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -368,6 +424,9 @@ namespace GP.Migrations
                         .IsRequired()
                         .HasColumnType("float");
 
+                    b.Property<bool>("publish")
+                        .HasColumnType("bit");
+
                     b.Property<double?>("space")
                         .IsRequired()
                         .HasColumnType("float");
@@ -481,6 +540,9 @@ namespace GP.Migrations
                     b.Property<long>("CommentId")
                         .HasColumnType("bigint");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("body")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -488,6 +550,8 @@ namespace GP.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CommentId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("TReplaies");
                 });
@@ -568,6 +632,28 @@ namespace GP.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ttype");
+                });
+
+            modelBuilder.Entity("GP.Models.likedEstates", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("IdEstate")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("IdUser")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdEstate");
+
+                    b.HasIndex("IdUser");
+
+                    b.ToTable("TlikedEstates");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -818,6 +904,12 @@ namespace GP.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("GP.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("AppUser");
+
                     b.Navigation("Comments");
                 });
 
@@ -838,6 +930,23 @@ namespace GP.Migrations
                     b.Navigation("Estate");
 
                     b.Navigation("Services");
+                });
+
+            modelBuilder.Entity("GP.Models.likedEstates", b =>
+                {
+                    b.HasOne("GP.Models.Estate", "Estate")
+                        .WithMany()
+                        .HasForeignKey("IdEstate")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GP.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("IdUser");
+
+                    b.Navigation("Estate");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

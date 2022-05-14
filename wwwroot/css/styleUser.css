@@ -1,0 +1,136 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    direction: rtl;
+  font-family: "Cairo", sans-serif !important;
+}
+.tabs{
+    float: right;
+    width: 20%;
+    height: 300px;
+    margin-top: -12px;
+}
+.cont {
+    padding: 30px 40px;
+}
+
+.tabs button{
+    display: block;
+    color: black;
+    padding: 18px 16px;
+    width: 100%;
+    outline: none;
+    border: none;
+    text-align: right;
+    cursor: pointer;
+    transition: 0.5s ease-in;
+    font-size: 17px;
+    margin: 15px;
+}
+/* .tabs button:hover{
+    background-color: #4FBDBA;
+    color: white;
+} */
+
+.tabs button.active{
+    background-color: #003c30;
+    color: white;
+}
+.tabLinks{
+    background-color: #003c30;
+}
+.tabContent{
+    height: 400px !important;
+    float: left;
+    padding: 0px  12px;
+    background-color: white;
+    border: 2px solid #003c30;
+    width: 70%;
+    height: 400px;
+    margin-left: 40px;
+    overflow-y: scroll;
+}
+ .tabs .arrow{
+    color: black;
+    float: left;
+    font-size: 33px;
+    position: relative;
+    right: 28px;
+ }
+
+ /* @media (max-width:800px) {
+     .tabs{
+         width: 30%;
+     }
+     .tabsContent{
+         width: 61%;
+     }
+ } */
+ @media (max-width:800px) {
+    .tabs,.tabsContent{
+        width: 100% !important;
+        margin: 0 auto;
+    }
+    .tabContent{
+        width: 100% !important;
+        margin-left: 0 !important;
+        height: 400px !important;
+        overflow-y: scroll;
+    }
+    .tabs button {
+        width: 100%;
+        margin: 10px 0px;
+        padding: 18px 10px;
+    }
+    .tabs .arrow{
+        display: none !important;
+    }
+}
+
+
+.profile-img {
+    text-align: center;
+  }
+  .profile-img img {
+    width: 75%;
+    height: 100%;
+  }
+  .profile-img .file {
+    position: relative;
+    overflow: hidden;
+    margin-top: -20%;
+    width: 70%;
+    border: none;
+    border-radius: 0;
+    font-size: 15px;
+    background: transparent;
+    opacity: 0;
+  }
+  .file:hover {
+    opacity: 1;
+  }
+  
+  .profile-img .file input {
+    position: absolute;
+    opacity: 0;
+    right: 0;
+    top: 0;
+  }
+
+  .bi-heart-fill::before {
+    content: "\f415";
+    color: red;
+}
+
+.border1{
+    border:none;
+}
+.form-control:focus {
+    color: #212529;
+    background-color: #fff;
+    border-color: #003c30;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 109, 253, 0);
+  }

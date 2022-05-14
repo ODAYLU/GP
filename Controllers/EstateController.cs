@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 namespace GP
 {
     
-    //[Authorize(Roles ="Owner")]
+    [Authorize(Roles ="Owner")]
     public class EstateController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -40,6 +40,7 @@ namespace GP
         [HttpGet]
         public IActionResult Index()
         {
+            SeedData.IsPserosalPhoto = false;
             string UserId1 = User.FindFirstValue(ClaimTypes.NameIdentifier);
             List<Estate> list = services.GetAll().Where(x=>x.UserId== UserId1 && x.is_active==true).ToList();
             return View(list);
@@ -48,6 +49,7 @@ namespace GP
         [HttpGet]
         public  IActionResult GetEstate()
         {
+
             var data =  services.GetAll();
             return Ok(data);
         }
@@ -55,13 +57,14 @@ namespace GP
         [HttpGet]
         public IActionResult CreateTemp()
         {
-
+            SeedData.IsPserosalPhoto = false;
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> CreateTemp(Estate estate, IFormFile image_main, List<IFormFile> images)
         {
-            if(image_main == null)
+            SeedData.IsPserosalPhoto = false;
+            if (image_main == null)
             {
                 ModelState.AddModelError("image_main", "أضف الصورة الاساسية على الاقل");
                 return View(estate);
@@ -120,17 +123,17 @@ namespace GP
             GP.Models.Toast.Message = "تم اضافة العقار بنجاح ";
             return RedirectToAction("Index");
         }
-        //[HttpGet]
-        public IActionResult Details(long id)
+       // [HttpGet]
+        public async Task<ActionResult<Estate>> Detalis(long id)
         {
+            SeedData.IsPserosalPhoto = false;
 
-            //if (id != 0)
-            //{
-            //    Estate estate = await services.GetOne(id);
-            //    return View(estate);
-            //}
-            ViewBag.msg = "msg";
-            return View();
+            if (id != 0)
+            {
+                Estate estate = await services.GetOne(id);
+                return View(estate);
+            }
+          return View();
 
         }
 
@@ -138,6 +141,7 @@ namespace GP
         [HttpGet]
         public async Task<ActionResult<Estate>> Edit(long id)
         {
+            SeedData.IsPserosalPhoto = false;
             List<Services> list=  _service_Estate.GetALl(id).ToList();
             // ViewBag.ser=list;
 
@@ -166,7 +170,8 @@ namespace GP
         [HttpPost]
         public async Task<ActionResult<Estate>> Edit(Estate estate)
         {
-            
+            SeedData.IsPserosalPhoto = false;
+
             Estate old = await services.GetOne(estate.Id);
 
         
@@ -206,20 +211,41 @@ namespace GP
 
                 return RedirectToAction("Details", estate);
             }
+            return NotFound();
+        }
 
+        [HttpGet]
+        public async Task<IActionResult> X(long id)
+        {
+            SeedData.IsPserosalPhoto = false;
 
+            if (id != 0)
+            {
+                Estate estate = await services.GetOne(id);
+                if (estate.publish)
+                {
+                    estate.publish = false;
+                }
 
+                else
+                {
+                    estate.publish = true;
+                }
+              
+                await services.UpdateEstate(estate);
+
+                return RedirectToAction("Index");
+
+            }
 
             return NotFound();
         }
 
 
-
         [HttpGet]
         public async Task<ActionResult<Estate>> Delete(long id)
         {
-
-
+            SeedData.IsPserosalPhoto = false;
             if (id != 0)
             {
                 Estate estate = await services.GetOne(id);
@@ -229,8 +255,6 @@ namespace GP
                 {
                     System.IO.File.Delete(oldfile);
                 }
-
-
 
                 await services.DeleteEstate(id);
 
@@ -249,12 +273,14 @@ namespace GP
         [HttpGet]
         public IActionResult ImageList(long id)
         {
+            SeedData.IsPserosalPhoto = false;
             ViewBag.id = id;
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> DeleteImage(long id)
         {
+            SeedData.IsPserosalPhoto = false;
 
             if (id != 0)
             {
@@ -277,6 +303,7 @@ namespace GP
         [HttpPost]
         public async Task<IActionResult> EditImage(long id)
         {
+            SeedData.IsPserosalPhoto = false;
             PhotoEstate Newpro = await _photoservices.GetOne(id);
 
             var file = HttpContext.Request.Form.Files;
@@ -311,6 +338,7 @@ namespace GP
         [HttpPost]
         public async Task<IActionResult> AddImage(long q)
         {
+            SeedData.IsPserosalPhoto = false;
 
             PhotoEstate Newpro = new PhotoEstate();
             string webRootPath = webHostEnvironment.WebRootPath;
@@ -333,8 +361,6 @@ namespace GP
                 await _photoservices.InsertPhotoEstate(Newpro);
 
                 ViewBag.id = q;
-
-               
             }
             return View("ImageList");
 

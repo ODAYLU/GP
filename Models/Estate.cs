@@ -47,19 +47,13 @@ namespace GP.Models
         public double? phone_num { get; set; }
         [Required(ErrorMessage = "الرجاء ادخال الصورة الرئيسية للعقار")]
         public string Main_photo { get; set; }
-
         public DateTime OnDate { get; set; }
-
-
-
-
         [NotMapped]
         public string[] list { get; set; }
 
         public bool is_active { get; set; } 
+        public bool publish { get; set; }
         public bool is_spacial { get; set; }
-
-
 
         [DisplayName(" نوع العقار ")]
         [Required(ErrorMessage = "الحقل مطلوب")]
@@ -91,8 +85,6 @@ namespace GP.Models
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public AppUser Users { get; set; }
-           
-
     }
     public interface IEstate
     {

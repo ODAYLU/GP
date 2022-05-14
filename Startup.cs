@@ -63,12 +63,14 @@ namespace GP
             services.AddScoped<ICurrency,CurrencyManage>();
             services.AddScoped<IPhotoEstate,PhotoEstateManage>();
             services.AddScoped<IService,ServicesManage>();
+            services.AddScoped<IAdvertisement, ManageAdvertisement>();
             services.AddScoped<IService_Estate, ManageService_Estate>();
             services.AddScoped<ICommments, CommentsManagments>();
             services.AddScoped<IState,StateManage>();
             services.AddScoped<IType,TypeManage>();
             services.AddScoped<IContract, ContractManage>();
             services.AddScoped<InformationGen>();
+            services.AddScoped<IlikedEstates, likedEstatesManage>();
             services.AddTransient<IContact,ContactManagments>();
         }
 

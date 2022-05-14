@@ -2,7 +2,16 @@
 
 @{
     ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_LayoutOwner.cshtml";
+   // Layout = "~/Views/Shared/_LayoutOwner.cshtml";
+
+
+
+       if (User.IsInRole("Owner"))
+    {
+        Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
+      
+    }
+       
 }
 
 @{
@@ -27,11 +36,15 @@
 }
 
 <p>
-    <a asp-action="CreateTemp">Create New</a>
+    <a asp-action="CreateTemp" >Create New</a>
 </p>
 <table class="table">
     <thead>
         <tr>
+
+              <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
       <th>
            @Html.DisplayNameFor(model => model.Main_photo)
       </th>
@@ -54,10 +67,7 @@
                 @Html.DisplayNameFor(model => model.phone_num)
             </th>
            
-            <th>
-                @Html.DisplayNameFor(model => model.is_active)
-            </th>
-           
+         
            
             <th>
                 @Html.DisplayNameFor(model => model.State)
@@ -68,6 +78,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Currency)
             </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.publish)
+            </th>
            
             <th> Action </th>
         </tr>
@@ -75,6 +89,13 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+
+            
+             <td>
+                 <a href="Estate/Detalis/@item.Id">
+                @Html.DisplayFor(modelItem => item.Id)
+                </a>
+            </td>
             <td>
           <img src="~/images/Estate/@item.Main_photo"  class="rounded " height="50" width="50" style="border-radius: 50%">
           </td>
@@ -99,20 +120,6 @@
                 @Html.DisplayFor(modelItem => item.phone_num)
             </td>
           
-           <td>
-             @{
-                        @if (@item.is_active)
-                        {
-                             <div>true </div>
-                        }
-                        else
-                        {
-                           <div> false </div>
-                        }
-                    }
-           
-           
-           </td>
             <td>
                 @Html.DisplayFor(modelItem => item.State.name)
             </td>
@@ -122,15 +129,32 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Currency.currency)
             </td>
+
+            <td>
+             @{
+                        @if (@item.publish)
+                        {
+                             <div>منشور </div>
+                        }
+                        else
+                        {
+                           <div> غير منشور </div>
+                        }
+                    }
+           
+           
+           </td>
            
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id" >Details</a> |
+              
                 <a asp-action="ImageList" asp-route-id="@item.Id" >الصور</a> |
-           
-                <a asp-action="Delete" asp-route-id="@item.Id" onclick=" return confirm(@item.Id)"  >Delete</a>|
 
-                <a asp-controller="Contract"  asp-action="CreateContract" asp-route-id="@item.Id" >كتابة العقد</a> |
+                <a asp-action="X" asp-route-id="@item.Id" onclick=" return confirm('هل تريد تغير حالة العقار (عرض العقار  ')"  > الحالة ؟</a>|
+           
+                @*<a asp-action="Delete" asp-route-id="@item.Id" onclick=" return confirm(@item.Id)"  >Delete</a>|*@
+
+                <a asp-controller="Contract"  asp-action="CreateContract" asp-route-id="@item.Id" > العقد</a> |
 
 
             </td>

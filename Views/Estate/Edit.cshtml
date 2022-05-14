@@ -8,7 +8,13 @@
 
 @{
 ViewData["Title"] = "تعديل العقار";
-    
+   // Layout = "~/Views/Shared/_LayoutOwner.cshtml";
+
+      if (User.IsInRole("Owner"))
+    {
+        Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
+      
+    } 
 }
 
 

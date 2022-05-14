@@ -21,6 +21,9 @@ namespace GP.Models
          public long CommentId { get; set; }
         [ForeignKey("CommentId")]
         public Comments Comments { get; set; }
+        public string UserId { get; set; }
+        [ForeignKey("UserId")]
+        public AppUser AppUser { get; set; }
 
     }
     public interface IReplaies
@@ -30,7 +33,7 @@ namespace GP.Models
         public Task<DbCRUD> InsertReply(Replaies replaies);
         public Task<DbCRUD> UpdateReply(Replaies replaies);
         public Task<DbCRUD> DeleteReply(long id);
-        public Task<IQueryable<Replaies>>  GetCommentReplies(long id);
+        public Task<List<Replaies>>  GetCommentReplies(long id);
     }
     public class ManageReplayies : IReplaies
     {
@@ -64,16 +67,16 @@ namespace GP.Models
 
         public IQueryable<Replaies> GetAll(string search = "")=> _context
                     .TReplaies
-                    .AsNoTracking().Where(x => string.IsNullOrEmpty(search) ? true :
+                    .AsNoTracking().Include(x => x.AppUser).Include(x => x.Comments).ThenInclude(x => x.Estate).Where(x => string.IsNullOrEmpty(search) ? true :
                        (x.body.Contains(search))
                     )
                     .AsQueryable();
 
-        public async Task<IQueryable<Replaies>>  GetCommentReplies(long id) 
+        public async Task<List<Replaies>>  GetCommentReplies(long id) 
         {
-             return    _context
+             return  await  _context
                .TReplaies
-               .AsNoTracking().Where(x => x.CommentId.Equals(id)).Include(x => x.Comments).ThenInclude(x => x.Estate).AsQueryable();
+               .AsNoTracking().Where(x => x.CommentId.Equals(id)).Include(x=>x.AppUser).Include(x => x.Comments).ThenInclude(x => x.Estate).ToListAsync();
         }
            
         
@@ -81,7 +84,7 @@ namespace GP.Models
         public async Task<Replaies> GetOne(long id) => await _context
                 .TReplaies
                 .AsNoTracking()
-                 .SingleOrDefaultAsync(c => c.Id == id);
+.Include(x => x.AppUser).Include(x => x.Comments).ThenInclude(x => x.Estate).SingleOrDefaultAsync(c => c.Id == id);
 
         public async Task<DbCRUD> InsertReply(Replaies replaies)
         {
