@@ -108,7 +108,7 @@ namespace GP.Areas.Identity.Pages.Account
                 }
                 var user = new AppUser
                 {
-                    UserName = Input.Email,
+                    UserName = (Input.Email).Split('@')[0],
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,

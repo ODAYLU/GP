@@ -24,7 +24,7 @@ namespace GP.Models
     {
         public IQueryable<Type> GetAllSelected();
         public Task<Type> GetOne(int id);
-        public IQueryable<Type> GetAll(string search);
+        public IQueryable<Type> GetAll(string search ="");
         public Task<DbCRUD> InsertType(Type type);
         public Task<DbCRUD> UpdateType(Type type);
         public Task<DbCRUD> DeleteType(int id);

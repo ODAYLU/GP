@@ -1,5 +1,10 @@
 ﻿@{ ViewData["Title"] = "أملاك الصفحة الرئيسية"; }
-
+@{
+  var types = new SelectList(@ViewBag.Types,"Id","type");
+  var categories = new SelectList(@ViewBag.Categories,"Id","category");
+  var cities = new SelectList(@ViewBag.Cities,"Id","name"); 
+  var states = new SelectList(@ViewBag.States,"Id","name");
+}
 
   <style>
     header{
@@ -31,38 +36,26 @@
         <div class="row justify-content-between align-items-center ">
           <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
             <h5>النوع</h5>
-            <select class="form-selectt" aria-label="Default select example">
-              <option selected>ِِشقة</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select class="form-selectt" asp-items="@types" aria-label="Default select example">
+              <option >ِِاختر نوع العقار</option>
             </select>
           </div>
           <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
             <h5>التصنيف </h5>
-            <select class="form-selectt" aria-label="Default select example">
-              <option selected>ِِشقة</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select  class="form-selectt" asp-items="@categories" aria-label="Default select example">
+              <option >ِِاختر تصنيف العقار</option>
             </select>
           </div>
           <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
             <h5>الدولة</h5>
-            <select class="form-selectt" aria-label="Default select example">
-              <option selected>ِِشقة</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select class="form-selectt" asp-items="@states" aria-label="Default select example">
+              <option >ِِاختر الدولة</option>
             </select>
           </div>
           <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
             <h5>المدينة</h5>
-            <select class="form-selectt" aria-label="Default select example">
-              <option selected>ِِشقة</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select class="form-selectt" asp-items="@cities" aria-label="Default select example">
+                 <option >ِِاختر المدينة</option>
             </select>
           </div>
           <div class="col-lg-2 col-12">
@@ -82,20 +75,14 @@
             <div class="row justify-content-between align-items-center ">
               <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
                 <h5>النوع</h5>
-                <select class="form-selectt" aria-label="Default select example">
-                  <option selected>ِِشقة</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                <select class="form-selectt" asp-items="@types" aria-label="Default select example">
+                  <option>ِِاختر نوع</option>
                 </select>
               </div>
               <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
                 <h5>التصنيف </h5>
-                <select class="form-selectt" aria-label="Default select example">
-                  <option selected>ِِشقة</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                <select class="form-selectt" asp-items="categories" aria-label="Default select example">
+                  <option >اختر تصنيف العقار</option>
                 </select>
               </div>
               <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
@@ -109,7 +96,7 @@
               </div>
               <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
                 <h5>المدينة</h5>
-                <select class="form-selectt" aria-label="Default select example">
+                <select  class="form-selectt"  aria-label="Default select example">
                   <option selected>ِِشقة</option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
@@ -132,7 +119,7 @@
         data-aos-easing="ease-in-sine" href="#!"><i class="bi bi-twitter"></i></a>
       <a class="btn btn-dark text-white m-3 " data-aos="fade-down-right" data-aos-delay="250"
         data-aos-easing="ease-in-sine" href="#!"><i class="bi bi-facebook"></i></a>
-      <a class="btn btn-dark text-white m-3 " data-aos="fade-down-right" data-aos-delay="350"
+      <a  class="btn btn-dark text-white m-3 " data-aos="fade-down-right" data-aos-delay="350"
         data-aos-easing="ease-in-sine" href="#!"><i class="bi bi-instagram"></i></a>
     </div>
   </div>
@@ -424,14 +411,14 @@
           </div>
         </div>
 
-
+       
       </section>
+       </main>
+       </div>
 
-    
-</section>
 @section Scripts{
     <script type="text/javascript">
-
+        
         $(document).ready(function () {
             $.ajax({
                 url: '/Estate/GetEstate',
