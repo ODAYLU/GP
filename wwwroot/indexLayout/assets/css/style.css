@@ -13,44 +13,46 @@
 
 :root,
 :root.light {
-  --green: #2a5555 !important;
-  /* --green: #0f4f54 !important; */
-  --bgwhite: #f6f6f6 !important;
-  --txtwhite: #f1f1f1 !important;
-  --txtactive: #111;
-  --contact: rgb(255, 255, 255);
-  --grendark: #0f4f54;
-  --bgsec: #eeeeeed4;
-  --litegreen: #9ba889 !important;
-  --textnav: #f1f1f1 !important;
-  --bgcolor2: #d7d7d7;
-  --bgdark: #fff !important;
-  --orange: #d46300;
-  --navcolor: chocolate;
-  --navcolorhover: rgb(255, 255, 255);
-  --navbghover: chocolate;
-  --colorscrolbar: #a6bad9;
-  --footercolor: #9ba88989;
-  --bg-color: #fff;
-  --text-color: #123;
-  --orange2: navajowhite;
-  --secondery: #585757;
+    --green: #2a5555 !important;
+    /* --green: #0f4f54 !important; */
+    --bgwhite: #f6f6f6 !important;
+    --txtwhite: #f1f1f1 !important;
+    --txtactive: #111;
+    --contact: rgb(255, 255, 255);
+    --grendark: #0f4f54;
+    --bgsec: #eeeeeed4;
+    --litegreen: #9ba889 !important;
+    --textnav: #f1f1f1 !important;
+    --bgcolor2: #d7d7d7;
+    --bgdark: #fff !important;
+    --orange: #d46300;
+    --navcolor: chocolate;
+    --navcolorhover: rgb(255, 255, 255);
+    --navbghover: chocolate;
+    --colorscrolbar: #a6bad9;
+    --footercolor: #9ba88989;
+    --bg-color: #fff;
+    --text-color: #123;
+    --orange2: navajowhite;
+    --secondery: #585757;
+    --form: #fff;
 }
 
-:root.dark {
-  --green: #15202b !important;
-  --bgwhite: #1d2a35 !important;
-  --txtactive: #ffffff;
-  --orange: #d46300;
-  --orange2: navajowhite;
-  --contact: var(--green);
-  --grendark: #0f4f54;
-  --litegreen: var(--litegreen);
-  --bgdark: #15202b !important;
-  --bgsec: #15202b;
-  --footercolor: #00000089;
-  --secondery:#d5d5d5;
-}
+    :root.dark {
+        --green: #15202b !important;
+        --bgwhite: #1d2a35 !important;
+        --txtactive: #ffffff;
+        --orange: #d46300;
+        --orange2: navajowhite;
+        --contact: var(--green);
+        --grendark: #0f4f54;
+        --litegreen: var(--litegreen);
+        --bgdark: #15202b !important;
+        --bgsec: #15202b;
+        --footercolor: #00000089;
+        --secondery: #d5d5d5;
+        --form: #1d2a35;
+    }
 
 
 * {
@@ -343,13 +345,6 @@ select:focus-visible {
   outline-offset: 5px;
   outline: none;
 }
-
-select:not(:-internal-list-box) {
-  overflow: visible !important;
-  overflow-x: visible !important;
-  overflow-y: visible !important;
-}
-
 
 
 
@@ -675,7 +670,8 @@ footer .nav .nav-item .text-dark {
 .circle {
   border-style: 1px solid;
   border-radius: 50%;
-  width: 200px;
+  width: 200px !important;
+  height:200px !important;
   box-shadow: -1px 0px 12px 2px #b0b0b08c;
 }
 .ulborder .nav-item .nav-link{
@@ -764,89 +760,25 @@ a:hover{
   color:var(--litegreen);
   
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.order-content {
-  padding: 20px;
-  background: #F6F9FB;
-  min-height: 460px;
+.borderbottom {
+    border-bottom: 4px solid #A9A59F;
 }
-
-.form_main {
-  width: 100%;
+.form-control {
+    background-color: var(--form);
+    color: var(--txtactive);
+    border: 1px solid #a6a6a691;
 }
+    .form-control:disabled, .form-control[readonly] {
+        background-color: var(--bgwhite);
+    }
+    .form-control:focus {
+        color: var(--txtactive);
+        background-color: var(--bgwhite);
+        border-color: var(--green);
+        outline: 0;
+        box-shadow: none;
+    }
 
-.form_main h4 {
-  font-family: roboto;
-  font-size: 20px;
-  font-weight: 300;
-  margin-bottom: 15px;
-  margin-top: 20px;
-  text-transform: uppercase;
-}
-
-.heading {
-  border-bottom: 1px solid #A9A59F;
-  padding-bottom: 9px;
-  position: relative;
-
-}
-
-.heading span {
-  background: var(--grendark) none repeat scroll 0 0;
-  bottom: -2px;
-  height: 3px;
-  left: 0;
-  position: absolute;
-  width: 75px;
-}
-
-.form {
-  border-radius: 7px;
-  padding: 6px;
-}
-
-.txt[type="text"] {
-  border: 1px solid #ccc;
-  margin: 5px 0;
-  padding: 4px 5px;
-  border-radius: 5px;
-  width: 80%;
-}
-
-.txt[type="password"] {
-  border: 1px solid #ccc;
-  margin: 5px 0;
-  padding: 4px 5px;
-  border-radius: 5px;
-  width: 80%;
-}
-
-.txt2:hover {
-  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-  color: #949390;
-  transition: all 0.5s ease 0s;
-}
 
 
 

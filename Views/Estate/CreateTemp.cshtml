@@ -57,14 +57,14 @@ ViewData["Title"] = "إضافة عقار جديد";
                                         <div class="col">
                                             <div class="form-group">
                                                 <label asp-for="name" class="control-label"> وصف بسيط للعقار </label>
-                                                <input asp-for="name" class="form-control rounded-3" placeholder="مثال: شقة للبيع في منطقة كذا بسعر مميز"/>
+                                                <input asp-for="name" class="form-control rounded-pill" placeholder="مثال: شقة للبيع في منطقة كذا بسعر مميز"/>
                                                 <span asp-validation-for="name" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
                                                 <label asp-for="description" class="control-label"> وصف العقار </label>
-                                                <textarea asp-for="description" class="form-control rounded-3" rows="8" placeholder="مثال: شقة بإطلالة مميزة على البحر المتوسط، تبعد عن شاطئ البحر 500 متر، في منطقة سكنية هادئة لمن ينظر لنوم هادئ وبيئة مناسبة للسكن، يتوفر في المنطقة جميع الإحتياجات تشمل سوبرماركت كبير، مسجد قريب، نادي رياضي ومواصلات عامة."></textarea>
+                                                <textarea asp-for="description" class="form-control "style="border-radius: 1rem;" rows="8" placeholder="مثال: شقة بإطلالة مميزة على البحر المتوسط، تبعد عن شاطئ البحر 500 متر، في منطقة سكنية هادئة لمن ينظر لنوم هادئ وبيئة مناسبة للسكن، يتوفر في المنطقة جميع الإحتياجات تشمل سوبرماركت كبير، مسجد قريب، نادي رياضي ومواصلات عامة."></textarea>
                                                 <span asp-validation-for="description" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -72,7 +72,7 @@ ViewData["Title"] = "إضافة عقار جديد";
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label asp-for="space" class="control-label"> مساحة العقار  <span class="text-secondary px-2 fw-light">(2م)</span></label>
-                                                    <input asp-for="space" type="number" class="form-control rounded-3" placeholder="مثال: 500" />
+                                                    <input asp-for="space" type="number" class="form-control rounded-pill" placeholder="مثال: 500" />
                                                     <span asp-validation-for="space" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -87,7 +87,7 @@ ViewData["Title"] = "إضافة عقار جديد";
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label asp-for="categoryID" class="control-label"> نوع العقار  </label>
-                                                    <select asp-for="categoryID" class ="form-control rounded-3" asp-items="new SelectList(cate.GetAllSelected(),nameof(Category.Id),nameof(Category.category))">
+                                                    <select asp-for="categoryID" class ="form-control rounded-pill" asp-items="new SelectList(cate.GetAllSelected(),nameof(Category.Id),nameof(Category.category))">
                                                                 <option  selected disabled > نوع العقار --</option>
                                                     </select>
                                                     <span asp-validation-for="categoryID" class="text-danger"></span>
@@ -97,7 +97,7 @@ ViewData["Title"] = "إضافة عقار جديد";
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label asp-for="TypeID" class="control-label"> تصنيف العقار</label>
-                                                    <select asp-for="TypeID" class ="form-control rounded-3"  asp-items="new SelectList(tYP.GetAllSelected(),nameof( GP.Models.Type.Id),nameof( GP.Models.Type.type))">
+                                                    <select asp-for="TypeID" class ="form-control rounded-pill"  asp-items="new SelectList(tYP.GetAllSelected(),nameof( GP.Models.Type.Id),nameof( GP.Models.Type.type))">
                                                 
                                                         <option  selected disabled>Please select one</option>
                                                     </select>
@@ -129,7 +129,7 @@ ViewData["Title"] = "إضافة عقار جديد";
                                             <div class="col"> 
                                                 <div class="form-group">
                                                     <label asp-for="StateID" class="control-label">الدولة</label>
-                                                    <select asp-for="StateID" class ="form-control rounded-3"  asp-items="new SelectList(STA.GetAllSelected(),nameof(State.Id),nameof(State.name))">
+                                                    <select asp-for="StateID" class ="form-control rounded-pill"  asp-items="new SelectList(STA.GetAllSelected(),nameof(State.Id),nameof(State.name))">
                                                         <option  selected disabled>اختر الدولة</option>
                                                     </select>
                                                     <span asp-validation-for="StateID" class="text-danger"></span>
@@ -139,7 +139,7 @@ ViewData["Title"] = "إضافة عقار جديد";
                                             <div class="col"> 
                                                 <div class="form-group">
                                                     <label asp-for="CityID" class="control-label">المدينة</label>
-                                                    <select asp-for="CityID" class ="form-control rounded-3"  asp-items="new SelectList(cIT.GetAllSelected(),nameof(City.Id),nameof(City.name))">
+                                                    <select asp-for="CityID" class ="form-control rounded-pill"  asp-items="new SelectList(cIT.GetAllSelected(),nameof(City.Id),nameof(City.name))">
                                                 
                                                         <option  selected disabled>اختر المدينة</option>
                                                     </select>
@@ -151,7 +151,7 @@ ViewData["Title"] = "إضافة عقار جديد";
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label asp-for="CurrencyID" class="control-label">العملة</label>
-                                                    <select asp-for="CurrencyID" class ="form-control rounded-3"  asp-items="new SelectList(cURR.GetAllSelected(),nameof(Currency.Id),nameof(Currency.currency))">
+                                                    <select asp-for="CurrencyID" class ="form-control rounded-pill"  asp-items="new SelectList(cURR.GetAllSelected(),nameof(Currency.Id),nameof(Currency.currency))">
                                                         <option  selected disabled>اختر العملة</option>
                                                     </select>
                                                     <span asp-validation-for="CurrencyID" class="text-danger"></span>
@@ -165,14 +165,14 @@ ViewData["Title"] = "إضافة عقار جديد";
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label asp-for="Longitude" class="control-label"> نقطة x </label>
-                                                    <input type="text" asp-for="Longitude" class ="form-control rounded-3" placeholder="x" />
+                                                    <input type="text" asp-for="Longitude" class ="form-control rounded-pill" placeholder="x" />
                                                         <span asp-validation-for="Longitude" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label asp-for="Latitude" class="control-label"> نقطة y </label>
-                                                    <input type="text" asp-for="Latitude" class ="form-control rounded-3"  placeholder="y" />
+                                                    <input type="text" asp-for="Latitude" class ="form-control rounded-pill"  placeholder="y" />
                                                         <span asp-validation-for="Latitude" class="text-danger"></span>
                                                 
                                                 </div>
@@ -208,14 +208,14 @@ ViewData["Title"] = "إضافة عقار جديد";
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label asp-for="name_owner" class="control-label"> اسم المالك</label>
-                                                    <input asp-for="name_owner" class="form-control rounded-3" placeholder="محمد السيد" />
+                                                    <input asp-for="name_owner" class="form-control rounded-pill" placeholder="محمد السيد" />
                                                     <span asp-validation-for="name_owner" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label asp-for="phone_num" class="control-label">  رقم هاتف المالك  </label>
-                                                    <input asp-for="phone_num" class="form-control rounded-3" placeholder="05999999"/>
+                                                    <input asp-for="phone_num" class="form-control rounded-pill" placeholder="05999999"/>
                                                     <span asp-validation-for="phone_num" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -233,7 +233,7 @@ ViewData["Title"] = "إضافة عقار جديد";
                                             <div class="col">
                                                 <div class="form-group d-flex align-items-center" style="text-align:initial">
                                                     <label asp-for="Main_photo" class="control-label w-25">الصورة الاساسية</label>
-                                                    <input asp-for="Main_photo" type="file" accept="image/*" id='fileName' name="image_main" class="form-control rounded-3"   onchange="document.getElementById('myImg').src = window.URL.createObjectURL(this.files[0])"  />
+                                                    <input asp-for="Main_photo" type="file" accept="image/*" id='fileName' name="image_main" class="form-control rounded-pill"   onchange="document.getElementById('myImg').src = window.URL.createObjectURL(this.files[0])"  />
                                                     <span asp-validation-for="Main_photo" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -245,7 +245,7 @@ ViewData["Title"] = "إضافة عقار جديد";
                                                 <div class="form-group d-flex align-items-center" style="text-align:initial">
                                                     <label class="control-label w-25"> ( الاخرى(اختياري</label>
 
-                                                    <input id="uploadInput"  type="file" placeholder="يبلرتالاىت" accept="image/*"  name="images" class="form-control rounded-3"  multiple>
+                                                    <input id="uploadInput"  type="file" placeholder="يبلرتالاىت" accept="image/*"  name="images" class="form-control rounded-pill"  multiple>
                                                                 
                                                 </div>
                                             </div>

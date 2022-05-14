@@ -18,7 +18,7 @@
 
 
     <section class="">
-      <div class="container py-4">
+      <div class="container-md py-4">
         <div class="row">
           <div class="col-12 col-lg-3">
 
@@ -36,14 +36,14 @@
 
                   if (user.ProfilePicture is not null)
                   {
-                  <img id="prof" class="profile-picture" alt="Profile"
+                  <img id="prof" class="img-fluid circle" alt="Profile"
                     src="data:image/*;base64,@(Convert.ToBase64String(user.ProfilePicture))" />
                   }
 
                   else
                   {
-                  <img id="prof" class="profile-picture" alt="Profile"
-                    src="https://cdn.pixabay.com/photo/2017/08/06/21/01/louvre-2596278_960_720.jpg" />
+                  <img id="prof" class="img-fluid circle" alt="Profile"
+                    src="~/indexLayout/assets/img/pages/user.jpg" />
 
                   }
                   }
@@ -64,14 +64,14 @@
 
                     if (@user.ProfilePicture is not null)
                     {
-                    <img id="prof" class="profile-picture" alt="Profile"
+                    <img id="prof" class="img-fluid circle" alt="Profile"
                       src="data:image/*;base64,@(Convert.ToBase64String(@user.ProfilePicture))" />
                     }
 
                     else
                     {
-                    <img class="profile-picture " alt="Profile"
-                      src="https://cdn.pixabay.com/photo/2017/08/06/21/01/louvre-2596278_960_720.jpg" />
+                    <img class="img-fluid circle" alt="Profile"
+                      src="~/indexLayout/assets/img/pages/user.jpg" />
 
                     }
                     }
@@ -147,7 +147,7 @@
             </div>
           </div>
           <div class="col-12 col-lg-9">
-            <div class="profile-content">
+            <div class="profile-content text-end p-5">
               @RenderBody()
             </div>
           </div>
