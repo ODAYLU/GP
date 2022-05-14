@@ -15,6 +15,7 @@
   <link href="~/indexLayout/assets/bootstrap/aos.css" rel="stylesheet">
   <link href="~/indexLayout/assets/css/swiper.css" rel="stylesheet" />
   <link href="~/indexLayout/assets/css/style.css" rel="stylesheet">
+  <link href="~/css/Chat.css" rel="stylesheet" />
 </head>
 
 
@@ -231,10 +232,16 @@
   <script src="~/indexLayout/assets/bootstrap/ajax_query.min.js"></script>
   <script src="~/indexLayout/assets/bootstrap/wow.min.js"></script>
   <script src="~/indexLayout/assets/bootstrap/aos.js"></script>
+   <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/assets/bootstrap/ajax_query.min.js"></script>
+    <script src="~/assets/bootstrap/jquery-3.1.0.min.js" type="text/javascript"></script>
   <script src="~/indexLayout/assets/js/swipar.js"></script>
   <script src="~/indexLayout/assets/js/loding.js"></script>
   <script src="~/indexLayout/assets/js/index.js"></script>
    @await RenderSectionAsync("Scripts", required: false)
+       <script src="~/lib/aspnet/signalr/dist/browser/signalr.js"></script>
+
+    <script src="~/js/Chat.js"></script>
   <script type="text/javascript">
     new WOW().init();
     AOS.init({
