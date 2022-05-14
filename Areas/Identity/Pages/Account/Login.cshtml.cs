@@ -120,7 +120,8 @@ namespace GP.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "عملية تسجيل الدخول غير صحيحة");
+                    ViewData["Error"] = "عملية تسجيل الدخول غير صحيحة";
                     return Page();
                 }
             }

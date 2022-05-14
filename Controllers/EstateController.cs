@@ -365,5 +365,18 @@ namespace GP
             return View("ImageList");
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> AddLikes(long id)
+        {
+            if(id != 0)
+            {
+            var estate = await services.GetOne(id);
+            estate.Likes++;
+            await  services.UpdateEstate(estate);
+                return Ok();
+            }
+            return BadRequest();
+        }
     }
  }
