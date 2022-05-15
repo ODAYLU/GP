@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,7 +44,49 @@ namespace GP.Controllers
             return View();
         }
 
-        
+        public IActionResult FilterEstate(int Type, [Required] int Category, int State,  long City)
+        {
+            ModelState.Remove("Type");
+            ModelState.Remove("State");
+            ModelState.Remove("City");
+            if (!ModelState.IsValid) return View("Index");
+            var data =  _estate.GetAll().Where(x => 
+            x.TypeID == Type ||
+            x.categoryID== Category ||
+            x.StateID == State ||
+            x.CityID == City
+            ).ToList();
+            var Categ =  _category.GetOne(Category).Result;
+            if(Categ != null)
+            {
+                if(Categ.category.Trim() == "شقة") return RedirectToAction("Apartment", data);
+                if(Categ.category.Trim() == "منزل") return RedirectToAction("House", data);
+                if(Categ.category.Trim() == "أرض") return RedirectToAction("Land", data);
+                if(Categ.category.Trim() == "شاليه") return RedirectToAction("Chalet", data);
+            }
+            return View("",data);
+        }
+
+        public IActionResult Apartment(List<Estate> data)
+        {
+            ViewBag.Data = data;
+            return View();
+        }
+        public IActionResult House(List<Estate> data)
+        {
+            ViewBag.Data = data;
+            return View();
+        }
+        public IActionResult Land(List<Estate> data)
+        {
+            ViewBag.Data = data;
+            return View();
+        }
+        public IActionResult Chalet(List<Estate> data)
+        {
+            ViewBag.Data = data;
+            return View();
+        }
 
         public IActionResult Privacy()
         {

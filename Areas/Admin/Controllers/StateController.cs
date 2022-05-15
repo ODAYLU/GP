@@ -127,7 +127,7 @@ namespace GP.Controllers
                 System.IO.File.Delete(oldfile);
             }
             await _services.DeleteState(id);
-            return RedirectToAction("CreateAndEdit");
+            return Ok();
         }
     }
 }

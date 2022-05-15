@@ -29,43 +29,50 @@
   <video class="bg-video" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
     <source src="~/indexLayout/assets/img/pages/bg.mp4" type="video/mp4" />
   </video>
+   <form  asp-controller="Home" asp-action="FilterEstate">
   <div class="container-fluid d-none d-lg-block pt-5" style="position: absolute;z-index: 5; top: 11rem;">
     <div class="row justify-content-center align-items-center text-center ">
       <p class="fs-1 text-white animated wow fadeInDown">ابحث عن العقار الأنسب لك </p>
       <p class="fs-4 text-white pb-5 animated wow fadeInDown">لديك الفرصة لوضع عقارك</p>
+      
       <div class="bgacground rounded-5 w-50  p-3 py-4 animated wow fadeInUp">
         <div class="row justify-content-between align-items-center ">
-          <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
-            <h5>النوع</h5>
-            <select class="form-selectt" asp-items="@types" aria-label="Default select example">
-              <option >ِِاختر نوع العقار</option>
-            </select>
-          </div>
-          <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
-            <h5>التصنيف </h5>
-            <select  class="form-selectt" asp-items="@categories" aria-label="Default select example">
-              <option >ِِاختر تصنيف العقار</option>
-            </select>
-          </div>
-          <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
-            <h5>الدولة</h5>
-            <select class="form-selectt" asp-items="@states" aria-label="Default select example">
-              <option >ِِاختر الدولة</option>
-            </select>
-          </div>
-          <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
-            <h5>المدينة</h5>
-            <select class="form-selectt" asp-items="@cities" aria-label="Default select example">
-                 <option >ِِاختر المدينة</option>
-            </select>
-          </div>
-          <div class="col-lg-2 col-12">
-            <button class="btn btn-search px-3 py-2 rounded-5"><i class="bi bi-search"></i></button>
-          </div>
+            
+            <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
+                <h5>النوع</h5>
+                <select name="Type" class="form-selectt" asp-items="@types" aria-label="Default select example">
+                  <option>ِِاختر نوع</option>
+                </select>
+              </div>
+              <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
+                <h5>التصنيف </h5>
+                <select name="Category" class="form-selectt" asp-items="categories" aria-label="Default select example">
+                  <option >اختر تصنيف العقار</option>
+                </select>
+              </div>
+              <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
+                <h5>الدولة</h5>
+                <select name="State" class="form-selectt" asp-items="@states" aria-label="Default select example">
+                     <option >اختر الدولة</option>
+                </select>
+              </div>
+              <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
+                <h5>المدينة</h5>
+                <select name="City" class="form-selectt" asp-items="@cities"  aria-label="Default select example">
+                     <option >اختر  المدينة</option>
+                    
+                </select>
+              </div>
+              <div class="col-lg-2 col-12">
+                <button type="submit" class="btn btn-search px-3 py-2 rounded-5"><i class="bi bi-search"></i></button>
+              </div>
+              
         </div>
       </div>
+        
     </div>
   </div>
+  </form>
   <div class="masthead">
     <div class="masthead-content">
       <div class="container-fluid d-block d-lg-none pt-5">
@@ -74,21 +81,22 @@
           <p class="fs-4 text-white animated wow fadeInDown">لديك الفرصة لوضع عقارك</p>
           <div class="bgacground rounded-5  p-3 py-4 animated wow fadeInUp">
             <div class="row justify-content-between align-items-center ">
-              <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
+                <form asp-controller="Home" asp-action="FilterEstate">
+            <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
                 <h5>النوع</h5>
-                <select class="form-selectt" asp-items="@types" aria-label="Default select example">
+                <select name="Type" class="form-selectt" asp-items="@types" aria-label="Default select example">
                   <option>ِِاختر نوع</option>
                 </select>
               </div>
               <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
                 <h5>التصنيف </h5>
-                <select class="form-selectt" asp-items="categories" aria-label="Default select example">
+                <select name="Category" class="form-selectt" asp-items="categories" aria-label="Default select example">
                   <option >اختر تصنيف العقار</option>
                 </select>
               </div>
               <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
                 <h5>الدولة</h5>
-                <select class="form-selectt" aria-label="Default select example">
+                <select name="State" class="form-selectt" aria-label="Default select example">
                   <option selected>ِِشقة</option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
@@ -97,7 +105,7 @@
               </div>
               <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
                 <h5>المدينة</h5>
-                <select  class="form-selectt"  aria-label="Default select example">
+                <select name="City" class="form-selectt"  aria-label="Default select example">
                   <option selected>ِِشقة</option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
@@ -105,8 +113,10 @@
                 </select>
               </div>
               <div class="col-lg-2 col-12">
-                <button class="btn btn-search px-3 py-2 rounded-5"><i class="bi bi-search"></i></button>
+                <button  class="btn btn-search px-3 py-2 rounded-5"><i class="bi bi-search"></i></button>
               </div>
+                </form>
+             
             </div>
           </div>
         </div>
@@ -298,69 +308,12 @@
 
        
       </section>
-
-    
-</section>
+</main>
+</div>
 @section Scripts{
     <script type="text/javascript">
         
-        $(document).ready(function () {
-            $.ajax({
-                url: '/Estate/GetEstate',
-                type: "Get",
-                datatype: "json",
-                success: function (response) {
-                    console.log(response);
-                    var string = ""
-                    for (var i = 0; i < response.length; i++) {
-                        string += `
-                                <div class="col-xxl-3 col-md-6 col-sm-12 mb-6 mm  sale">
-                                    <div class="card card1 top-be top-bee ">
-                                        <img src="/images/Estate/${response[i].main_photo}" alt="...">
-                                        <div class="card-body text-center my-3 ">
-                                            <h3 class="card-title"> ${response[i].name} </h3>
-                                            <h6 class="card-text text-success">${response[i].state.name} ${response[i].city.name} </h6>
-                                            <p class="text-secondary"> تاريخ الإضافة : ${response[i].onDate.split("T")[0]}</p>
-                                        </div>
-                                        <div class="list-group list-group-flush">
-                                            <div class="list-group-item d-flex flex-row justify-content-between">
-                                                <div class="d-flex flex-row mt-3 mb-2">
-                                                    <img class="img-fluid ms-2 " src="">
-                                                    <div>
-                                                        <p class="mb-0"> ${response[i].name_owner}</p>
-                                                        <div>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-                                                <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill me-3 mb-2 mt-3" viewBox="0 0 16 16">
-                                                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                                                    </svg>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-    `
-                    }
-                    $("#dataEstate").html(string);
-
-                }
-            });
-        });
-
+        
     </script>
     
 }

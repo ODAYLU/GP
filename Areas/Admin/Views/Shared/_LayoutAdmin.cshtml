@@ -55,7 +55,7 @@
                             </a>
                         </li>
                         <li id="2" class="" id="real estates">
-                            <a  class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
+                            <a  class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Estate">
                                  <input value="2" hidden/>
                                 <span class="title">العقارات</span>
                                 <span class="icon">
@@ -271,29 +271,16 @@
 
     <script>
 $(document).ready(function() {
-    if (localStorage.getItem("LiActivt") == null) {
+    if (localStorage.getItem("LiActivt") == "") {
         $("#1").addClass("aa");
         $("#1").children("a").addClass("aa");
     }
     else {
          $(`#${localStorage.getItem("LiActivt")}`).addClass("aa");
         $(`#${localStorage.getItem("LiActivt")}`).children("a").addClass("aa");
+       
     }
 });
-
-       //<li id="6" class="">
-       //                     <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="State">
-       //                          <input value="6" hidden/>
-       //                         <span class="title">الدول</span>
-       //                         <span class="icon">
-       //                             <i class="bi bi-flag"></i>
-       //                         </span>
-
-       //                     </a>
-       //                 </li>
-
-
-
 $("li a.list").click(function() {
     localStorage.setItem("LiActivt", $(this).parent().attr("id"));
 });

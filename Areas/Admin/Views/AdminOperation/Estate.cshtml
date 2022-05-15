@@ -68,7 +68,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+    @if(Model is not null)
+        @foreach (var item in Model) {
         <tr>
             <td>
           <img src="~/images/Estate/@item.Main_photo"  class="rounded " height="50" width="50" style="border-radius: 50%">
