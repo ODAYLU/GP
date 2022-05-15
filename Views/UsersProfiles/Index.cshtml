@@ -1,0 +1,118 @@
+﻿@model IQueryable<GP.Models.AppUser>
+@{
+}
+
+<link rel="stylesheet" href="~/indexLayout/assets/css/UsersProfiles.css" />
+
+
+
+<div>
+    <div class="wrapper mb-6">
+
+        <div class="row align-items-center" style="height:100%;">
+
+
+
+            <div class="container">
+
+                <div class="card">
+
+                    <div class="card-body" style="height:100%;">
+
+
+
+
+                        <div class="image-overlay d-sm-none"></div>
+
+                        <div class="row align-items-center" style="height:100%;">
+
+
+
+
+                            <div class="image d-none d-sm-block" style="height:100%;">
+                                <div class="a"> </div>
+                                <div class="  text-center  justify-content-center pt-4 col-sm-4 bg-whitee h-75 mx-auto  mt-5">
+
+                                    <h1 class="fw-bolder text-white ">Buy Elite Real Estate</h1>
+                                    <h2 class=" mb-5 fw-bold">Live like an artist</h2>
+                                    <div class="input-group mb-3 mx-auto  mt-6 search" style="z-index: 1000; ">
+
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"> <i class="fa fa-fw fa-search"></i></span>
+                                        </div>
+                                        <input type="text" class="pl-5 form-control" id="myInput" onkeyup="myFunction()" placeholder="Search">
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+ 
+
+    </div>
+
+    <div class="container ">
+        <div class="row active-with-click" id="myUL">
+        @foreach (var owner in Model)
+        {
+                <div class=" txt col-lg-4 col-md-6 col-xs-12">
+                    <article class="material-card Red">
+                        <h2>
+                            <span class="A">@owner.FirstName @owner.LastName</span>
+                            <strong>
+                                <i class="fa fa-fw fa-star"></i>
+                                The Deer Hunter
+                            </strong>
+                        </h2>
+                        <div class="mc-content">
+                            <div class="img-container">
+                                <img class=" img-fluid" src="/assets/img/pages/user.jpg">
+                            </div>
+                            <div class="mc-description">
+                            @owner.decription
+                            </div>
+                        </div>
+                        <a class="mc-btn-action">
+                            <i class="fa fa-bars"></i>
+                        </a>
+                        <div class="mc-footer">
+                            <h4>
+                                Social
+                            </h4>
+                            <a href="@owner.facebook" class="fa fa-fw fa-facebook"></a>
+                            <a href="@owner.twitter" class="fa fa-fw fa-twitter"></a>
+                            <a href="@owner.instigram" class="fa fa-fw fa-instagram"></a>
+                        @*  <a href="#" class="fa fa-fw fa-google-plus"></a>*@
+                        </div>
+                    </article>
+                </div>
+        }
+
+
+
+        </div>
+    </div>
+
+    <script src="~/assets/bootstrap/ajax_query.min.js"></script>
+    <script src="~/assets/js/main.js"></script>
+
+
+
+
+
+
+
+

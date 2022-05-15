@@ -384,9 +384,17 @@ select:focus-visible {
   transition: 200ms;
 }
 
-.front>img {
-  border-radius: 12px;
- 
+    .front > img {
+        border-radius: 12px;
+        width: 309px;
+        height: 230px;
+    }
+
+@media screen and (max-width: 992px) {
+    .front > img {
+        width: 509px;
+        height: 330px;
+    }
 }
 
 .front .streamers img:nth-child(1) {

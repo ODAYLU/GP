@@ -148,19 +148,13 @@
         $("#btnAdd").on("click", function () {
             
             if ($("#fname").val() != "") {
-                var nameEdit = $("#fname").val();
-                for (var i = 0; i < nameEdit.length; i++) {
-                    nameEdit = nameEdit.replace(" ", "_");
-                }
-                $("#fname").val(nameEdit);
-                var data = new FormData($("#formadd").get(0));
-
+                var currencyName = $("#fname").val();
+           
+    
                 $.ajax({
                     method: 'Post',
                     url: '/Admin/Currency/Create',
-                    data: data,
-                    processData: false,
-                    contentType: false,
+                    data: {currencyName},
                     success: function () {
                         console.log("jenin");
                         Swal.fire({
@@ -186,18 +180,13 @@
         $("#btnEdit").on("click", function () {
             if ($("#fname").val() != "") {
                 var nameEdit = $("#fname").val();
-                for (var i = 0; i < nameEdit.length; i++) {
-                    nameEdit = nameEdit.replace(" ", "_");
-                }
                 $("#fname").val(nameEdit);
-                var data = new FormData($("#formadd").get(0));
-                console.log(nameEdit);
+                var data = $("#formadd").serialize();
+                console.log(data);
                 $.ajax({
                     method: 'Post',
                     url: '/Admin/Currency/Edit',
                     data: data,
-                    processData: false,
-                    contentType: false,
                     success: function () {
                         $("#btnClose").click();
                         Swal.fire({
