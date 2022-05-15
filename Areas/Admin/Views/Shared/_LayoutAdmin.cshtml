@@ -45,24 +45,27 @@
                 </div>
                 <div class="sidebar-body  scrol">
                     <ul id="myList">
-                        <li class="main aa">
-                            <a class="list aa" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
+                        <li id="1" class="main ">
+                            <a  class="list " asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
+                               
                                 <span class="title ">الرئيسية</span>
                                 <span class="icon">
                                     <i class="bi bi-house-door"></i>
                                 </span>
                             </a>
                         </li>
-                        <li class="" id="real estates">
-                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
+                        <li id="2" class="" id="real estates">
+                            <a  class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
+                                 <input value="2" hidden/>
                                 <span class="title">العقارات</span>
                                 <span class="icon">
                                     <i class="bi bi-building"></i>
                                 </span>
                             </a>
                         </li>
-                        <li class="">
+                        <li id="3" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Category">
+                                 <input value="3" hidden/>
                                 <span class="title">التصنيفات</span>
                                 <span class="icon">
 
@@ -70,8 +73,9 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="">
+                        <li id="4" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="User">
+                                 <input value="4" hidden/>
                                 <span class="title">المستخدمين</span>
                                 <span class="icon">
 
@@ -79,8 +83,9 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="">
+                        <li id="5" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Type">
+                                 <input value="5" hidden/>
                                 <span class="title">الانواع</span>
                                 <span class="icon">
                                     <i class="bi bi-tags"></i>
@@ -88,8 +93,9 @@
 
                             </a>
                         </li>
-                        <li class="">
+                        <li id="6" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="State">
+                                 <input value="6" hidden/>
                                 <span class="title">الدول</span>
                                 <span class="icon">
                                     <i class="bi bi-flag"></i>
@@ -97,8 +103,9 @@
 
                             </a>
                         </li>
-                        <li class="">
+                        <li id="7" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="City">
+                                 <input value="7" hidden/>
                                 <span class="title">المدن</span>
                                 <span class="icon">
                                     <i class="bi bi-map"></i>
@@ -106,8 +113,9 @@
 
                             </a>
                         </li>
-                        <li class="">
+                        <li id="8" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation"asp-action="Advertisement">
+                                 <input value="8" hidden/>
                                 <span class="title">الاعلانات</span>
                                 <span class="icon">
                                     <i class="bi bi-newspaper"></i>
@@ -115,8 +123,9 @@
 
                             </a>
                         </li>
-                        <li class="">
+                        <li id="9" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Currency">
+                                 <input value="9" hidden/>
                                 <span class="title">العملات</span>
                                 <span class="icon">
                                     <i class="bi bi-credit-card"></i>
@@ -124,8 +133,9 @@
 
                             </a>
                         </li>
-                        <li class="">
+                        <li id="10" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Comments">
+                                 <input value="10" hidden/>
                                 <span class="title">التعليقات</span>
                                 <span class="icon">
                                     <i class="bi bi-credit-card"></i>
@@ -134,8 +144,9 @@
                             </a>
                         </li>
 
-                        <li class="">
+                        <li id="11" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Service">
+                                 <input value="11" hidden/>
                                 <span class="title">الخدمات</span>
                                 <span class="icon">
                                     <i class="bi bi-list-ul"></i>
@@ -143,8 +154,9 @@
 
                             </a>
                         </li>
-                        <li class="">
+                        <li id="12" class="">
                             <a class="list" asp-area="Admin" asp-controller="InformationGen" asp-action="Index">
+                                 <input value="12" hidden/>
                                 <span class="title">المعلومات العامة</span>
                                 <span class="icon">
                                     <i class="bi bi-list-ul"></i>
@@ -258,11 +270,33 @@
     <!-- <script src="~/assets/js/index.js"></script> -->
 
     <script>
+$(document).ready(function() {
+    if (localStorage.getItem("LiActivt") == null) {
+        $("#1").addClass("aa");
+        $("#1").children("a").addClass("aa");
+    }
+    else {
+         $(`#${localStorage.getItem("LiActivt")}`).addClass("aa");
+        $(`#${localStorage.getItem("LiActivt")}`).children("a").addClass("aa");
+    }
+});
+
+       //<li id="6" class="">
+       //                     <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="State">
+       //                          <input value="6" hidden/>
+       //                         <span class="title">الدول</span>
+       //                         <span class="icon">
+       //                             <i class="bi bi-flag"></i>
+       //                         </span>
+
+       //                     </a>
+       //                 </li>
 
 
 
-
-
+$("li a.list").click(function() {
+    localStorage.setItem("LiActivt", $(this).parent().attr("id"));
+});
         /*Dropdown Menu*/
 $('.dropdown').click(function () {
         $(this).attr('tabindex', 1).focus();
