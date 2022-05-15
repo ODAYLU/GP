@@ -236,7 +236,7 @@
     </main>
 
 
-    <script src="~/js/Chat.js"></script>
+    
     <script src="~/js/Estate.js"></script>
     <script src="~/js/site.js"></script>
     <script src="~/js/Login/lottie-player.js"></script>
@@ -253,6 +253,8 @@
     <script src="~/assets/js/Chart.js" type="text/javascript"></script>
     <script src="~/SweetAlert/sweetalert2@11.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/lib/aspnet/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/Chat.js"></script>
     <!-- <script src="~/assets/js/index.js"></script> -->
 
     <script>
@@ -330,6 +332,7 @@ $('.dropdown').click(function () {
         function setTheme(themeName) {
             localStorage.setItem('theme', themeName);
             document.documentElement.className = themeName;
+           
         }
         (function () {
             if (localStorage.getItem('theme')) {

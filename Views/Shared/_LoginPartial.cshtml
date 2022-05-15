@@ -6,31 +6,28 @@
     @if (SignInManager.IsSignedIn(User))
     {
 
-        <li class="nav-item">
+        <li >
             <div class="scripthiden">
-                <div class="d-flex align-items-center justify-content-between">
-                    <h6>@User.Identity.Name</h6>
-                </div>
                 @{
                     if (User.IsInRole("Owner"))
                     {
-                        <span> <a class="nav-link link-primary" asp-area="Identity" asp-page="/Account/Manage/Index" title="لوحة التحكم">تفاصيل أخرى</a></span>
+                        <span> <a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Manage/Index" title="لوحة التحكم">تفاصيل أخرى</a></span>
 
                     }
 
                     else if (User.IsInRole("User"))
                     {
-                           <span> <a class="nav-link link-primary" asp-area="Identity" asp-page="/Account/Manage/PersonalUser" title="لوحة التحكم">تفاصيل أخرى</a></span>
+                           <span> <a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Manage/PersonalUser" title="لوحة التحكم">تفاصيل أخرى</a></span>
                     }
                 }
             </div>
         </li>
 
-        <li class="nav-item m-3">
+        <li >
             <form class="form-inline " asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <div class="fs-3">
                     
-                    <button type="submit" class="nav-link btn">تسجيل خروج <ion-icon name="log-out"></ion-icon></button>
+                    <button type="submit" class="dropdown-item d-flex justify-content-center align-items-center">تسجيل خروج <ion-icon name="log-out"></ion-icon></button>
                 </div>
 
             </form>
@@ -38,11 +35,11 @@
     }
     else
     {
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <li >
+            <a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Register">تسجيل مستخدم جديد</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <li >
+            <a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Login">تسجيل دخول </a>
         </li>
     }
 </ul>

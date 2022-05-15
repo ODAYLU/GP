@@ -38,7 +38,8 @@ namespace GP.Models
         [DisplayName("مساحة العقار ")]
         public double? space { get; set; }
 
-      
+        public int Likes { get; set; }
+
         [DisplayName("سعر العقار ")]
         [Required(ErrorMessage = "الحقل مطلوب")]
         public double? price { get; set; }

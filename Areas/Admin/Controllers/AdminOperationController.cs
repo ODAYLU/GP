@@ -1,4 +1,5 @@
-﻿using GP.Models;
+﻿using GP.Hubs;
+using GP.Models;
 using GP.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -33,8 +34,11 @@ namespace GP.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Active = ConnectedUser.IDs.Count();
             ViewBag.Users = _userManager.Users.Count();
+            
             ViewBag.Estate = _estate.GetAll().Count();
+           
             return View();
         }
         public IActionResult User()

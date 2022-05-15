@@ -25,7 +25,7 @@ namespace GP.Models
     {
   
         public Task<Category> GetOne(int id);
-        public  IQueryable<Category>  GetAll(string search);
+        public  IQueryable<Category>  GetAll(string search = "");
         public IQueryable<Category> GetAllSelected();
         public Task<DbCRUD> InsertCategory(Category category);
         public Task<DbCRUD> UpdateCategory(Category Category);

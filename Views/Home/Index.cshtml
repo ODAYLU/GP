@@ -1,5 +1,10 @@
 ﻿@{ ViewData["Title"] = "أملاك الصفحة الرئيسية"; }
-
+@{
+  var types = new SelectList(@ViewBag.Types,"Id","type");
+  var categories = new SelectList(@ViewBag.Categories,"Id","category");
+  var cities = new SelectList(@ViewBag.Cities,"Id","name"); 
+  var states = new SelectList(@ViewBag.States,"Id","name");
+}
 
   <style>
     header{
@@ -31,38 +36,26 @@
         <div class="row justify-content-between align-items-center ">
           <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
             <h5>النوع</h5>
-            <select class="form-selectt" aria-label="Default select example">
-              <option selected>ِِشقة</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select class="form-selectt" asp-items="@types" aria-label="Default select example">
+              <option >ِِاختر نوع العقار</option>
             </select>
           </div>
           <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
             <h5>التصنيف </h5>
-            <select class="form-selectt" aria-label="Default select example">
-              <option selected>ِِشقة</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select  class="form-selectt" asp-items="@categories" aria-label="Default select example">
+              <option >ِِاختر تصنيف العقار</option>
             </select>
           </div>
           <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
             <h5>الدولة</h5>
-            <select class="form-selectt" aria-label="Default select example">
-              <option selected>ِِشقة</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select class="form-selectt" asp-items="@states" aria-label="Default select example">
+              <option >ِِاختر الدولة</option>
             </select>
           </div>
           <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
             <h5>المدينة</h5>
-            <select class="form-selectt" aria-label="Default select example">
-              <option selected>ِِشقة</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+            <select class="form-selectt" asp-items="@cities" aria-label="Default select example">
+                 <option >ِِاختر المدينة</option>
             </select>
           </div>
           <div class="col-lg-2 col-12">
@@ -82,20 +75,14 @@
             <div class="row justify-content-between align-items-center ">
               <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
                 <h5>النوع</h5>
-                <select class="form-selectt" aria-label="Default select example">
-                  <option selected>ِِشقة</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                <select class="form-selectt" asp-items="@types" aria-label="Default select example">
+                  <option>ِِاختر نوع</option>
                 </select>
               </div>
               <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
                 <h5>التصنيف </h5>
-                <select class="form-selectt" aria-label="Default select example">
-                  <option selected>ِِشقة</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                <select class="form-selectt" asp-items="categories" aria-label="Default select example">
+                  <option >اختر تصنيف العقار</option>
                 </select>
               </div>
               <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
@@ -109,7 +96,7 @@
               </div>
               <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
                 <h5>المدينة</h5>
-                <select class="form-selectt" aria-label="Default select example">
+                <select  class="form-selectt"  aria-label="Default select example">
                   <option selected>ِِشقة</option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
@@ -132,7 +119,7 @@
         data-aos-easing="ease-in-sine" href="#!"><i class="bi bi-twitter"></i></a>
       <a class="btn btn-dark text-white m-3 " data-aos="fade-down-right" data-aos-delay="250"
         data-aos-easing="ease-in-sine" href="#!"><i class="bi bi-facebook"></i></a>
-      <a class="btn btn-dark text-white m-3 " data-aos="fade-down-right" data-aos-delay="350"
+      <a  class="btn btn-dark text-white m-3 " data-aos="fade-down-right" data-aos-delay="350"
         data-aos-easing="ease-in-sine" href="#!"><i class="bi bi-instagram"></i></a>
     </div>
   </div>
@@ -144,23 +131,27 @@
         <div class="container py-3">
           <p class="text-center fs-2 py-5" data-aos="fade-down"><span class="txtborder">العقارات المميزة</span></p>
           <div class="row pt-3 g-3">
-            <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
-              <div class="game px-2">
+              @{
+                  foreach (var item in (List<Estate>)ViewBag.FavEstate)
+                  {
+                <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+                <div class="game px-2">
                 <div class="rank"><span class="fa fa-star checked"></span></div>
                 <div class="front">
                   <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
                   <div>
-                    <h3 class="text-center py-3">اسم العقار</h3>
+                    <h3 class="text-center py-3">@item.name</h3>
                   </div>
                   <div class="status d-flex justify-content-between align-items-center">
-                    <span>100K</span>
+                    <span>@item.Likes</span>
                     <span class="fa fa-star checked"></span>
                   </div>
                 </div>
                 <div class="back">
                   <div class="streaming-info">
                     <div class="game-stat  text-center">
-                      <p> وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف</p>
+                      <p>  @item.price  المدينة @item.City  الدولة @item.State المدينة </p>
+                      
                     </div>
                   </div>
                   <div class="d-flex align-items-center">
@@ -171,86 +162,12 @@
                 <div class="backgroundWrapper"></div>
               </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-up">
-              <div class="game px-2">
-                <div class="rank"><span class="fa fa-star checked"></span></div>
-                <div class="front">
-                  <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
-                  <div>
-                    <h3 class="text-center py-3">اسم العقار</h3>
-                  </div>
-                  <div class="status d-flex justify-content-between align-items-center">
-                    <span>100K</span>
-                    <span class="fa fa-star checked"></span>
-                  </div>
-                </div>
-                <div class="back">
-                  <div class="streaming-info">
-                    <div class="game-stat  text-center">
-                      <p> وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف</p>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center">
-                    <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
-                    <i class="heart bi bi-heart-fill mx-3"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3" data-aos="zoom-in-up">
-              <div class="game px-2">
-                <div class="rank"><span class="fa fa-star checked"></span></div>
-                <div class="front">
-                  <img src="~/indexLayout/assets/img/pages/home-3.png" class="img-fluid" alt="game">
-                  <div>
-                    <h3 class="text-center py-3">اسم العقار</h3>
-                  </div>
-                  <div class="status d-flex justify-content-between align-items-center">
-                    <span>100K</span>
-                    <span class="fa fa-star checked"></span>
-                  </div>
-                </div>
-                <div class="back">
-                  <div class="streaming-info">
-                    <div class="game-stat  text-center">
-                      <p> وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف</p>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center">
-                    <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
-                    <i class="heart bi bi-heart-fill mx-3"></i>
-                  </div>
-                </div>
-                <div class="backgroundWrapper"></div>
-              </div>
-            </div>
-            <div class="col-12 col-md-6 col-lg-3" data-aos="zoom-in-right">
-              <div class="game px-2">
-                <div class="rank"><span class="fa fa-star checked"></span></div>
-                <div class="front">
-                  <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
-                  <div>
-                    <h3 class="text-center py-3">اسم العقار</h3>
-                  </div>
-                  <div class="status d-flex justify-content-between align-items-center">
-                    <span>100K</span>
-                    <span class="fa fa-star checked"></span>
-                  </div>
-                </div>
-                <div class="back">
-                  <div class="streaming-info">
-                    <div class="game-stat  text-center">
-                      <p> وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف وصف</p>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center">
-                    <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
-                    <i class="heart bi bi-heart-fill mx-3"></i>
-                  </div>
-                </div>
-                <div class="backgroundWrapper"></div>
-              </div>
-            </div>
+                  }
+              }
+   
+            
+            
+            
           </div>
         </div>
       </section>
@@ -423,13 +340,14 @@
           </div>
         </div>
 
-
+       
       </section>
-     
 
+    
+</section>
 @section Scripts{
     <script type="text/javascript">
-
+        
         $(document).ready(function () {
             $.ajax({
                 url: '/Estate/GetEstate',

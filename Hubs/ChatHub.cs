@@ -47,7 +47,8 @@ namespace GP.Hubs
         {
             if (!ConnectedUser.IDs.Contains(Context.UserIdentifier))
                 ConnectedUser.IDs.Add(Context.UserIdentifier);
-
+            if(!!ConnectedUser.IDsVistor.Contains(Context.ConnectionId))
+                ConnectedUser.IDsVistor.Add(Context.ConnectionId);
             await Clients.All.SendAsync("connectedUsers", ConnectedUser.IDs);
             await base.OnConnectedAsync();
         }
@@ -62,5 +63,6 @@ namespace GP.Hubs
     public static class ConnectedUser
     {
         public static List<string> IDs = new List<string>();
+        public static List<string> IDsVistor = new List<string>();
     }
 }
