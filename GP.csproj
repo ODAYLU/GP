@@ -52,21 +52,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\assetsSaja\bootstrap\ajax_query.min.js" />
-    <None Include="wwwroot\assetsSaja\bootstrap\bootstrap5.bundle.min.js" />
-    <None Include="wwwroot\assetsSaja\bootstrap\font\fonts\bootstrap-icons.woff2" />
-    <None Include="wwwroot\assetsSaja\bootstrap\jquery-3.1.0.min.js" />
-    <None Include="wwwroot\assetsSaja\bootstrap\wow.min.js" />
-    <None Include="wwwroot\assetsSaja\css\.DS_Store" />
-    <None Include="wwwroot\assetsSaja\font\SLXGc1nY6HkvalIhTps.woff2" />
-    <None Include="wwwroot\assetsSaja\font\SLXGc1nY6HkvalIkTpu0xg.woff2" />
-    <None Include="wwwroot\assetsSaja\font\SLXGc1nY6HkvalIvTpu0xg.woff2" />
-    <None Include="wwwroot\assetsSaja\js\.DS_Store" />
-    <None Include="wwwroot\assetsSaja\js\animate.js" />
-    <None Include="wwwroot\assetsSaja\js\index.js" />
-    <None Include="wwwroot\assetsSaja\js\loding.js" />
-    <None Include="wwwroot\assetsSaja\js\Provile.js" />
-    <None Include="wwwroot\assetsSaja\js\swipar.js" />
     <None Include="wwwroot\assets\bootstrap\ajax_query.min.js" />
     <None Include="wwwroot\assets\bootstrap\bootstrap5.bundle.min.js" />
     <None Include="wwwroot\assets\bootstrap\Chart.min.js" />
@@ -81,10 +66,6 @@
     <None Include="wwwroot\assets\js\Chartmobiscroll.javascript.min.js" />
     <None Include="wwwroot\assets\js\index.js" />
     <None Include="wwwroot\assets\js\loding.js" />
-    <None Include="wwwroot\Contact\css\fonts\bootstrap-icons.woff2" />
-    <None Include="wwwroot\Contact\js\app.js" />
-    <None Include="wwwroot\Contact\js\bootstrap.bundle.min.js" />
-    <None Include="wwwroot\Contact\js\particles.min.js" />
     <None Include="wwwroot\indexLayout\assets\bootstrap\ajax_query.min.js" />
     <None Include="wwwroot\indexLayout\assets\bootstrap\aos.js" />
     <None Include="wwwroot\indexLayout\assets\bootstrap\bootstrap5.bundle.min.js" />
@@ -102,10 +83,6 @@
     <None Include="wwwroot\indexLayout\assets\js\swipar.js" />
     <None Include="wwwroot\lib\bootbox.js\bootbox.js" />
     <None Include="wwwroot\lib\bootbox.js\bootbox.min.js" />
-    <None Include="wwwroot\MainLayout\assets\css\bootstrap\bootstrap.min.css.map" />
-    <None Include="wwwroot\MainLayout\assets\css\fonts\bootstrap-icons.woff2" />
-    <None Include="wwwroot\MainLayout\assets\js\main.js" />
-    <None Include="wwwroot\MainLayout\assets\js\swiper-bundle.min.js" />
   </ItemGroup>
 
 </Project>

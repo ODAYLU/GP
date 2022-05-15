@@ -16,17 +16,9 @@ ViewData["Title"] = "إضافة عقار جديد";
         Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
       
     }
-
-    
 }
 
 
-<link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
-<link href="~/css/style.css" rel="stylesheet" />
-<link rel="stylesheet" href="~/css/c.css">
-
-
-<section class="pt-5">
     <div class="container-fluid">
         <div class="row d-flex justify-content-center">
             <div class="col-12">
@@ -315,7 +307,6 @@ ViewData["Title"] = "إضافة عقار جديد";
             </div>
         </div>
     </div>
-</section>
 
 
 <div>
@@ -324,12 +315,11 @@ ViewData["Title"] = "إضافة عقار جديد";
 
 @section Scripts {
    
-<script src='https://maps.googleapis.com/maps/api/js?akey=PUT_YOUR_KEY_HERE_AND_FIX_akey_TO_key&language=ar&region=SA'></script>
-
+<script src='~/js/jsmapsapi.js'></script>
+<script src='~/indexLayout/assets/bootstrap/bootstrap4.min.js'></script>
+<script src='~/js/creteitem.js'></script>
 
 <script>
-          
-   
 
 var gmapdata;
 var gmapmarker;
@@ -469,59 +459,6 @@ GoogleMapInit(24.820457,46.643868,16);
 
 
 
-
-</script>
-
-<script>
-// ------------step-wizard-------------
-$(document).ready(function () {
-$('.nav-tabs > li a[title]').tooltip();
-
-//Wizard
-$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-
-var target = $(e.target);
-
-if (target.parent().hasClass('disabled')) {
-return false;
-}
-});
-
-$(".next-step").click(function (e) {
-
-var active = $('.wizard .nav-tabs li.active');
-active.next().removeClass('disabled');
-nextTab(active);
-
-});
-$(".prev-step").click(function (e) {
-
-var active = $('.wizard .nav-tabs li.active');
-prevTab(active);
-
-});
-});
-
-function nextTab(elem) {
-$(elem).next().find('a[data-toggle="tab"]').click();
-}
-function prevTab(elem) {
-$(elem).prev().find('a[data-toggle="tab"]').click();
-}
-
-
-$('.nav-tabs').on('click', 'li', function() {
-$('.nav-tabs li.active').removeClass('active');
-$(this).addClass('active');
-});
-
-
-
-
-
-    
-        
-       
 
 </script>
 
