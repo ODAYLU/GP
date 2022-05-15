@@ -25,10 +25,14 @@ namespace GP.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Currency currency)
+        public async Task<IActionResult> Create(string currencyName)
         {
             ModelState.Remove("Id");
             if (!ModelState.IsValid) return View();
+            var currency = new Currency
+            {
+                currency = currencyName
+            };
             await _services.InsertCurrency(currency);
             return Ok(currency);
 
@@ -39,19 +43,19 @@ namespace GP.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Currency currency)
+        public async Task<IActionResult> Edit(string currency,int id)
         {
             if (!ModelState.IsValid) return View();
 
-            Models.Currency Newpro =  _services.GetOne(currency.Id).Result;
+            Models.Currency Newpro =  _services.GetOne(id).Result;
             
 
-            Newpro.Id = currency.Id;
-            Newpro.currency = currency.currency;
+            Newpro.Id = id;
+            Newpro.currency = currency;
 
             await _services.UpdateCurrency(Newpro);
 
-            return RedirectToAction("Index");
+            return Ok(Newpro);
         }
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
