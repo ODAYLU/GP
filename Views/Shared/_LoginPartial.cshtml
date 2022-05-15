@@ -5,8 +5,7 @@
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
-
-        <li >
+        @*<li >
             <div class="scripthiden">
                 @{
                     if (User.IsInRole("Owner"))
@@ -17,11 +16,11 @@
 
                     else if (User.IsInRole("User"))
                     {
-                           <span> <a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Manage/PersonalUser" title="لوحة التحكم">تفاصيل أخرى</a></span>
+                        <span> <a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Manage/PersonalUser" title="لوحة التحكم">تفاصيل أخرى</a></span>
                     }
                 }
             </div>
-        </li>
+        </li>*@
 
         <li >
             <form class="form-inline " asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -32,14 +31,21 @@
 
             </form>
         </li>
-    }
-    else
+
+        }
+
+ </ul>
+
+    
+     @if (!SignInManager.IsSignedIn(User))
     {
-        <li >
-            <a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Register">تسجيل مستخدم جديد</a>
-        </li>
-        <li >
+        <div class="d-flex">
+        <div >
+            <a class=" d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Register">تسجيل مستخدم جديد</a>
+        </div>
+        <div >
             <a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Login">تسجيل دخول </a>
-        </li>
+        </div>
+
+        </div>
     }
-</ul>
