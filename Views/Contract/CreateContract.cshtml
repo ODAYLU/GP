@@ -15,7 +15,15 @@
 
 
 }
-<h1>@ViewBag.TypeOfContract</h1>
+
+rounded-pill
+    <div class="text-center pt-3 pb-5">
+        <p class=" fw-bold borderbottom fs-3 d-inline-block">صور العقار</p>
+                <div class="text-start position-absolute left-0" style="border-bottom: 2px solid var(--orange);left: 50px;">
+    <a onclick="AddCategory()" style="text-decoration:none; color:var(--orange);">اضافة المزيد من الصور <i class="bi bi-plus"></i></a>
+    </div>
+    </div>
+
 
 <form method="post" asp-action="CreateContract">
     <input asp-for="Id" hidden/>
@@ -31,14 +39,14 @@
             <div class="col">
          <div class="form-group"> 
             <label asp-for="BuyerName" class="control-label mb-3"> اسم المشتري </label>
-            <input asp-for="BuyerName" class="form-control rounded-3" placeholder="محمد السيد"/>
+            <input asp-for="BuyerName" class="form-control rounded-pill" placeholder="محمد السيد"/>
             <span asp-validation-for="BuyerName" class="text-danger"></span>
           </div>
           </div>
            <div class="col">
            <div class="form-group">
                 <label asp-for="Buyerphone_num" class="control-label mb-3"> رقم هاتف المشتري </label>
-                <input asp-for="Buyerphone_num" class="form-control rounded-3" placeholder="000-0000-000 +"/>
+                <input asp-for="Buyerphone_num" class="form-control rounded-pill" placeholder="000-0000-000 +"/>
                 <span asp-validation-for="Buyerphone_num" class="text-danger"></span>
           </div>
           </div>
@@ -46,7 +54,7 @@
           <div class="row">
            <div class="form-group mt-5">
                 <label asp-for="Description" class="control-label mb-3"> العقد كامل <sub class="text-danger"> الرجاء كتابته بدقة </sub>   </label>
-                <textarea min="200" rows="5" asp-for="Description" class="form-control rounded-3" placeholder="مثال: شقة للبيع في منطقة  بسعر "></textarea>
+                <textarea min="200" rows="5" asp-for="Description" class="form-control rounded-pill" placeholder="مثال: شقة للبيع في منطقة  بسعر "></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
           </div>
           </div>
@@ -56,7 +64,7 @@
                          <div class="row">
                           <div class="form-group mt-5">
                             <label asp-for="up_to_date" class="control-label mb-3">محجوز لتاريخ    </label>
-                            <input asp-for="up_to_date" class="form-control rounded-3"/>
+                            <input asp-for="up_to_date" class="form-control rounded-pill"/>
                             <span asp-validation-for="up_to_date" class="text-danger"></span>
                       </div>
           </div>
@@ -64,7 +72,7 @@
                 }
          
 
-          <input onclick="confirm ('هل أنت متأكد من الحفظ ؟ لن تتمكن من الحذف أو التعديل ')" type="submit"  class="btn btn-danger mt-5 d-block js-delete" value="حفظ" width="50"/> 
+          <input onclick="confirm ('هل أنت متأكد من الحفظ ؟ لن تتمكن من الحذف أو التعديل ')" type="submit"  class="btn btn-danger mt-5 d-block js-delete rounded-pill" value="حفظ" width="50"/> 
 
       </div>
        <div class="col-3">
