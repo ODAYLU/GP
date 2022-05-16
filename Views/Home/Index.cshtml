@@ -134,7 +134,8 @@
         <div class="container py-3">
           <p class="text-center fs-2 py-5" data-aos="fade-down"><span class="txtborder">العقارات المميزة</span></p>
           <div class="row pt-3 g-3">
-              @{
+          
+                @{
                   foreach (var item in (List<Estate>)ViewBag.FavEstate)
                   {
                 <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
@@ -168,7 +169,6 @@
                   }
               }
    
-            
             
             
           </div>

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GP.Migrations
 {
-    public partial class @new : Migration
+    public partial class f12 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -345,6 +345,7 @@ namespace GP.Migrations
                     description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     name_owner = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     space = table.Column<double>(type: "float", nullable: false),
+                    Likes = table.Column<int>(type: "int", nullable: false),
                     price = table.Column<double>(type: "float", nullable: false),
                     phone_num = table.Column<double>(type: "float", nullable: false),
                     Main_photo = table.Column<string>(type: "nvarchar(max)", nullable: false),
