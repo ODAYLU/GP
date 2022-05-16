@@ -88,6 +88,9 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
 
     <div class="text-center pt-3 pb-5">
         <p class=" fw-bold borderbottom fs-3 d-inline-block">صور العقار</p>
+                <div class="text-start position-absolute left-0" style="border-bottom: 2px solid var(--orange);left: 50px;">
+    <a onclick="AddCategory()" style="text-decoration:none; color:var(--orange);">اضافة المزيد من الصور <i class="bi bi-plus"></i></a>
+    </div>
     </div>
 
 
@@ -99,53 +102,29 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
     </div>*@
 
 
-    <div class="text-center">
+    <div class="text-center pb-5">
         <img class="img-fluid" src="~/images/Estate/@estate.Main_photo" style="width:500px ;">
     </div>
 
 
-
-        <div class="text-end pt-3 pb-5">
-        <p onclick="AddCategory()" class="btn fw-bold borderbottom fs-5 d-inline-block">اضافة المزيد من الصور</p>
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <div class="modal fade" id="staticBackdropp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl">
             <form method="post" enctype="multipart/form-data" asp-controller="Estate">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title" id="staticBackdropLabel">اضافة صورة</h5>
+                        <button type="button" class="btn-close text-start" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <div class="row align-items-center pb-5">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             @{
-
-
-                            <div class="col-3" hidden id="InputId">
-                                <label class="form-label" asp-for="Id">Id</label>
-                                <input class="form-control " asp-for="Id">
-                                <span asp-validation-for="Id" class="text-danger"></span>
-                            </div>
-
-
-
+                                <div class="col-3" hidden id="InputId">
+                                    <label class="form-label" asp-for="Id">Id</label>
+                                    <input class="form-control " asp-for="Id">
+                                    <span asp-validation-for="Id" class="text-danger"></span>
+                                </div>
                             }
 
 
@@ -182,66 +161,37 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
 
 
 
-
-
-
-
-
-
-
-
-
     <form method="post">
         @if(lst != null)
         {
-        
         <div class="container-fluid">
-
-
             <div class="row justify-content-center">
                 @* //@Html.DisplayFor(modelItem => item.Id)*@
                 @foreach (PhotoEstate item in lst)
-        {
-
-                <img src="~/images/Estate/@item.ImagePath" style="width:150px;height: 150px;"
-                    onclick="myFunction(this);">
-        
-        }
+                {
+                    <img src="~/images/Estate/@item.ImagePath" style="width:150px;height: 150px;" onclick="myFunction(this);">
+                }
             </div>
         </div>
+            @foreach (PhotoEstate item in lst)
+            {
+            <div class="containerr hoverimg pt-3">
 
-
-        @foreach (PhotoEstate item in lst)
-        {
-  <div class="containerr hoverimg">
-
-            <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
-            <img id="expandedImg" class="image img-fluid">
-            <div class="middle">
-                <div class="text">
-                    <button type="submit" class="btn" asp-action="DeleteImage" asp-route-id="@item.Id"
-                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                    <a class="btn" href="#" onclick="UpdateState(@item.Id,'@item.ImagePath');">Edit</a>
+                <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+                <img id="expandedImg" class="image img-fluid">
+                <div class="middle">
+                    <div >
+                        <button type="submit" class="btn bg-success text-white py-2 px-3 rounded-circle fs-3" asp-action="DeleteImage" asp-route-id="@item.Id"
+                            onclick="return confirm('Are you sure you want to delete?')"><i class="bi bi-trash"></i></button>
+                        <a class="btn fs-3 bg-success text-white py-2 px-3 rounded-circle" href="#" onclick="UpdateState(@item.Id,'@item.ImagePath');"><i class="bi bi-pencil-square"></i></a>
+                    </div>
                 </div>
             </div>
-        </div>
-        
+            }
         }
-          
-
-
-
-      
-        }
-
     </form>
 
-
-
-
 @*
-
-
             <div class="containerr hoverimg">
 
             <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
@@ -255,11 +205,6 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
             </div>
         </div>
 *@
-
-
-
-
-
 
 
 

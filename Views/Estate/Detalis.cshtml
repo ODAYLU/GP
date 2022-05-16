@@ -7,13 +7,14 @@
 
           if (User.IsInRole("Owner"))
     {
-        Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
-      
+        Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml"; 
     }
 
 }
+<div class="text-start position-absolute left-0" style="border-bottom: 2px solid var(--orange);left: 20px;top: 20px;">
+    <a asp-action="Index" style="text-decoration:none; color:var(--orange);">رجوع للعقارات <i class="bi bi-arrow-90deg-right"></i></a>
+</div>
 
-<h1>Details</h1>
 
 @if (GP.Models.Toast.ShowTost)
 {
@@ -27,117 +28,62 @@
         </div>
     </div>
 }
-<div>
-    <h4>Estate</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Longitude)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Longitude)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Latitude)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Latitude)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.name_owner)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.name_owner)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.space)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.space)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.phone_num)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.phone_num)
-        </dd>
-       
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OnDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OnDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.is_active)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.is_active)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.is_spacial)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.is_spacial)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Category)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.category)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Type.type)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.State)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.State.name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.City.name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Currency)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Currency.currency)
-        </dd>
-         <dt class = "col-sm-2">
-            الموقع على الخريطة
-        </dt>
-        <dd class = "col-sm-10">
+
+
+
+
+<div class="container-fluid pt-5 pt-lg-0">
+    <div class="row">
+     <div class="col-12 col-md-8 ">
+
+
+      <p>
+            <div class="d-flex justify-content-around">
+                <p class="px-3"><span>@Html.DisplayNameFor(model => model.name_owner): </span><strong>@Html.DisplayFor(model => model.name_owner)</strong></p>
+                <p class="px-3"><span>@Html.DisplayNameFor(model => model.phone_num)</span><strong>@Html.DisplayFor(model => model.phone_num)</strong></p>
+            </div>
+        </p>
+
+        <p class="fs-4"><strong>- @Html.DisplayFor(model => model.name)</strong><sub><span>@Html.DisplayFor(model => model.Type.type)</span>  <span>@Html.DisplayFor(model => model.Category.category)</span></sub></p>
+
+        
+        <p class="fs-5"><span> @Html.DisplayFor(model => model.description)</span></p>
+        <p class="fs-5 text-secondary"><strong><i class="bi bi-geo-alt-fill"></i> @Html.DisplayFor(model => model.State.name) - @Html.DisplayFor(model => model.City.name)</strong></p>
+
+        <p>
+              <div class="d-flex justify-content-around">
+                <p class="px-3"><span>@Html.DisplayNameFor(model => model.name_owner): </span><strong>@Html.DisplayFor(model => model.name_owner)</strong></p>
+                <p class="px-3"><span>@Html.DisplayNameFor(model => model.phone_num): </span><strong>@Html.DisplayFor(model => model.phone_num)</strong></p>
+            </div>
+        </p>
+        <p>
+            <div class="d-flex justify-content-around">
+                <p class="px-3"><span>@Html.DisplayNameFor(model => model.price): </span><strong>@Html.DisplayFor(model => model.price)@Html.DisplayFor(model => model.Currency.currency)</strong></p>
+                <p class="px-3"><span>@Html.DisplayNameFor(model => model.space): </span><strong>@Html.DisplayFor(model => model.space)</strong></p>
+            </div>
+        </p>
+        <p>
+            <div class="d-flex justify-content-around">
+                <p class="px-3"><span>@Html.DisplayNameFor(model => model.Longitude): </span><strong>@Html.DisplayFor(model => model.Longitude)</strong></p>
+                <p class="px-3"><span>@Html.DisplayNameFor(model => model.Latitude): </span><strong>@Html.DisplayFor(model => model.Latitude)</strong></p>
+            </div>
             <div id="googleMap" style="width: 100%; height: 450px; margin:12px 0;"></div>
-        </dd>
-        
-        
-    </dl>
+        </p>
+
+      </div>
+
+
+      <div class="col-12 col-md-4 text-center pt-5 mt-3">
+        <img class="img-fluid" src="~/images/Estate/0af6d559-0912-49eb-b067-e754b4596e43.jpg" />
+        <p class="text-secondary py-3">@Html.DisplayFor(model => model.OnDate) <i class="bi bi-calendar-event"></i></p>
+        <p>@Html.DisplayNameFor(model => model.is_active) @Html.DisplayFor(model => model.is_active)</p>
+        <p>@Html.DisplayNameFor(model => model.is_spacial) @Html.DisplayFor(model => model.is_spacial)</p>
+      </div>
+    </div>
 </div>
+
+
+
 @*<div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>

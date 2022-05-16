@@ -9,7 +9,6 @@
     if (User.IsInRole("Owner"))
     {
         Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
-      
     }
        
 }
@@ -41,7 +40,7 @@
     <a asp-action="CreateTemp"  style="text-decoration:none; color:var(--orange);">اضافة عقار <i class="bi bi-plus"></i></a>
 </div>
 
-<table class=" pt-5 table table-bordered table-md ">
+<table class=" pt-5 table table-bordered text-center table-md ">
     <thead>
         <tr>
 
@@ -134,11 +133,17 @@
              @{
                         @if (@item.publish)
                         {
-                             <div>منشور </div>
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                              <label class="form-check-label" for="mySwitch">منشور</label>
+                            </div>
                         }
                         else
                         {
-                           <div> غير منشور </div>
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="NO" >
+                              <label class="form-check-label" for="mySwitch">غير منشور</label>
+                            </div>
                         }
                     }
            
