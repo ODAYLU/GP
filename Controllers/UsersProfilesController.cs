@@ -26,14 +26,22 @@ namespace GP.Controllers
             IQueryable<AppUser> users = _context.Users.Where(x => x.NameRole == "Owner").AsQueryable();
             return View(users);
         }
+         [HttpGet]
+        public async Task<IActionResult> Owners()
+        {
+            //IQueryable<AppUser> users = _context.Users.Where(x => x.NameRole == "Owner").AsQueryable();
+            return View();
+        }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> GetProfile(string id)
         {
-            await _user.FindByIdAsync(id);
-            return View();
+          AppUser user=  await _user.FindByIdAsync(id);
+            return View(user);
 
         }
+
+        
          
     }
 }
