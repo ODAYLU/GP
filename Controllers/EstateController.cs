@@ -209,7 +209,7 @@ namespace GP
                 GP.Models.Toast.Message = "تم التعديل بنجاح";
                 GP.Models.Toast.ShowTost = true;
 
-                return RedirectToAction("Details", estate);
+                return RedirectToAction("Detalis", estate);
             }
             return NotFound();
         }
