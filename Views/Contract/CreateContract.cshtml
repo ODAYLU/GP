@@ -16,14 +16,11 @@
 
 }
 
-rounded-pill
-    <div class="text-center pt-3 pb-5">
-        <p class=" fw-bold borderbottom fs-3 d-inline-block">صور العقار</p>
-                <div class="text-start position-absolute left-0" style="border-bottom: 2px solid var(--orange);left: 50px;">
-    <a onclick="AddCategory()" style="text-decoration:none; color:var(--orange);">اضافة المزيد من الصور <i class="bi bi-plus"></i></a>
-    </div>
-    </div>
+<div class="text-center pt-3 pb-5">
+    <p class=" fw-bold borderbottom fs-3 d-inline-block ">@ViewBag.TypeOfContract</p>
+    <img src="~/images/Estate/@estate.Main_photo" width="20%" height="20%" class="position-absolute d-none d-md-block" style="left: 20px; top: 30px"/>
 
+</div>
 
 <form method="post" asp-action="CreateContract">
     <input asp-for="Id" hidden/>
@@ -33,7 +30,6 @@ rounded-pill
     <div class="container">
     <div class="row">
    
-    <div class="col-9">
 
         <div class="row">
             <div class="col">
@@ -54,7 +50,7 @@ rounded-pill
           <div class="row">
            <div class="form-group mt-5">
                 <label asp-for="Description" class="control-label mb-3"> العقد كامل <sub class="text-danger"> الرجاء كتابته بدقة </sub>   </label>
-                <textarea min="200" rows="5" asp-for="Description" class="form-control rounded-pill" placeholder="مثال: شقة للبيع في منطقة  بسعر "></textarea>
+                <textarea min="200" rows="5" asp-for="Description" class="form-control rounded-3" placeholder="مثال: شقة للبيع في منطقة  بسعر "></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
           </div>
           </div>
@@ -66,22 +62,15 @@ rounded-pill
                             <label asp-for="up_to_date" class="control-label mb-3">محجوز لتاريخ    </label>
                             <input asp-for="up_to_date" class="form-control rounded-pill"/>
                             <span asp-validation-for="up_to_date" class="text-danger"></span>
-                      </div>
-          </div>
+                         </div>
+                        </div>
                     }
                 }
          
 
-          <input onclick="confirm ('هل أنت متأكد من الحفظ ؟ لن تتمكن من الحذف أو التعديل ')" type="submit"  class="btn btn-danger mt-5 d-block js-delete rounded-pill" value="حفظ" width="50"/> 
+          <img src="~/images/Estate/@estate.Main_photo" width="20%" height="20%" class=" d-block d-md-none" />
+          <input onclick="confirm ('هل أنت متأكد من الحفظ ؟ لن تتمكن من الحذف أو التعديل ')" type="submit"  class="btn btn-success mt-5 mx-auto d-block js-delete rounded-pill" value="حفظ" width="50"/> 
 
-      </div>
-       <div class="col-3">
-
-        <div class="d-flex justify-content-center">
-                 <img src="~/images/Estate/@estate.Main_photo" width="100%" height="100%" class="d-block "/>
-
-       </div>
-    </div>
       </div>
       </div>
 

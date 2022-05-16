@@ -19,7 +19,7 @@
 @if (GP.Models.Toast.ShowTost)
 {
     GP.Models.Toast.ShowTost = false;
-    <div id="mymessage" class="toast align-items-center text-white bg-primary border-0" role="alert"  data-delay="10000" data-autohide="true" aria-live="assertive" aria-atomic="true">
+    <div id="mymessage" class="toast align-items-center text-white bg-success border-0" role="alert"  data-delay="10000" data-autohide="true" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">
                 @GP.Models.Toast.Message
@@ -50,12 +50,6 @@
         <p class="fs-5"><span> @Html.DisplayFor(model => model.description)</span></p>
         <p class="fs-5 text-secondary"><strong><i class="bi bi-geo-alt-fill"></i> @Html.DisplayFor(model => model.State.name) - @Html.DisplayFor(model => model.City.name)</strong></p>
 
-        <p>
-              <div class="d-flex justify-content-around">
-                <p class="px-3"><span>@Html.DisplayNameFor(model => model.name_owner): </span><strong>@Html.DisplayFor(model => model.name_owner)</strong></p>
-                <p class="px-3"><span>@Html.DisplayNameFor(model => model.phone_num): </span><strong>@Html.DisplayFor(model => model.phone_num)</strong></p>
-            </div>
-        </p>
         <p>
             <div class="d-flex justify-content-around">
                 <p class="px-3"><span>@Html.DisplayNameFor(model => model.price): </span><strong>@Html.DisplayFor(model => model.price)@Html.DisplayFor(model => model.Currency.currency)</strong></p>
