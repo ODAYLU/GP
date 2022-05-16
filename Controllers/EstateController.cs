@@ -17,6 +17,7 @@ namespace GP
 {
     
     [Authorize(Roles ="Owner")]
+   
     public class EstateController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -273,18 +274,34 @@ namespace GP
         [HttpGet]
         public IActionResult ImageList(long id)
         {
+            
+            
             SeedData.IsPserosalPhoto = false;
-            ViewBag.id = id;
+            if (id != 0)
+            {
+                ViewBag.id = id;
+
+
+            }
+
+            else
+            {
+                ViewBag.id = SeedData.EstateByImage;
+            }
             return View();
         }
+
+
         [HttpPost]
         public async Task<IActionResult> DeleteImage(long id)
         {
             SeedData.IsPserosalPhoto = false;
-
+            long ids = 0;
+            PhotoEstate estate = await _photoservices.GetOne(id);
+            ids = estate.IdEstate;
             if (id != 0)
             {
-                PhotoEstate estate = await _photoservices.GetOne(id);
+                
                 string webRootPath = webHostEnvironment.WebRootPath;
                 string oldfile = webRootPath + @"\images\Estate\" + estate.ImagePath;
                 if (System.IO.File.Exists(oldfile))
@@ -297,7 +314,9 @@ namespace GP
                 ViewBag.id = estate.IdEstate;
             }
 
-            return View("ImageList");
+            SeedData.EstateByImage = ids;
+
+            return RedirectToAction("ImageList");
 
         }
         [HttpPost]
