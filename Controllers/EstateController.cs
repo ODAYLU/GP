@@ -198,8 +198,6 @@ namespace GP
                     }
 
                 }
-             
-
 
                 estate.Main_photo = old.Main_photo;
                 estate.is_active= old.is_active;
