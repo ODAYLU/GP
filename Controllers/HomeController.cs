@@ -39,6 +39,7 @@ namespace GP.Controllers
             ViewBag.States = _state.GetAll().ToList();
             ViewBag.Types = _type.GetAll().ToList();
             ViewBag.FavEstate = _estate.GetAll().OrderByDescending(x => x.Likes).Take(4).ToList();
+            ViewBag.ModernEstate = _estate.GetAll().OrderByDescending(x => x.OnDate).Take(8).ToList();
             return View();
         }
 

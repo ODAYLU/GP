@@ -1,0 +1,38 @@
+﻿.bregreen {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 180px;
+    background-color: green;
+    text-align: center;
+}
+
+.checked {
+    color: yellow;
+}
+
+.maidaicon {
+    color: green;
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+
+.socielicon {
+    position: absolute;
+    z-index: 6;
+    top: 160px;
+    text-align: center;
+    right: 50%;
+    transform: translate(50%,50%);
+}
+
+.bg-color {
+    background-color: rgb(243, 239, 239);
+}
+
+.ornangecolor {
+    color: orange;
+}

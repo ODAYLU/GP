@@ -4,6 +4,7 @@
   var categories = new SelectList(@ViewBag.Categories,"Id","category");
   var cities = new SelectList(@ViewBag.Cities,"Id","name"); 
   var states = new SelectList(@ViewBag.States,"Id","name");
+  
 }
 
   <style>
@@ -127,6 +128,8 @@
 
   <div class="position-absolute w-100 bgdaeke" style="z-index: 5;">
 
+    <main class="">
+ @*العقارات المميزة*@
       <section class="mb-5 ">
         <div class="container py-3">
           <p class="text-center fs-2 py-5" data-aos="fade-down"><span class="txtborder">العقارات المميزة</span></p>
@@ -151,7 +154,7 @@
                 <div class="back">
                   <div class="streaming-info">
                     <div class="game-stat  text-center">
-                      <p>  @item.price  المدينة @item.City  الدولة @item.State المدينة </p>
+                      <p>  @item.price  السعر @item.City  الدولة @item.State المدينة </p>
                       
                     </div>
                   </div>
@@ -172,99 +175,52 @@
         </div>
       </section>
 
+    @*  أحدث العقارات*@
+
       <section class="mb-5  container-fluid container-md">
         <p class="text-center fs-2 " data-aos="fade-down"><span class="txtborder">أحدث العقارات</span></p>
         <p class="text-secondary  text-center fs-4 mb-5" data-aos="fade-down">أملاك يقدم لك أحدث العقارات للعثور على
           العقار الذي تحلم به بسهولة </p>
         <div class="swiper mySwiper" data-aos="zoom-in-down">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <div class="card">
-                <img class="card-img-top img-fluid" src="~/indexLayout/assets/img/pages/home-3.png" alt="Card image">
-                <div class="card-body">
-                  <h4 class="card-title">John Doe</h4>
-                  <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+         @foreach (var item in (List<Estate>)ViewBag.ModernEstate)
+        {
+            <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+                <div class="game px-2">
+                <div class="rank"><span class="fa fa-star checked"></span></div>
+                <div class="front">
+                  <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
+                  <div>
+                    <h3 class="text-center py-3">@item.name</h3>
+                  </div>
+                  <div class="status d-flex justify-content-between align-items-center">
+                    <span>@item.Likes</span>
+                    <span class="fa fa-star checked"></span>
+                  </div>
                 </div>
+                <div class="back">
+                  <div class="streaming-info">
+                    <div class="game-stat  text-center">
+                      <p>  @item.price  السعر @item.City  الدولة @item.State المدينة </p>
+                      
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                    <i class="heart bi bi-heart-fill mx-3"></i>
+                  </div>
+                </div>
+                <div class="backgroundWrapper"></div>
               </div>
             </div>
-            <div class="swiper-slide">
-              <div class="card">
-                <img class="card-img-top img-fluid" src="~/indexLayout/assets/img/pages/home1.jpg" alt="Card image">
-                <div class="card-body">
-                  <h4 class="card-title">John Doe</h4>
-                  <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="card">
-                <img class="card-img-top img-fluid" src="~/indexLayout/assets/img/pages/home-3.png" alt="Card image">
-                <div class="card-body">
-                  <h4 class="card-title">John Doe</h4>
-                  <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="card">
-                <img class="card-img-top img-fluid" src="~/indexLayout/assets/img/pages/home-3.png">
-                <div class="card-body">
-                  <h4 class="card-title">John Doe</h4>
-                  <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="card">
-                <img class="card-img-top img-fluid" src="~/indexLayout/assets/img/pages/home-3.png">
-                <div class="card-body">
-                  <h4 class="card-title">John Doe</h4>
-                  <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="card">
-                <img class="card-img-top img-fluid" src="~/indexLayout/assets/img/pages/home-3.png">
-                <div class="card-body">
-                  <h4 class="card-title">John Doe</h4>
-                  <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="card">
-                <img class="card-img-top img-fluid" src="~/indexLayout/assets/img/pages/home-3.png">
-                <div class="card-body">
-                  <h4 class="card-title">John Doe</h4>
-                  <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="card">
-                <img class="card-img-top img-fluid" src="~/indexLayout/assets/img/pages/home-3.png">
-                <div class="card-body">
-                  <h4 class="card-title">John Doe</h4>
-                  <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                </div>
-              </div>
-            </div>
-            <div class="swiper-slide">
-              <div class="card">
-                <img class="card-img-top img-fluid" src="~/indexLayout/assets/img/pages/home-3.png">
-                <div class="card-body">
-                  <h4 class="card-title">John Doe</h4>
-                  <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
-                </div>
-              </div>
-            </div>
+        }
           </div>
           <div class="swiper-pagination p-2"></div>
           <div class="swiper-button-next"></div>
           <div class="swiper-button-prev"></div>
         </div>
       </section>
+
       <section class="pb-5 ">
         <div class="elementor-shape elementor-shape-top" data-negative="false">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
@@ -405,6 +361,29 @@
             });
         });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+ $(function () {
+                $("#mm").chosen();  
+                
+          })
+          window.onload=function (){
+              var x = document.getElementById("mm_chosen");
+              x.classList.add("w-100");
+          }
     </script>
     
 }

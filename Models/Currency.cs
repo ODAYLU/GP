@@ -79,7 +79,7 @@ namespace GP.Models
                 Currency cu = await GetOne(currency.Id);
                 if (cu != null)
                     return DbCRUD.isExisted;
-                await _context.TCurrency.AddAsync(cu);
+                await _context.TCurrency.AddAsync(currency);
                 await _context.SaveChangesAsync();
                 return DbCRUD.success;
             }
@@ -99,7 +99,7 @@ namespace GP.Models
                 Currency cr = await GetOne(currency.Id);
                 if (cr == null)
                     return DbCRUD.isNotExisted;
-                _context.TCurrency.Update(cr);
+                _context.TCurrency.Update(currency);
                 await _context.SaveChangesAsync();
                 return DbCRUD.success;
             }
