@@ -145,11 +145,13 @@
           <p class="text-center fs-2 py-5" data-aos="fade-down"><span class="txtborder">العقارات المميزة</span></p>
           <div class="row pt-3 g-3">
               @{
+                   @if(@ViewBag.FavEstate is not null)
                   foreach (var item in (List<Estate>)ViewBag.FavEstate)
                   {
-                <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+                
+    <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
                 <div class="game px-2">
-                <div class="rank"><span class="fa fa-star checked"></span></div>
+                <div class="rank"><span class="bi bi-star-fill checked"></span></div>
                 <div class="front">
                   <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
                   <div>
@@ -157,13 +159,13 @@
                   </div>
                   <div class="status d-flex justify-content-between align-items-center">
                     <span>@item.Likes</span>
-                    <span class="fa fa-star checked"></span>
+                    <span class="bi bi-star-fill checked"></span>
                   </div>
                 </div>
                 <div class="back">
                   <div class="streaming-info">
                     <div class="game-stat  text-center">
-                      <p>  @item.price  السعر @item.City  الدولة @item.State المدينة </p>
+                      <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
                       
                     </div>
                   </div>
@@ -175,6 +177,7 @@
                 <div class="backgroundWrapper"></div>
               </div>
             </div>
+
                   }
               }
    
@@ -186,18 +189,20 @@
       </section>
 
     @*  أحدث العقارات*@
-
+  
       <section class="mb-5  container-fluid container-md">
         <p class="text-center fs-2 " data-aos="fade-down"><span class="txtborder">أحدث العقارات</span></p>
         <p class="text-secondary  text-center fs-4 mb-5" data-aos="fade-down">أملاك يقدم لك أحدث العقارات للعثور على
           العقار الذي تحلم به بسهولة </p>
         <div class="swiper mySwiper" data-aos="zoom-in-down">
           <div class="swiper-wrapper">
-         @foreach (var item in (List<Estate>)ViewBag.ModernEstate)
-        {
-            <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+         @if(@ViewBag.ModernEstate is not null)
+                  foreach (var item in (List<Estate>)ViewBag.ModernEstate)
+                  {
+                
+    <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
                 <div class="game px-2">
-                <div class="rank"><span class="fa fa-star checked"></span></div>
+                <div class="rank"><span class="bi bi-star checked"></span></div>
                 <div class="front">
                   <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
                   <div>
@@ -205,13 +210,13 @@
                   </div>
                   <div class="status d-flex justify-content-between align-items-center">
                     <span>@item.Likes</span>
-                    <span class="fa fa-star checked"></span>
+                    <span class="bi bi-star checked"></span>
                   </div>
                 </div>
                 <div class="back">
                   <div class="streaming-info">
                     <div class="game-stat  text-center">
-                      <p>  @item.price  السعر @item.City  الدولة @item.State المدينة </p>
+                      <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
                       
                     </div>
                   </div>
@@ -223,7 +228,8 @@
                 <div class="backgroundWrapper"></div>
               </div>
             </div>
-        }
+
+                  }
           </div>
           <div class="swiper-pagination p-2"></div>
           <div class="swiper-button-next"></div>

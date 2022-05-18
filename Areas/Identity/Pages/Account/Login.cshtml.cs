@@ -97,12 +97,7 @@ namespace GP.Areas.Identity.Pages.Account
                 {
                     user = await _userManager.FindByNameAsync(Input.Email);
                 }
-               
-
-                var res = await _signInManager.CheckPasswordSignInAsync(user, Input.Password, false);
-
-
-                var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     user.is_active = true;

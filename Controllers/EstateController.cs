@@ -24,6 +24,7 @@ namespace GP
         private readonly IService servicesList; 
         private readonly IPhotoEstate _photoservices;
         private readonly IService_Estate _service_Estate;
+        private readonly IlikedEstates _like;
         private readonly IWebHostEnvironment webHostEnvironment;
 
 
@@ -373,6 +374,12 @@ namespace GP
             {
             var estate = await services.GetOne(id);
             estate.Likes++;
+                var data = new likedEstates
+                {
+                    IdUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    IdEstate = estate.Id
+                };
+              await  _like.InsertObj(data);
             await  services.UpdateEstate(estate);
                 return Ok();
             }

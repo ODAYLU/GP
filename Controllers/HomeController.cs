@@ -49,22 +49,17 @@ namespace GP.Controllers
             ModelState.Remove("Type");
             ModelState.Remove("State");
             ModelState.Remove("City");
+            ModelState.Remove("Category");
             if (!ModelState.IsValid) return View("Index");
-            var data =  _estate.GetAll().Where(x => 
-            x.TypeID == Type ||
-            x.categoryID== Category ||
-            x.StateID == State ||
-            x.CityID == City
-            ).ToList();
+            var data =  _estate.GetAll().Where(x => (Type == 0 ? true : x.TypeID == Type) &&
+                                                    (Category == 0? true : x.categoryID == Category) &&
+                                                    (State == 0? true: x.StateID == State) &&
+                                                    (City == 0 ? true: x.CityID == City)
+                                                    ).ToList();
             var Categ =  _category.GetOne(Category).Result;
-            if(Categ != null)
-            {
-                if(Categ.category.Trim() == "شقة") return RedirectToAction("Apartment", data);
-                if(Categ.category.Trim() == "منزل") return RedirectToAction("House", data);
-                if(Categ.category.Trim() == "أرض") return RedirectToAction("Land", data);
-                if(Categ.category.Trim() == "شاليه") return RedirectToAction("Chalet", data);
-            }
-            return View("",data);
+            if(Categ is not null)
+           ViewBag.CategoryName = Categ.category;
+            return View(data);
         }
 
         public IActionResult Apartment(List<Estate> data)
