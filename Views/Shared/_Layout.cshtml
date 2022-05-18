@@ -17,12 +17,12 @@
   <link href="~/indexLayout/assets/css/profile.css" rel="stylesheet">
   <link href="~/indexLayout/assets/css/style.css" rel="stylesheet">
   <link href="~/css/Chat.css" rel="stylesheet" />
+   
 
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.14/css/bootstrap-multiselect.css
+    <style>
+    
+    </style>
 
-
-
-"rel="stylesheet" />
 </head>
 
 
@@ -228,8 +228,6 @@
         </div>
       </footer>
     </div>
-    
-
 
   <script src="~/indexLayout/assets/bootstrap/bootstrap5.bundle.min.js"></script>
   <script src="~/indexLayout/assets/bootstrap/ajax_query.min.js"></script>
@@ -241,11 +239,10 @@
   <script src="~/indexLayout/assets/js/swipar.js"></script>
   <script src="~/indexLayout/assets/js/loding.js"></script>
   <script src="~/indexLayout/assets/js/index.js"></script>
-   @await RenderSectionAsync("Scripts", required: false)
+             @await RenderSectionAsync("Scripts", required: false)
+
        <script src="~/lib/aspnet/signalr/dist/browser/signalr.js"></script>
 
-
-       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.14/js/bootstrap-multiselect.min.js"></script>
 
     <script src="~/js/Chat.js"></script>
   <script type="text/javascript">
@@ -259,12 +256,11 @@
     });
 
     
-          window.onload=function (){
-              var x = document.getElementById("mm");
-              
-              x.classList.add("w-100");
-          }
-
+          //window.onload=function (){
+          //    var x = document.getElementById("mm");
+            
+          //    x.classList.add("w-100");
+          //}
   </script>
 </body>
 

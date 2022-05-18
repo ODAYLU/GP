@@ -230,7 +230,8 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-        <script src="~/lib/bootbox.js/bootbox.min.js"></script>
+      @*  <script src="~/SweetAlert/sweetalert2@11.js"></script>*@
+
 
     <script>
         var lots_of_stuff_already_done = true;
@@ -283,29 +284,21 @@ swalWithBootstrapButtons.fire({
   reverseButtons: true
 }).then((result) => {
   if (result.isConfirmed) {
+
+    
        lots_of_stuff_already_done = false;
        if(!lots_of_stuff_already_done){
            f.setAttribute("formaction",`/Estate/deleteImage/${id}`)
            $(this).trigger('click')
        }
     
-    swalWithBootstrapButtons.fire(
+      swalWithBootstrapButtons.fire(
       'Deleted!',
       'Your file has been deleted.',
       'success'
     )
      
-  } else if (
-       
-    /* Read more about handling dismissals below */
-    result.dismiss === Swal.DismissReason.cancel
-  ) {
-    swalWithBootstrapButtons.fire(
-      'Cancelled',
-      'Your imaginary file is safe :)',
-      'error'
-    )
-  }
+  } 
 })
 
 

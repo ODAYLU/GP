@@ -379,7 +379,8 @@ namespace GP
 
                 ViewBag.id = q;
             }
-            return View("ImageList");
+            SeedData.EstateByImage = q;
+            return RedirectToAction("ImageList");
 
         }
 
