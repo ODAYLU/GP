@@ -17,6 +17,7 @@ namespace GP
 {
     
     [Authorize(Roles ="Owner")]
+   
     public class EstateController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -24,6 +25,7 @@ namespace GP
         private readonly IService servicesList; 
         private readonly IPhotoEstate _photoservices;
         private readonly IService_Estate _service_Estate;
+        private readonly IlikedEstates _like;
         private readonly IWebHostEnvironment webHostEnvironment;
 
 
@@ -271,18 +273,34 @@ namespace GP
         [HttpGet]
         public IActionResult ImageList(long id)
         {
+            
+            
             SeedData.IsPserosalPhoto = false;
-            ViewBag.id = id;
+            if (id != 0)
+            {
+                ViewBag.id = id;
+
+
+            }
+
+            else
+            {
+                ViewBag.id = SeedData.EstateByImage;
+            }
             return View();
         }
+
+
         [HttpPost]
         public async Task<IActionResult> DeleteImage(long id)
         {
             SeedData.IsPserosalPhoto = false;
-
+            long ids = 0;
+            PhotoEstate estate = await _photoservices.GetOne(id);
+            ids = estate.IdEstate;
             if (id != 0)
             {
-                PhotoEstate estate = await _photoservices.GetOne(id);
+                
                 string webRootPath = webHostEnvironment.WebRootPath;
                 string oldfile = webRootPath + @"\images\Estate\" + estate.ImagePath;
                 if (System.IO.File.Exists(oldfile))
@@ -295,7 +313,9 @@ namespace GP
                 ViewBag.id = estate.IdEstate;
             }
 
-            return View("ImageList");
+            SeedData.EstateByImage = ids;
+
+            return RedirectToAction("ImageList");
 
         }
         [HttpPost]
@@ -360,7 +380,8 @@ namespace GP
 
                 ViewBag.id = q;
             }
-            return View("ImageList");
+            SeedData.EstateByImage = q;
+            return RedirectToAction("ImageList");
 
         }
 
@@ -371,6 +392,12 @@ namespace GP
             {
             var estate = await services.GetOne(id);
             estate.Likes++;
+                var data = new likedEstates
+                {
+                    IdUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    IdEstate = estate.Id
+                };
+              await  _like.InsertObj(data);
             await  services.UpdateEstate(estate);
                 return Ok();
             }

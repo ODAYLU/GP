@@ -3,12 +3,17 @@
 @inject GP.Models.IEstate _ser
 
 @{
-// Layout = "~/Views/Shared/_LayoutOwner.cshtml";
-if (User.IsInRole("Owner"))
-{
-Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
+    // Layout = "~/Views/Shared/_LayoutOwner.cshtml";
+    if (User.IsInRole("Owner"))
+    {
+        Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
 
-}
+    }
+
+
+       long  IdClick=0;
+    string Photoclick = "";
+
 
 List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
 
@@ -34,8 +39,11 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
     </div>
     }
 
-
-        <style>
+    <script>
+    
+        var M=0;
+    </script>
+   <style>
 
 
 .containerr {
@@ -103,7 +111,16 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
 
 
     <div class="text-center pb-5">
-        <img class="img-fluid" src="~/images/Estate/@estate.Main_photo" style="width:500px ;">
+        @{
+            if(@estate.Main_photo !=null){
+                    <img class="img-fluid" src="~/images/Estate/@estate.Main_photo" style="width:500px ;">
+
+        }
+
+        else {
+            <h3 class="text-center"> لا يوجد صورة رئيسية للعقار</h3>
+        }
+        }
     </div>
 
 
@@ -161,7 +178,7 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
 
 
 
-    <form method="post">
+    <form method="post" >
         @if(lst != null)
         {
         <div class="container-fluid">
@@ -169,7 +186,7 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
                 @* //@Html.DisplayFor(modelItem => item.Id)*@
                 @foreach (PhotoEstate item in lst)
                 {
-                    <img src="~/images/Estate/@item.ImagePath" style="width:150px;height: 150px;" onclick="myFunction(this);">
+                    <img src="~/images/Estate/@item.ImagePath" style="width:150px;height: 150px;" onclick="myFunction(this,@item.Id,'@item.ImagePath');">
                 }
             </div>
         </div>
@@ -181,9 +198,9 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
                 <img id="expandedImg" class="image m-auto img-fluid">
                 <div class="middle">
                     <div >
-                        <button type="submit" class="btn bg-success text-white py-2 px-3 rounded-circle fs-3" asp-action="DeleteImage" asp-route-id="@item.Id"
-                            onclick="return confirm('Are you sure you want to delete?')"><i class="bi bi-trash"></i></button>
-                        <a class="btn fs-3 bg-success text-white py-2 px-3 rounded-circle" href="#" onclick="UpdateState(@item.Id,'@item.ImagePath');"><i class="bi bi-pencil-square"></i></a>
+                     <button formaction="" type="submit" id="d" class=" button btn fs-3 bg-success text-white py-2 px-3 rounded-circle" ><i class="bi bi-pencil-square"></i></button>
+
+                        <a class="btn fs-3 bg-success text-white py-2 px-3 rounded-circle" href="#" onclick="UpdateState();"><i class="bi bi-pencil-square"></i></a>
                     </div>
                 </div>
             </div>
@@ -211,8 +228,124 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
 
     @section Scripts{
 
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+      @*  <script src="~/SweetAlert/sweetalert2@11.js"></script>*@
+
+
     <script>
-        function myFunction(imgs) {
+        var lots_of_stuff_already_done = true;
+
+        var f = document.getElementById('d');
+
+
+        $('.button').on('click', function(e) {
+
+
+                  
+
+              var id = "";
+      
+           @{
+                  @:id =IdClick ;
+                 
+                
+            }
+            console.log(id);
+
+
+            if(lots_of_stuff_already_done){
+
+                e.preventDefault()
+
+            }
+
+            
+
+        
+              
+            
+const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+swalWithBootstrapButtons.fire({
+  
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes, delete it!',
+  cancelButtonText: 'No, cancel!',
+  reverseButtons: true
+}).then((result) => {
+  if (result.isConfirmed) {
+
+    
+       lots_of_stuff_already_done = false;
+       if(!lots_of_stuff_already_done){
+           f.setAttribute("formaction",`/Estate/deleteImage/${id}`)
+           $(this).trigger('click')
+       }
+    
+      swalWithBootstrapButtons.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+     
+  } 
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //  if (lots_of_stuff_already_done) {
+    //    lots_of_stuff_already_done = false; // reset flag
+    //    return; // let the event bubble away
+    //}
+
+    //e.preventDefault();
+
+    // do lots of stuff
+
+    //lots_of_stuff_already_done = true; // set flag
+    //$(this).trigger('click');
+});
+
+
+
+     function Abd(event){
+
+     
+            }
+
+        
+        function myFunction(imgs,id,path) {
+         
+
+                @{
+                  @:IdClick =id ;
+                  @:Photoclick =path ;
+                }
+              
+
+               
+          
+       
             var expandImg = document.getElementById("expandedImg");
             var imgText = document.getElementById("imgtext");
             expandImg.src = imgs.src;
@@ -246,7 +379,16 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
 
         }
 
-        function UpdateState(id, path) {
+        function UpdateState() {
+
+
+            var id = "";
+            var path = ";"
+           @{
+                  @:id =IdClick ;
+                  @:path =Photoclick ;
+            }
+              
             idUp = id;
 
             document.getElementById('ProfilePicture').src = '/images/Estate/' + path;

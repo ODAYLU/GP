@@ -17,6 +17,12 @@
   <link href="~/indexLayout/assets/css/profile.css" rel="stylesheet">
   <link href="~/indexLayout/assets/css/style.css" rel="stylesheet">
   <link href="~/css/Chat.css" rel="stylesheet" />
+   
+
+    <style>
+    
+    </style>
+
 </head>
 
 
@@ -108,7 +114,7 @@
 
               <li>
                 <hr class="dropdown-divider">
-              </li>
+              </li> 
                <partial name="_LoginPartial" />
             </ul>
           </div>
@@ -120,11 +126,11 @@
 
 
 
-
+   
     @RenderBody()
 
 
-    <div class="position-absolute w-100 bgdaeke" style="z-index: 5;">
+    <div class=" w-100 bgdaeke" style="z-index: 5;">
       <footer>
         <div class="container-fluid bgfooter">
           <div class="row pt-5 pb-5 text-center justify-content-center">
@@ -222,8 +228,6 @@
         </div>
       </footer>
     </div>
-    
-
 
   <script src="~/indexLayout/assets/bootstrap/bootstrap5.bundle.min.js"></script>
   <script src="~/indexLayout/assets/bootstrap/ajax_query.min.js"></script>
@@ -235,8 +239,10 @@
   <script src="~/indexLayout/assets/js/swipar.js"></script>
   <script src="~/indexLayout/assets/js/loding.js"></script>
   <script src="~/indexLayout/assets/js/index.js"></script>
-   @await RenderSectionAsync("Scripts", required: false)
+             @await RenderSectionAsync("Scripts", required: false)
+
        <script src="~/lib/aspnet/signalr/dist/browser/signalr.js"></script>
+
 
     <script src="~/js/Chat.js"></script>
   <script type="text/javascript">
@@ -244,21 +250,17 @@
     AOS.init({
     })
 
-
-
+  
     $(".heart.bi").click(function () {
       $(this).toggleClass("heart heart-des");
     });
 
-     $(function () {
-                $("#mm").chosen();  
-                
-          })
-          window.onload=function (){
-              var x = document.getElementById("mm_chosen");
-              x.classList.add("w-100");
-          }
-
+    
+          //window.onload=function (){
+          //    var x = document.getElementById("mm");
+            
+          //    x.classList.add("w-100");
+          //}
   </script>
 </body>
 

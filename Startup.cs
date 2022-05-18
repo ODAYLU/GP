@@ -51,9 +51,9 @@ namespace GP
                 options.SignIn.RequireConfirmedAccount = false;
                 options.SignIn.RequireConfirmedEmail = false;
 
-
+                 
             });
-            
+        
             services.AddScoped<UserManager<AppUser>>();
             services.AddControllersWithViews();
             services.AddScoped<IEstate,ProductManage>();

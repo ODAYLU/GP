@@ -52,13 +52,17 @@ namespace GP.Areas.Admin.Controllers
             {
                 return View();
             }
-            await _userManager.UpdateAsync(user);
-            await  _userManager.SetLockoutEnabledAsync(user ,true);
-            
-            
-           await signInManager.SignOutAsync();
-           await _context.SaveChangesAsync();
-            return Ok(user);
+            var result = await _userManager.IsLockedOutAsync(user);
+            if (!result)
+            {
+               var res =  await _userManager.SetLockoutEnabledAsync(user, true);
+                await _userManager.UpdateAsync(user);
+                await signInManager.SignOutAsync();
+                await _userManager.SetLockoutEndDateAsync(user, DateTime.Now - TimeSpan.FromDays(1000));
+                if (res.Succeeded) return Ok(user);
+               
+            }
+            return BadRequest(user);
         }
 
         [HttpGet]

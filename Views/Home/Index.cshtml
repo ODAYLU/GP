@@ -29,43 +29,50 @@
   <video class="bg-video" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
     <source src="~/indexLayout/assets/img/pages/bg.mp4" type="video/mp4" />
   </video>
+   <form  asp-controller="Home" asp-action="FilterEstate">
   <div class="container-fluid d-none d-lg-block pt-5" style="position: absolute;z-index: 5; top: 11rem;">
     <div class="row justify-content-center align-items-center text-center ">
       <p class="fs-1 text-white animated wow fadeInDown">ابحث عن العقار الأنسب لك </p>
       <p class="fs-4 text-white pb-5 animated wow fadeInDown">لديك الفرصة لوضع عقارك</p>
+      
       <div class="bgacground rounded-5 w-50  p-3 py-4 animated wow fadeInUp">
         <div class="row justify-content-between align-items-center ">
-          <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
-            <h5>النوع</h5>
-            <select class="form-selectt" asp-items="@types" aria-label="Default select example">
-              <option >ِِاختر نوع العقار</option>
-            </select>
-          </div>
-          <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
-            <h5>التصنيف </h5>
-            <select  class="form-selectt" asp-items="@categories" aria-label="Default select example">
-              <option >ِِاختر تصنيف العقار</option>
-            </select>
-          </div>
-          <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
-            <h5>الدولة</h5>
-            <select class="form-selectt" asp-items="@states" aria-label="Default select example">
-              <option >ِِاختر الدولة</option>
-            </select>
-          </div>
-          <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
-            <h5>المدينة</h5>
-            <select class="form-selectt" asp-items="@cities" aria-label="Default select example">
-                 <option >ِِاختر المدينة</option>
-            </select>
-          </div>
-          <div class="col-lg-2 col-12">
-            <button class="btn btn-search px-3 py-2 rounded-5"><i class="bi bi-search"></i></button>
-          </div>
+            
+            <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
+                <h5>النوع</h5>
+                <select name="Type" class="form-selectt" asp-items="@types" aria-label="Default select example">
+                  <option>ِِاختر نوع</option>
+                </select>
+              </div>
+              <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
+                <h5>التصنيف </h5>
+                <select name="Category" class="form-selectt" asp-items="categories" aria-label="Default select example">
+                  <option >اختر تصنيف العقار</option>
+                </select>
+              </div>
+              <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
+                <h5>الدولة</h5>
+                <select name="State" class="form-selectt" asp-items="@states" aria-label="Default select example">
+                     <option >اختر الدولة</option>
+                </select>
+              </div>
+              <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
+                <h5>المدينة</h5>
+                <select name="City" class="form-selectt" asp-items="@cities"  aria-label="Default select example">
+                     <option >اختر  المدينة</option>
+                    
+                </select>
+              </div>
+              <div class="col-lg-2 col-12">
+                <button type="submit" class="btn btn-search px-3 py-2 rounded-5"><i class="bi bi-search"></i></button>
+              </div>
+              
         </div>
       </div>
+        
     </div>
   </div>
+  </form>
   <div class="masthead">
     <div class="masthead-content">
       <div class="container-fluid d-block d-lg-none pt-5">
@@ -74,21 +81,22 @@
           <p class="fs-4 text-white animated wow fadeInDown">لديك الفرصة لوضع عقارك</p>
           <div class="bgacground rounded-5  p-3 py-4 animated wow fadeInUp">
             <div class="row justify-content-between align-items-center ">
-              <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
+                <form asp-controller="Home" asp-action="FilterEstate">
+            <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
                 <h5>النوع</h5>
-                <select class="form-selectt" asp-items="@types" aria-label="Default select example">
+                <select name="Type" class="form-selectt" asp-items="@types" aria-label="Default select example">
                   <option>ِِاختر نوع</option>
                 </select>
               </div>
               <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
                 <h5>التصنيف </h5>
-                <select class="form-selectt" asp-items="categories" aria-label="Default select example">
+                <select name="Category" class="form-selectt" asp-items="categories" aria-label="Default select example">
                   <option >اختر تصنيف العقار</option>
                 </select>
               </div>
               <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
                 <h5>الدولة</h5>
-                <select class="form-selectt" aria-label="Default select example">
+                <select name="State" class="form-selectt" aria-label="Default select example">
                   <option selected>ِِشقة</option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
@@ -97,7 +105,7 @@
               </div>
               <div class="col-lg-2 col-md-6 col-12 d-flex flex-column ">
                 <h5>المدينة</h5>
-                <select  class="form-selectt"  aria-label="Default select example">
+                <select name="City" class="form-selectt"  aria-label="Default select example">
                   <option selected>ِِشقة</option>
                   <option value="1">One</option>
                   <option value="2">Two</option>
@@ -105,8 +113,10 @@
                 </select>
               </div>
               <div class="col-lg-2 col-12">
-                <button class="btn btn-search px-3 py-2 rounded-5"><i class="bi bi-search"></i></button>
+                <button  class="btn btn-search px-3 py-2 rounded-5"><i class="bi bi-search"></i></button>
               </div>
+                </form>
+             
             </div>
           </div>
         </div>
@@ -136,11 +146,14 @@
           <div class="row pt-3 g-3">
           
                 @{
+
+                   @if(@ViewBag.FavEstate is not null)
                   foreach (var item in (List<Estate>)ViewBag.FavEstate)
                   {
-                <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+                
+    <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
                 <div class="game px-2">
-                <div class="rank"><span class="fa fa-star checked"></span></div>
+                <div class="rank"><span class="bi bi-star-fill checked"></span></div>
                 <div class="front">
                   <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
                   <div>
@@ -148,13 +161,13 @@
                   </div>
                   <div class="status d-flex justify-content-between align-items-center">
                     <span>@item.Likes</span>
-                    <span class="fa fa-star checked"></span>
+                    <span class="bi bi-star-fill checked"></span>
                   </div>
                 </div>
                 <div class="back">
                   <div class="streaming-info">
                     <div class="game-stat  text-center">
-                      <p>  @item.price  السعر @item.City  الدولة @item.State المدينة </p>
+                      <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
                       
                     </div>
                   </div>
@@ -166,6 +179,7 @@
                 <div class="backgroundWrapper"></div>
               </div>
             </div>
+
                   }
               }
    
@@ -176,18 +190,20 @@
       </section>
 
     @*  أحدث العقارات*@
-
+  
       <section class="mb-5  container-fluid container-md">
         <p class="text-center fs-2 " data-aos="fade-down"><span class="txtborder">أحدث العقارات</span></p>
         <p class="text-secondary  text-center fs-4 mb-5" data-aos="fade-down">أملاك يقدم لك أحدث العقارات للعثور على
           العقار الذي تحلم به بسهولة </p>
         <div class="swiper mySwiper" data-aos="zoom-in-down">
           <div class="swiper-wrapper">
-         @foreach (var item in (List<Estate>)ViewBag.ModernEstate)
-        {
-            <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+         @if(@ViewBag.ModernEstate is not null)
+                  foreach (var item in (List<Estate>)ViewBag.ModernEstate)
+                  {
+                
+    <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
                 <div class="game px-2">
-                <div class="rank"><span class="fa fa-star checked"></span></div>
+                <div class="rank"><span class="bi bi-star checked"></span></div>
                 <div class="front">
                   <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
                   <div>
@@ -195,13 +211,13 @@
                   </div>
                   <div class="status d-flex justify-content-between align-items-center">
                     <span>@item.Likes</span>
-                    <span class="fa fa-star checked"></span>
+                    <span class="bi bi-star checked"></span>
                   </div>
                 </div>
                 <div class="back">
                   <div class="streaming-info">
                     <div class="game-stat  text-center">
-                      <p>  @item.price  السعر @item.City  الدولة @item.State المدينة </p>
+                      <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
                       
                     </div>
                   </div>
@@ -213,7 +229,8 @@
                 <div class="backgroundWrapper"></div>
               </div>
             </div>
-        }
+
+                  }
           </div>
           <div class="swiper-pagination p-2"></div>
           <div class="swiper-button-next"></div>
@@ -298,9 +315,8 @@
 
        
       </section>
-
-    
-</section>
+</main>
+</div>
 @section Scripts{
     <script type="text/javascript">
         
@@ -384,6 +400,7 @@
               var x = document.getElementById("mm_chosen");
               x.classList.add("w-100");
           }
+        
     </script>
     
 }

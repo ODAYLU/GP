@@ -138,14 +138,15 @@
                         method: 'Get',
                         url: `/Admin/State/Delete/${Id}`,
                         data: JSON.stringify({ id: Id }),
-                        success: function () {
+                        success: function (data) {
+                             var Table = $("#States").DataTable();
+                            Table.draw();
                             Swal.fire(
                                 'Deleted!',
                                 'Your file has been deleted.',
                                 'success'
                             )
-                            var Table = $("#States").DataTable();
-                            Table.draw();
+                           
                         }
                     });
 

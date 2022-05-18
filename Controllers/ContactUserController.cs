@@ -51,7 +51,7 @@ namespace GP.Controllers
             SmtpClient client = new SmtpClient("smtp.gmail.com", 465)
             {
                 Credentials = new NetworkCredential("aqaramlack123@gmail.com", "a@1234567"),
-                Port = 587,
+                Port = 465,
                 UseDefaultCredentials = false,
                 EnableSsl = true
             };
