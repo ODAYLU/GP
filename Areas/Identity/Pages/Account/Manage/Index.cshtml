@@ -9,15 +9,12 @@
 
 
 
-
-
 <h4>@ViewData["Title"]</h4>
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 
          
             <div class="text-center">
               <p class=" fw-bold borderbottom fs-3 d-inline-block">البيانات الشخصية</p>
-
             </div>
 
                 <div class="form">
@@ -108,12 +105,12 @@
                             <span asp-validation-for="Input.ProfilePicture" class="text-danger"></span>
                           </div>
 
-                        <div class="col-lg-5 col-12">
-                          <button id="update-profile-button" type="submit" class="btn btn-primary btn1">حفظ</button>
+                        <div class="row">
+                          <button id="update-profile-button " type="submit" class="btn col-10 btn-success  rounded-pill">حفظ</button>
 
-                          <div class="nav-item"><a
-                              class="nav-link btn btn-primary @ManageNavPages.ChangePasswordNavClass(ViewContext)"
-                              id="change-password" asp-page="./ChangePassword">كلمة المرور</a>
+                          <div class="col pe-4 ps-0">
+                              <a class="btn btn-warning  rounded-pill @ManageNavPages.ChangePasswordNavClass(ViewContext)"
+                              id="change-password" style=" background-color:#ffdead4d; color:var(--secondery);" asp-page="./ChangePassword">كلمة المرور</a>
                           </div>
 
                         </div>

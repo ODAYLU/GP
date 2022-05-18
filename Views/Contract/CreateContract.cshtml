@@ -15,7 +15,12 @@
 
 
 }
-<h1>@ViewBag.TypeOfContract</h1>
+
+<div class="text-center pt-3 pb-5">
+    <p class=" fw-bold borderbottom fs-3 d-inline-block ">@ViewBag.TypeOfContract</p>
+    <img src="~/images/Estate/@estate.Main_photo" width="20%" height="20%" class="position-absolute d-none d-md-block" style="left: 20px; top: 30px"/>
+
+</div>
 
 <form method="post" asp-action="CreateContract">
     <input asp-for="Id" hidden/>
@@ -25,20 +30,19 @@
     <div class="container">
     <div class="row">
    
-    <div class="col-9">
 
         <div class="row">
             <div class="col">
          <div class="form-group"> 
             <label asp-for="BuyerName" class="control-label mb-3"> اسم المشتري </label>
-            <input asp-for="BuyerName" class="form-control rounded-3" placeholder="محمد السيد"/>
+            <input asp-for="BuyerName" class="form-control rounded-pill" placeholder="محمد السيد"/>
             <span asp-validation-for="BuyerName" class="text-danger"></span>
           </div>
           </div>
            <div class="col">
            <div class="form-group">
                 <label asp-for="Buyerphone_num" class="control-label mb-3"> رقم هاتف المشتري </label>
-                <input asp-for="Buyerphone_num" class="form-control rounded-3" placeholder="000-0000-000 +"/>
+                <input asp-for="Buyerphone_num" class="form-control rounded-pill" placeholder="000-0000-000 +"/>
                 <span asp-validation-for="Buyerphone_num" class="text-danger"></span>
           </div>
           </div>
@@ -56,24 +60,17 @@
                          <div class="row">
                           <div class="form-group mt-5">
                             <label asp-for="up_to_date" class="control-label mb-3">محجوز لتاريخ    </label>
-                            <input asp-for="up_to_date" class="form-control rounded-3"/>
+                            <input asp-for="up_to_date" class="form-control rounded-pill"/>
                             <span asp-validation-for="up_to_date" class="text-danger"></span>
-                      </div>
-          </div>
+                         </div>
+                        </div>
                     }
                 }
          
 
-          <input onclick="confirm ('هل أنت متأكد من الحفظ ؟ لن تتمكن من الحذف أو التعديل ')" type="submit"  class="btn btn-danger mt-5 d-block js-delete" value="حفظ" width="50"/> 
+          <img src="~/images/Estate/@estate.Main_photo" width="20%" height="20%" class=" d-block d-md-none" />
+          <input onclick="confirm ('هل أنت متأكد من الحفظ ؟ لن تتمكن من الحذف أو التعديل ')" type="submit"  class="btn btn-success mt-5 mx-auto d-block js-delete rounded-pill" value="حفظ" width="50"/> 
 
-      </div>
-       <div class="col-3">
-
-        <div class="d-flex justify-content-center">
-                 <img src="~/images/Estate/@estate.Main_photo" width="100%" height="100%" class="d-block "/>
-
-       </div>
-    </div>
       </div>
       </div>
 

@@ -3,154 +3,364 @@
 @inject GP.Models.IEstate _ser
 
 @{
-       // Layout = "~/Views/Shared/_LayoutOwner.cshtml";
-              if (User.IsInRole("Owner"))
+    // Layout = "~/Views/Shared/_LayoutOwner.cshtml";
+    if (User.IsInRole("Owner"))
     {
         Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
-      
+
     }
 
 
+       long  IdClick=0;
+    string Photoclick = "";
 
-    List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
+
+List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
 
     Estate estate = _ser.GetOnetoImage(ViewBag.id);
 
     long x = ViewBag.id;
     long idupp = 0;
-}
+    }
 
-<h1>CreateAndEdit</h1>
 
-<h4>State</h4>
-<hr />
-
-@if (GP.Models.Toast.ShowTost)
-{
-      GP.Models.Toast.ShowTost = false;
-    <div id="mymessage" class="toast align-items-center text-white bg-primary border-0" role="alert"  data-delay="10000" data-autohide="true" aria-live="assertive" aria-atomic="true">
+    @if (GP.Models.Toast.ShowTost)
+    {
+    GP.Models.Toast.ShowTost = false;
+    <div id="mymessage" class="toast align-items-center text-white bg-success border-0" role="alert" data-delay="10000"
+        data-autohide="true" aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">
                 @GP.Models.Toast.Message
             </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                aria-label="Close"></button>
         </div>
     </div>
+    }
+
+    <script>
+    
+        var M=0;
+    </script>
+   <style>
+
+
+.containerr {
+  position: relative;
+  display: none;
 }
 
-<div class="col-12 justify-content-center">
-    <h2 class="text-center"> الصورة الاساسية</h2>
-<div class="d-flex justify-content-center">
-        <img src="~/images/Estate/@estate.Main_photo" width="70" height="70" class="d-block "/>
+.closebtn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: white;
+  font-size: 35px;
+  cursor: pointer;
+}
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
 
-</div>
-</div>
- 
-<a class="btn" href="#"  onclick="AddCategory()">
-    Add new Photo
-</a>
+.hoverimg:hover .image {
+  opacity: 0.3;
+}
 
- <div class="modal fade" id="staticBackdropp" data-bs-backdrop="static"  data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <form  method="post"enctype="multipart/form-data"asp-controller="Estate" >
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="row align-items-center pb-5">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        @{
-                           
+.hoverimg:hover .middle {
+  opacity: 1;
+}
 
-                          <div class="col-3" hidden id="InputId">
-                                <label class="form-label"   asp-for="Id">Id</label>
-                                <input class="form-control "   asp-for="Id">
-                                <span asp-validation-for="Id"  class="text-danger"></span>
-                          </div>
-                            
-                            
-                            
-                        }
-                        
-                   
-                        <div class="form-group">
+.text {
+  background-color: #04AA6D;
+  color: white;
+  font-size: 16px;
+  padding: 16px 32px;
+}
+    </style>
+
+    <div class="text-center pt-3 pb-5">
+        <p class=" fw-bold borderbottom fs-3 d-inline-block">صور العقار</p>
+                <div class="text-start position-absolute left-0" style="border-bottom: 2px solid var(--orange);left: 50px;">
+    <a onclick="AddCategory()" style="text-decoration:none; color:var(--orange);">اضافة المزيد من الصور <i class="bi bi-plus"></i></a>
+    </div>
+    </div>
+
+
+    @*<div class="col-12 justify-content-center">
+        <h2 class="text-center"> الصورة الاساسية</h2>
+        <div class="d-flex justify-content-center">
+            <img src="~/images/Estate/@estate.Main_photo" width="70" height="70" class="d-block " />
+        </div>
+    </div>*@
+
+
+    <div class="text-center pb-5">
+        @{
+            if(@estate.Main_photo !=null){
+                    <img class="img-fluid" src="~/images/Estate/@estate.Main_photo" style="width:500px ;">
+
+        }
+
+        else {
+            <h3 class="text-center"> لا يوجد صورة رئيسية للعقار</h3>
+        }
+        }
+    </div>
+
+
+    <div class="modal fade" id="staticBackdropp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <form method="post" enctype="multipart/form-data" asp-controller="Estate">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">اضافة صورة</h5>
+                        <button type="button" class="btn-close text-start" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row align-items-center pb-5">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            @{
+                                <div class="col-3" hidden id="InputId">
+                                    <label class="form-label" asp-for="Id">Id</label>
+                                    <input class="form-control " asp-for="Id">
+                                    <span asp-validation-for="Id" class="text-danger"></span>
+                                </div>
+                            }
+
+
+                            <div class="form-group">
                                 <label asp-for="ImagePath" class="control-label">الصورة</label>
-                                <input  type="file" name="file" asp-for="ImagePath" class="form-control"
-                
-                                onchange="document.getElementById('ProfilePicture').src=window.URL.createObjectURL(this.files[0])"
-                               />
+                                <input type="file" name="file" asp-for="ImagePath" class="form-control"
+                                    onchange="document.getElementById('ProfilePicture').src=window.URL.createObjectURL(this.files[0])" />
                                 <span asp-validation-for="ImagePath" class="text-danger"></span>
 
-                                 <div>
-                                      <img   class="w-25 h-25" id="ProfilePicture"/>
-                                    </div>
-                         </div>
+                                <div>
+                                    <img class="w-25 h-25" id="ProfilePicture" />
+                                </div>
+                            </div>
 
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnSave" type="submit" value="Save" class="btn btn-primary" asp-action="AddImage"
+                            asp-route-q="@x">Create</button>
+                        <button id="btnUpdate" type="submit" value="Update" class="btn btn-success"
+                            asp-action="EditImage" asp-route-id="@idupp">Update</button>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button id="btnSave" type="submit" value="Save" class="btn btn-primary" asp-action="AddImage" asp-route-q="@x">Create</button>
-                    <button id="btnUpdate" type="submit" value="Update" class="btn btn-success" asp-action="EditImage" asp-route-id="@idupp">Update</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 
 
-<div class="row">
-    <div class="col-10">
-        <table class="table">
-    <thead>
-        <tr>
-             <th>
-                الترتيب
-            </th>
-           
-            <th>
-                الصورة
-            </th>
-            <th>
-                العمليات
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <form method="post">
+
+
+
+
+
+
+
+
+    <form method="post" >
         @if(lst != null)
         {
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                @* //@Html.DisplayFor(modelItem => item.Id)*@
+                @foreach (PhotoEstate item in lst)
+                {
+                    <img src="~/images/Estate/@item.ImagePath" style="width:150px;height: 150px;" onclick="myFunction(this,@item.Id,'@item.ImagePath');">
+                }
+            </div>
+        </div>
             @foreach (PhotoEstate item in lst)
             {
-                <tr>
-             <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-          
-            <td>
-                <img src="~/images/Estate/@item.ImagePath" class="w-25 h-25" />
-            </td>
-          
-                 <td class="text-center">
-                     <button type="submit" class="btn" asp-action="DeleteImage" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                    | <a class="btn" href="#" onclick="UpdateState(@item.Id,'@item.ImagePath');">Edit</a>
-            </td>
-        </tr>
+            <div class="containerr hoverimg pt-3">
+
+                <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+                <img id="expandedImg" class="image img-fluid">
+                <div class="middle">
+                    <div >
+                     <button formaction="" type="submit" id="d" class=" button btn fs-3 bg-success text-white py-2 px-3 rounded-circle" ><i class="bi bi-pencil-square"></i></button>
+
+                        <a class="btn fs-3 bg-success text-white py-2 px-3 rounded-circle" href="#" onclick="UpdateState();"><i class="bi bi-pencil-square"></i></a>
+                    </div>
+                </div>
+            </div>
+            }
         }
-}
-      </form>
-    </tbody>
-</table>
+    </form>
+
+@*
+            <div class="containerr hoverimg">
+
+            <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
+            <img id="expandedImg" class="image">
+            <div class="middle">
+                <div class="text">
+                    <button type="submit" class="btn" asp-action="DeleteImage" asp-route-id="@item.Id"
+                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                    <a class="btn" href="#" onclick="UpdateState(@item.Id,'@item.ImagePath');">Edit</a>
+                </div>
+            </div>
+        </div>
+*@
 
 
 
 
+    @section Scripts{
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+        <script src="~/lib/bootbox.js/bootbox.min.js"></script>
+
+    <script>
+        var lots_of_stuff_already_done = true;
+
+        var f = document.getElementById('d');
+
+
+        $('.button').on('click', function(e) {
+
+
+                  
+
+              var id = "";
+      
+           @{
+                  @:id =IdClick ;
+                 
+                
+            }
+            console.log(id);
+
+
+            if(lots_of_stuff_already_done){
+
+                e.preventDefault()
+
+            }
+
+            
 
         
-    </div>
-</div>
-@section Scripts{
+              
+            
+const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+swalWithBootstrapButtons.fire({
+  
+  title: 'Are you sure?',
+  text: "You won't be able to revert this!",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes, delete it!',
+  cancelButtonText: 'No, cancel!',
+  reverseButtons: true
+}).then((result) => {
+  if (result.isConfirmed) {
+       lots_of_stuff_already_done = false;
+       if(!lots_of_stuff_already_done){
+           f.setAttribute("formaction",`/Estate/deleteImage/${id}`)
+           $(this).trigger('click')
+       }
+    
+    swalWithBootstrapButtons.fire(
+      'Deleted!',
+      'Your file has been deleted.',
+      'success'
+    )
+     
+  } else if (
+       
+    /* Read more about handling dismissals below */
+    result.dismiss === Swal.DismissReason.cancel
+  ) {
+    swalWithBootstrapButtons.fire(
+      'Cancelled',
+      'Your imaginary file is safe :)',
+      'error'
+    )
+  }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //  if (lots_of_stuff_already_done) {
+    //    lots_of_stuff_already_done = false; // reset flag
+    //    return; // let the event bubble away
+    //}
+
+    //e.preventDefault();
+
+    // do lots of stuff
+
+    //lots_of_stuff_already_done = true; // set flag
+    //$(this).trigger('click');
+});
+
+
+
+     function Abd(event){
+
+     
+            }
+
+        
+        function myFunction(imgs,id,path) {
+         
+
+                @{
+                  @:IdClick =id ;
+                  @:Photoclick =path ;
+                }
+              
+
+               
+          
+       
+            var expandImg = document.getElementById("expandedImg");
+            var imgText = document.getElementById("imgtext");
+            expandImg.src = imgs.src;
+            expandImg.parentElement.style.display = "block";
+        }
+    </script>
+
+
 
 
     <script>
@@ -158,12 +368,12 @@
             keyboard: true,
 
         });
-        var idUp=null;
+        var idUp = null;
         function AddCategory(x) {
-           
 
-           document.getElementById('ProfilePicture').src="";
-          
+
+            document.getElementById('ProfilePicture').src = "";
+
             myModal.show();
             var x = document.getElementsByClassName('modal-backdrop')[0];
 
@@ -171,72 +381,80 @@
             document.getElementById('btnUpdate').hidden = true;
             document.getElementById('btnSave').hidden = false;
             document.getElementById('Id').value = null;
-             document.getElementById('ImagePath').value = '';
+            document.getElementById('ImagePath').value = '';
 
-            
+
         }
 
-        function UpdateState(id,path) 
-        {
+        function UpdateState() {
+
+
+            var id = "";
+            var path = ";"
+           @{
+                  @:id =IdClick ;
+                  @:path =Photoclick ;
+            }
+              
             idUp = id;
 
-            document.getElementById('ProfilePicture').src='/images/Estate/'+path;
+            document.getElementById('ProfilePicture').src = '/images/Estate/' + path;
 
             myModal.show();
-                        var x = document.getElementsByClassName('modal-backdrop')[0];
+            var x = document.getElementsByClassName('modal-backdrop')[0];
 
             x.remove();
 
             document.getElementById('btnUpdate').hidden = false;
             document.getElementById('btnSave').hidden = true;
             document.getElementById('Id').value = id;
-             
-             document.getElementById('ImagePath').value = path;
 
-             
-   
+            document.getElementById('ImagePath').value = path;
+
+
+
 
         }
 
-   
-  
 
-      
+
+
+
     </script>
 
-   @idupp=idUp;
+    @idupp=idUp;
 
-   <script>
-   </script>
+    <script>
+    </script>
 
     @if (GP.Models.Toast.ShowModel)
     {
-       
-
-        @if (GP.Models.Toast.isAdd)
-        {
-            
-            <script>document.getElementById('btnUpdate').hidden = true;
 
 
-                 document.getElementById('InputId').hidden=true;
-            </script>
+    @if (GP.Models.Toast.isAdd)
+    {
 
-        }
-        else
-        {
-            <script>document.getElementById('btnSave').hidden = true;</script>
+    <script>document.getElementById('btnUpdate').hidden = true;
 
-        }
 
-         <script>
-            myModal.show();
+        document.getElementById('InputId').hidden = true;
+    </script>
 
-        </script>
+    }
+    else
+    {
+    <script>document.getElementById('btnSave').hidden = true;</script>
 
-}
-else
-{
+    }
+
+    <script>
+        myModal.show();
+
+    </script>
+
+    }
+    else
+    {
     <script>
 
         var myToastEl = document.getElementById('mymessage');
@@ -245,6 +463,6 @@ else
 
     </script>
 
-}
+    }
 
-}
+    }

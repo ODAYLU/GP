@@ -6,19 +6,17 @@
 
 
 
-       if (User.IsInRole("Owner"))
+    if (User.IsInRole("Owner"))
     {
         Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
-      
     }
        
 }
 
-@{
-    
-}
+<div class="text-center pt-3 pb-5">
+    <p class=" fw-bold borderbottom fs-3 d-inline-block">عقاراتي</p>
+</div>
 
-<h1>Index</h1>
 
 @if (GP.Models.Toast.ShowTost)
 {
@@ -35,10 +33,12 @@
     </div>
 }
 
-<p>
-    <a asp-action="CreateTemp" >Create New</a>
-</p>
-<table class="table">
+
+<div class="text-start position-absolute left-0" style="border-bottom: 2px solid var(--orange);left: 20px;top: 20px;">
+    <a asp-action="CreateTemp"  style="text-decoration:none; color:var(--orange);">اضافة عقار <i class="bi bi-plus"></i></a>
+</div>
+
+<table class=" pt-5 table table-bordered text-center table-md ">
     <thead>
         <tr>
 
@@ -66,9 +66,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.phone_num)
             </th>
-           
-         
-           
             <th>
                 @Html.DisplayNameFor(model => model.State)
             </th>
@@ -134,11 +131,17 @@
              @{
                         @if (@item.publish)
                         {
-                             <div>منشور </div>
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                              <label class="form-check-label" for="mySwitch">منشور</label>
+                            </div>
                         }
                         else
                         {
-                           <div> غير منشور </div>
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="NO" >
+                              <label class="form-check-label" for="mySwitch">غير منشور</label>
+                            </div>
                         }
                     }
            
@@ -159,6 +162,7 @@
 
             </td>
         </tr>
+     
 }
     </tbody>
 </table>

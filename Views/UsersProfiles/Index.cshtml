@@ -1,8 +1,11 @@
 ﻿@model IQueryable<GP.Models.AppUser>
 @{
+
+
 }
 
 <link rel="stylesheet" href="~/indexLayout/assets/css/UsersProfiles.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
 
 
@@ -60,29 +63,30 @@
         </div>
 
 
- 
+
 
     </div>
 
     <div class="container ">
         <div class="row active-with-click" id="myUL">
-        @foreach (var owner in Model)
-        {
+            @foreach (var owner in Model)
+            {
                 <div class=" txt col-lg-4 col-md-6 col-xs-12">
                     <article class="material-card Red">
                         <h2>
                             <span class="A">@owner.FirstName @owner.LastName</span>
                             <strong>
                                 <i class="fa fa-fw fa-star"></i>
-                                The Deer Hunter
+                                <a class="btn btn-outline-danger" href="/UsersProfiles/GetProfile/@owner.Id">The Deer Hunter </a>
                             </strong>
+
                         </h2>
                         <div class="mc-content">
                             <div class="img-container">
-                                <img class=" img-fluid" src="/assets/img/pages/user.jpg">
+                                <img class=" img-fluid" src="~/images/Category/d5eae43c-6495-4b73-808b-358107ed8da0.jpg">
                             </div>
                             <div class="mc-description">
-                            @owner.decription
+                                @owner.decription
                             </div>
                         </div>
                         <a class="mc-btn-action">
@@ -95,24 +99,13 @@
                             <a href="@owner.facebook" class="fa fa-fw fa-facebook"></a>
                             <a href="@owner.twitter" class="fa fa-fw fa-twitter"></a>
                             <a href="@owner.instigram" class="fa fa-fw fa-instagram"></a>
-                        @*  <a href="#" class="fa fa-fw fa-google-plus"></a>*@
+                            @*  <a href="#" class="fa fa-fw fa-google-plus"></a>*@
                         </div>
                     </article>
                 </div>
-        }
-
-
+            }
 
         </div>
     </div>
-
-    <script src="~/assets/bootstrap/ajax_query.min.js"></script>
-    <script src="~/assets/js/main.js"></script>
-
-
-
-
-
-
 
 

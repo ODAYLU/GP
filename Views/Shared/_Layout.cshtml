@@ -17,6 +17,12 @@
   <link href="~/indexLayout/assets/css/profile.css" rel="stylesheet">
   <link href="~/indexLayout/assets/css/style.css" rel="stylesheet">
   <link href="~/css/Chat.css" rel="stylesheet" />
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.14/css/bootstrap-multiselect.css
+
+
+
+"rel="stylesheet" />
 </head>
 
 
@@ -238,24 +244,24 @@
    @await RenderSectionAsync("Scripts", required: false)
        <script src="~/lib/aspnet/signalr/dist/browser/signalr.js"></script>
 
+
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.14/js/bootstrap-multiselect.min.js"></script>
+
     <script src="~/js/Chat.js"></script>
   <script type="text/javascript">
     new WOW().init();
     AOS.init({
     })
 
-
-
+  
     $(".heart.bi").click(function () {
       $(this).toggleClass("heart heart-des");
     });
 
-     $(function () {
-                $("#mm").chosen();  
-                
-          })
+    
           window.onload=function (){
-              var x = document.getElementById("mm_chosen");
+              var x = document.getElementById("mm");
+              
               x.classList.add("w-100");
           }
 

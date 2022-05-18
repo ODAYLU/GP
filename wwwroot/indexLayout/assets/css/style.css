@@ -36,6 +36,7 @@
     --orange2: navajowhite;
     --secondery: #585757;
     --form: #fff;
+    --dartcc: #000;
 }
 
     :root.dark {
@@ -52,6 +53,7 @@
         --footercolor: #00000089;
         --secondery: #d5d5d5;
         --form: #1d2a35;
+        --dartcc: #e0e0e0;
     }
 
 
@@ -665,3 +667,518 @@ footer .nav .nav-item .text-dark {
 
 
 
+
+
+
+/*---------signup-step-------------*/
+.bg-color {
+    background-color: #333;
+}
+
+
+.wizard .nav-tabs {
+    position: relative;
+    margin-bottom: 0;
+    border-bottom-color: transparent;
+}
+
+.wizard > div.wizard-inner {
+    position: relative;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.connecting-line {
+    height: 2px;
+    background: #e0e0e0;
+    position: absolute;
+    width: 74%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 15px;
+    z-index: 1;
+}
+
+.wizard .nav-tabs > li.active > a, .wizard .nav-tabs > li.active > a:hover, .wizard .nav-tabs > li.active > a:focus {
+    color: #005C4B;
+    cursor: default;
+    border: 0;
+    border-bottom-color: transparent;
+}
+
+span.round-tab {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    border-radius: 50%;
+    background: #fff;
+    z-index: 2;
+    position: absolute;
+    left: 0;
+    text-align: center;
+    font-size: 16px;
+    color: #005C4B;
+    font-weight: 500;
+    border: 1px solid #ddd;
+}
+
+    span.round-tab i {
+        color: #555555;
+    }
+
+.wizard li.active span.round-tab {
+    background: #005C4B;
+    color: #fff;
+    border-color: #005C4B;
+}
+
+    .wizard li.active span.round-tab i {
+        color: #5bc0de;
+    }
+
+.wizard .nav-tabs > li.active > a i {
+    color: #005C4B;
+}
+
+.wizard .nav-tabs > li {
+    width: 25%;
+}
+
+.wizard li:after {
+    content: " ";
+    position: absolute;
+    left: 46%;
+    opacity: 0;
+    margin: 0 auto;
+    bottom: 0px;
+    border: 5px solid transparent;
+    border-bottom-color: #005C4B;
+    transition: 0.1s ease-in-out;
+}
+
+
+
+.wizard .nav-tabs > li a {
+    width: 30px;
+    height: 30px;
+    margin: 20px auto;
+    border-radius: 100%;
+    padding: 0;
+    background-color: transparent;
+    position: relative;
+    top: 0;
+}
+
+    .wizard .nav-tabs > li a i {
+        position: absolute;
+        top: -15px;
+        font-style: normal;
+        font-weight: 400;
+        white-space: nowrap;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 12px;
+        font-weight: 700;
+        color: #b9b9b9;
+    }
+
+    .wizard .nav-tabs > li a:hover {
+        background: transparent;
+    }
+
+.wizard .tab-pane {
+    position: relative;
+    padding-top: 20px;
+}
+
+
+.wizard h3 {
+    margin-top: 0;
+}
+
+.prev-step,
+.next-step {
+    font-size: 13px;
+    padding: 8px 24px;
+    border: none;
+    border-radius: 4px;
+    margin-top: 30px;
+}
+
+.next-step {
+    background-color: #005C4B;
+    color: #fff;
+}
+
+.skip-btn {
+    background-color: #cec12d;
+}
+
+.step-head {
+    font-size: 20px;
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.term-check {
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.custom-file {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    margin-bottom: 0;
+}
+
+.custom-file-input {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 40px;
+    margin: 0;
+    opacity: 0;
+}
+
+.custom-file-label {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    height: 40px;
+    padding: .375rem .75rem;
+    font-weight: 400;
+    line-height: 2;
+    color: #495057;
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+    .custom-file-label::after {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 3;
+        display: block;
+        height: 38px;
+        padding: .375rem .75rem;
+        line-height: 2;
+        color: #495057;
+        content: "Browse";
+        background-color: #e9ecef;
+        border-left: inherit;
+        border-radius: 0 .25rem .25rem 0;
+    }
+
+.footer-link {
+    margin-top: 30px;
+}
+
+
+.list-box {
+    padding: 10px;
+}
+
+.signup-logo-header .logo_area {
+    width: 200px;
+}
+
+.signup-logo-header .nav > li {
+    padding: 0;
+}
+
+.signup-logo-header .header-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.list-inline li {
+    display: inline-block;
+}
+
+
+
+
+@media (max-width: 767px) {
+    .sign-content h3 {
+        font-size: 40px;
+    }
+
+    .wizard .nav-tabs > li a i {
+        display: none;
+    }
+
+    .signup-logo-header .navbar-toggle {
+        margin: 0;
+        margin-top: 8px;
+    }
+
+    .signup-logo-header .logo_area {
+        margin-top: 0;
+    }
+
+    .signup-logo-header .header-flex {
+        display: block;
+    }
+}
+
+
+.btn-success {
+    background-color: #005C4B;
+    color: #fff;
+}
+
+    .btn-success:hover {
+        color: #fff;
+        background-color: #005C4B;
+        border-color: #005C4B;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***********************profile page****************************************/
+
+
+/* Profile sidebar */
+.profile-sidebar {
+    background: var(--bgdark);
+}
+
+.circle {
+    border-style: 1px solid;
+    border-radius: 50%;
+    width: 200px !important;
+    height: 200px !important;
+    box-shadow: -1px 0px 12px 2px #b0b0b08c;
+}
+
+.ulborder .nav-item .nav-link {
+    color: var(--secondery) !important;
+}
+
+.ulborder .nav-item {
+    border-bottom: 0.2px solid #9ba88931;
+    width: 100%;
+    padding-right: 80px;
+}
+
+    .ulborder .nav-item:last-child {
+        border-bottom: none;
+    }
+
+    .ulborder .nav-item a:hover {
+        color: var(--txtactive);
+    }
+
+    .ulborder .nav-item.active {
+        border-bottom: none;
+        background-color: #ffdead4d;
+        border-right: 4px solid var(--orange);
+    }
+
+.profile-stat {
+    padding-bottom: 20px;
+    padding-top: 15px;
+    border-bottom: 1px solid #9ba88931;
+    border-top: 1px solid #9ba88931;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.profile-stat-title {
+    color: #7f90a4;
+    font-size: 25px;
+    text-decoration: none;
+}
+
+.profile-stat-text {
+    color: #7f90a4;
+    font-size: 10px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.profile-pic {
+    color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+    .profile-pic img {
+        position: absolute;
+        object-fit: cover;
+        width: 200px;
+        box-shadow: 0 0 10px 0 rgba(255, 255, 255, .35);
+        border-radius: 100px;
+        z-index: 0;
+    }
+
+    .profile-pic .-label {
+        height: 200px;
+        width: 200px;
+        border-radius: 50% !important;
+    }
+
+    .profile-pic:hover .-label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, .8);
+        z-index: 5;
+        color: #fafafa;
+        transition: 0.2s ease-in-out;
+    }
+
+.profile-content {
+    background: var(--bgdark);
+    width: 100%;
+    height: 100%;
+    overflow: auto !important;
+}
+
+a:hover {
+    color: var(--litegreen);
+}
+
+.borderbottom {
+    border-bottom: 4px solid #A9A59F;
+}
+
+.form-control {
+    background-color: var(--form);
+    color: var(--txtactive);
+    border: 1px solid #a6a6a691;
+}
+
+    .form-control:disabled, .form-control[readonly] {
+        background-color: var(--bgwhite);
+    }
+
+    .form-control:focus {
+        color: var(--txtactive);
+        background-color: var(--bgwhite);
+        border-color: var(--green);
+        outline: 0;
+        box-shadow: none;
+    }
+
+
+
+    /***index *****/
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-accent-bg: transparent;
+    --bs-table-striped-color: #212529;
+    --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+    --bs-table-active-color: #212529;
+    --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+    --bs-table-hover-color: #212529;
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+    width: 100%;
+    margin-bottom: 1rem;
+    color: var(--txtactive);
+    vertical-align: top;
+    border-color: #dee2e6;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.wrapper {
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+}
+
+.image-gallery {
+    margin: 0 auto;
+    display: table;
+}
+
+.primary, .thumbnails {
+    display: table-cell;
+}
+
+.thumbnails {
+    width: 300px;
+}
+
+.primary {
+    width: 600px;
+    height: 400px;
+    background-color: #cccccc;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.thumbnail:hover .thumbnail-image, .selected .thumbnail-image {
+    border: 4px solid red;
+}
+
+.thumbnail-image {
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    border: 4px solid transparent;
+}

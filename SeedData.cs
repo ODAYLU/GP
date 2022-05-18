@@ -18,6 +18,8 @@ namespace GP
         }
 
         public static bool IsPserosalPhoto { get; set; }
+
+        public static long EstateByImage { get; set; }
         public static void SeedUsers(
             UserManager<AppUser> userManager)
         {

@@ -92,6 +92,10 @@ namespace GP.Controllers
         {
             return View();
         }
+        public IActionResult Owners()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

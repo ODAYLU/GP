@@ -144,6 +144,8 @@
         <div class="container py-3">
           <p class="text-center fs-2 py-5" data-aos="fade-down"><span class="txtborder">العقارات المميزة</span></p>
           <div class="row pt-3 g-3">
+          
+                @{
               @{
                    @if(@ViewBag.FavEstate is not null)
                   foreach (var item in (List<Estate>)ViewBag.FavEstate)
@@ -181,7 +183,6 @@
                   }
               }
    
-            
             
             
           </div>
@@ -319,6 +320,86 @@
 @section Scripts{
     <script type="text/javascript">
         
+        $(document).ready(function () {
+            $.ajax({
+                url: '/Estate/GetEstate',
+                type: "Get",
+                datatype: "json",
+                success: function (response) {
+                    console.log(response);
+                    var string = ""
+                    for (var i = 0; i < response.length; i++) {
+                        string += `
+                                <div class="col-xxl-3 col-md-6 col-sm-12 mb-6 mm  sale">
+                                    <div class="card card1 top-be top-bee ">
+                                        <img src="/images/Estate/${response[i].main_photo}" alt="...">
+                                        <div class="card-body text-center my-3 ">
+                                            <h3 class="card-title"> ${response[i].name} </h3>
+                                            <h6 class="card-text text-success">${response[i].state.name} ${response[i].city.name} </h6>
+                                            <p class="text-secondary"> تاريخ الإضافة : ${response[i].onDate.split("T")[0]}</p>
+                                        </div>
+                                        <div class="list-group list-group-flush">
+                                            <div class="list-group-item d-flex flex-row justify-content-between">
+                                                <div class="d-flex flex-row mt-3 mb-2">
+                                                    <img class="img-fluid ms-2 " src="">
+                                                    <div>
+                                                        <p class="mb-0"> ${response[i].name_owner}</p>
+                                                        <div>
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star checked"></span>
+                                                            <span class="fa fa-star"></span>
+                                                            <span class="fa fa-star"></span>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill me-3 mb-2 mt-3" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                                                    </svg>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+    `
+                    }
+                    $("#dataEstate").html(string);
+
+                }
+            });
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+ $(function () {
+                $("#mm").chosen();  
+                
+          })
+          window.onload=function (){
+              var x = document.getElementById("mm_chosen");
+              x.classList.add("w-100");
+          }
         
     </script>
     
