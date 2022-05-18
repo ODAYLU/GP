@@ -58,10 +58,10 @@
         </p>
         <p>
             <div class="d-flex justify-content-around">
-                <p class="px-3"><span>@Html.DisplayNameFor(model => model.Longitude): </span><strong>@Html.DisplayFor(model => model.Longitude)</strong></p>
-                <p class="px-3"><span>@Html.DisplayNameFor(model => model.Latitude): </span><strong>@Html.DisplayFor(model => model.Latitude)</strong></p>
+                <p class="px-3"><span>@Html.DisplayNameFor(model => model.Longitude): </span><strong id="Long">@Html.DisplayFor(model => model.Longitude)</strong></p>
+                <p class="px-3"><span>@Html.DisplayNameFor(model => model.Latitude): </span><strong id="Lat">@Html.DisplayFor(model => model.Latitude)</strong></p>
             </div>
-            <div id="googleMap" style="width: 100%; height: 450px; margin:12px 0;"></div>
+            <div id="map" style="width: 100%; height: 450px; margin:12px 0;"></div>
         </p>
 
       </div>
@@ -95,147 +95,39 @@
 
     
   
-
-<script src='https://maps.googleapis.com/maps/api/js?akey=PUT_YOUR_KEY_HERE_AND_FIX_akey_TO_key&language=ar&region=SA'></script><script  src="./script.js"></script>
 <script>
-          
-   
+       var x = document.getElementById('Long');
+    var xx= x.innerHTML;
 
-    var gmapdata;
-var gmapmarker;
-var infoWindow;
-// This is a test Key will not work on your machine. YOU SHOULD CHANGE THIS API KEY.
-// const gmap_key = '&key=PUT_YOUR_KEY_HERE';
-const gmap_key = '';
+    var y = document.getElementById('Lat');
+        var yy= y.innerHTML;
+    
+        function initMap() {
 
-// This needs to be audited for the city!!
-var cityData = { CityId:0 };
+         
+            var mapOptions = {
+                center: new google.maps.LatLng(`${xx}`, `${yy}`),
+                mapTypeId: google.maps.MapTypeId.satellite,   /* ()أنواع 4)نوع الخريطة*/
+                zoom: 16 // The largest 16 (zooming)
+            };
+            var elm = document.getElementById('map');
+            var mymap = new google.maps.Map(elm, mapOptions);  // create an object (new)
 
-function GoogleMapInit(long,lat,zoom) {
-  var curpoint = new google.maps.LatLng(long, lat);
+            var pinlocation = new google.maps.LatLng(`${xx}`, `${yy}`);
+            var startposition = new google.maps.Marker(
+                {
+                    position: pinlocation,
+                    map: mymap,
+                    icon: "/images/Untitled-1.png"
 
-  var myStyle = 
-  [
-    {
-      featureType: "administrative.country",
-      elementType: "labels",
-      stylers: [
-        { visibility: "off" }
-      ]
-    },{
-      featureType: "water",
-      elementType: "labels",
-      stylers: [
-        { visibility: "off" }
-      ]
-    }/*,{
-      featureType: "road",
-      elementType: "labels",
-      stylers: [
-        { visibility: "off" }
-      ]
-    }*/
-  ];
-
-  var gmapdata = new google.maps.Map(document.getElementById('googleMap'), {
-    mapTypeControlOptions: {
-      mapTypeIds: ['TESTMAPID', google.maps.MapTypeId.SATELLITE]
-    },
-    center: curpoint,
-    zoom: 16,
-    mapTypeId: 'TESTMAPID',
-    zoomControl: true,
-    // mapTypeControl: false,
-    scaleControl: false,
-    streetViewControl: false,
-    rotateControl: false,
-    fullscreenControl: true
-  });
-
-  gmapdata.mapTypes.set('TESTMAPID', new google.maps.StyledMapType(myStyle, { name: 'My TEST MAP' }));
-
-  gmapmarker = new google.maps.Marker({
-      map: gmapdata,
-      position: curpoint
-  });
-
-  google.maps.event.addListener(gmapdata, 'click', function (event) {
-    gmapmarker.setPosition(event.latLng);
-    jQuery('#Longitude').val(event.latLng.lng().toFixed(6));
-    jQuery('#Latitude').val(event.latLng.lat().toFixed(6));
-    jQuery.ajax({
-      url: "https://maps.googleapis.com/maps/api/geocode/json?language=ar&region=SA&latlng=" + event.latLng.lat().toFixed(6) + ',' + event.latLng.lng().toFixed(6) + gmap_key,
-      // contentType: json,
-      processData: false,
-      success: function (result) {
-          console.log(result);
-          jQuery('#edit-postal-code').val(GetLocationItem(result.results[0].address_components, "postal_code"));
-          jQuery('#edit-postal-code-suffix').val(GetLocationItem(result.results[0].address_components, "postal_code_suffix"));
-          jQuery('#edit-select-city').val(GetLocationItem(result.results[0].address_components, "locality"));
-          jQuery('#edit-district-name').val(GetLocationItem(result.results[0].address_components, "sublocality_level_1"));
-          jQuery('#edit-street-name').val(GetLocationItem(result.results[0].address_components, "route"));
-          if (!GetLocationItem(result.results[0].address_components, "street_number")) {
-            jQuery('#edit-building-number').val(GetLocationItem(result.results[0].address_components, "premise"));
-          } else {
-            jQuery('#edit-building-number').val(GetLocationItem(result.results[0].address_components, "street_number"));
-          }
-          
-          cityData.CityName = GetLocationItem(result.results[0].address_components, "locality");
-          // console.log(cityData.CityName);
-          try {
-            var cityObject = GetLocationObject(result.results, "locality");
-            cityData.Longitude = cityObject.geometry.location.lng;
-            cityData.Latitude = cityObject.geometry.location.lat;
-            // console.log(cityData);
-          } catch(err){}
-          jQuery('#full-address').val(result.results[0].formatted_address);
-      }, error: function (result) {
-          alert(result);
-      }
-    })
-    UpdateInfoWindow()
-  });
-
-  google.maps.event.addListener(gmapmarker, 'click', function () {
-      UpdateInfoWindow()
-      infoWindow.open(gmapdata, gmapmarker);
-  });
-  return false;
-}
-
-function GetLocationItem (object, key) {
-  for (var i = 0; i < object.length; i++) {
-    var typesList = object[i].types;
-    for (var j = 0; j < typesList.length; j++) {
-      if (typesList[j] == key) {
-        return object[i].long_name;
-      }
-    }
-  }
-}
-
-function GetLocationObject(object, key) {
-  for (var i = 0; i < object.length; i++) {
-    var typesList = object[i].types;
-    for (var j = 0; j < typesList.length; j++) {
-      if (typesList[j] == key) {
-        return object[i];
-      }
-    }
-  }
-}
-
-function UpdateInfoWindow() {
-  infoWindow.setContent("Longitude: " + gmapmarker.getPosition().lng().toFixed(6) + "<br>" + "Latitude: " + gmapmarker.getPosition().lat().toFixed(6));
-}
-
-jQuery(document).ready(function () {
-  // Set default value.
-  GoogleMapInit(24.820457,46.643868,16);
-});
-
-</script>
-
+                });
+        }
+        window.onload = function () {
+            var code = document.createElement('script');
+            code.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAXuizXxXdy3kjKyHQrjt7femrQR2QtZaE&callback=initMap";
+            document.body.appendChild(code);
+        }
+    </script>
 
   
 }

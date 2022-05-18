@@ -221,7 +221,11 @@ ViewData["Title"] = "إضافة عقار جديد";
                                             <div class="form-group" >
                                                 <label class="control-label"> خدمات اضافية  </label>
                                                     
+
                                                 @Html.ListBoxFor(model=> Model.list,new MultiSelectList(serv.GetAllSelected(),nameof(Services.Id),nameof(Services.Name)),new {id="mm",multiple="multiple"})
+
+                                        
+
                                             </div>
                                         </div>
 
@@ -315,10 +319,26 @@ ViewData["Title"] = "إضافة عقار جديد";
 
 
 @section Scripts {
+
+<script>
+    $(document).ready(function(){
+              $('#mm').chosen();  
+
+    })
+
+
+    
+          
+                
+
+
+    </script>
+
    
 <script src='~/js/mapsapi.js'></script>
 <script src='~/indexLayout/assets/bootstrap/bootstrap4.min.js'></script>
 <script src='~/js/creteitem.js'></script>
+
 
 <script>
 
