@@ -54,8 +54,8 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
 .image {
   opacity: 1;
   display: block;
-  width: 100%;
-  height: auto;
+  width: 600px;
+  height: 500px;
   transition: .5s ease;
   backface-visibility: hidden;
 }
@@ -178,7 +178,7 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
             <div class="containerr hoverimg pt-3">
 
                 <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
-                <img id="expandedImg" class="image img-fluid">
+                <img id="expandedImg" class="image m-auto img-fluid">
                 <div class="middle">
                     <div >
                         <button type="submit" class="btn bg-success text-white py-2 px-3 rounded-circle fs-3" asp-action="DeleteImage" asp-route-id="@item.Id"

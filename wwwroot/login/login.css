@@ -1,7 +1,3 @@
-
-body{
-  font-family: 'Cairo', sans-serif;
-}
 .padable{padding: 3em;}
 .main-section{
   height: 100vh;
@@ -29,40 +25,44 @@ body{
   top: 50%;right: 6em;
 }
 .illustrator{position: relative;}
-.circle{
-  border-radius: 50%;
-  width: 900px;
-  height: 900px;
-  background-color: #005c4b;
-  position: absolute;
-  top: -12px;left: -27em;
-  border: 8px solid rgba(255,255,255,0.8);
+.circle {
+    border-radius: 50%;
+    width: 900px;
+    height: 900px;
+    background-color: #005c4b;
+    position: absolute;
+    bottom: -12px;
+    left: -27em;
+    border: 8px solid rgba(255,255,255,0.8);
 }
-.circle-main{
-  border-radius: 50%;
-  width: 600px;
-  height: 600px;
-  background-color: #005c4b;
-  position: absolute;
-  top: -20em;right: -20em;
+.circle-main {
+    border-radius: 50%;
+    width: 600px;
+    height: 600px;
+    background-color: #005c4b;
+    position: absolute;
+    bottom: -20em;
+    right: -20em;
 }
-.circle-main-m{
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  top: 1.2em;right: 14em;
-  background-color: #005c4b;
-  background-image: linear-gradient(315deg, #005c4b 0%, #8fa177 100%);
+.circle-main-m {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    bottom: 1.2em;
+    right: 14em;
+    background-color: #005c4b;
+    background-image: linear-gradient(315deg, #005c4b 0%, #8fa177 100%);
 }
-.circle-main-s{
-  border-radius: 20%;
-  width: 60px;
-  height: 60px;
-  position: absolute;
-  top: 15em;right: 1em;
-  background-color: #005c4b;
-  background-image: linear-gradient(315deg, #005c4b 0%, #ffffff 100%);
+.circle-main-s {
+    border-radius: 20%;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    bottom: 15em;
+    bottom: 1em;
+    background-color: #005c4b;
+    background-image: linear-gradient(315deg, #005c4b 0%, #ffffff 100%);
 }
 
 
