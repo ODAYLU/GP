@@ -7,7 +7,7 @@
     {
         //Layout = "/Areas/Identity/Pages/_Layout.cshtml";
 
-        Layout = "/Views/Shared/_Layout.cshtml";
+        //Layout = "/Views/Shared/_Layout.cshtml";
     }
 }
     @inject UserManager<AppUser> _userManager;
@@ -51,15 +51,14 @@
     </style>
 
 
-
-
-
     
 @*     <link href="~/css/styleUser.css" rel="stylesheet" />*@
 
-     <div class="container shadow my-5">
 
-          <div class="col-12  position-relative prf">
+     <div class="container  my-5">
+         <div class=" row align-items-center">
+
+          <div class="col-2 px-0 position-relative prf">
                 <a href="/Identity/Account/Manage/PersonalUser" class="nav-link active fw-bold text-center m-1">
                   <i class="bi bi-person-fill"></i>المعلومات الشخصية
                 </a>
@@ -67,21 +66,17 @@
                        <i class="bi bi-person-fill"></i>عقارات أعجبتكك
                 </a>
           </div> 
-        <div class=" row align-items-center  ">
 
-          <div class="col">
+
+          <div class="col shadow">
                @RenderBody()
           </div>
         </div>
-
-
-
     </div>
 
         
-
 @section Scripts {
     @RenderSection("Scripts", required: false)
     
-      
+
 }
