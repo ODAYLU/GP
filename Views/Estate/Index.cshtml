@@ -127,13 +127,14 @@
                 var w = document.getElementsByClassName(`form-check-label-${c}`)[0];
    
         Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'هل أنت متأكد من تعطيل العقار ؟',
+            text: "قد يترتب على ذلك عدم ظهور العقار للمستخدمين ",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'موافق',
+            cancelButtonText: 'غير موفق'
         }).then((result) => {
             if (result.isConfirmed) {
 
@@ -153,8 +154,8 @@
                 
                     success: function () {
                         Swal.fire(
-                            'Deleted!',
-                            'Your file has been deleted.',
+                            'تم تعطيل العقار بنجاح',
+                            '',
                             'success'
                         )
                        
