@@ -7,6 +7,7 @@
 @inject GP.Models.IService serv  
 
 @{
+
 ViewData["Title"] = "إضافة عقار جديد";
 
     //Layout = "~/Views/Shared/_LayoutOwner.cshtml";
@@ -17,6 +18,7 @@ ViewData["Title"] = "إضافة عقار جديد";
     }
 }
 
+<link href="/DownLoad/chosen.min.css" rel="stylesheet"/>
 
 
 <div class="text-start position-absolute left-0" style="border-bottom: 2px solid var(--orange);left: 20px;top: 20px;">
@@ -222,7 +224,7 @@ ViewData["Title"] = "إضافة عقار جديد";
                                                 <label class="control-label"> خدمات اضافية  </label>
                                                     
 
-                                                @Html.ListBoxFor(model=> Model.list,new MultiSelectList(serv.GetAllSelected(),nameof(Services.Id),nameof(Services.Name)),new {id="mm",multiple="multiple"})
+                                                @Html.ListBoxFor(model=> Model.list,new MultiSelectList(serv.GetAllSelected(),nameof(Services.Id),nameof(Services.Name)),new {id="mselect",multiple="multiple"})
 
                                         
 
@@ -320,18 +322,20 @@ ViewData["Title"] = "إضافة عقار جديد";
 
 @section Scripts {
 
-<script>
-    $(document).ready(function(){
-              $('#mm').chosen();  
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+<script  type="text/javascript"  src="/DownLoad/chosen.jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#mselect').chosen({rtl: true});
 
-    })
+           $('.chosen-container').css("width","100%");
+
+           $('.chosen-search-input').val('اختر الخدمات ');
 
 
+        });
     
-          
-                
-
-
+    
     </script>
 
    

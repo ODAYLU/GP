@@ -31,7 +31,7 @@
   <header style="padding-bottom: 100px;">
     <nav class="navbar align-items-center p-0 navbar-expand-md navbar-dark fixed-top" id="navbar">
       <div class="container-fluid">
-        <a class="navbar-brand navbar-logo" href="index.html">
+        <a class="navbar-brand navbar-logo" asp-area="" asp-controller="Home" asp-action="Index">
           <img src="~/indexLayout/assets/img/logo/logowit.png" class="img-fluid logo">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
@@ -239,7 +239,7 @@
   <script src="~/indexLayout/assets/js/swipar.js"></script>
   <script src="~/indexLayout/assets/js/loding.js"></script>
   <script src="~/indexLayout/assets/js/index.js"></script>
-             @await RenderSectionAsync("Scripts", required: false)
+           
 
        <script src="~/lib/aspnet/signalr/dist/browser/signalr.js"></script>
 
@@ -262,6 +262,8 @@
           //    x.classList.add("w-100");
           //}
   </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

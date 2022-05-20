@@ -160,7 +160,7 @@
 
 
     @section Scripts {
-    @RenderSection("Scripts", required: false)
+   
 
     <script>
       function clickOn() {
@@ -173,4 +173,5 @@
         var imgs = image.src = URL.createObjectURL(event.target.files[0]);
       };
     </script>
+     @RenderSection("Scripts", required: false)
     }
