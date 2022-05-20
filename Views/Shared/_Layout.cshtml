@@ -239,7 +239,7 @@
   <script src="~/indexLayout/assets/js/swipar.js"></script>
   <script src="~/indexLayout/assets/js/loding.js"></script>
   <script src="~/indexLayout/assets/js/index.js"></script>
-             @await RenderSectionAsync("Scripts", required: false)
+           
 
        <script src="~/lib/aspnet/signalr/dist/browser/signalr.js"></script>
 
@@ -262,6 +262,8 @@
           //    x.classList.add("w-100");
           //}
   </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 
 </html>

@@ -51,10 +51,15 @@
 
 
 @* class="rounded " height="50" width="50" style="border-radius: 50%"*@
-
+@{
+    int c = 0;
+}
 @foreach (var item in Model) { 
 
-<div class="card mb-3" style="background-color:var(--bgwhite)">
+
+
+
+<div class=" mb-3" style="background-color:var(--bgwhite)">
   <div class="row g-0">
     <div class="col-md-4">
       <img src="~/images/Estate/@item.Main_photo" class="img-fluid rounded-start h-100" >
@@ -72,36 +77,116 @@
             <p>الحالة: @{@if (@item.publish)
                         {
                             <div class="form-check form-switch">
-                              <label class="form-check-label" for="mySwitch">منشور</label>
-                              <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                              <label class="form-check-label form-check-label-@c ms-5" for="mySwitch">منشور</label>
+                              <input onclick="fw(@item.Id,@c)" class="form-check-input form-check-input-@c" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
                             </div>
                         }
                         else
                         {
                             <div class="form-check form-switch">
-                              <label class="form-check-label" for="mySwitch">غير منشور</label>
-                              <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="NO" >
+                              <label class="form-check-label form-check-label-@c ms-5" for="mySwitch"> غير منشور</label>
+                              <input onclick="fw(@item.Id,@c)" class="form-check-input form-check-input-@c" type="checkbox" id="mySwitch" name="darkmode" value="NO" >
                             </div>
                         }
                     }</p>
         </div>
         <div class="d-flex">
-                <a href="Estate/Detalis/@item.Id" class="btn btn-outline-info ms-3" >عرض العقار</a>
-                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning ms-3" >Edit</a> 
+                <a href="Estate/Detalis/@item.Id" class="btn btn-outline-success ms-3" >عرض العقار</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary ms-3" >Edit</a> 
                 <a asp-action="ImageList" asp-route-id="@item.Id" class="btn btn-outline-secondary ms-3" >الصور</a> 
                 <a asp-controller="Contract"  asp-action="CreateContract" asp-route-id="@item.Id" class="btn btn-outline-success ms-3" > العقد</a>
-                <a asp-action="X" asp-route-id="@item.Id" onclick=" return confirm('هل تريد تغير حالة العقار (عرض العقار')"  > الحالة ؟</a>
+             
         </div>
     </div>
     </div>
   </div>
-</div>
+    </div>
+    c++;
+
 }
 
 
 @section Scripts{
      @(await Html.PartialAsync("_ValidationScriptsPartial"));
 
+          <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+     <script>
+
+
+
+         function fw(Id,c){
+             console.log(Id);
+             ff(Id,c);
+
+         }
+
+         function ff(Id,c){
+
+               var x = document.getElementsByClassName(`form-check-input-${c}`)[0];
+                var w = document.getElementsByClassName(`form-check-label-${c}`)[0];
+   
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                 if(x.checked){
+                w.textContent = ' منشور'
+
+
+                }
+
+                else{      
+                
+                     w.textContent = '  غير منشور'
+                }
+                $.ajax({
+                    method: 'Get',
+                    url: `/Estate/X/${Id}`,
+                
+                    success: function () {
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                       
+                    },
+                    error:function(){
+                        console.log("Failed Delete");
+                    },
+                    
+                    
+                });
+
+            }
+
+            else{
+
+               
+                if(x.checked){
+                    x.checked= false;
+                }
+
+                else{
+                    x.checked= true;
+
+                }
+
+            }
+        })
+
+
+      }
+        
+     </script>
          
 
      <script>
