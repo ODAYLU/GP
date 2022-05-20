@@ -18,8 +18,7 @@
     } 
     
     <style>
-    .nav-pills .nav-link.active,
-    .nav-pills .show>.nav-link {
+    .prf .nav-link {
       width: 200px;
       height: 50px;
       background-color: var(--orange2);
@@ -32,12 +31,23 @@
       transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
     }
 
-    .nav-pills .nav-link.active:hover {
+    .prf .nav-link.active:hover {
       transition: all .3s;
       background-color: var(--orange);
     }
 
-    .active:before {
+/*    .active:before {
+      content: "";
+      position: absolute;
+      right: 100%;
+      width: 0;
+      height: 0;
+      border-top: 13px solid transparent;
+      border-right: 26px solid var(--orange);
+      border-bottom: 13px solid transparent;
+      transition: all .3s;
+    }*/
+        .active:before {
       content: "";
       position: absolute;
       right: 100%;
@@ -51,57 +61,50 @@
 
 
     </style>
-              <div class="d-flex align-items-start tabs-left">
-              <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical" >
-                <button class="nav-link active fw-bold" id="talkbubble" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
-                 <i class="bi bi-person-fill"></i>المعلومات الشخصية
-                </button>
-                <button class="nav-link" id="talkbubble" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button>
-              </div>
-              <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...برلالاتلاانلا</div>
-                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">.home..</div>
-              </div>
-            </div>
+
+
 
 
 
     
-     <link href="~/css/styleUser.css" rel="stylesheet" />
+@*     <link href="~/css/styleUser.css" rel="stylesheet" />*@
 
      <div class="container shadow my-5">
+@*              <div class="d-flex align-items-start tabs-left">
+                  <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical" >
+                    <button class="nav-link active fw-bold" id="talkbubble" >
+                     <i class="bi bi-person-fill"></i>المعلومات الشخصية
+                    </button>
+                    <button class="nav-link" id="talkbubble" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button>
+                  </div>
+                  <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...برلالاتلاانلا</div>
+                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">نور</div>
+                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">سوار</div>
+
+                  </div>
+             </div>*@
 
 
 
-    
-
-
-
-
-
-
-        <div class="row d-flex justify-content-center">
-            <div class="col-3">
-               <div class="">
-            <div class="">
-                    <a href="/Identity/Account/Manage/PersonalUser" class="tabLinks rounded-3 btn  btn-danger" >
-                        <i class="bi bi-person text-white"></i>
-                        <span class="text-white me-2">المعلومات الشخصية</span>
-                        <i id="arrow1" class=" arrow fa-solid fa-caret-left"></i>
-                    </a>
-                    <a asp-controller="likedEstates" asp-area="" asp-action="Index" class="tabLinks rounded-3 btn btn-danger" onclick="openTab(event, 'aqar', 'arrow2')">
-                        <i class="bi bi-building text-white"></i>
-                        <span class="text-white me-2">العقارات</span>
-                        <i id="arrow2" class=" arrow fa-solid fa-caret-left"></i>
-                    </a>
-                </div>
+             
+        <div class="  ">
+            <div class="row align-items-center  prf">
+                <a href="/Identity/Account/Manage/PersonalUser" class="nav-link active fw-bold text-center m-3"  >
+                  <i class="bi bi-person-fill"></i>المعلومات الشخصية
+                </a>
+                <a asp-controller="likedEstates" asp-area="" asp-action="Index" class="nav-link m-1 fw-bold text-center"  onclick="openTab(event, 'aqar', 'arrow2')">
+                       <i class="bi bi-person-fill"></i>عقارات أعجبتكك
+                </a>
           </div>
+          <div class="">
+               @RenderBody()
           </div>
-  <div class="col-9">
-     @RenderBody()
-  </div>
-</div>
-</div>
+        </div>
+
+
+
+    </div>
 
         
 
