@@ -13,6 +13,16 @@
        
 }
 
+<style>
+.btn-outline-info:not(:disabled):not(.disabled).active:focus, .btn-outline-info:not(:disabled):not(.disabled):active:focus, .show>.btn-outline-info.dropdown-toggle:focus{
+    box-shadow:none;
+   
+}
+ .btn:focus{
+         box-shadow:none !important;
+    }
+</style>
+
 <div class="text-center pt-3 pb-5">
     <p class=" fw-bold borderbottom fs-3 d-inline-block">عقاراتي</p>
 </div>
@@ -38,134 +48,57 @@
     <a asp-action="CreateTemp"  style="text-decoration:none; color:var(--orange);">اضافة عقار <i class="bi bi-plus"></i></a>
 </div>
 
-<table class=" pt-5 table table-bordered text-center table-md ">
-    <thead>
-        <tr>
 
-              <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-      <th>
-           @Html.DisplayNameFor(model => model.Main_photo)
-      </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Category)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.space)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.price)
-            </th>
-             <th>
-                @Html.DisplayNameFor(model => model.name_owner)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.phone_num)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.State)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Currency)
-            </th>
 
-            <th>
-                @Html.DisplayNameFor(model => model.publish)
-            </th>
-           
-            <th> Action </th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
+@* class="rounded " height="50" width="50" style="border-radius: 50%"*@
 
-            
-             <td>
-                 <a href="Estate/Detalis/@item.Id">
-                @Html.DisplayFor(modelItem => item.Id)
-                </a>
-            </td>
-            <td>
-          <img src="~/images/Estate/@item.Main_photo"  class="rounded " height="50" width="50" style="border-radius: 50%">
-          </td>
-           
-            
-             <td>
-                @Html.DisplayFor(modelItem => item.Category.category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type.type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.space)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_owner)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.phone_num)
-            </td>
-          
-            <td>
-                @Html.DisplayFor(modelItem => item.State.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Currency.currency)
-            </td>
+@foreach (var item in Model) { 
 
-            <td>
-             @{
-                        @if (@item.publish)
+<div class="card mb-3" style="background-color:var(--bgwhite)">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img src="~/images/Estate/@item.Main_photo" class="img-fluid rounded-start h-100" >
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title fs-4"><strong>- @Html.DisplayFor(modelItem => item.name)</strong><sub><span>@Html.DisplayFor(modelItem => item.Type.type)</span>  <span>@Html.DisplayFor(modelItem => item.Category.category)</span></sub></h5>
+        <p class="card-text">@Html.DisplayFor(modelItem => item.description)</p>
+        <p class="card-text"><strong>مساحة العقار:@Html.DisplayFor(modelItem => item.space)</strong></p>
+        <div class=" card-text d-flex">
+            <p class="card-text "><strong><i class="bi bi-geo-alt-fill"></i> @Html.DisplayFor(modelItem => item.State.name) - @Html.DisplayFor(modelItem => item.City.name)</strong></p>
+            <p class="card-text pe-5"><strong><i class="bi bi-cash-coin"></i> <span>@Html.DisplayNameFor(modelItem => item.price): </span>@Html.DisplayFor(modelItem => item.price)@Html.DisplayFor(modelItem => item.Currency.currency)</strong></p>
+        </div>
+        <div class=" card-text d-flex">
+            <p>الحالة: @{@if (@item.publish)
                         {
                             <div class="form-check form-switch">
-                              <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
                               <label class="form-check-label" for="mySwitch">منشور</label>
+                              <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
                             </div>
                         }
                         else
                         {
                             <div class="form-check form-switch">
-                              <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="NO" >
                               <label class="form-check-label" for="mySwitch">غير منشور</label>
+                              <input class="form-check-input" type="checkbox" id="mySwitch" name="darkmode" value="NO" >
                             </div>
                         }
-                    }
-           
-           
-           </td>
-           
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-              
-                <a asp-action="ImageList" asp-route-id="@item.Id" >الصور</a> |
-
-                <a asp-action="X" asp-route-id="@item.Id" onclick=" return confirm('هل تريد تغير حالة العقار (عرض العقار  ')"  > الحالة ؟</a>|
-           
-                @*<a asp-action="Delete" asp-route-id="@item.Id" onclick=" return confirm(@item.Id)"  >Delete</a>|*@
-
-                <a asp-controller="Contract"  asp-action="CreateContract" asp-route-id="@item.Id" > العقد</a> |
-
-
-            </td>
-        </tr>
-     
+                    }</p>
+        </div>
+        <div class="d-flex">
+                <a href="Estate/Detalis/@item.Id" class="btn btn-outline-info ms-3" >عرض العقار</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning ms-3" >Edit</a> 
+                <a asp-action="ImageList" asp-route-id="@item.Id" class="btn btn-outline-secondary ms-3" >الصور</a> 
+                <a asp-controller="Contract"  asp-action="CreateContract" asp-route-id="@item.Id" class="btn btn-outline-success ms-3" > العقد</a>
+                <a asp-action="X" asp-route-id="@item.Id" onclick=" return confirm('هل تريد تغير حالة العقار (عرض العقار')"  > الحالة ؟</a>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
 }
-    </tbody>
-</table>
+
+
 @section Scripts{
      @(await Html.PartialAsync("_ValidationScriptsPartial"));
 

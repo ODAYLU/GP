@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,7 +44,44 @@ namespace GP.Controllers
             return View();
         }
 
-        
+        public IActionResult FilterEstate(int Type, [Required] int Category, int State,  long City)
+        {
+            ModelState.Remove("Type");
+            ModelState.Remove("State");
+            ModelState.Remove("City");
+            ModelState.Remove("Category");
+            if (!ModelState.IsValid) return View("Index");
+            var data =  _estate.GetAll().Where(x => (Type == 0 ? true : x.TypeID == Type) &&
+                                                    (Category == 0? true : x.categoryID == Category) &&
+                                                    (State == 0? true: x.StateID == State) &&
+                                                    (City == 0 ? true: x.CityID == City)
+                                                    ).ToList();
+            var Categ =  _category.GetOne(Category).Result;
+            if(Categ is not null)
+           ViewBag.CategoryName = Categ.category;
+            return View(data);
+        }
+
+        public IActionResult Apartment(List<Estate> data)
+        {
+            ViewBag.Data = data;
+            return View();
+        }
+        public IActionResult House(List<Estate> data)
+        {
+            ViewBag.Data = data;
+            return View();
+        }
+        public IActionResult Land(List<Estate> data)
+        {
+            ViewBag.Data = data;
+            return View();
+        }
+        public IActionResult Chalet(List<Estate> data)
+        {
+            ViewBag.Data = data;
+            return View();
+        }
 
         public IActionResult Privacy()
         {
