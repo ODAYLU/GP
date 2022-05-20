@@ -62,10 +62,14 @@ namespace GP.Controllers
             return View(data);
         }
 
-        public IActionResult Apartment(List<Estate> data)
+        public IActionResult Apartment()
         {
-            ViewBag.Data = data;
-            return View();
+            ViewBag.Categories = _category.GetAll().ToList() ;
+            ViewBag.Cities = _city.GetAll().ToList();
+            ViewBag.States = _state.GetAll().ToList();
+            ViewBag.Types = _type.GetAll().ToList();
+            var data = _estate.GetAll().Where(x => x.Category.category.Trim() == "شقة").ToList();
+            return View(data);
         }
         public IActionResult House(List<Estate> data)
         {

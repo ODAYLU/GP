@@ -92,6 +92,7 @@ namespace GP.Models
         public Task<Estate> GetOne(long id);
         public Estate GetOnetoImage(long id);
         public IEnumerable<Estate> GetAll();
+        public IQueryable<Estate> GetAllQuiers();
         public Task<DbCRUD> InsertEstate(Estate estate);
         public Task<DbCRUD> UpdateEstate(Estate estate);
         public Task<DbCRUD> DeleteEstate(long id);
@@ -186,6 +187,13 @@ namespace GP.Models
                     return DbCRUD.fail;
             }
         }
+
+        public  IQueryable<Estate> GetAllQuiers() =>  _context
+                .TEstates
+                .AsNoTracking()
+                .Include(c => c.Currency).Include(x => x.Category).Include(x => x.State).Include(x => x.Type).Include(x => x.Users).Include(x => x.City)
+                .AsQueryable();
+    
     }
     
 }

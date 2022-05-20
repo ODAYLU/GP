@@ -275,7 +275,7 @@ $(document).ready(function() {
     else {
          $(`#${localStorage.getItem("LiActivt")}`).addClass("aa");
         $(`#${localStorage.getItem("LiActivt")}`).children("a").addClass("aa");
-       
+        localStorage.setItem("LiActivt", "");
     }
 });
 $("li a.list").click(function() {
