@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
 
-
 <div>
     <div class="wrapper mb-6">
 
@@ -22,16 +21,9 @@
 
                     <div class="card-body" style="height:100%;">
 
-
-
-
                         <div class="image-overlay d-sm-none"></div>
 
                         <div class="row align-items-center" style="height:100%;">
-
-
-
-
                             <div class="image d-none d-sm-block" style="height:100%;">
                                 <div class="a"> </div>
                                 <div class="  text-center  justify-content-center pt-4 col-sm-4 bg-whitee h-75 mx-auto  mt-5">
@@ -43,15 +35,11 @@
                                         <div class="input-group-append">
                                             <span class="input-group-text"> <i class="fa fa-fw fa-search"></i></span>
                                         </div>
-                                        <input type="text" class="pl-5 form-control" id="myInput" onkeyup="myFunction()" placeholder="Search">
+                                        <input type="text" class="pl-5 form-control" id="myInput" placeholder="Search">
                                     </div>
 
                                 </div>
-
-
-
                             </div>
-
                         </div>
 
                     </div>
@@ -61,51 +49,112 @@
             </div>
 
         </div>
-
-
-
-
     </div>
 
-    <div class="container ">
-        <div class="row active-with-click" id="myUL">
-            @foreach (var owner in Model)
-            {
-                <div class=" txt col-lg-4 col-md-6 col-xs-12">
-                    <article class="material-card Red">
-                        <h2>
-                            <span class="A">@owner.FirstName @owner.LastName</span>
-                            <strong>
-                                <i class="fa fa-fw fa-star"></i>
-                                <a class="btn btn-outline-danger" href="/UsersProfiles/GetProfile/@owner.Id">The Deer Hunter </a>
-                            </strong>
-
-                        </h2>
-                        <div class="mc-content">
-                            <div class="img-container">
-                                <img class=" img-fluid" src="~/images/Category/d5eae43c-6495-4b73-808b-358107ed8da0.jpg">
-                            </div>
-                            <div class="mc-description">
-                                @owner.decription
-                            </div>
-                        </div>
-                        <a class="mc-btn-action">
-                            <i class="fa fa-bars"></i>
-                        </a>
-                        <div class="mc-footer">
-                            <h4>
-                                Social
-                            </h4>
-                            <a href="@owner.facebook" class="fa fa-fw fa-facebook"></a>
-                            <a href="@owner.twitter" class="fa fa-fw fa-twitter"></a>
-                            <a href="@owner.instigram" class="fa fa-fw fa-instagram"></a>
-                            @*  <a href="#" class="fa fa-fw fa-google-plus"></a>*@
-                        </div>
-                    </article>
-                </div>
-            }
-
+    <div id="alldiv" class="container ">
+        <div id="Article"  class="row active-with-click" id="myUL">
         </div>
-    </div>
 
+    </div>
+ </div>
+    @section Scripts{
+    @(await Html.PartialAsync("_ValidationScriptsPartial"));
+    <script src="~/js/usersprf/ajax_query.min.js"></script>
+      <script src="~/js/usersprf/main.js"></script>
+    <script type="text/javascript">
+       var search=document.getElementById("myInput").value;
+                $(document).ready(function() {
+                   FindbySearch("");
+                });
+
+                 
+                $("#myInput").on("keyup",
+                     function(){
+                        var se=document.getElementById("myInput").value;
+                        FindbySearch(se);
+                     });
+               
+
+           function FindbySearch(searchinput){
+                 $.ajax({   
+                          method: 'Get',
+                          url: `/api/Api/GetOwnersCards?search=${searchinput}`,
+                          success: function (data) 
+                          {
+                              var text = "";
+                              for(var i=0;i<data.length;i++){
+                              text+=
+                              `<div class=" txt col-lg-4 col-md-6 col-xs-12">
+                                  <article class="material-card Red">
+                                        <h2>
+                                        <span id="flname" class="A"></span>
+                                        <strong>
+                                        <i class="fa fa-fw fa-star"></i>
+                                        <a class="btn btn-outline-danger" href="/UsersProfiles/GetProfile/${data[i].id}">The Deer Hunter </a>
+                                        </strong>
+                                        </h2>
+                                        <div class="mc-content">
+                                       <div class="img-container">
+                                        <img class=" img-fluid" src="~/images/Category/d5eae43c-6495-4b73-808b-358107ed8da0.jpg">
+                                       </div>
+                                        <div class="mc-description">
+                                        </div>
+                                        </div>
+                                        <a class="mc-btn-action">
+                                        <i class="fa fa-bars"></i>
+                                        </a>
+                                      <div class="mc-footer">
+                                        <h4>
+                                        ${data[i].firstName} ${data[i].lastName}
+                                        </h4>
+                                         <a id="facebook" href="${data[i].facebook}" class="fa fa-fw fa-facebook"></a>
+                                         <a id="twitter" href="${data[i].twitter}" class="fa fa-fw fa-twitter"></a>
+                                         <a id="instagram" href="${data[i].instigram}" class="fa fa-fw fa-instagram"></a>
+                                          @*  <a href="#" class="fa fa-fw fa-google-plus"></a>*@
+                                      </div>
+                                </article>
+                             </div>`  ;
+                             }
+                          
+                $("#Article").html(text);
+                }
+                });
+                 }  
+ 
+    </script>
+
+    @*<script>
+        let test = document.createElement('div');
+        var div=document.getElementById("alldiv");
+        function createlm()
+        {
+        let bigDiv = document.createElement("div");
+        bigDiv.setAttribute('class', 'txt col-lg-4 col-md-6 col-xs-12');
+
+        let article = document.createElement("article");
+        article.setAttribute('class','material-card Red')
+
+        let h2 = document.createElement("h2");
+        h2.setAttribute('class',);
+        let span = document.createElement("span");
+        let strong = document.createElement("strong");
+        let i = document.createElement("i");
+
+        const html=document.createElement("");
+
+
+        //h2.innerHTML ="Jenin";
+        //article.appendChild(h2);
+        //container.appendChild(article);
+        //div.appendChild(container);
+
+
+        }
+        document.onload=createlm();
+        </script>
+    *@
+
+
+
+    }
 
