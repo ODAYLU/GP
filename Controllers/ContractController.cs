@@ -26,18 +26,25 @@ namespace GP
         [HttpGet]
         public IActionResult Index()
         {
-
             IEnumerable<Contract> list = _services.GetAll();
             return View(list);
-
         }
 
         [HttpGet]
         public async Task<IActionResult> CreateContract(long id)
         {
             Estate estate = await  _estate.GetOne(id);
-            if(estate == null) return NotFound();
-            if(estate.categoryID == 1)
+            if (estate == null) {
+
+                return View("/Views/NotAccess.cshtml");
+            }
+
+            string UserIdLogin = @User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!UserIdLogin.Equals(estate.UserId))
+            {
+                return View("/Views/NotAccess.cshtml");
+            }
+            if (estate.TypeID == 1)
             {
                 // 1 =>بيع
 
@@ -110,9 +117,8 @@ namespace GP
 
             return RedirectToAction(nameof(Index));
         }
-        [HttpGet]        
+        [HttpPost]        
         public async Task<IActionResult> EeEstate(long id)
-
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -143,7 +149,7 @@ namespace GP
             if(estate == null) return NoContent();
 
             estate.is_active = true;
-
+            estate.publish = true;
             await _estate.UpdateEstate(estate);
 
             // تم التفعيل 
@@ -164,9 +170,24 @@ namespace GP
 
 
 
+        [HttpGet]
+        public async Task<IActionResult> Details(long id)
+        {
+            Contract obj = await _services.GetOne(id);
+
+            if(obj == null)   return View("/Views/NotAccess.cshtml");
 
 
-          
+            string UserIdLogin = @User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!UserIdLogin.Equals(obj.UserId))
+            {
+                return View("/Views/NotAccess.cshtml");
+            }
+            return View(obj);
+        }
+
+
+
 
     }
 }

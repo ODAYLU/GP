@@ -19,14 +19,16 @@ namespace GP.Controllers
         private readonly IState _state;
         private readonly ICity _city;
         private readonly IEstate _estate;
-        private readonly IlikedEstates _like;
+        private readonly IlikedEstates _likedEstates;
         public HomeController(ILogger<HomeController> logger, 
             ICategory category,
             IType type,
             ICity city,
             IState state,
             IEstate estate,
-             IlikedEstates like)
+            IlikedEstates likedEstates
+            
+        )
         {
             _logger = logger;
             _category = category;
@@ -34,7 +36,7 @@ namespace GP.Controllers
             _city = city;
             _state = state;
             _estate = estate;
-            _like = like;
+            _likedEstates = likedEstates;
         }
 
         public IActionResult Index()
@@ -97,6 +99,28 @@ namespace GP.Controllers
             return View();
         }
 
+
+        public async Task<IActionResult> LikeEstateAndInserttheTable(long id)
+        {
+            Estate estate = await _estate.GetOne(id);
+            if(estate is null)
+            {
+                return View("/Views/NotAccess.cshtml");
+            }
+            if (User.Identity.IsAuthenticated)
+            {
+                likedEstates likedEstates = new likedEstates()
+                {
+                    Id = id,
+                    IdUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                };
+
+               await  _likedEstates.InsertObj(likedEstates);
+            }
+            estate.Likes += 1;
+            await _estate.UpdateEstate(estate);
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

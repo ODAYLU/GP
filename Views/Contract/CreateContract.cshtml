@@ -59,7 +59,7 @@
                     {
                          <div class="row">
                           <div class="form-group mt-5">
-                            <label asp-for="up_to_date" class="control-label mb-3">محجوز لتاريخ    </label>
+                            <label asp-for="up_to_date" class="control-label mb-3">محجوز لتاريخ</label>
                             <input asp-for="up_to_date" class="form-control rounded-pill"/>
                             <span asp-validation-for="up_to_date" class="text-danger"></span>
                          </div>
@@ -69,10 +69,79 @@
          
 
           <img src="~/images/Estate/@estate.Main_photo" width="20%" height="20%" class=" d-block d-md-none" />
-          <input onclick="confirm ('هل أنت متأكد من الحفظ ؟ لن تتمكن من الحذف أو التعديل ')" type="submit"  class="btn btn-success mt-5 mx-auto d-block js-delete rounded-pill" value="حفظ" width="50"/> 
+          <input  onclick="ff(event)"  type="submit"  class="m btn btn-success mt-5 mx-auto d-block rounded-pill" value="حفظ" width="50"/> 
 
       </div>
       </div>
 
 </form>
 
+@section Scripts{
+
+
+
+
+       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+    
+         <script>
+        var lots_of_stuff_already_done = true;
+
+        function ff(e){
+            if(lots_of_stuff_already_done){
+
+                e.preventDefault()
+
+            }
+const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+swalWithBootstrapButtons.fire({
+  
+  title: ' هل انت متأكد من كتابة العقد العقار  ؟ ',
+  text: "لن تتمكن من حذفه أو التعديل عليه   ",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'نعم ، موافق',
+  cancelButtonText: 'لا',
+  reverseButtons: true
+}).then((result) => {
+  if (result.isConfirmed) {
+       lots_of_stuff_already_done = false;
+       if(!lots_of_stuff_already_done){
+       
+           $('.m').trigger('click')
+       }
+    
+      swalWithBootstrapButtons.fire(
+      'تم كتابة العقد بنجاح  ',
+      '',
+      'success'
+    )
+     
+  } 
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+};
+    
+    </script>
+}
