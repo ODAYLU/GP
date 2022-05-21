@@ -26,18 +26,25 @@ namespace GP
         [HttpGet]
         public IActionResult Index()
         {
-
             IEnumerable<Contract> list = _services.GetAll();
             return View(list);
-
         }
 
         [HttpGet]
         public async Task<IActionResult> CreateContract(long id)
         {
             Estate estate = await  _estate.GetOne(id);
-            if(estate == null) return NotFound();
-            if(estate.categoryID == 1)
+            if (estate == null) {
+
+                return View("/Views/NotAccess.cshtml");
+            }
+
+            string UserIdLogin = @User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!UserIdLogin.Equals(estate.UserId))
+            {
+                return View("/Views/NotAccess.cshtml");
+            }
+            if (estate.TypeID == 1)
             {
                 // 1 =>بيع
 

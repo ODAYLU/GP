@@ -87,9 +87,18 @@
             <td>
                 @Html.DisplayFor(modelItem => item.OnDate)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.up_to_date)
-            </td>
+            
+             @if(item.Type == "إيجار"){
+                   <td>
+                    @Html.DisplayFor(modelItem => item.up_to_date)
+                    </td>
+                }
+
+                else
+                {
+                    <td></td>
+                }
+
             <td>
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
@@ -97,23 +106,32 @@
                 @Html.DisplayFor(modelItem => item.category)
             </td>
                 @{
-                    if(item.Type == "بيع" )
+
+                   
+                    if(item.Type == "إيجار" )
                     {
 
                         if (item.isDone == 1)
                         {
-                                <td>
-                 <a href="#" class="btn btn-success" >   تم تفعيل العقار</a>
+                            <td>
+                                   <a href="#" class="btn btn-danger" >   تم تفعيل العقار</a>
                             </td>
                         }
+                        else if(item.up_to_date < DateTime.Today)
+                        {
+                               <td>
+                                  <a href="/Contract/EeEstate/@item.Id" onclick="confirm('done')" class="btn btn-success"  >تفعيل العقار</a>
+                            </td>
+
+                        }
+
                         else
                         {
-                                        <td>
-                <a href="/Contract/EeEstate/@item.Id" onclick="confirm('done')" class="btn btn-danger js-delete"  data-id="@item.Id">sf</a>
-                 </td>
-                            
+                             <td>
+                                   <a href="#" class="btn btn-danger" >   العقار محجوز  </a>
+                            </td>
                         }
-            
+
                         }
 
                         

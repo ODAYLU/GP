@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace GP.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin,User")]
+    [Authorize(Roles = "Admin")]
     public class AdminOperationController : Controller
     {
         private readonly ILogger<AdminOperationController> _logger;
