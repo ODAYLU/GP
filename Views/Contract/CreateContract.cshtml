@@ -69,10 +69,79 @@
          
 
           <img src="~/images/Estate/@estate.Main_photo" width="20%" height="20%" class=" d-block d-md-none" />
-          <input onclick="return confirm ('هل أنت متأكد من الحفظ ؟ لن تتمكن من الحذف أو التعديل ')" type="submit"  class="btn btn-success mt-5 mx-auto d-block js-delete rounded-pill" value="حفظ" width="50"/> 
+          <input  onclick="ff(event)"  type="submit"  class="m btn btn-success mt-5 mx-auto d-block rounded-pill" value="حفظ" width="50"/> 
 
       </div>
       </div>
 
 </form>
 
+@section Scripts{
+
+
+
+
+       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+    
+         <script>
+        var lots_of_stuff_already_done = true;
+
+        function ff(e){
+            if(lots_of_stuff_already_done){
+
+                e.preventDefault()
+
+            }
+const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+swalWithBootstrapButtons.fire({
+  
+  title: ' هل انت متأكد من كتابة العقد العقار  ؟ ',
+  text: "لن تتمكن من حذفه أو التعديل عليه   ",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'نعم ، موافق',
+  cancelButtonText: 'لا',
+  reverseButtons: true
+}).then((result) => {
+  if (result.isConfirmed) {
+       lots_of_stuff_already_done = false;
+       if(!lots_of_stuff_already_done){
+       
+           $('.m').trigger('click')
+       }
+    
+      swalWithBootstrapButtons.fire(
+      'تم كتابة العقد بنجاح  ',
+      '',
+      'success'
+    )
+     
+  } 
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+};
+    
+    </script>
+}

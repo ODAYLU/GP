@@ -17,7 +17,6 @@ namespace GP
 {
     
     [Authorize(Roles ="Owner")]
-   
     public class EstateController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -442,8 +441,8 @@ namespace GP
             estate.Likes++;
                 var data = new likedEstates
                 {
-                    IdUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                    IdEstate = estate.Id
+                   // IdUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                   // IdEstate = estate.Id
                 };
               await  _like.InsertObj(data);
             await  services.UpdateEstate(estate);

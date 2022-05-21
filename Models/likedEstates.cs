@@ -21,6 +21,7 @@ namespace GP.Models
         [ForeignKey("Estate")]
         public long IdEstate { get; set; }
         public Estate Estate { get; set; }
+
     }
 
     public interface IlikedEstates

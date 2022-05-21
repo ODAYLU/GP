@@ -117,9 +117,8 @@ namespace GP
 
             return RedirectToAction(nameof(Index));
         }
-        [HttpGet]        
+        [HttpPost]        
         public async Task<IActionResult> EeEstate(long id)
-
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -150,7 +149,7 @@ namespace GP
             if(estate == null) return NoContent();
 
             estate.is_active = true;
-
+            estate.publish = true;
             await _estate.UpdateEstate(estate);
 
             // تم التفعيل 
@@ -171,9 +170,24 @@ namespace GP
 
 
 
+        [HttpGet]
+        public async Task<IActionResult> Details(long id)
+        {
+            Contract obj = await _services.GetOne(id);
+
+            if(obj == null)   return View("/Views/NotAccess.cshtml");
 
 
-          
+            string UserIdLogin = @User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!UserIdLogin.Equals(obj.UserId))
+            {
+                return View("/Views/NotAccess.cshtml");
+            }
+            return View(obj);
+        }
+
+
+
 
     }
 }

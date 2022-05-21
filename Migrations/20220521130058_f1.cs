@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GP.Migrations
 {
-    public partial class f12 : Migration
+    public partial class f1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -351,7 +351,7 @@ namespace GP.Migrations
                     Main_photo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OnDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "Getdate()"),
                     is_active = table.Column<bool>(type: "bit", nullable: false, defaultValueSql: "1"),
-                    publish = table.Column<bool>(type: "bit", nullable: false),
+                    publish = table.Column<bool>(type: "bit", nullable: false, defaultValueSql: "1"),
                     is_spacial = table.Column<bool>(type: "bit", nullable: false),
                     categoryID = table.Column<int>(type: "int", nullable: false),
                     TypeID = table.Column<int>(type: "int", nullable: false),
