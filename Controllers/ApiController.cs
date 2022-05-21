@@ -283,10 +283,10 @@ namespace GP.Controllers
             var sortDirecion = Request.Form["order[0][dir]"];
 
             IQueryable<Comments> comments = _commments.GetAll(search);
-            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
-            {
-                comments = comments.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
-            }
+                if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
+                {
+                    comments = comments.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
+                }
             var data = await comments.Skip(skipe).Take(pageSize).ToListAsync();
             var recordsTotal = comments.Count();
             var jsonData = new { recordsFiltered = recordsTotal, recordsTotal, data };

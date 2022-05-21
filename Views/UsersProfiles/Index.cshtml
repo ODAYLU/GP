@@ -53,14 +53,14 @@
     </div>
 
     <div id="alldiv" class="container ">
-        <div id="Article"  class="row active-with-click" id="myUL">
+        <div    class="row active-with-click" id="myUL">
         </div>
 
     </div>
  </div>
     @section Scripts{
     @(await Html.PartialAsync("_ValidationScriptsPartial"));
-    <script src="~/js/usersprf/ajax_query.min.js"></script>
+      <script src="~/js/usersprf/ajax_query.min.js"></script>
       <script src="~/js/usersprf/main.js"></script>
     <script type="text/javascript">
        var search=document.getElementById("myInput").value;
@@ -87,7 +87,7 @@
                               var text = "";
                               for(var i=0;i<data.length;i++){
                               text+=
-                              `<div class=" txt col-lg-4 col-md-6 col-xs-12">
+                               `<div class=" txt col-lg-4 col-md-6 col-xs-12">
                                   <article class="material-card Red">
                                         <h2>
                                         <span id="flname" class="A"></span>
@@ -115,14 +115,13 @@
                                          <a id="instagram" href="${data[i].instigram}" class="fa fa-fw fa-instagram"></a>
                                            
                                       </div>
-                                </article>
-                             </div>`  ;
-                             }
-                          
-                $("#Article").html(text);
-                }
-                });
-                 }  
+                                       </article>
+                                </div>`  ;
+                           }
+                         $("#myUL").html(text);
+                  }
+           });
+    }  
  
     </script>
 
