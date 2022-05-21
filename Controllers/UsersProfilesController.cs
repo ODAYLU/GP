@@ -3,6 +3,7 @@ using GP.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,14 +24,8 @@ namespace GP.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            IQueryable<AppUser> users = _context.Users.Where(x => x.NameRole == "Owner").AsQueryable();
-            return View(users);
-        }
-         [HttpGet]
-        public async Task<IActionResult> Owners()
-        {
-            //IQueryable<AppUser> users = _context.Users.Where(x => x.NameRole == "Owner").AsQueryable();
-            return View();
+             return View();
+
         }
 
         [HttpGet]
