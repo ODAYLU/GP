@@ -16,6 +16,8 @@ ViewData["Title"] = "تعديل العقار";
       
     } 
 }
+<link href="/DownLoad/chosen.min.css" rel="stylesheet"/>
+
 
 
 <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
@@ -222,7 +224,7 @@ ViewData["Title"] = "تعديل العقار";
                                             <div class="form-group" >
                                                 <label class="control-label"> خدمات اضافية  </label>
                                                     
-                                                @Html.ListBoxFor(model=> Model.list,new MultiSelectList(serv.GetAllSelected(),nameof(Services.Id),nameof(Services.Name)),new {id="mm",multiple="multiple"})
+                                                @Html.ListBoxFor(model=> Model.list,new MultiSelectList(serv.GetAllSelected(),nameof(Services.Id),nameof(Services.Name)),new {id="mselect",multiple="multiple"})
                                             </div>
                                         </div>
 
@@ -327,6 +329,22 @@ ViewData["Title"] = "تعديل العقار";
 </div>
 
 @section Scripts {
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+<script  type="text/javascript"  src="/DownLoad/chosen.jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#mselect').chosen({rtl: true});
+
+           $('.chosen-container').css("width","100%");
+
+           $('.chosen-search-input').val('اختر الخدمات ');
+
+
+        });
+    
+    
+    </script>
    
 <script src='https://maps.googleapis.com/maps/api/js?akey=PUT_YOUR_KEY_HERE_AND_FIX_akey_TO_key&language=ar&region=SA'></script>
 
