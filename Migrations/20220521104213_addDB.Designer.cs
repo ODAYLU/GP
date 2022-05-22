@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220516120501_EditColums")]
-    partial class EditColums
+    [Migration("20220521104213_addDB")]
+    partial class addDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -430,7 +430,9 @@ namespace GP.Migrations
                         .HasColumnType("float");
 
                     b.Property<bool>("publish")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("1");
 
                     b.Property<double?>("space")
                         .IsRequired()

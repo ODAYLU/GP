@@ -3,6 +3,7 @@ using GP.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace GP
         private readonly ICommments _context;
         private readonly IReplaies _replaies;
         private readonly IEstate _estate;
+        private readonly UserManager<AppUser> _users;
         private readonly IWebHostEnvironment _webHostEnvironment;
         public CommmentsController(ICommments context, IWebHostEnvironment webHostEnvironment, IReplaies replaies, IEstate estate)
         {
@@ -40,7 +42,7 @@ namespace GP
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Comments comments)
+        public async Task<IActionResult> Create(Comments comments)
         {
             if (!ModelState.IsValid)
             {
@@ -51,11 +53,17 @@ namespace GP
                 return View();
             }
             ModelState.Remove("Id");
+            AppUser user = await _users.GetUserAsync(User);
+        Comments newone = new Comments()
+        {
+            UserId = user.Id,
+            EstateId = 7,
+            Body=comments.Body,
+            Rating = comments.Rating,
+        };
+             
 
-            comments.UserId = "de63b819-0429-430c-aa77-85a6126a527e";
-            comments.EstateId = 7;
-
-            _context.InsertComment(comments);
+            await  _context.InsertComment(newone);
 
             return RedirectToAction("/Index");
         }
