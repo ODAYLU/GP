@@ -18,6 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="Views\NotAccess.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.16" />
@@ -52,6 +56,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\NotAccess.cshtml" />
     <None Include="wwwroot\assets\bootstrap\ajax_query.min.js" />
     <None Include="wwwroot\assets\bootstrap\bootstrap5.bundle.min.js" />
     <None Include="wwwroot\assets\bootstrap\Chart.min.js" />
@@ -66,6 +71,8 @@
     <None Include="wwwroot\assets\js\Chartmobiscroll.javascript.min.js" />
     <None Include="wwwroot\assets\js\index.js" />
     <None Include="wwwroot\assets\js\loding.js" />
+    <None Include="wwwroot\bootbox.js\bootbox.js" />
+    <None Include="wwwroot\bootbox.js\bootbox.min.js" />
     <None Include="wwwroot\DownLoad\chosen.jquery.js" />
     <None Include="wwwroot\DownLoad\chosen.jquery.min.js" />
     <None Include="wwwroot\indexLayout\assets\bootstrap\ajax_query.min.js" />

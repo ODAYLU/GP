@@ -16,11 +16,13 @@ namespace GP.Models
         public long Id { get; set; }
         [ForeignKey("User")]
         public string IdUser { get; set; }
+
         public AppUser User { get; set; }
 
         [ForeignKey("Estate")]
         public long IdEstate { get; set; }
         public Estate Estate { get; set; }
+
     }
 
     public interface IlikedEstates

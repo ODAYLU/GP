@@ -43,26 +43,26 @@ namespace GP.Controllers
             _commments = commments;
             _advertisement = advertisement;
         }
-        //[HttpPost]
-        //public async Task<IActionResult> GetEstate()
-        //{
-        //    var pageSize = int.Parse(Request.Form["length"]);
-        //    var skipe = int.Parse(Request.Form["start"]);
-        //    var search = Request.Form["search[value]"];
-        //    var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
-        //    var sortDirecion = Request.Form["order[0][dir]"];
+        [HttpPost]
+        public async Task<IActionResult> GetEstate()
+        {
+            var pageSize = int.Parse(Request.Form["length"]);
+            var skipe = int.Parse(Request.Form["start"]);
+            var search = Request.Form["search[value]"];
+            var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
+            var sortDirecion = Request.Form["order[0][dir]"];
 
-        //    var estates =  _estate.GetAll();
-        //    if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
-        //    {
-        //        estates = estates.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
-        //    }
-        //     var data = await estates.Skip(skipe).Take(pageSize).ToListAsync();
-        //    var recordsTotal = estates.Count();
-        //    var jsonData = new { recordsFiltered = recordsTotal, recordsTotal, data };
+            var estates = _estate.GetAllQuiers();
+            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
+            {
+                estates = estates.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
+            }
+            var data = await estates.Skip(skipe).Take(pageSize).ToListAsync();
+            var recordsTotal = estates.Count();
+            var jsonData = new { recordsFiltered = recordsTotal, recordsTotal, data };
 
-        //    return Ok(jsonData);
-        //}
+            return Ok(jsonData);
+        }
 
         [HttpPost]
         public async Task<IActionResult> GetUser()
@@ -117,17 +117,18 @@ namespace GP.Controllers
         {
             if (search != null)
             {
-                IQueryable<AppUser> lst = _user.Users.Where(x => x.NameRole == "Owner" &&( x.FirstName.Contains(search)|| x.LastName.Contains(search))).AsQueryable();
-                var owners = JsonSerializer.Serialize(lst);
-                return Ok(owners);
+                
+                IQueryable<AppUser> lst = _user.Users.Where(x => x.NameRole == "Owner" &&( x.FirstName.Contains(search.ToLower())|| x.LastName.Contains(search.ToLower()))).AsQueryable();
+              //  var owners = JsonSerializer.Serialize(lst);
+                return Ok(lst);
             }
             else
             {
                 IQueryable<AppUser> users = _user.Users.Where(x => x.NameRole == "Owner").AsQueryable();
-                var json = JsonSerializer.Serialize(users);
+              //  var json = JsonSerializer.Serialize(users);
                 return Ok(users);
             }
-            return NotFound();
+           
         }
         [HttpPost]
         public async Task<IActionResult> GetCategory()
@@ -274,6 +275,7 @@ namespace GP.Controllers
         [HttpPost]
         public async Task<IActionResult> GetComments()
         {
+        //  AppUser user = await _user.FindByIdAsync();
             var pageSize = int.Parse(Request.Form["length"]);
             var skipe = int.Parse(Request.Form["start"]);
             var search = Request.Form["search[value]"];
@@ -281,10 +283,10 @@ namespace GP.Controllers
             var sortDirecion = Request.Form["order[0][dir]"];
 
             IQueryable<Comments> comments = _commments.GetAll(search);
-            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
-            {
-                comments = comments.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
-            }
+                if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
+                {
+                    comments = comments.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
+                }
             var data = await comments.Skip(skipe).Take(pageSize).ToListAsync();
             var recordsTotal = comments.Count();
             var jsonData = new { recordsFiltered = recordsTotal, recordsTotal, data };

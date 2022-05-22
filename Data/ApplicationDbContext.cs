@@ -22,6 +22,9 @@ namespace GP.Data
             builder.Entity<Estate>().Property(c => c.publish).HasDefaultValueSql("1");
             builder.Entity<Message>().HasOne(a => a.Sender).WithMany(x => x.Messages)
                 .HasForeignKey(x => x.UserId) ;
+
+
+            //builder.Entity<likedEstates>().HasKey(p=>new {p.Id ,p.IdUser});
         }
 
         public DbSet<Estate> TEstates { get; set; }

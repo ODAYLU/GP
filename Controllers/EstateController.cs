@@ -17,7 +17,6 @@ namespace GP
 {
     
     [Authorize(Roles ="Owner")]
-   
     public class EstateController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
@@ -29,7 +28,13 @@ namespace GP
         private readonly IWebHostEnvironment webHostEnvironment;
 
 
-        public EstateController(UserManager<AppUser> userManager , GP.Models.IEstate Services, IWebHostEnvironment webHostEnvironment, IPhotoEstate photoservices, IService_Estate service_Estate, IService servicesList)
+        public EstateController(UserManager<AppUser> userManager , 
+            GP.Models.IEstate Services, 
+            IWebHostEnvironment webHostEnvironment, 
+            IPhotoEstate photoservices, 
+            IService_Estate service_Estate, 
+            IService servicesList,
+            IlikedEstates like)
         {
             this._userManager = userManager;
             services = Services;
@@ -37,6 +42,7 @@ namespace GP
             _photoservices = photoservices;
             _service_Estate = service_Estate;
             this.servicesList = servicesList;
+            _like = like;
         }
 
         [HttpGet]
@@ -110,17 +116,17 @@ namespace GP
             }
 
 
-            //if (estate.list.Count() > 0)
-            //{
-            //    for (int i = 0; i < estate.list.Count(); i++)
-            //    {
-            //        Service_Estate service = new Service_Estate();
-            //        service.EstateID = idPr;
-            //        service.ServiceID = int.Parse(estate.list[i].Trim());
-            //        await _service_Estate.InsertService_Estate(service);
+            if (estate.list.Count() > 0)
+            {
+                for (int i = 0; i < estate.list.Count(); i++)
+                {
+                    Service_Estate service = new Service_Estate();
+                    service.EstateID = idPr;
+                    service.ServiceID = int.Parse(estate.list[i].Trim());
+                    await _service_Estate.InsertService_Estate(service);
 
-            //    }
-            //}
+                }
+            }
             GP.Models.Toast.ShowTost = true;
             GP.Models.Toast.Message = "تم اضافة العقار بنجاح ";
             return RedirectToAction("Index");
@@ -128,11 +134,19 @@ namespace GP
        // [HttpGet]
         public async Task<ActionResult<Estate>> Detalis(long id)
         {
+
+
             SeedData.IsPserosalPhoto = false;
 
             if (id != 0)
             {
                 Estate estate = await services.GetOne(id);
+
+                string UserIdLogin = @User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (!UserIdLogin.Equals(estate.UserId))
+                {
+                    return View("/Views/NotAccess.cshtml");
+                }
                 return View(estate);
             }
           return View();
@@ -143,28 +157,41 @@ namespace GP
         [HttpGet]
         public async Task<ActionResult<Estate>> Edit(long id)
         {
-            SeedData.IsPserosalPhoto = false;
-            List<Services> list=  _service_Estate.GetALl(id).ToList();
-            // ViewBag.ser=list;
-
           
             if (id != 0)
             {
-
                 Estate estate = await services.GetOne(id);
-                string [] vs = new string [list.Count];
 
-                for (int i = 0; i < list.Count; i++)
+                if(estate != null)
                 {
-                   vs[i] = list[i].Id.ToString();
-                }
-                estate.list = vs;
-                
+                    string UserIdLogin = @User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    if (!UserIdLogin.Equals(estate.UserId))
+                    {
+                        return View("/Views/NotAccess.cshtml");
+                    }
 
-                return View(estate);
+
+                        SeedData.IsPserosalPhoto = false;
+                    List<Services> list = _service_Estate.GetALl(id).ToList();
+
+
+
+                    string[] vs = new string[list.Count];
+
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        vs[i] = list[i].Id.ToString();
+                    }
+                    estate.list = vs;
+
+
+                    return View(estate);
+                }
+               
+                
             }
 
-            return NotFound();
+            return View("/Views/NotAccess.cshtml");
         }
 
 
@@ -211,7 +238,7 @@ namespace GP
 
                 return RedirectToAction("Detalis", estate);
             }
-            return NotFound();
+            return View("/Views/NotAccess.cshtml");
         }
 
         [HttpGet]
@@ -222,6 +249,12 @@ namespace GP
             if (id != 0)
             {
                 Estate estate = await services.GetOne(id);
+
+                string UserIdLogin = @User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (!UserIdLogin.Equals(estate.UserId))
+                {
+                    return View("/Views/NotAccess.cshtml");
+                }
                 if (estate.publish)
                 {
                     estate.publish = false;
@@ -238,7 +271,7 @@ namespace GP
 
             }
 
-            return NotFound();
+            return View("/Views/NotAccess.cshtml");
         }
 
 
@@ -249,37 +282,58 @@ namespace GP
             if (id != 0)
             {
                 Estate estate = await services.GetOne(id);
-                string webRootPath = webHostEnvironment.WebRootPath;
-                string oldfile = webRootPath + @"\images\Estate\" + estate.Main_photo;
-                if (System.IO.File.Exists(oldfile))
-                {
-                    System.IO.File.Delete(oldfile);
+                if(estate != null){
+                    string UserIdLogin = @User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    if (!UserIdLogin.Equals(estate.UserId))
+                    {
+                        return View("/Views/NotAccess.cshtml");
+                    }
+                    string webRootPath = webHostEnvironment.WebRootPath;
+                    string oldfile = webRootPath + @"\images\Estate\" + estate.Main_photo;
+                    if (System.IO.File.Exists(oldfile))
+                    {
+                        System.IO.File.Delete(oldfile);
+                    }
+
+                    await services.DeleteEstate(id);
+
+
+
+
+                    GP.Models.Toast.Message = $" [ {id} ] تم حذف العقار  ";
+                    GP.Models.Toast.ShowTost = true;
+                    return RedirectToAction("Index");
+
                 }
-
-                await services.DeleteEstate(id);
-
-
-
-
-                GP.Models.Toast.Message = $" [ {id} ] تم حذف العقار  ";
-                GP.Models.Toast.ShowTost = true;
-                return RedirectToAction("Index");
+               
             }
 
-            return NotFound();
+             return View("/Views/NotAccess.cshtml");
         }
 
 
         [HttpGet]
-        public IActionResult ImageList(long id)
+        public async Task<IActionResult> ImageList(long id)
         {
-            
-            
+            Estate estate = await services.GetOne(id);
+
+            if(estate == null)
+            {
+                return View("/Views/NotAccess.cshtml");
+            }
+            if(estate != null)
+            {
+                string UserIdLogin = @User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (!UserIdLogin.Equals(estate.UserId))
+                {
+                    return View("/Views/NotAccess.cshtml");
+                }
+            }
+           
             SeedData.IsPserosalPhoto = false;
             if (id != 0)
             {
                 ViewBag.id = id;
-
 
             }
 
@@ -315,7 +369,7 @@ namespace GP
 
             SeedData.EstateByImage = ids;
 
-            return RedirectToAction("ImageList");
+            return RedirectToAction("ImageList",new {id= ids});
 
         }
         [HttpPost]
@@ -381,7 +435,7 @@ namespace GP
                 ViewBag.id = q;
             }
             SeedData.EstateByImage = q;
-            return RedirectToAction("ImageList");
+            return RedirectToAction("ImageList", new {id=q});
 
         }
 
@@ -390,16 +444,29 @@ namespace GP
         {
             if(id != 0)
             {
-            var estate = await services.GetOne(id);
-            estate.Likes++;
+                var estate = await services.GetOne(id);
                 var data = new likedEstates
                 {
-                    IdUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                    IdEstate = estate.Id
+                   // IdUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                   // IdEstate = estate.Id
                 };
-              await  _like.InsertObj(data);
-            await  services.UpdateEstate(estate);
-                return Ok();
+                var like = _like.GetAll().FirstOrDefault(x => (x.IdUser == data.IdUser) && (x.IdEstate == data.IdEstate));
+                if (like == null)
+                {
+                    await _like.InsertObj(data);
+                    estate.Likes++;
+                    await services.UpdateEstate(estate);
+                    return Ok(estate.Likes);
+                }
+                else
+                {
+                   await _like.DeleteObj(like.Id);
+                    estate.Likes--;
+                    await services.UpdateEstate(estate);
+                    return Ok(estate.Likes);
+                }
+                
+             
             }
             return BadRequest();
         }

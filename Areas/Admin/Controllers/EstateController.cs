@@ -141,7 +141,25 @@ namespace GP.Controllers
             return NotFound();
         }
 
-
+        public async Task<IActionResult> ActiveEstate(long Id)
+        {
+         var data =   await  services.GetOne(Id);
+            if(data is not null)
+            {
+                if (data.is_active)
+                {
+                    data.is_active = false;
+                }
+                else
+                {
+                    data.is_active = true;
+                }
+               
+               await services.UpdateEstate(data);
+                return Ok();
+            }
+            return BadRequest();
+        }
 
         [HttpPost]
         public async Task<ActionResult<Estate>> Edit(Estate estate)

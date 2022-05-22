@@ -54,7 +54,20 @@
 @{
     int c = 0;
 }
-@foreach (var item in Model) { 
+
+@{
+
+    if(Model.Count() == 0)
+    {
+        <div class="text-center" style="margin-top:150px">
+            <h3>لايوجد عقارات مضافة </h3>
+        </div>
+    }
+
+    else
+    {
+        
+        foreach (var item in Model) { 
 
 <div class="card mb-3" style="background-color:var(--bgwhite)">
   <div class="row g-0">
@@ -82,7 +95,7 @@
                         {
                             <div class="form-check form-switch">
                               <label class="form-check-label form-check-label-@c ms-5" for="mySwitch"> غير منشور</label>
-                              <input onclick="fw(@item.Id,@c)" class="form-check-input form-check-input-@c" type="checkbox" id="mySwitch" name="darkmode" value="NO" >
+                              <input onclick="fww(@item.Id,@c)" class="form-check-input form-check-input-@c" type="checkbox" id="mySwitch" name="darkmode" value="NO" >
                             </div>
                         }
                     }</p>
@@ -101,6 +114,9 @@
     c++;
 
 }
+    }
+}
+
 
 
 @section Scripts{
@@ -145,6 +161,8 @@
                 
                      w.textContent = '  غير منشور'
                 }
+                x.setAttribute('onclick',`fww(${Id},${c})`);
+
                 $.ajax({
                     method: 'Get',
                     url: `/Estate/X/${Id}`,
@@ -152,6 +170,85 @@
                     success: function () {
                         Swal.fire(
                             'تم تعطيل العقار بنجاح',
+                            '',
+                            'success'
+                        )
+                       
+                    },
+                    error:function(){
+                        console.log("Failed Delete");
+                    },
+                    
+                    
+                });
+
+            }
+
+            else{
+
+               
+                if(x.checked){
+                    x.checked= false;
+                }
+
+                else{
+                    x.checked= true;
+
+                }
+
+            }
+        })
+
+
+      }
+        
+     </script>
+
+
+
+
+     
+     <script>
+         function fww(Id,c){
+             console.log(Id);
+             fff(Id,c);
+
+         }
+
+         function fff(Id,c){
+
+               var x = document.getElementsByClassName(`form-check-input-${c}`)[0];
+               var w = document.getElementsByClassName(`form-check-label-${c}`)[0];
+   
+        Swal.fire({
+            title: 'هل أنت متأكد من تفعيل العقار ؟',
+            text: "سيتم اظهار العقار للمستخدمين ",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'موافق',
+            cancelButtonText: 'غير موفق'
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+                 if(x.checked){
+                     w.textContent = ' منشور'
+                }
+
+                else{      
+                
+                     w.textContent = '  غير منشور'
+                }
+
+                 x.setAttribute('onclick',`fw(${Id},${c})`);
+                $.ajax({
+                    method: 'Get',
+                    url: `/Estate/X/${Id}`,
+                
+                    success: function () {
+                        Swal.fire(
+                            'تم تفعيل العقار بنجاح',
                             '',
                             'success'
                         )

@@ -12,11 +12,10 @@
 
 }
 
-
 <div class="text-center pt-3 pb-5">
     <p class=" fw-bold borderbottom fs-3 d-inline-block">العقود</p>
 </div>
-
+<form method="post">
 <table class=" pt-5 table table-bordered table-md text-center ">
     <thead>
         <tr>
@@ -26,24 +25,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.Sallerphone_num)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
+          
             <th>
                 @Html.DisplayNameFor(model => model.BuyerName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Buyerphone_num)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Longitude)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Latitude)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OnDate)
-            </th>
+           
+           
             <th>
                 @Html.DisplayNameFor(model => model.up_to_date)
             </th>
@@ -58,6 +48,11 @@
                 الحالة
                 
             </th>
+             <th>
+                التفاصيل
+                
+            </th>
+
         </tr>
     </thead>
     <tbody>
@@ -69,109 +64,152 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Sallerphone_num)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
+           
             <td>
                 @Html.DisplayFor(modelItem => item.BuyerName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Buyerphone_num)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Longitude)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Latitude)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OnDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.up_to_date)
-            </td>
+          
+            
+             @if(item.Type == "إيجار"){
+                   <td>
+                    @Html.DisplayFor(modelItem => item.up_to_date)
+                    </td>
+                }
+
+                else
+                {
+                    <td></td>
+                }
+
             <td>
                 @Html.DisplayFor(modelItem => item.Type)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.category)
             </td>
+
+                   <td>
                 @{
-                    if(item.Type == "بيع" )
+
+             
+                    if(item.Type == "إيجار" )
                     {
 
                         if (item.isDone == 1)
                         {
-                                <td>
-                 <a href="#" class="btn btn-success" >   تم تفعيل العقار</a>
-                            </td>
+                           
+                                   <a href="#" class="btn btn-danger" >   تم تفعيل العقار</a>
+                     
                         }
+                        else if(item.up_to_date < DateTime.Today)
+                        {
+                              
+                     <button  asp-area="" asp-action="EeEstate" asp-controller="Contract" asp-route-id="@item.Id" type="submit" onclick="ff(event)" class="m  btn bg-success" >تفعيل العقار</button>
+                          
+
+                        }
+
                         else
                         {
-                                        <td>
-                <a href="/Contract/EeEstate/@item.Id" onclick="confirm('done')" class="btn btn-danger js-delete"  data-id="@item.Id">sf</a>
-                 </td>
-                            
+                          
+                                   <a href="#" class="btn btn-secondary" >   العقار محجوز  </a>
+                        
                         }
-            
+
                         }
+
 
                         
                     }
+                   
+
+                  </td>
+                  <td>
+
+                       <a href="Contract/Details/@item.Id" class="btn btn-secondary" >عرض</a>
+                  </td>
+                   
+                     
+
+                
                 
         </tr>
 }
     </tbody>
 </table>
 
+</form>
+
 
 
 @section Scripts{
+         
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 
     
-    <script>
+         <script>
+        var lots_of_stuff_already_done = true;
+
+        function ff(e){
+            if(lots_of_stuff_already_done){
+
+                e.preventDefault()
+
+            }
+const swalWithBootstrapButtons = Swal.mixin({
+  customClass: {
+    confirmButton: 'btn btn-success',
+    cancelButton: 'btn btn-danger'
+  },
+  buttonsStyling: false
+})
+
+swalWithBootstrapButtons.fire({
+  
+  title: ' هل انت متأكد من اعادة نشر العقار  ؟ ',
+  text: "سيترتب على ذلك ظهور العقار للمستخدمين ، للتعديل عليه اذهب لقائمة عقاراتك ومت ثم التعديل   ",
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'نعم ، موافق',
+  cancelButtonText: 'لا',
+  reverseButtons: true
+}).then((result) => {
+  if (result.isConfirmed) {
+       lots_of_stuff_already_done = false;
+       if(!lots_of_stuff_already_done){
+       
+           $('.m').trigger('click')
+       }
+    
+      swalWithBootstrapButtons.fire(
+      'تم اعادة النشر بنجاح ',
+      '',
+      'success'
+    )
+     
+  } 
+})
 
 
-        
-        $(document).ready(function () {
-            $('.js-delete').on('click',function(){
-                var btn = $(this);
-
-
-
-                bootbox.confirm({
-                    message: "Are you sure that you need to delete this user ?",
-                    buttons: {
-                        confirm: {
-                            label: 'Yes',
-                            className: 'btn-danger'
-                        },
-                        cancel: {
-                            label: 'No',
-                            className: 'btn-success'
-                        }
-                    },
-                    callback: function (result) {
-                        //console.log('This was logged in the callback: ' + result);
-                        if(result){
-                            $.ajax({
-                                url:'Contract/M/'+btn.data('id'),
-                                
-                               
-                            })
-                        }
-                    }
-                });
-
-
-                
 
 
 
 
 
-            });
-        });
+
+
+
+
+
+
+};
+    
     </script>
+    
+
 }

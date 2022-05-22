@@ -1,10 +1,10 @@
 ﻿@{ ViewData["Title"] = "أملاك الصفحة الرئيسية"; }
 @{
-  var types = new SelectList(@ViewBag.Types,"Id","type");
-  var categories = new SelectList(@ViewBag.Categories,"Id","category");
-  var cities = new SelectList(@ViewBag.Cities,"Id","name"); 
-  var states = new SelectList(@ViewBag.States,"Id","name");
-  
+    var types = new SelectList(@ViewBag.Types,"Id","type");
+    var categories = new SelectList(@ViewBag.Categories,"Id","category");
+    var cities = new SelectList(@ViewBag.Cities,"Id","name"); 
+    var states = new SelectList(@ViewBag.States,"Id","name");
+    var likes = (List<long>)ViewBag.Likes;
 }
 
   <style>
@@ -147,38 +147,45 @@
           
                 @{
 
-                   @if(@ViewBag.FavEstate is not null)
+                                                   @if(@ViewBag.FavEstate is not null)
                   foreach (var item in (List<Estate>)ViewBag.FavEstate)
                   {
                 
-    <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
-                <div class="game px-2">
-                <div class="rank"><span class="bi bi-star-fill checked"></span></div>
-                <div class="front">
-                  <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
-                  <div>
-                    <h3 class="text-center py-3">@item.name</h3>
-                  </div>
-                  <div class="status d-flex justify-content-between align-items-center">
-                    <span>@item.Likes</span>
-                    <span class="bi bi-star-fill checked"></span>
-                  </div>
-                </div>
-                <div class="back">
-                  <div class="streaming-info">
-                    <div class="game-stat  text-center">
-                      <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
-                      
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center">
-                    <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
-                    <i class="heart bi bi-heart-fill mx-3"></i>
-                  </div>
-                </div>
-                <div class="backgroundWrapper"></div>
-              </div>
-            </div>
+                                    <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+                                                <div class="game px-2">
+                                                <div class="rank"><span class="bi bi-star-fill checked"></span></div>
+                                                <div class="front">
+                                                  <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
+                                                  <div>
+                                                    <h3 class="text-center py-3">@item.name</h3>
+                                                  </div>
+                                                  <div class="status d-flex justify-content-between align-items-center">
+                                                    <span>@item.Likes</span>
+                                                    <span class="bi bi-star-fill checked"></span>
+                                                  </div>
+                                                </div>
+                                                <div class="back">
+                                                  <div class="streaming-info">
+                                                    <div class="game-stat  text-center">
+                                                      <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
+                                                      
+                                                    </div>
+                                                  </div>
+                                                  <div class="d-flex align-items-center">
+                                                    <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                                                                    @if (likes.Contains(item.Id))
+                                                {
+                                                                        <a onclick="AddLike(@item.Id,this)"><i  class="heart-des bi bi-heart-fill mx-3"></i></a>
+                                                }
+                                                else
+                                                {
+                                                                        <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart bi bi-heart-fill mx-3"></i></a>
+                                                }
+                                                                </div>
+                                                </div>
+                                                <div class="backgroundWrapper"></div>
+                                              </div>
+                                            </div>
 
                   }
               }
@@ -223,7 +230,14 @@
                   </div>
                   <div class="d-flex align-items-center">
                     <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
-                    <i class="heart bi bi-heart-fill mx-3"></i>
+                     @if (likes.Contains(item.Id))
+                    {
+                            <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart-des bi bi-heart-fill mx-3"></i></a>
+                    }
+                    else
+                    {
+                            <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart bi bi-heart-fill mx-3"></i></a>
+                    }
                   </div>
                 </div>
                 <div class="backgroundWrapper"></div>
@@ -279,35 +293,87 @@
         <div class="container-fluid">
           <div class="row">
             <div class="col-6">
+                 <h1 class="text-center p-5">عقارات شقق</h1>
               <div class="row g-2">
-                <div class="col-6">
-                  <div class="p-3 border bg-light">Custom column padding</div>
+                  
+               @if(@ViewBag.ModernEstateApartment is not null)
+                  foreach (var item in (List<Estate>)ViewBag.ModernEstateApartment)
+                  {  
+                 <div class="col-12 col-md-6 col-lg-3 p-2" data-aos="zoom-in-left">
+                <div class="game px-2">
+                <div class="rank"><span class="bi bi-star-fill checked"></span></div>
+                <div class="front">
+                  <img src="@item.Main_photo" class="img-fluid" alt="game">
+                  <div>
+                    <h3 class="text-center py-3">@item.name</h3>
+                  </div>
+                  <div class="status d-flex justify-content-between align-items-center">
+                    <span>@item.Likes</span>
+                    <span class="bi bi-star-fill checked"></span>
+                  </div>
                 </div>
-                <div class="col-6">
-                  <div class="p-3 border bg-light">Custom column padding</div>
+                <div class="back">
+                  <div class="streaming-info">
+                    <div class="game-stat  text-center">
+                      <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
+                      
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                    <i class="heart bi bi-heart-fill mx-3"></i>
+                  </div>
                 </div>
-                <div class="col-6">
-                  <div class="p-3 border bg-light">Custom column padding</div>
-                </div>
-                <div class="col-6">
-                  <div class="p-3 border bg-light">Custom column padding</div>
-                </div>
+                <div class="backgroundWrapper"></div>
               </div>
             </div>
-            <div class="col-6">
+               
+                
+    
+
+                  }
+              </div>
+            </div>
+            <div class="col-6" >
+                  <h1 class="text-center p-5">عقارات منازل</h1>
               <div class="row g-2">
-                <div class="col-6">
-                  <div class="p-3 border bg-light">Custom column padding</div>
+                   @if(@ViewBag.ModernEstateHouse is not null)
+                  foreach (var item in (List<Estate>)ViewBag.ModernEstateHouse)
+                  {
+                 <div class="col-12 col-md-6 p-2" data-aos="zoom-in-left">
+                <div class="game px-2">
+                <div class="rank"><span class="bi bi-star-fill checked"></span></div>
+                <div class="front">
+                  <img src="@item.Main_photo" class="img-fluid" alt="game">
+                  <div>
+                    <h3 class="text-center py-3">@item.name</h3>
+                  </div>
+                  <div class="status d-flex justify-content-between align-items-center">
+                    <span>@item.Likes</span>
+                    <span class="bi bi-star-fill checked"></span>
+                  </div>
                 </div>
-                <div class="col-6">
-                  <div class="p-3 border bg-light">Custom column padding</div>
+                <div class="back">
+                  <div class="streaming-info">
+                    <div class="game-stat  text-center">
+                      <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
+                      
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                    <i class="heart bi bi-heart-fill mx-3"></i>
+                  </div>
                 </div>
-                <div class="col-6">
-                  <div class="p-3 border bg-light">Custom column padding</div>
-                </div>
-                <div class="col-6">
-                  <div class="p-3 border bg-light">Custom column padding</div>
-                </div>
+                <div class="backgroundWrapper"></div>
+              </div>
+            </div>
+                  
+                
+    
+
+                  }
+                
               </div>
             </div>
           </div>
@@ -319,79 +385,20 @@
 </div>
 @section Scripts{
     <script type="text/javascript">
-        
-        $(document).ready(function () {
-            $.ajax({
-                url: '/Estate/GetEstate',
-                type: "Get",
-                datatype: "json",
-                success: function (response) {
-                    console.log(response);
-                    var string = ""
-                    for (var i = 0; i < response.length; i++) {
-                        string += `
-                                <div class="col-xxl-3 col-md-6 col-sm-12 mb-6 mm  sale">
-                                    <div class="card card1 top-be top-bee ">
-                                        <img src="/images/Estate/${response[i].main_photo}" alt="...">
-                                        <div class="card-body text-center my-3 ">
-                                            <h3 class="card-title"> ${response[i].name} </h3>
-                                            <h6 class="card-text text-success">${response[i].state.name} ${response[i].city.name} </h6>
-                                            <p class="text-secondary"> تاريخ الإضافة : ${response[i].onDate.split("T")[0]}</p>
-                                        </div>
-                                        <div class="list-group list-group-flush">
-                                            <div class="list-group-item d-flex flex-row justify-content-between">
-                                                <div class="d-flex flex-row mt-3 mb-2">
-                                                    <img class="img-fluid ms-2 " src="">
-                                                    <div>
-                                                        <p class="mb-0"> ${response[i].name_owner}</p>
-                                                        <div>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star checked"></span>
-                                                            <span class="fa fa-star"></span>
-                                                            <span class="fa fa-star"></span>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-
-
-                                                <div>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-heart-fill me-3 mb-2 mt-3" viewBox="0 0 16 16">
-                                                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
-                                                    </svg>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-    `
-                    }
-                    $("#dataEstate").html(string);
-
-                }
-            });
-        });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
+function AddLike(Id,el) {
+   
+      $.ajax({
+            method: 'Get',
+            url: `/Estate/AddLikes/${Id}`,
+            data: JSON.stringify({ id: Id }),
+            success: function (count) {
+   //             var x = $(el).children("span").text();
+   // alert(x);
+   //var num = parseInt(x); 
+   $(el).children("span").text(count);
+            }
+ });
+}   
  $(function () {
                 $("#mm").chosen();  
                 

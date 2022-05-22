@@ -1,2 +1,84 @@
-﻿
-<h1>عقارات شقق</h1>
+﻿@model List<Estate>
+
+    @{
+        var types = new SelectList(@ViewBag.Types,"Id","type");
+          var categories = new SelectList(@ViewBag.Categories,"Id","category");
+          var cities = new SelectList(@ViewBag.Cities,"Id","name"); 
+          var states = new SelectList(@ViewBag.States,"Id","name");
+    }
+<style>
+    header{
+      position: absolute;z-index: 100000;
+    }
+    nav {
+  background-color: rgba(17, 17, 17, 0);
+} 
+
+  </style> 
+ <video class="bg-video" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+    <source src="~/indexLayout/assets/img/pages/bg.mp4" type="video/mp4" />
+  </video>
+<div class="container-fluid d-none d-lg-block pt-5 mb-5" >
+
+    <div class="row justify-content-center align-items-center text-center ">
+
+      <p class="fs-1 text-white animated wow fadeInDown">ابحث عن العقار الأنسب لك </p>
+      <p class="fs-4 text-white pb-5 animated wow fadeInDown">لديك الفرصة لوضع عقارك</p>
+      
+      <div class="bgacground rounded-5 w-50  p-3 py-4 animated wow fadeInUp">
+        <div class="row justify-content-between align-items-center ">
+            
+                <h1>عقارات-شقق</h1>
+              
+        </div>
+      </div>
+        
+    </div>
+  </div>
+  
+    <div class="position-absolute w-100 bgdaeke" style="z-index: 5;">
+        <main class="">
+  <section class="mb-5 ">
+        <div class="container py-3">
+          <p class="text-center fs-2 py-5" data-aos="fade-down"><span class="txtborder"> عقارات أملاك @ViewBag.CategoryName </span></p>
+          <div class="row pt-3 g-3">
+       
+   @if(Model is not null)
+            @foreach (var item in Model)
+{
+    <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+                <div class="game px-2">
+                <div class="rank"><span class="bi bi-star checked"></span></div>
+                <div class="front">
+                  <img src="@item.Main_photo" class="img-fluid" alt="game">
+                  <div>
+                    <h3 class="text-center py-3">@item.name</h3>
+                  </div>
+                  <div class="status d-flex justify-content-between align-items-center">
+                    <span>@item.Likes</span>
+                    <span class="bi bi-star checked"></span>
+                  </div>
+                </div>
+                <div class="back">
+                  <div class="streaming-info">
+                    <div class="game-stat  text-center">
+                      <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
+                      
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                    <i class="heart bi bi-heart-fill mx-3"></i>
+                  </div>
+                </div>
+                <div class="backgroundWrapper"></div>
+              </div>
+            </div>
+}
+            
+            
+          </div>
+        </div>
+      </section>
+      </main>
+      </div>

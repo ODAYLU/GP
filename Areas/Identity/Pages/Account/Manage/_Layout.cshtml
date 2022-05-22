@@ -91,7 +91,7 @@
 
 
               <ul class="nav text-end py-4 p-0 flex-column ulborder">
-                <li class="nav-item active">
+                <li class="nav-item ">
                   <a class="nav-link fs-5" href="/Identity/Account/Manage/Index"><i
                       class="px-2 bi bi-person-fill"></i>بيانات شخصية
                   </a>
@@ -105,12 +105,12 @@
                       class="px-2 bi bi-flag-fill"></i>العقود</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link fs-5" id="profile" asp-controller="Contract" asp-action="Index" asp-area=""><i
-                      class="px-2 bi bi-flag-fill"></i>العقود</a>
+                  <a class="nav-link fs-5" id="profile" asp-controller="Commments" asp-action="Commments" asp-area=""><i
+                      class="px-2 bi bi-flag-fill"></i>التعليقات</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link fs-5" id="profile" asp-controller="Contract" asp-action="Index" asp-area=""><i
-                      class="px-2 bi bi-flag-fill"></i>العقود</a>
+                  <a class="nav-link fs-5" id="profile" asp-controller="likedEstates" asp-action="Index" asp-area=""><i
+                      class="px-2 bi bi-flag-fill"></i>المُعجب به</a>
                 </li>
               </ul>
               <div class="py-4">
@@ -160,7 +160,21 @@
 
 
     @section Scripts {
+   <script>
    
+   
+            var btns = document.getElementsByClassName("nav-item");  
+for (var i = 0; i < btns.length; i++) {  
+  btns[i].addEventListener("click", function() {  
+  var current = document.getElementsByClassName("active");  
+  if (current.length > 0) {   
+    current[0].className = current[0].className+=" active";  
+  }  
+  this.className += " active";  
+  });  
+}  
+   
+   </script>
 
     <script>
       function clickOn() {
