@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using System.Text.Json;
 
 namespace GP.Controllers
 {
@@ -24,11 +25,11 @@ namespace GP.Controllers
         private readonly IType _type;
         private readonly IContact _contact;
         private readonly UserManager<AppUser> _user;
-        private readonly ICurrency _currency;   
+        private readonly ICurrency _currency;
         private readonly ICommments _commments;
         private readonly IAdvertisement _advertisement;
 
-        public ApiController(IEstate estate, ICategory category, ICity city, IState state,ICurrency currency,ICommments commments
+        public ApiController(IEstate estate, ICategory category, ICity city, IState state, ICurrency currency, ICommments commments
             , IService service, IType type, UserManager<AppUser> user, IAdvertisement advertisement)
         {
             _estate = estate;
@@ -37,10 +38,10 @@ namespace GP.Controllers
             _state = state;
             _service = service;
             _type = type;
-           _user = user;
-            _currency=currency;
+            _user = user;
+            _currency = currency;
             _commments = commments;
-            _advertisement=advertisement;
+            _advertisement = advertisement;
         }
         //[HttpPost]
         //public async Task<IActionResult> GetEstate()
@@ -71,18 +72,18 @@ namespace GP.Controllers
             var search = Request.Form["search[value]"];
             var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
             var sortDirecion = Request.Form["order[0][dir]"];
-        
+
             IQueryable<AppUser> users = _user.Users.Where(x => x.NameRole == "User").AsQueryable();
             if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
             {
                 users = users.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
             }
-           
-            users = users.Where(x => string.IsNullOrEmpty(search) ? true:
-            x.FirstName.Contains(search)|| x.LastName.Contains(search));
+
+            users = users.Where(x => string.IsNullOrEmpty(search) ? true :
+            x.FirstName.Contains(search) || x.LastName.Contains(search));
             var data = await users.Skip(skipe).Take(pageSize).ToListAsync();
             var recordsTotal = users.Count();
-            var jsonData = new { recordsFiltered = recordsTotal, recordsTotal, data};
+            var jsonData = new { recordsFiltered = recordsTotal, recordsTotal, data };
 
             return Ok(jsonData);
         }
@@ -94,21 +95,39 @@ namespace GP.Controllers
             var search = Request.Form["search[value]"];
             var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
             var sortDirecion = Request.Form["order[0][dir]"];
-            
+
+
             IQueryable<AppUser> users = _user.Users.Where(x => x.NameRole == "Owner").AsQueryable();
             if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
             {
                 users = users.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
             }
-            
+
             users = users.Where(x => string.IsNullOrEmpty(search) ? true :
             x.FirstName.Contains(search) || x.LastName.Contains(search) || x.UserName.Contains(search));
             var data = await users.Skip(skipe).Take(pageSize).ToListAsync();
             var recordsTotal = users.Count();
-            
+
             var jsonData = new { recordsFiltered = recordsTotal, recordsTotal, data };
 
-            return Ok(jsonData);
+            return Ok(users);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetOwnersCards(string? search)
+        {
+            if (search != null)
+            {
+                IQueryable<AppUser> lst = _user.Users.Where(x => x.NameRole == "Owner" &&( x.FirstName.Contains(search)|| x.LastName.Contains(search))).AsQueryable();
+                var owners = JsonSerializer.Serialize(lst);
+                return Ok(owners);
+            }
+            else
+            {
+                IQueryable<AppUser> users = _user.Users.Where(x => x.NameRole == "Owner").AsQueryable();
+                var json = JsonSerializer.Serialize(users);
+                return Ok(users);
+            }
+            return NotFound();
         }
         [HttpPost]
         public async Task<IActionResult> GetCategory()
@@ -169,7 +188,7 @@ namespace GP.Controllers
             return Ok(jsonData);
         }
 
-         [HttpPost]
+        [HttpPost]
         public async Task<IActionResult> GetCurrency()
         {
             var pageSize = int.Parse(Request.Form["length"]);
@@ -178,7 +197,7 @@ namespace GP.Controllers
             var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
             var sortDirecion = Request.Form["order[0][dir]"];
 
-            IQueryable<Currency> currencies= _currency.GetAll(search);
+            IQueryable<Currency> currencies = _currency.GetAll(search);
             if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
             {
                 currencies = currencies.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
@@ -261,7 +280,7 @@ namespace GP.Controllers
             var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
             var sortDirecion = Request.Form["order[0][dir]"];
 
-            IQueryable<Comments> comments= _commments.GetAll(search);
+            IQueryable<Comments> comments = _commments.GetAll(search);
             if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
             {
                 comments = comments.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
@@ -281,7 +300,7 @@ namespace GP.Controllers
             var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
             var sortDirecion = Request.Form["order[0][dir]"];
 
-            IQueryable<Advertisement> Advertisement =await _advertisement.GetAll(search);
+            IQueryable<Advertisement> Advertisement = await _advertisement.GetAll(search);
             if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
             {
                 Advertisement = Advertisement.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
@@ -293,6 +312,6 @@ namespace GP.Controllers
         }
 
 
-        
+
     }
 }
