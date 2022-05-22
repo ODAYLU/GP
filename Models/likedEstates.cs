@@ -17,7 +17,6 @@ namespace GP.Models
         [ForeignKey("User")]
         public string IdUser { get; set; }
         public AppUser User { get; set; }
-
         [ForeignKey("Estate")]
         public long IdEstate { get; set; }
         public Estate Estate { get; set; }

@@ -58,6 +58,7 @@ namespace GP
         [HttpGet]
         public IActionResult CreateTemp()
         {
+
             SeedData.IsPserosalPhoto = false;
             return View();
         }

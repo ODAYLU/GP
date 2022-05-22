@@ -41,12 +41,22 @@ namespace GP.Controllers
 
         public IActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                SeedData.VsLikedEstate = _likedEstates.GetAll().Where(x => x.IdUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(x => x.IdEstate).ToList();
+
+            }
+            List<long> vEstate = _estate.GetAll().Where(x => x.publish).Select(e => e.Id).ToList();
+            //bool x =   vliked.Contains(2);
+
+
+
             ViewBag.Categories = _category.GetAll().ToList();
             ViewBag.Cities = _city.GetAll().ToList();
             ViewBag.States = _state.GetAll().ToList();
             ViewBag.Types = _type.GetAll().ToList();
-            ViewBag.FavEstate = _estate.GetAll().OrderByDescending(x => x.Likes).Take(4).ToList();
-            ViewBag.ModernEstate = _estate.GetAll().OrderByDescending(x => x.OnDate).Take(8).ToList();
+            ViewBag.FavEstate = _estate.GetAll().OrderByDescending(x => x.Likes).Where(x=>x.publish).Take(4).ToList();
+            ViewBag.ModernEstate = _estate.GetAll().OrderByDescending(x => x.OnDate).Where(x => x.publish).Take(8).ToList();
             return View();
         }
 
@@ -88,8 +98,7 @@ namespace GP.Controllers
             ViewBag.Data = data;
             return View();
         }
-
-
+        [HttpGet]
         public async Task<IActionResult> LikeEstateAndInserttheTable(long id)
         {
             Estate estate = await _estate.GetOne(id);
@@ -101,15 +110,45 @@ namespace GP.Controllers
             {
                 likedEstates likedEstates = new likedEstates()
                 {
-                    Id = id,
+                    IdEstate = id,
                     IdUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
                 };
 
-               await  _likedEstates.InsertObj(likedEstates);
+
+                var list =  _likedEstates.GetAll().Where(e => e.IdEstate == estate.Id && e.IdUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).ToList();
+
+                if(list.Count == 0)
+                {
+                     await  _likedEstates.InsertObj(likedEstates);
+                }
+
             }
             estate.Likes += 1;
             await _estate.UpdateEstate(estate);
-            return View();
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public async Task<IActionResult> LikeEstateAndDetetetheTable(long id)
+        {
+            Estate estate = await _estate.GetOne(id);
+            if (estate is null)
+            {
+                return View("/Views/NotAccess.cshtml");
+            }
+            if (User.Identity.IsAuthenticated)
+            {
+              
+
+                   likedEstates likedEstates = _likedEstates.GetAll().Where(e => e.IdEstate == estate.Id && e.IdUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).FirstOrDefault();
+
+             
+                    await _likedEstates.DeleteObj(likedEstates.Id);
+                
+
+            }
+            estate.Likes -= 1;
+            await _estate.UpdateEstate(estate);
+            return RedirectToAction("Index");
         }
         public IActionResult Privacy()
         {

@@ -16,7 +16,7 @@ namespace GP
             SeedRoles(roleManager);
             SeedUsers(userManager);
         }
-
+        public static List<long> VsLikedEstate { get; set; }
         public static bool IsPserosalPhoto { get; set; }
 
         public static long EstateByImage { get; set; }
