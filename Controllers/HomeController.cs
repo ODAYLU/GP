@@ -60,7 +60,7 @@ namespace GP.Controllers
             return View();
         }
 
-        public IActionResult FilterEstate(int Type, [Required] int Category, int State,  long City)
+        public IActionResult FilterEstate(int Type,  int Category, int State,  long City)
         {
             ModelState.Remove("Type");
             ModelState.Remove("State");
@@ -70,7 +70,8 @@ namespace GP.Controllers
             var data =  _estate.GetAll().Where(x => (Type == 0 ? true : x.TypeID == Type) &&
                                                     (Category == 0? true : x.categoryID == Category) &&
                                                     (State == 0? true: x.StateID == State) &&
-                                                    (City == 0 ? true: x.CityID == City)
+                                                    (City == 0 ? true: x.CityID == City)&&
+                                                    x.is_active
                                                     ).ToList();
             var Categ =  _category.GetOne(Category).Result;
             if(Categ is not null)
@@ -78,10 +79,14 @@ namespace GP.Controllers
             return View(data);
         }
 
-        public IActionResult Apartment(List<Estate> data)
+        public IActionResult Apartment()
         {
-            ViewBag.Data = data;
-            return View();
+            ViewBag.Categories = _category.GetAll().ToList() ;
+            ViewBag.Cities = _city.GetAll().ToList();
+            ViewBag.States = _state.GetAll().ToList();
+            ViewBag.Types = _type.GetAll().ToList();
+            var data = _estate.GetAll().Where(x => x.Category.category.Trim() == "شقة").ToList();
+            return View(data);
         }
         public IActionResult House(List<Estate> data)
         {

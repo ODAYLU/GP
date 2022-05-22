@@ -26,7 +26,10 @@
 
 <body dir="rtl">
    
-
+    <div class="container" id="lod">
+        <h6 class="position-absolute mx-auto">انتظر قليلا لو سمحت</h6>
+        <div id="loading"></div>
+    </div>
     <main id="main" style="display: block;">
         <header class="bgcolors">
             <div class="sidebar  h-100 end-0 " id="myDIV">
@@ -275,7 +278,7 @@ $(document).ready(function() {
     else {
          $(`#${localStorage.getItem("LiActivt")}`).addClass("aa");
         $(`#${localStorage.getItem("LiActivt")}`).children("a").addClass("aa");
-       
+        localStorage.setItem("LiActivt", "");
     }
 });
 $("li a.list").click(function() {
@@ -349,8 +352,7 @@ $('.dropdown').click(function () {
 
         function setTheme(themeName) {
             localStorage.setItem('theme', themeName);
-            document.documentElement.className = themeName;
-           
+            document.documentElement.className = themeName; 
         }
         (function () {
             if (localStorage.getItem('theme')) {

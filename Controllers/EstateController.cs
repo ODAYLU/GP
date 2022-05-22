@@ -28,7 +28,13 @@ namespace GP
         private readonly IWebHostEnvironment webHostEnvironment;
 
 
-        public EstateController(UserManager<AppUser> userManager , GP.Models.IEstate Services, IWebHostEnvironment webHostEnvironment, IPhotoEstate photoservices, IService_Estate service_Estate, IService servicesList)
+        public EstateController(UserManager<AppUser> userManager , 
+            GP.Models.IEstate Services, 
+            IWebHostEnvironment webHostEnvironment, 
+            IPhotoEstate photoservices, 
+            IService_Estate service_Estate, 
+            IService servicesList,
+            IlikedEstates like)
         {
             this._userManager = userManager;
             services = Services;
@@ -36,6 +42,7 @@ namespace GP
             _photoservices = photoservices;
             _service_Estate = service_Estate;
             this.servicesList = servicesList;
+            _like = like;
         }
 
         [HttpGet]
@@ -438,16 +445,29 @@ namespace GP
         {
             if(id != 0)
             {
-            var estate = await services.GetOne(id);
-            estate.Likes++;
+                var estate = await services.GetOne(id);
                 var data = new likedEstates
                 {
                    // IdUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
                    // IdEstate = estate.Id
                 };
-              await  _like.InsertObj(data);
-            await  services.UpdateEstate(estate);
-                return Ok();
+                var like = _like.GetAll().FirstOrDefault(x => (x.IdUser == data.IdUser) && (x.IdEstate == data.IdEstate));
+                if (like == null)
+                {
+                    await _like.InsertObj(data);
+                    estate.Likes++;
+                    await services.UpdateEstate(estate);
+                    return Ok(estate.Likes);
+                }
+                else
+                {
+                   await _like.DeleteObj(like.Id);
+                    estate.Likes--;
+                    await services.UpdateEstate(estate);
+                    return Ok(estate.Likes);
+                }
+                
+             
             }
             return BadRequest();
         }
