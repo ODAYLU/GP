@@ -2,7 +2,7 @@
 
 @{
     
-    ViewData["Title"] = "Detalis";
+    ViewData["Title"] = "تفاصيل العقار";
        // Layout = "~/Views/Shared/_LayoutOwner.cshtml";
 
           if (User.IsInRole("Owner"))
@@ -30,8 +30,10 @@
 }
 
 
-
-
+<div class="text-center">
+    <h3>تفاصيل العقار</h3><hr />
+<br />
+</div>
 <div class="container-fluid pt-5 pt-lg-0">
     <div class="row">
      <div class="col-12 col-md-8 ">
@@ -40,11 +42,11 @@
       <p>
             <div class="d-flex justify-content-around">
                 <p class="px-3"><span>@Html.DisplayNameFor(model => model.name_owner): </span><strong>@Html.DisplayFor(model => model.name_owner)</strong></p>
-                <p class="px-3"><span>@Html.DisplayNameFor(model => model.phone_num)</span><strong>@Html.DisplayFor(model => model.phone_num)</strong></p>
+                <p class="px-3"><span>@Html.DisplayNameFor(model => model.phone_num): </span><strong>@Html.DisplayFor(model => model.phone_num)</strong></p>
             </div>
         </p>
 
-        <p class="fs-4"><strong>- @Html.DisplayFor(model => model.name)</strong><sub><span>@Html.DisplayFor(model => model.Type.type)</span>  <span>@Html.DisplayFor(model => model.Category.category)</span></sub></p>
+        <p class="fs-4"><strong>- @Html.DisplayFor(model => model.name)   </strong><sub><span>@Html.DisplayFor(model => model.Type.type)</span>  <span>@Html.DisplayFor(model => model.Category.category)</span></sub></p>
 
         
         <p class="fs-5"><span> @Html.DisplayFor(model => model.description)</span></p>

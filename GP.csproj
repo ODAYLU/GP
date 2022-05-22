@@ -71,6 +71,8 @@
     <None Include="wwwroot\assets\js\Chartmobiscroll.javascript.min.js" />
     <None Include="wwwroot\assets\js\index.js" />
     <None Include="wwwroot\assets\js\loding.js" />
+    <None Include="wwwroot\bootbox.js\bootbox.js" />
+    <None Include="wwwroot\bootbox.js\bootbox.min.js" />
     <None Include="wwwroot\DownLoad\chosen.jquery.js" />
     <None Include="wwwroot\DownLoad\chosen.jquery.min.js" />
     <None Include="wwwroot\indexLayout\assets\bootstrap\ajax_query.min.js" />

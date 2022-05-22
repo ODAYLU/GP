@@ -230,7 +230,7 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
 
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-      @*  <script src="~/SweetAlert/sweetalert2@11.js"></script>*@
+
 
 
     <script>
@@ -271,12 +271,12 @@ const swalWithBootstrapButtons = Swal.mixin({
 
 swalWithBootstrapButtons.fire({
   
-  title: 'Are you sure?',
-  text: "You won't be able to revert this!",
+  title: ' هل انت متأكد من حذف الصورة ؟ ',
+  text: "سيترتب على ذلك حذف الصورة ",
   icon: 'warning',
   showCancelButton: true,
-  confirmButtonText: 'Yes, delete it!',
-  cancelButtonText: 'No, cancel!',
+  confirmButtonText: 'نعم ، موافق',
+  cancelButtonText: 'لا',
   reverseButtons: true
 }).then((result) => {
   if (result.isConfirmed) {
@@ -287,8 +287,8 @@ swalWithBootstrapButtons.fire({
        }
     
       swalWithBootstrapButtons.fire(
-      'Deleted!',
-      'Your file has been deleted.',
+      'تم الحذف ',
+      '',
       'success'
     )
      
@@ -307,17 +307,6 @@ swalWithBootstrapButtons.fire({
 
 
 
-    //  if (lots_of_stuff_already_done) {
-    //    lots_of_stuff_already_done = false; // reset flag
-    //    return; // let the event bubble away
-    //}
-
-    //e.preventDefault();
-
-    // do lots of stuff
-
-    //lots_of_stuff_already_done = true; // set flag
-    //$(this).trigger('click');
 });
 
 
