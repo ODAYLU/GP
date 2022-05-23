@@ -144,7 +144,7 @@ namespace GP.Areas.Identity.Pages.Account.Manage
 
             await _userManager.UpdateAsync(user);
             await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
+            StatusMessage = "تم تحديث البيانات بنجاح ";
             return RedirectToPage();
         }
     }
