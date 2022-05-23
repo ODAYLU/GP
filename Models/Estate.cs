@@ -56,6 +56,8 @@ namespace GP.Models
         public bool publish { get; set; }
         public bool is_spacial { get; set; }
 
+        public bool IsBlock { get; set; }
+
         [DisplayName(" نوع العقار ")]
         [Required(ErrorMessage = "الحقل مطلوب")]
         public int? categoryID { get; set; }

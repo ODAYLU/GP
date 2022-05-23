@@ -146,17 +146,17 @@ namespace GP.Controllers
          var data =   await  services.GetOne(Id);
             if(data is not null)
             {
-                if (data.is_active)
+                if (data.IsBlock)
                 {
-                    data.is_active = false;
+                    data.IsBlock = false;
                 }
                 else
                 {
-                    data.is_active = true;
+                    data.IsBlock = true;
                 }
                
                await services.UpdateEstate(data);
-                return Ok();
+                return Ok(data.IsBlock);
             }
             return BadRequest();
         }

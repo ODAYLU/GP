@@ -51,6 +51,7 @@ namespace GP
             SeedData.IsPserosalPhoto = false;
             string UserId1 = User.FindFirstValue(ClaimTypes.NameIdentifier);
             List<Estate> list = services.GetAll().Where(x=>x.UserId== UserId1 && x.is_active==true).ToList();
+         
             return View(list);
         }
 
@@ -65,6 +66,7 @@ namespace GP
         [HttpGet]
         public IActionResult CreateTemp()
         {
+
             SeedData.IsPserosalPhoto = false;
             return View();
         }
@@ -447,8 +449,8 @@ namespace GP
                 var estate = await services.GetOne(id);
                 var data = new likedEstates
                 {
-                   // IdUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                   // IdEstate = estate.Id
+                    IdUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    IdEstate = estate.Id
                 };
                 var like = _like.GetAll().FirstOrDefault(x => (x.IdUser == data.IdUser) && (x.IdEstate == data.IdEstate));
                 if (like == null)

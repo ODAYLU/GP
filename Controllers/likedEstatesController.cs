@@ -21,13 +21,14 @@ namespace GP
        
         public async Task<IActionResult> Index()
         {
+            SeedData.IsPserosalPhoto = false;
 
             string UserId1 = User.FindFirstValue(ClaimTypes.NameIdentifier);
             List<likedEstates> list = _servcies.GetAll().Where(x => x.IdUser == UserId1).ToList();
             return View(list);
            
         }
-        [HttpDelete]
+
         public async Task<IActionResult> Delete (long id)
         {
             var x = await _servcies.GetOne(id);
