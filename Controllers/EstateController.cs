@@ -458,14 +458,20 @@ namespace GP
                     await _like.InsertObj(data);
                     estate.Likes++;
                     await services.UpdateEstate(estate);
-                    return Ok(estate.Likes);
+                    int count = estate.Likes;
+                    string status = "dislike";
+                    var JsonData = new { status, count };
+                    return Ok(JsonData);
                 }
                 else
                 {
                    await _like.DeleteObj(like.Id);
                     estate.Likes--;
                     await services.UpdateEstate(estate);
-                    return Ok(estate.Likes);
+                    int count = estate.Likes;
+                    string status = "dislike";
+                    var JsonData = new { status, count };
+                    return Ok(JsonData);
                 }
                 
              
