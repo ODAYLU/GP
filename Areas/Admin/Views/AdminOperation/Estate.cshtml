@@ -66,11 +66,11 @@
                     },
                     {
                         "render": function (data, type, row, meta) {
-                            if (row.is_active) {
-                                return '<a href="#" class="btn btn-sm btn-outline-danger ms-2" onclick=IsActive(' + row.id + '); > تقييد </a>'
+                            if (row.isBlock) {
+                                return '<a href="#" class="btn btn-sm btn-outline-primary ms-2" onclick=IsActive(' + row.id + '); > تفعيل </a>'
                             }
                             else {
-                                return '<a href="#" class="btn btn-sm btn-outline-primary ms-2" onclick=IsActive(' + row.id + '); > تفعيل </a>'
+                                return '<a href="#" class="btn btn-sm btn-outline-danger ms-2" onclick=IsActive(' + row.id + '); > تقييد </a>'
                             }
                          
                         
@@ -177,15 +177,26 @@
                 data: {Id},
                     processData: false,
                     contentType: false,
-                    success: function () {
+                    success: function (status) {
                         $("#btnClose").click();
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'نجاح',
-                            title: 'تم التفعيل بنجاح',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
+                        if (status) {
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'نجاح',
+                                title: 'تم التقييد ',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        } else {
+                             Swal.fire({
+                                position: 'top-end',
+                                icon: 'نجاح',
+                                title: 'تم التفعيل بنجاح',
+                                showConfirmButton: false,
+                                timer: 1500
+                            })
+                        }
+                       
                         var Table = $("#Estates").DataTable();
                         Table.draw(false);
                     }

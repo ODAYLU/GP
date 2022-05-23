@@ -45,12 +45,12 @@ namespace GP.Controllers
             ViewBag.Cities = _city.GetAll().ToList();
             ViewBag.States = _state.GetAll().ToList();
             ViewBag.Types = _type.GetAll().ToList();
-            ViewBag.FavEstate = _estate.GetAll().Where(z => z.is_active).OrderByDescending(x => x.Likes).Take(4).ToList();
-            ViewBag.ModernEstate = _estate.GetAll().Where(z => z.is_active).OrderByDescending(x => x.OnDate).Take(8).ToList();
-            ViewBag.ModernEstateApartment = _estate.GetAll().Where(z => z.is_active).Where(z => z.Category.category.Trim() == "شقة").OrderByDescending(x => x.OnDate).Take(4).ToList();
-            ViewBag.ModernEstateHouse = _estate.GetAll().Where(z => z.is_active && z.Category.category.Trim() == "منزل").OrderByDescending(x => x.OnDate).Take(4).ToList();
-            ViewBag.ModernEstateLand = _estate.GetAll().Where(z => z.is_active && z.Category.category.Trim() == "أرض").OrderByDescending(x => x.OnDate).Take(4).ToList();
-            ViewBag.ModernEstateChalet = _estate.GetAll().Where(z => z.is_active && z.Category.category.Trim() == "شاليه").OrderByDescending(x => x.OnDate).Take(4).ToList();
+            ViewBag.FavEstate = _estate.GetAll().Where(z => z.is_active && z.publish && !z.IsBlock).OrderByDescending(x => x.Likes).Take(4).ToList();
+            ViewBag.ModernEstate = _estate.GetAll().Where(z => z.is_active && z.publish && !z.IsBlock).OrderByDescending(x => x.OnDate).Take(8).ToList();
+            ViewBag.ModernEstateApartment = _estate.GetAll().Where(z => z.is_active && z.publish && !z.IsBlock).Where(z => z.Category.category.Trim() == "شقة").OrderByDescending(x => x.OnDate).Take(4).ToList();
+            ViewBag.ModernEstateHouse = _estate.GetAll().Where(z => z.is_active && z.publish&& z.Category.category.Trim() == "منزل" && !z.IsBlock).OrderByDescending(x => x.OnDate).Take(4).ToList();
+            ViewBag.ModernEstateLand = _estate.GetAll().Where(z => z.is_active && z.publish && z.Category.category.Trim() == "أرض" && !z.IsBlock).OrderByDescending(x => x.OnDate).Take(4).ToList();
+            ViewBag.ModernEstateChalet = _estate.GetAll().Where(z => z.is_active && z.publish && z.Category.category.Trim() == "شاليه" && !z.IsBlock).OrderByDescending(x => x.OnDate).Take(4).ToList();
             ViewBag.Likes = _likedEstates.GetAll().Where(x => x.IdUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(z => z.IdEstate).ToList();
             return View();
         }
@@ -80,8 +80,8 @@ namespace GP.Controllers
             ViewBag.Cities = _city.GetAll().ToList();
             ViewBag.States = _state.GetAll().ToList();
             ViewBag.Types = _type.GetAll().ToList();
-            var data = _estate.GetAll().Where(x => x.Category.category.Trim() == "شقة").ToList();
-            return View(data);
+            var data = _estate.GetAll().Where(x => x.Category.category.Trim() == "شقة" && x.is_active&&x.publish&&!x.IsBlock).ToList();
+            return Ok(data);
         }
         public IActionResult House(List<Estate> data)
         {

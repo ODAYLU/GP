@@ -45,7 +45,7 @@
             </td>
             <td>
                
-                <a href="javaScript:;" class="btn-danger btn js-delete"data-id="@item.Id">Delete</a>
+                <a asp-action="Delete" asp-controller="likedEstates" class="btn-danger btn js-delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }
@@ -55,54 +55,6 @@
 
 @section Scripts{
     <script>
-        $(document).ready(function () {
-            $('.js-delete').on('click',function(){
-                var btn = $(this);
-
-
-
-                bootbox.confirm({
-                    message: "Are you sure that you need to delete this user ?",
-                    buttons: {
-                        confirm: {
-                            label: 'Yes',
-                            className: 'btn-danger'
-                        },
-                        cancel: {
-                            label: 'No',
-                            className: 'btn-success'
-                        }
-                    },
-                    callback: function (result) {
-                        //console.log('This was logged in the callback: ' + result);
-                        if(result){
-                            $.ajax({
-                                url:'likedEstates/Delete/?id=' +btn.data('id'),
-                                method : 'delete',
-                                success :function (){
-                                    btn.parents('tr').fadeOut();
-                                    $('#alert').removeClass('d-none');
-                                    setTimeout(function(){
-                                        $('#alert').addClass('d-none');
-                                    
-                                    },3000);
-
-                                },
-                                error :function (){
-                                    alert('Something went wrong ')
-                                }
-                            })
-                        }
-                    }
-                });
-
-
-             
-
-
-
-
-            });
-        });
+       
     </script>
 }

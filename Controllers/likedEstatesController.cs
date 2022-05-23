@@ -27,7 +27,7 @@ namespace GP
             return View(list);
            
         }
-        [HttpDelete]
+
         public async Task<IActionResult> Delete (long id)
         {
             var x = await _servcies.GetOne(id);
