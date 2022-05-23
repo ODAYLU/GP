@@ -284,9 +284,19 @@ namespace GP.Controllers
             var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
             var sortDirecion = Request.Form["order[0][dir]"];
 
-           // IQueryable<Comments> comments = _commments.GetAll(search);
-            IQueryable<Comments> comments = _commments.GetAll(search).Where(x => x.AppUser.Equals(user));
+            // IQueryable<Comments> comments = _commments.GetAll(search);
+           
+            //List<long> vs= _commments.GetAll(search).Select(x=>x.EstateId).ToList();
 
+
+            //if (vs.Any())
+            //{
+
+            //}
+
+
+
+            IQueryable<Comments> comments = _commments.GetAll(search).Where(x => x.Estate.UserId.Equals(user.Id));
 
             if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
                 {
