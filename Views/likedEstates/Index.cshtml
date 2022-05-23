@@ -15,42 +15,39 @@
     }
 }
 
-<h1>Index</h1>
+<p class="text-center pt-3 fs-4"><span class="txtborder"> العقارات  التي اعجبتك</span></p>
+<div class="p-4">
+    <div class="card rounded-5 mt-3 mb-3">
+      <div class="row g-0">
+        <div class="col-md-4"  style="height:216px;">
+          <img src="~/images/Estate/04acb974-b0f5-4510-9fc8-60990fc2949b.jpg" class="img-fluid h-100 w-100 rounded-5 rounded-end" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+     <div class="card mt-3 mb-3 ">
+      <div class="row g-0">
+        <div class="col-md-4" style="height:216px;">
+          <img src="~/images/Estate/352c57b7-d2e0-41ae-8b52-ac078e04bfb9.png" class="img-fluid  h-100 w-100 rounded-5 rounded-end" alt="...">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
 
-<p>
 
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Estate.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estate.description)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <a href="/Estate/Detalis/@item.Estate.Id">
-                @Html.DisplayFor(modelItem => item.Estate.Id)    
-                </a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estate.description)
-            </td>
-            <td>
-               
-                <a href="javaScript:;" class="btn-danger btn js-delete"data-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
 
 
 @section Scripts{
