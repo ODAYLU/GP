@@ -42,7 +42,7 @@ namespace GP.Models
         }
         public IEnumerable<likedEstates> GetAll()
         {
-            IEnumerable<likedEstates> list = _context.TlikedEstates.AsNoTracking().Include(c => c.User).Include(x => x.Estate).AsEnumerable();
+            IEnumerable<likedEstates> list = _context.TlikedEstates.AsNoTracking().Include(c => c.User).Include(x => x.Estate).Include(x => x.Estate.State).Include(x => x.Estate.City).AsEnumerable();
 
             return list;
         }

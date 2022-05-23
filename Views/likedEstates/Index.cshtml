@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<GP.Models.likedEstates>
 
 @{
-    ViewData["Title"] = "Index";
+        ViewData["ActivePage"] = ManageNavPages.IndexLiked; 
+
+    ViewData["Title"] = "العقارات المعجب بها ";
 
     if (User.IsInRole("User"))
     {
@@ -15,75 +17,104 @@
     }
 }
 
-<p class="text-center pt-3 fs-4"><span class="txtborder"> العقارات  التي اعجبتك</span></p>
+<style>
+
+    .a{
+    
+        white-space:nowrap;
+        width:275px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+       
+    }
+</style>
+
+<p class="text-center pt-3 fs-4"><span class="txtborder"> العقارات  التي أعجبتني</span></p>
 <div class="p-4">
-    <div class="card rounded-5 mt-3 mb-3">
-      <div class="row g-0">
-        <div class="col-md-4"  style="height:216px;">
-          <img src="~/images/Estate/04acb974-b0f5-4510-9fc8-60990fc2949b.jpg" class="img-fluid h-100 w-100 rounded-5 rounded-end" alt="...">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
-      </div>
-    </div>
-     <div class="card mt-3 mb-3 ">
-      <div class="row g-0">
-        <div class="col-md-4" style="height:216px;">
-          <img src="~/images/Estate/352c57b7-d2e0-41ae-8b52-ac078e04bfb9.png" class="img-fluid  h-100 w-100 rounded-5 rounded-end" alt="...">
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-          </div>
-        </div>
-      </div>
-    </div>
+
+    @{
+        <div class="text-center xxx" hidden style="margin-top:150px">
+            <h3 class="">لايوجد عقارات مُعجب بها </h3>
+            </div>
+        
+    if(Model.Count() == 0)
+    {
+        <div class="text-center" style="margin-top:150px">
+            <h3 class="">لايوجد عقارات مُعجب بها </h3>
+            </div>
+        }
+
+        else {
+            int c = 0;
+            foreach (var item in Model)
+        {
+              <div class="i-@item.Id rounded-5 mt-3 mb-3">
+                  <div class="row g-0">
+                    <div class="col-md-4"  style="height:216px;">
+                      <img src="~/images/Estate/@item.Estate.Main_photo" class="img-fluid h-100 w-100 rounded-5 rounded-end" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                        <h5 class="card-title fs-4 mb-3"><strong>- @Html.DisplayFor(modelItem => item.Estate.name)</strong><sub><span>@Html.DisplayFor(modelItem => item.Estate.Type.type)</span>  <span>@Html.DisplayFor(modelItem => item.Estate.Category.category)</span></sub></h5>
+        <p class="card-text a mb-3">@Html.DisplayFor(modelItem => item.Estate.description)</p>
+        <p class="card-text my-4"><strong>مساحة العقار:@Html.DisplayFor(modelItem => item.Estate.space)</strong></p>
+        <div class=" card-text d-flex mt-5">
+            <p class="card-text "><strong><i class="bi bi-geo-alt-fill"></i> @Html.DisplayFor(modelItem => item.Estate.State.name) - @Html.DisplayFor(modelItem => item.Estate.City.name)</strong></p>
+            <p class="card-text pe-5"><strong><i class="bi bi-cash-coin"></i> <span>@Html.DisplayNameFor(modelItem => item.Estate.price): </span>@Html.DisplayFor(modelItem => item.Estate.price)@Html.DisplayFor(modelItem => item.Estate.Currency.currency)</strong></p>
+              <p class="card-text pe-5"><a onclick=" fu(@item.Id,'i-@item.Id')" > <i  class="heart-des bi bi-heart-fill mx-3"></i> </a></p>
+            
+         </div>
+                      </div>
+                    </div>
+               </div>
+                </div>
+                c++;
+
+        }
+    }
+    
+}
+   
+   
 </div>
 
 
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Estate.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Estate.description)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <a href="/Estate/Detalis/@item.Estate.Id">
-                @Html.DisplayFor(modelItem => item.Estate.Id)    
-                </a>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estate.description)
-            </td>
-            <td>
-               
-                <a  class="btn-danger btn js-delete" asp-action="Delete" asp-controller="likedEstates" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
 
 
 @section Scripts{
     <script>
-       
+       function fu(id,el){
+
+            $.ajax({
+            method: 'Get',
+            url: `/likedEstates/Delete/${id}`,
+            success: function (data) {
+                if(data.status=="success"){
+                     document.getElementsByClassName(el)[0].animate
+                   document.getElementsByClassName(el)[0].remove();
+
+                   if(data.count=="no"){
+
+                   var w=    document.getElementsByClassName('xxx')[0];
+
+                   w.hidden=false;
+
+                   }
+                }
+                
+                else{
+                    return null;
+                }
+
+
+                
+               
+            }
+ });
+
+
+       }
+      
+
     </script>
 }
