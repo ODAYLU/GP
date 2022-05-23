@@ -21,6 +21,7 @@ namespace GP
        
         public async Task<IActionResult> Index()
         {
+            SeedData.IsPserosalPhoto = false;
 
             string UserId1 = User.FindFirstValue(ClaimTypes.NameIdentifier);
             List<likedEstates> list = _servcies.GetAll().Where(x => x.IdUser == UserId1).ToList();
