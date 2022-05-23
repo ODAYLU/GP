@@ -91,7 +91,7 @@ namespace GP.Controllers
             ViewBag.States = _state.GetAll().ToList();
             ViewBag.Types = _type.GetAll().ToList();
             var data = _estate.GetAll().Where(x => x.Category.category.Trim() == "شقة" && x.is_active&&x.publish&&!x.IsBlock).ToList();
-            return Ok(data);
+            return View();
         }
         public IActionResult House(List<Estate> data)
         {

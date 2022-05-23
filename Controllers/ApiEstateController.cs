@@ -23,12 +23,12 @@ namespace GP.Controllers
         public async Task<IActionResult> GetApartments(int pageNumber)
         {
             var estates =  _estate.GetAllQuiers();
-            var data = await estates.Where(x => x.Category.category.Trim() == "شقة" &&
+            var data = await estates.Where(x => x.Category.category.Trim() == "منزل" &&
             x.is_active &&
             x.publish &&
             !x.IsBlock).Skip(pageNumber * 20).Take(20).ToListAsync();
             int total = estates.Count();
-            decimal totalDecimal = total / data.Count;
+            decimal totalDecimal = total / 20;
             int pages = (int)Math.Floor(totalDecimal);
             var JsonData = new {pages,data };
             return Ok(JsonData);

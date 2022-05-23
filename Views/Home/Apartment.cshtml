@@ -40,17 +40,14 @@
        
           </div>
 <nav aria-label="...">
-  <ul class="pagination">
-    <li class="page-item"><span class="page-link">Previous</span></li>
-   <div id="Pages">
-
-   </div>
-     <li class="page-item "><span class="page-link">Next</span>
+  <ul  id="pagination" class="pagination ">
+  
   </ul>
 </nav>
         </div>
       </section>
       </main>
+      
       </div>
      
       @section Scripts{
@@ -61,18 +58,20 @@ $(document).ready(function() {
             url: `/api/ApiEstate/GetApartments`,
             success: function (estate) {
                 var pages = "";
+                pages += `  <li id="btnPrevious" class="page-item disabled" ><span class="page-link ">Previous</span></li>`;
                 if (estate.pages >= 3) {
                     for (var x = 1; x < 4; x++) {
-                        pages += ` <li onClick="GetDataPage(${x})" class="page-item"><a class="page-link" href="#">${x}</a></li>`;
+                        pages += ` <li  class="page-item"><a class="page-link" onClick="GetDataPage(${x},this)">${x}</a></li>`;
                     }
 
-                     pages += ` <li onClick="GetDataPage(${estate.pages})" class="page-item"><a class="page-link" href="#">${estate.pages}</a></li>`
+                     pages += ` <li  class="page-item"><a class="page-link" onClick="GetDataPage(${estate.pages},this)">${estate.pages}</a></li>`
                 } else {
                      for (var x = 1; x < estate.pages+1; x++) {
-                        pages += ` <li onClick="GetDataPage(${x})" class="page-item last"><a class="page-link" href="#">${x}</a></li>`;
+                        pages += ` <li  class="page-item last"><a class="page-link" onClick="GetDataPage(${x},this)">${x}</a></li>`;
                     }
                 }
-                $("#Pages").html(pages);
+                pages += ` <li id="btnNext" class="page-item"><span class="page-link">Next</span>`;
+                $("#pagination").html(pages);
 
                 var text = "";
                 for (var i = 0; i < estate.data.length; i++) {
@@ -109,6 +108,63 @@ $(document).ready(function() {
             }
  });
 });
+function GetDataPage(x) {
+     $.ajax({
+            method: 'Get',
+            url: `/api/ApiEstate/GetApartments`,
+         data: {pageNumber:x},
+            success: function (estate) {
+                var pages = "";
+                pages += `  <li id="btnPrevious" class="page-item disabled" ><span   class="page-link ">Previous</span></li>`;
+                if (estate.pages >= 3) {
+                    for (var x = 1; x < 4; x++) {
+                        pages += ` <li  class="page-item"><a class="page-link" onclick="GetDataPage(${x})">${x}</a></li>`;
+                    }
+
+                     pages += ` <li  class="page-item"><a class="page-link" onclick="GetDataPage(${estate.pages})">${estate.pages}</a></li>`
+                } else {
+                     for (var x = 1; x < estate.pages+1; x++) {
+                        pages += ` <li  class="page-item last"><a class="page-link" onclick="GetDataPage(${x})">${x}</a></li>`;
+                    }
+                }
+                pages += ` <li id="btnNext" class="page-item"><span class="page-link">Next</span>`;
+                $("#pagination").html(pages);
+
+                var text = "";
+                for (var i = 0; i < estate.data.length; i++) {
+                    text += `<div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+                <div class="game px-2">
+                <div class="rank"><span class="bi bi-star checked"></span></div>
+                <div class="front">
+                  <img src="${estate.data[i].main_photo}" class="img-fluid" alt="game">
+                  <div>
+                    <h3 class="text-center py-3">${estate.data[i].name}</h3>
+                  </div>
+                  <div class="status d-flex justify-content-between align-items-center">
+                    <span>${estate.data[i].likes}</span>
+                    <span class="bi bi-star checked"></span>
+                  </div>
+                </div>
+                <div class="back">
+                  <div class="streaming-info">
+                    <div class="game-stat  text-center">
+                      <b>  السعر:  ${estate.data[i].price} ${estate.data[i].currency.currency} </b> <br/> <b> ${estate.data[i].city.name} المدينة  </b><br/> <b>الدولة${estate.data[i].state.name}  </b>
+                      
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                    <i class="heart bi bi-heart-fill mx-3"></i>
+                  </div>
+                </div>
+                <div class="backgroundWrapper"></div>
+              </div>
+            </div>`;
+                }
+                $("#Estates").html(text);
+            }
+ });
+}
 function AddLike(Id,el) {
    
       $.ajax({
