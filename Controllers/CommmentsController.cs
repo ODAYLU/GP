@@ -29,10 +29,15 @@ namespace GP
         }
         public IActionResult Commments()
         {
+
+
+            SeedData.IsPserosalPhoto = false;
+
             return View();
         }
         public IActionResult Index()
         {
+            SeedData.IsPserosalPhoto = false;
             IEnumerable<Comments> lst = _context.GetAll();
             return View(lst);
         }

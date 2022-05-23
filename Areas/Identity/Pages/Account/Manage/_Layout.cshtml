@@ -8,11 +8,14 @@
   {
   //Layout = "/Areas/Identity/Pages/_Layout.cshtml";
   Layout = "/Views/Shared/_Layout.cshtml";
+
+  
   }
   }
   @inject UserManager<AppUser> _userManager;
     @{
     var user = await _userManager.GetUserAsync(User);
+    
     }
 
 
@@ -91,24 +94,24 @@
 
 
               <ul class="nav text-end py-4 p-0 flex-column ulborder">
-                <li class="nav-item ">
-                  <a class="nav-link fs-5" href="/Identity/Account/Manage/Index"><i
+                <li class="nav-item  @ManageNavPages.IndexNavClass(ViewContext)">
+                  <a class="nav-link  fs-5" href="/Identity/Account/Manage/Index"><i
                       class="px-2 bi bi-person-fill"></i>بيانات شخصية
                   </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @ManageNavPages.IndexEstateNavClass(ViewContext) ">
                   <a class="nav-link fs-5" id="profile" asp-controller="Estate" asp-action="Index" asp-area=""><i
                       class="px-2 bi bi-bookmark-fill"></i>العقارات </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @ManageNavPages.IndexContractNavClass(ViewContext)">
                   <a class="nav-link fs-5" id="profile" asp-controller="Contract" asp-action="Index" asp-area=""><i
                       class="px-2 bi bi-flag-fill"></i>العقود</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @ManageNavPages.IndexCommentNavClass(ViewContext)">
                   <a class="nav-link fs-5" id="profile" asp-controller="Commments" asp-action="Commments" asp-area=""><i
                       class="px-2 bi bi-flag-fill"></i>التعليقات</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item @ManageNavPages.IndexLikedNavClass(ViewContext)">
                   <a class="nav-link fs-5" id="profile" asp-controller="likedEstates" asp-action="Index" asp-area=""><i
                       class="px-2 bi bi-flag-fill"></i>المُعجب به</a>
                 </li>
@@ -117,15 +120,15 @@
                 <div class="row my-2 profile-stat">
                   <div class="col-4">
                     <div class="uppercase profile-stat-title"> 37 </div>
-                    <div class="uppercase profile-stat-text"> المشاريع </div>
+                    <div class="uppercase profile-stat-text"> العقارات </div>
                   </div>
                   <div class="col-4">
                     <div class="uppercase profile-stat-title"> 51 </div>
-                    <div class="uppercase profile-stat-text"> مهام </div>
+                    <div class="uppercase profile-stat-text"> العقود </div>
                   </div>
                   <div class="col-4">
                     <div class="uppercase profile-stat-title"> 61 </div>
-                    <div class="uppercase profile-stat-text"> تحميلات </div>
+                    <div class="uppercase profile-stat-text"> الإعجاب </div>
                   </div>
                 </div>
 

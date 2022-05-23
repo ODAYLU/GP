@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using GP.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GP.Areas.Identity.Pages.Account.Manage
 {
+    [Authorize(Roles ="Owner")]
     public partial class IndexModel : PageModel
     {
         private readonly UserManager<AppUser> _userManager;

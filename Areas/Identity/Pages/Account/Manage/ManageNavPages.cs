@@ -8,6 +8,13 @@ namespace GP.Areas.Identity.Pages.Account.Manage
 {
     public static class ManageNavPages
     {
+
+
+        public static string IndexEstate => "IndexEstate";
+        public static string IndexContract => "IndexContract";
+        public static string IndexLiked => "IndexLiked";
+        public static string IndexComment => "IndexComment";
+
         public static string Index => "Index";
 
         public static string Email => "Email";
@@ -25,6 +32,11 @@ namespace GP.Areas.Identity.Pages.Account.Manage
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
 
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
+        public static string IndexEstateNavClass(ViewContext viewContext) => PageNavClass(viewContext, IndexEstate);
+        public static string IndexContractNavClass(ViewContext viewContext) => PageNavClass(viewContext, IndexContract);
+        public static string IndexLikedNavClass(ViewContext viewContext) => PageNavClass(viewContext, IndexLiked);
+
+        public static string IndexCommentNavClass(ViewContext viewContext) => PageNavClass(viewContext, IndexComment);
 
         public static string EmailNavClass(ViewContext viewContext) => PageNavClass(viewContext, Email);
 

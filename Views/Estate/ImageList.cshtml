@@ -3,6 +3,8 @@
 @inject GP.Models.IEstate _ser
 
 @{
+    ViewData["ActivePage"] = ManageNavPages.IndexEstate;
+    ViewData["Title"] = "الصور الخاصة بالعقار";
     // Layout = "~/Views/Shared/_LayoutOwner.cshtml";
     if (User.IsInRole("Owner"))
     {

@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<GP.Models.Estate>
 
 @{
-    ViewData["Title"] = "Index";
+
+    ViewData["ActivePage"] = ManageNavPages.IndexEstate; 
+    ViewData["Title"] = "عقاراتي";
    // Layout = "~/Views/Shared/_LayoutOwner.cshtml";
 
 
@@ -21,11 +23,18 @@
  .btn:focus{
          box-shadow:none !important;
     }
+
+    .a{
+    
+        white-space:nowrap;
+        width:275px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+       
+    }
 </style>
 
-<div class="text-center pt-3 pb-5">
-    <p class=" fw-bold borderbottom fs-3 d-inline-block">عقاراتي</p>
-</div>
+<p class="text-center py-3 fs-4"><span class="txtborder"> عقاراتي   </span></p>
 
 
 @if (GP.Models.Toast.ShowTost)
@@ -69,24 +78,21 @@
         
         foreach (var item in Model) { 
 
-
-
-
 <div class=" mb-3" style="background-color:var(--bgwhite)">
   <div class="row g-0">
     <div class="col-md-4">
-      <img src="~/images/Estate/@item.Main_photo" class="img-fluid rounded-start h-100" >
+      <img src="~/images/Estate/@item.Main_photo" class="img-fluid rounded-start h-75 w-100" >
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title fs-4"><strong>- @Html.DisplayFor(modelItem => item.name)</strong><sub><span>@Html.DisplayFor(modelItem => item.Type.type)</span>  <span>@Html.DisplayFor(modelItem => item.Category.category)</span></sub></h5>
-        <p class="card-text">@Html.DisplayFor(modelItem => item.description)</p>
-        <p class="card-text"><strong>مساحة العقار:@Html.DisplayFor(modelItem => item.space)</strong></p>
-        <div class=" card-text d-flex">
+        <h5 class="card-title fs-4 mb-3"><strong>- @Html.DisplayFor(modelItem => item.name)</strong><sub><span>@Html.DisplayFor(modelItem => item.Type.type)</span>  <span>@Html.DisplayFor(modelItem => item.Category.category)</span></sub></h5>
+        <p class="card-text a mb-3">@Html.DisplayFor(modelItem => item.description)</p>
+        <p class="card-text my-4"><strong>مساحة العقار:@Html.DisplayFor(modelItem => item.space)</strong></p>
+        <div class=" card-text d-flex mt-5">
             <p class="card-text "><strong><i class="bi bi-geo-alt-fill"></i> @Html.DisplayFor(modelItem => item.State.name) - @Html.DisplayFor(modelItem => item.City.name)</strong></p>
             <p class="card-text pe-5"><strong><i class="bi bi-cash-coin"></i> <span>@Html.DisplayNameFor(modelItem => item.price): </span>@Html.DisplayFor(modelItem => item.price)@Html.DisplayFor(modelItem => item.Currency.currency)</strong></p>
         </div>
-        <div class=" card-text d-flex">
+        <div class=" card-text d-flex my-3">
             <p>الحالة: @{@if (@item.publish)
                         {
                             <div class="form-check form-switch">

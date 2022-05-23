@@ -21,13 +21,14 @@ namespace GP
        
         public async Task<IActionResult> Index()
         {
+            SeedData.IsPserosalPhoto = false;
 
             string UserId1 = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            List<likedEstates> list = _servcies.GetAll().Where(x => x.IdUser == UserId1).ToList();
+            List<likedEstates> list = _servcies.GetAll().Where(x => x.IdUser == UserId1&& x.Estate.publish ).ToList();
             return View(list);
            
         }
-        [HttpDelete]
+        [HttpGet]
         public async Task<IActionResult> Delete (long id)
         {
             var x = await _servcies.GetOne(id);
@@ -35,8 +36,21 @@ namespace GP
             if(x != null)
             {
                await _servcies.DeleteObj(id);
+                string UserId1 = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                List<likedEstates> list = _servcies.GetAll().Where(x => x.IdUser == UserId1 && x.Estate.publish).ToList();
+                var count = "";
+                if (list.Count() == 0)
+                {
+                    count = "no";
+                } 
+                var status = "success";
+                var JsonData = new { status,count };
+                return Ok(JsonData);
             }
-            return RedirectToAction("Index");
+
+            return BadRequest();
+          
         }
     }
 }

@@ -26,6 +26,7 @@ namespace GP
         [HttpGet]
         public IActionResult Index()
         {
+            SeedData.IsPserosalPhoto = false;
             IEnumerable<Contract> list = _services.GetAll();
             return View(list);
         }

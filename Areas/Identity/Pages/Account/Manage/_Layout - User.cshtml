@@ -1,14 +1,9 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
-    {
-        Layout = (string)parentLayout;
-    }
-    else
-    {
-        //Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+ 
 
-        Layout = "/Views/Shared/_Layout.cshtml";
-    }
+     Layout = "/Views/Shared/_Layout.cshtml";
+
+    
 }
     @inject UserManager<AppUser> _userManager;
    
@@ -17,96 +12,30 @@
 
     } 
     
-    <style>
-    .nav-pills .nav-link.active,
-    .nav-pills .show>.nav-link {
-      width: 200px;
-      height: 50px;
-      background-color: var(--orange2);
-      position: relative;
-      color: #111;
-      border: 2px solid var(--orange);
-      -moz-border-radius: 10px;
-      -webkit-border-radius: 10px;
-      border-radius: 10px;
-      transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
-    }
-
-    .nav-pills .nav-link.active:hover {
-      transition: all .3s;
-      background-color: var(--orange);
-    }
-
-    .active:before {
-      content: "";
-      position: absolute;
-      right: 100%;
-      width: 0;
-      height: 0;
-      border-top: 13px solid transparent;
-      border-right: 26px solid var(--orange);
-      border-bottom: 13px solid transparent;
-      transition: all .3s;
-    }
+<link rel="stylesheet" href="~/indexLayout/assets/css/UsersProfiles.css">
 
 
-    </style>
-              <div class="d-flex align-items-start tabs-left">
-              <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical" >
-                <button class="nav-link active fw-bold" id="talkbubble" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
-                 <i class="bi bi-person-fill"></i>المعلومات الشخصية
-                </button>
-                <button class="nav-link" id="talkbubble" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button>
-              </div>
-              <div class="tab-content" id="v-pills-tabContent">
-                <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">...برلالاتلاانلا</div>
-                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">.home..</div>
-              </div>
+     <div class="container">
+         <div class="row justify-content-center align-item-center">
+              <div class="col-12 pt-lg-5 col-lg-3 col-xl-2 prf">
+                <a href="/Identity/Account/Manage/PersonalUser" class="nav-link active fw-bold text-center m-1">
+                  <i class="bi bi-person-fill"></i>المعلومات الشخصية
+                </a>
+                <a asp-controller="likedEstates" asp-area="" asp-action="Index" class="nav-link m-1 fw-bold text-center"  onclick="openTab(event, 'aqar', 'arrow2')">
+                       <i class="bi bi-person-fill"></i>عقارات أعجبتكك
+                </a>
             </div>
-
-
-
-    
-     <link href="~/css/styleUser.css" rel="stylesheet" />
-
-     <div class="container shadow my-5">
-
-
-
-    
-
-
-
-
-
-
-        <div class="row d-flex justify-content-center">
-            <div class="col-3">
-               <div class="">
-            <div class="">
-                    <a href="/Identity/Account/Manage/PersonalUser" class="tabLinks rounded-3 btn  btn-danger" >
-                        <i class="bi bi-person text-white"></i>
-                        <span class="text-white me-2">المعلومات الشخصية</span>
-                        <i id="arrow1" class=" arrow fa-solid fa-caret-left"></i>
-                    </a>
-                    <a asp-controller="likedEstates" asp-area="" asp-action="Index" class="tabLinks rounded-3 btn btn-danger" onclick="openTab(event, 'aqar', 'arrow2')">
-                        <i class="bi bi-building text-white"></i>
-                        <span class="text-white me-2">العقارات</span>
-                        <i id="arrow2" class=" arrow fa-solid fa-caret-left"></i>
-                    </a>
-                </div>
-          </div>
-          </div>
-  <div class="col-9">
-     @RenderBody()
-  </div>
-</div>
-</div>
+                       
+             <div class="col-12 col-lg-9 col-xl-10 my-3 py-3 shado justify-content-center text-end">
+                   @RenderBody()
+            </div>
+        </div>
+        
+    </div>
 
         
-
 @section Scripts {
     @RenderSection("Scripts", required: false)
     
-      
+
 }

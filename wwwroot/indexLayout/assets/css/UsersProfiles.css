@@ -1,6 +1,97 @@
-﻿@import "https://fonts.googleapis.com/css?family=Raleway:400,300,200,500,600,700";
+﻿
+/****************profile****************/
 
-.fa-spin-fast {
+
+@media only screen and (max-width: 991px) {
+    .prf {
+        display: flex;
+    }
+    .active:before {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-top: 20px solid var(--orange) !important;
+        border-right: 20px transparent solid !important;
+        border-left: 20px transparent solid !important;
+        bottom: -40px !important;
+        right: 80px !important;
+    }
+}
+
+.prf .nav-link {
+    width: 200px;
+    height: 50px;
+    background-color: var(--orange2);
+    position: relative;
+    color: #111;
+    border: 2px solid var(--orange);
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+}
+
+    .prf .nav-link.active:hover {
+        transition: all .3s;
+        background-color: var(--orange);
+    }
+
+.active:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-right: 20px solid var(--orange);
+    border-bottom: 20px solid transparent;
+    border-top: 20px solid transparent;
+    left: -20px;
+    bottom: 2px;
+    transition: all .3s;
+}
+
+
+.shado {
+    box-shadow: 1px 1px 13px 2px #8e8e8e;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*.fa-spin-fast {
     -webkit-animation: fa-spin-fast 0.2s infinite linear;
     animation: fa-spin-fast 0.2s infinite linear;
 }
@@ -387,11 +478,11 @@ h1,
 h2,
 h3 {
     font-weight: 200;
-}
+}*/
 
 /* //////////////////////////////////////////////////////////////////// */
 
-.card h1,
+/*.card h1,
 .card h2 {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
@@ -476,12 +567,12 @@ h3 {
 
 input.pl-5.form-control {
     padding: 23px !important;
-}
+}*/
 
 /* .input-group {
 } */
 
-.form-control {
+/*.form-control {
     border-top-left-radius: 50px !important;
     border-bottom-left-radius: 50px !important;
 }
@@ -517,4 +608,4 @@ span.input-group-text {
 .bg-whitee {
     background-color: rgba(255, 255, 255, 0.514);
     color: #0f4f54;
-}
+}*/
