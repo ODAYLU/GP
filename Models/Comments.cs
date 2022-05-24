@@ -75,11 +75,15 @@ namespace GP.Models
 
         public IQueryable<Comments> GetAll(string search = "")=>_context
                     .TComments
-                    .AsNoTracking().Include(c=>c.AppUser).Where(x => string.IsNullOrEmpty(search)? true :
+                    .AsNoTracking().Include(c=>c.AppUser).Include(c=>c.Estate).Where(x => string.IsNullOrEmpty(search)? true :
                        (x.Body.Contains(search))
                     )
                     .AsQueryable();
        
+
+
+
+
 
         public async Task<Comments> GetOne(long id) => await _context
                 .TComments

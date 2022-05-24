@@ -86,6 +86,13 @@
                               console.log(data);
                               var text = "";
                               for(var i=0;i<data.length;i++){
+                                  var x = "";
+                                 
+                             x =   "data:image/jpeg;base64," + btoa(data[i].profilePicture);
+                            alert(x);
+                                      
+                                     
+                                  
                               text+=
                                `<div class=" txt col-lg-4 col-md-6 col-xs-12">
                                   <article class="material-card Red">
@@ -98,7 +105,7 @@
                                         </h2>
                                         <div class="mc-content">
                                        <div class="img-container">
-                                        <img class=" img-fluid" src=""/>
+                                        <img class=" img-fluid" src="${x}"/>
                                        </div>
                                         <div class="mc-description">
                                         </div>

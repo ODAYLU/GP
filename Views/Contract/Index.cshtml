@@ -1,7 +1,10 @@
 ﻿@model IEnumerable<GP.Models.Contract>
 
 @{
-    ViewData["Title"] = "Index";
+
+        ViewData["ActivePage"] = ManageNavPages.IndexContract; 
+
+    ViewData["Title"] = "العقود";
           //  Layout = "~/Views/Shared/_LayoutOwner.cshtml";
 
              if (User.IsInRole("Owner"))
@@ -14,9 +17,8 @@
 
 
 
-<div class="text-center pt-3 pb-5">
-    <p class=" fw-bold borderbottom fs-3 d-inline-block">العقود</p>
-</div>
+<p class="text-center py-3 fs-4"><span class="txtborder"> العقود   </span></p>
+
 <form method="post">
 <table class=" pt-5 table table-bordered table-md text-center ">
     <thead>
