@@ -53,7 +53,10 @@ namespace GP
 
                  
             });
-        
+
+            services.Configure<Service.EmailSettings>(Configuration.GetSection("EmailSettings"));
+            services.AddTransient<Service.MyEmailService>();
+
             services.AddScoped<UserManager<AppUser>>();
             services.AddControllersWithViews();
             services.AddScoped<IEstate,ProductManage>();
