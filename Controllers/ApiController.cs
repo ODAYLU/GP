@@ -129,6 +129,19 @@ namespace GP.Controllers
                 return Ok(users);
             }
            
+        } 
+        [HttpGet]
+        public async Task<IActionResult> EstateComment(long Id)
+        {
+            Estate estate = await _estate.GetOne(Id);
+            if (estate != null)
+            {
+
+                IQueryable<Comments> lst = _commments.GetAll().Where(x => x.EstateId.Equals(Id)).AsQueryable();
+                return Ok(lst);
+            }
+            return NotFound();
+           
         }
         [HttpPost]
         public async Task<IActionResult> GetCategory()
