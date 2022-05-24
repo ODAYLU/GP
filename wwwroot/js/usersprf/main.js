@@ -27,14 +27,14 @@ $(function () {
   });
   
   /////////////////////////////////////////////////////////////////////////////
-  $(document).ready(function() {
-    $(".form-control").focusin(function() {
-      $(".search").addClass("search-focus");
-    });
-    $(".form-control").focusout(function() {
-      $(".search").removeClass("search-focus");
-    });
-  });
+  //$(document).ready(function() {
+  //  $(".form-control").focusin(function() {
+  //    $(".search").addClass("search-focus");
+  //  });
+  //  $(".form-control").focusout(function() {
+  //    $(".search").removeClass("search-focus");
+  //  });
+  //});
   /////////////////////////////////////////////////////////////////
   function myFunction() {
     // Declare variables
