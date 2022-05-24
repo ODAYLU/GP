@@ -1,2 +1,373 @@
-﻿
-<h1>عقارات منازل</h1>
+﻿<style>
+    header{
+      position: absolute;z-index: 100000;
+    }
+    nav {
+  background-color: rgba(17, 17, 17, 0);
+} 
+
+  </style> 
+ <video class="bg-video" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+    <source src="~/indexLayout/assets/img/pages/bg.mp4" type="video/mp4" />
+  </video>
+<div class="container-fluid d-none d-lg-block pt-5 mb-5" >
+
+    <div class="row justify-content-center align-items-center text-center ">
+
+      <p class="fs-1 text-white animated wow fadeInDown">ابحث عن العقار الأنسب لك </p>
+      <p class="fs-4 text-white pb-5 animated wow fadeInDown">لديك الفرصة لوضع عقارك</p>
+      
+      <div class="bgacground rounded-5 w-50  p-3 py-4 animated wow fadeInUp">
+        <div class="row justify-content-between align-items-center ">
+            
+                <h1>
+                    عقارات
+                  -  @ViewBag.CategoryName
+                </h1>
+              
+        </div>
+      </div>
+        
+    </div>
+  </div>
+  
+    <div class="position-absolute w-100 bgdaeke" style="z-index: 5;">
+        <main class="">
+  <section class="mb-5 ">
+        <div class="container py-3">
+          <p class="text-center fs-2 py-5" data-aos="fade-down"><span class="txtborder"> عقارات أملاك @ViewBag.CategoryName </span></p>
+          <div id="Estates" class="row pt-3 g-3">
+       
+          </div>
+
+        </div>
+         <ul  id="pagination" class="pagination ">
+  
+        </ul>
+      </section>
+
+ 
+
+      </main>
+      
+      </div>
+     
+      @section Scripts{
+    <script type="text/javascript">
+$(document).ready(function() {
+    localStorage.setItem("pageNumberHouse","1");
+    $.ajax({
+            method: 'Get',
+            url: `/api/ApiEstate/GetHouses`,
+            success: function (estate) {
+                var pages = "";
+                pages += `<li  class="page-item"><span onclick="Previous()" class="page-link">Previous</span></li>`;
+                if (estate.pages >= 7) {
+                    for (var x = 1; x < 8; x++) {
+
+                        pages += ` <li  class="page-item "><a class="page-link" onClick="GetDataPage(${x},this)">${x}</a></li>`;
+                    }
+
+                     pages += ` <li  class="page-item"><a class="page-link" onClick="GetDataPage(${estate.pages},this)">${estate.pages}</a></li>`
+                } else {
+                     for (var x = 1; x < estate.pages+1; x++) {
+                        pages += ` <li  class="page-item last"><a class="page-link" onClick="GetDataPage(${x},this)">${x}</a></li>`;
+                    }
+                }
+                pages += `<li  class="page-item"><span onclick="Next()" class="page-link">Next</span></li>`;
+                $("#pagination").html(pages);
+
+                var text = "";
+                for (var i = 0; i < estate.data.length; i++) {
+                    text += `<div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+                <div class="game px-2">
+                <div class="rank"><span class="bi bi-star checked"></span></div>
+                <div class="front">
+                  <img src="${estate.data[i].main_photo}" class="img-fluid" alt="game">
+                  <div>
+                    <h3 class="text-center py-3">${estate.data[i].name}</h3>
+                  </div>
+                  <div class="status d-flex justify-content-between align-items-center">
+                    <span>${estate.data[i].likes}</span>
+                    <span class="bi bi-star checked"></span>
+                  </div>
+                </div>
+                <div class="back">
+                  <div class="streaming-info">
+                    <div class="game-stat  text-center">
+                      <b>  السعر:  ${estate.data[i].price} ${estate.data[i].currency.currency} </b> <br/> <b> ${estate.data[i].city.name} المدينة  </b><br/> <b>الدولة${estate.data[i].state.name}  </b>
+                      
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                    <i class="heart bi bi-heart-fill mx-3"></i>
+                  </div>
+                </div>
+                <div class="backgroundWrapper"></div>
+              </div>
+            </div>`;
+                }
+                $("#Estates").html(text);
+            }
+ });
+});
+function GetDataPage(z,el) {
+  
+    localStorage.setItem("pageNumberHouse",`${z}`);
+     $.ajax({
+            method: 'Get',
+            url: `/api/ApiEstate/GetHouses`,
+         data: {pageNumberHouse:z},
+            success: function (estate) {
+                 
+                $(el).parent().attr("aria-current","page");
+                var pages = "";
+                pages += `<li  class="page-item"><span onclick="Previous()" class="page-link">Previous</span></li>`;
+                if (estate.pages >= 7) {
+                    for (var x = 1; x < 8; x++) {
+                       if (x == z) {
+                              pages += ` <li  class="page-item active"><a class="page-link" onclick="GetDataPage(${x})">${x}</a></li>`;
+                         }else{
+                              pages += ` <li  class="page-item"><a class="page-link" onclick="GetDataPage(${x})">${x}</a></li>`;
+                         }
+                    }
+
+                     pages += ` <li  class="page-item"><a class="page-link" onclick="GetDataPage(${estate.pages})">${estate.pages}</a></li>`
+                } else {
+                     for (var x = 1; x < estate.pages+1; x++) {
+                         if (x == z) {
+                              pages += ` <li  class="page-item active"><a class="page-link" onclick="GetDataPage(${x})">${x}</a></li>`;
+                         }else{
+                              pages += ` <li  class="page-item"><a class="page-link" onclick="GetDataPage(${x})">${x}</a></li>`;
+                         }
+                       
+                    }
+                }
+                pages += `<li  class="page-item"><span onclick="Next()" class="page-link">Next</span></li>`;
+                $("#pagination").html(pages);
+
+                var text = "";
+                for (var i = 1; i < estate.data.length; i++) {
+                    text += `<div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+                <div class="game px-2">
+                <div class="rank"><span class="bi bi-star checked"></span></div>
+                <div class="front">
+                  <img src="${estate.data[i].main_photo}" class="img-fluid" alt="game">
+                  <div>
+                    <h3 class="text-center py-3">${estate.data[i].name}</h3>
+                  </div>
+                  <div class="status d-flex justify-content-between align-items-center">
+                    <span>${estate.data[i].likes}</span>
+                    <span class="bi bi-star checked"></span>
+                  </div>
+                </div>
+                <div class="back">
+                  <div class="streaming-info">
+                    <div class="game-stat  text-center">
+                      <b>  السعر:  ${estate.data[i].price} ${estate.data[i].currency.currency} </b> <br/> <b> ${estate.data[i].city.name} المدينة  </b><br/> <b>الدولة${estate.data[i].state.name}  </b>
+                      
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                    <i class="heart bi bi-heart-fill mx-3"></i>
+                  </div>
+                </div>
+                <div class="backgroundWrapper"></div>
+              </div>
+            </div>`;
+                }
+                $("#Estates").html(text);
+               
+            }
+            
+ });
+
+}
+function Next() {
+   
+    var value = localStorage.getItem("pageNumberHouse");
+    var num = parseInt(value);
+    num += 1;
+    
+    localStorage.setItem("pageNumberHouse",`${num}`);
+    $.ajax({
+        method: 'Get',
+        url: `/api/ApiEstate/GetHouses`,
+        data: { pageNumber: num },
+        success: function(estate) {
+
+
+            var pages = "";
+            pages += `<li  class="page-item"><span onclick="Previous()" class="page-link">Previous</span></li>`;
+            if (estate.pages >= 7) {
+                
+                for (var x = 1; x < 8; x++) {
+                    if (x == num) {
+                        pages += ` <li  class="page-item active"><a class="page-link" onclick="GetDataPage(${x})">${x}</a></li>`;
+                    } else {
+                        pages += ` <li  class="page-item"><a class="page-link" onclick="GetDataPage(${x})">${x}</a></li>`;
+                    }
+                }
+
+                pages += ` <li  class="page-item"><a class="page-link" onclick="GetDataPage(${estate.pages})">${estate.pages}</a></li>`
+            } else {
+                for (var x = 1; x < estate.pages + 1; x++) {
+                    if (x == num) {
+                        pages += ` <li  class="page-item active"><a class="page-link" onclick="GetDataPage(${x})">${x}</a></li>`;
+                    } else {
+                        pages += ` <li  class="page-item"><a class="page-link" onclick="GetDataPage(${x})">${x}</a></li>`;
+                    }
+
+                }
+            }
+            if (estate.pages == num) {
+                pages += ` <li  class="page-item disabled" ><span onclick="Next()" class="page-link">Next</span></li>`;
+            } else {
+                pages += ` <li  class="page-item" ><span onclick="Next()" class="page-link">Next</span></li>`;
+            }
+            
+            $("#pagination").html(pages);
+
+            var text = "";
+            for (var i = 1; i < estate.data.length; i++) {
+                text += `<div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+                <div class="game px-2">
+                <div class="rank"><span class="bi bi-star checked"></span></div>
+                <div class="front">
+                  <img src="${estate.data[i].main_photo}" class="img-fluid" alt="game">
+                  <div>
+                    <h3 class="text-center py-3">${estate.data[i].name}</h3>
+                  </div>
+                  <div class="status d-flex justify-content-between align-items-center">
+                    <span>${estate.data[i].likes}</span>
+                    <span class="bi bi-star checked"></span>
+                  </div>
+                </div>
+                <div class="back">
+                  <div class="streaming-info">
+                    <div class="game-stat  text-center">
+                      <b>  السعر:  ${estate.data[i].price} ${estate.data[i].currency.currency} </b> <br/> <b> ${estate.data[i].city.name} المدينة  </b><br/> <b>الدولة${estate.data[i].state.name}  </b>
+                      
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                    <i class="heart bi bi-heart-fill mx-3"></i>
+                  </div>
+                </div>
+                <div class="backgroundWrapper"></div>
+              </div>
+            </div>`;
+            }
+            $("#Estates").html(text);
+
+        }
+
+    });
+}
+function Previous () {
+     var value = localStorage.getItem("pageNumberHouse");
+    var num = parseInt(value);
+    num -= 1;
+    
+    localStorage.setItem("pageNumberHouse",`${num}`);
+    $.ajax({
+        method: 'Get',
+        url: `/api/ApiEstate/GetHouses`,
+        data: { pageNumber: num },
+        success: function(estate) {
+
+
+            var pages = "";
+            if (num == 0) {
+                pages += `<li  class="page-item disabled"><span onclick="Previous()" class="page-link">Previous</span></li>`;
+
+            } else {
+                pages += `<li  class="page-item"><span onclick="Previous()" class="page-link">Previous</span></li>`;
+
+            }
+            if (estate.pages >= 7) {
+                
+                for (var x = 1; x < 8; x++) {
+                    if (x == num) {
+                        pages += ` <li  class="page-item active"><a class="page-link" onclick="GetDataPage(${x})">${x}</a></li>`;
+                    } else {
+                        pages += ` <li  class="page-item"><a class="page-link" onclick="GetDataPage(${x})">${x}</a></li>`;
+                    }
+                }
+
+                pages += ` <li  class="page-item"><a class="page-link" onclick="GetDataPage(${estate.pages})">${estate.pages}</a></li>`
+            } else {
+                for (var x = 1; x < estate.pages + 1; x++) {
+                    if (x == num) {
+                        pages += ` <li  class="page-item active"><a class="page-link" onclick="GetDataPage(${x})">${x}</a></li>`;
+                    } else {
+                        pages += ` <li  class="page-item"><a class="page-link" onclick="GetDataPage(${x})">${x}</a></li>`;
+                    }
+
+                }
+            }
+            if (estate.pages == num) {
+                pages += ` <li  class="page-item"><span onclick="Next()" class="page-link">Next</span></li>`;
+            } else {
+                pages += ` <li  class="page-item" disabled><span onclick="Next()" class="page-link">Next</span></li>`;
+            }
+            
+            $("#pagination").html(pages);
+
+            var text = "";
+            for (var i = 1; i < estate.data.length; i++) {
+                text += `<div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+                <div class="game px-2">
+                <div class="rank"><span class="bi bi-star checked"></span></div>
+                <div class="front">
+                  <img src="${estate.data[i].main_photo}" class="img-fluid" alt="game">
+                  <div>
+                    <h3 class="text-center py-3">${estate.data[i].name}</h3>
+                  </div>
+                  <div class="status d-flex justify-content-between align-items-center">
+                    <span>${estate.data[i].likes}</span>
+                    <span class="bi bi-star checked"></span>
+                  </div>
+                </div>
+                <div class="back">
+                  <div class="streaming-info">
+                    <div class="game-stat  text-center">
+                      <b>  السعر:  ${estate.data[i].price} ${estate.data[i].currency.currency} </b> <br/> <b> ${estate.data[i].city.name} المدينة  </b><br/> <b>الدولة${estate.data[i].state.name}  </b>
+                      
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                    <i class="heart bi bi-heart-fill mx-3"></i>
+                  </div>
+                </div>
+                <div class="backgroundWrapper"></div>
+              </div>
+            </div>`;
+            }
+            $("#Estates").html(text);
+
+        }
+
+    });
+}
+function AddLike(Id,el) {
+   
+      $.ajax({
+            method: 'Get',
+            url: `/Estate/AddLikes/${Id}`,
+
+            success: function (count) {
+   $(el).children("span").text(count);
+            }
+ });
+}   
+
+         
+        
+    </script>
+    
+}
