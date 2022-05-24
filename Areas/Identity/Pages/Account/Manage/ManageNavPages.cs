@@ -15,6 +15,9 @@ namespace GP.Areas.Identity.Pages.Account.Manage
         public static string IndexLiked => "IndexLiked";
         public static string IndexComment => "IndexComment";
 
+        public static string IndexPersonalUser => "IndexPersonalUser";
+
+
         public static string Index => "Index";
 
         public static string Email => "Email";
@@ -37,6 +40,7 @@ namespace GP.Areas.Identity.Pages.Account.Manage
         public static string IndexLikedNavClass(ViewContext viewContext) => PageNavClass(viewContext, IndexLiked);
 
         public static string IndexCommentNavClass(ViewContext viewContext) => PageNavClass(viewContext, IndexComment);
+        public static string IndexPersonalUserNavClass(ViewContext viewContext) => PageNavClass(viewContext, IndexPersonalUser);
 
         public static string EmailNavClass(ViewContext viewContext) => PageNavClass(viewContext, Email);
 

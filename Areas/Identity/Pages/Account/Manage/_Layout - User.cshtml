@@ -18,10 +18,10 @@
      <div class="container">
          <div class="row justify-content-center align-item-center">
               <div class="col-12 pt-lg-5 col-lg-3 col-xl-2 prf">
-                <a href="/Identity/Account/Manage/PersonalUser" class="nav-link active fw-bold text-center m-1">
+                <a href="/Identity/Account/Manage/PersonalUser" class="nav-link @ManageNavPages.IndexPersonalUserNavClass(ViewContext) fw-bold text-center m-1">
                   <i class="bi bi-person-fill"></i>المعلومات الشخصية
                 </a>
-                <a asp-controller="likedEstates" asp-area="" asp-action="Index" class="nav-link m-1 fw-bold text-center"  onclick="openTab(event, 'aqar', 'arrow2')">
+                <a asp-controller="likedEstates" asp-area="" asp-action="Index" class="nav-link @ManageNavPages.IndexLikedNavClass(ViewContext)  m-1 fw-bold text-center"  onclick="openTab(event, 'aqar', 'arrow2')">
                        <i class="bi bi-person-fill"></i>عقارات أعجبتكك
                 </a>
             </div>

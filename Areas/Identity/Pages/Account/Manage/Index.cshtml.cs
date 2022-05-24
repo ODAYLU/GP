@@ -46,12 +46,12 @@ namespace GP.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Phone]
+            [RegularExpression(@"^([0-9]{3}[0-9]{3}[0-9]{4})$", ErrorMessage = "  رقم الهاتف غير صالح على الأقل 10 أرقام")]
             [Display(Name = "رقم التواصل")]
             [Required(ErrorMessage = "الحقل مطلوب")]
             public string PhoneNumber { get; set; }
 
-            [Phone]
+            [RegularExpression(@"^(\+[0-9]{3}-[0-9]{3}-[0-9]{6})$", ErrorMessage = "  (+رقم الوتساب  غير صالح (000-000-000000")]
             [Display(Name = "رقم الوتس آب")]
             [Required(ErrorMessage = "الحقل مطلوب")]
             public string ContactNumber { get; set; }
