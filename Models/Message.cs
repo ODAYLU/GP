@@ -24,5 +24,6 @@ namespace GP.Models
         public string ReceiverId { get; set; }
         [ForeignKey("ReceiverId")]
         public virtual AppUser Receiver { get; set; }
+        public bool IsReaded { get; set; }
     }
 }

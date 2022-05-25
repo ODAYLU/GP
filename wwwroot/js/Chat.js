@@ -17,20 +17,28 @@ Connection.on("connectedUsers", function (users) {
             
             var text = "";
             var img = "";
+            var UnRead = "";
             for (var i = 0; i < data.length; i++) {
-                if (data[i].profilePicture != null) {
+                if (data[i].user.profilePicture != null) {
                    
-                    img = "data:image/jpeg;base64," + btoa(atob(`${data[i].profilePicture}`));
+                    img = "data:image/jpeg;base64," + btoa(atob(`${data[i].user.profilePicture}`));
                    
                 } else {
                     img = "https://bootdey.com/img/Content/avatar/avatar1.png";
                 }
+                if (data[i].flag == false) {
+                    UnRead = `<img class="Notification" src="/images/Unreaded.gif" style="width:50px;" />`
+                }
+                else {
+                    UnRead = "";
+                }
                 text += `<a class="list-group-item py-3" >
-                                <input type="text" value="${data[i].id}" hidden />
+                                <input type="text" value="${data[i].user.id}" hidden />
                                 <div class="pull-right">
                                     <img src="${img}" alt="" class="img-avatar">
-                                        <small class="list-group-item-heading">${data[i].userName} </small>
+                                        <small class="list-group-item-heading">${data[i].user.userName} </small>
                                 </div>
+                                ${UnRead}
                             </a>`;
 
             }
@@ -39,10 +47,10 @@ Connection.on("connectedUsers", function (users) {
     });
 });
 
-Connection.on("receiveMessage", function (msg) {
+Connection.on("receiveMessage", function (msg,users) {
     
     var Id = $("#txtIdUserCurrent").val();
-  
+    var text = JSON.stringify(users);
     var txtMessage = "";
     var img = "";
     //if (msg.sender.profilePicture != null) { img = "data:image/jpeg;base64," + btoa(atob(`${data[i].profilePicture}`)); }
@@ -69,26 +77,66 @@ Connection.on("receiveMessage", function (msg) {
                             <small class="mf-date"><i class="bi bi-clock-o"></i>${getLastSeen(msg.time)}</small>
                         </div>
                     </div>`;
-        alert("Hello");
+        
         $("#Messages").append(txtMessage);
     }
    
-   
+    $.ajax({
+        method: 'Post',
+        url: `/ContactUser/GetUsers?text=${users}`,
+        data: { text: text },
+        processData: false,
+        contentType: false,
+        success: function (data) {
+
+            var text = "";
+            var img = "";
+            var UnRead = "";
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].user.profilePicture != null) {
+
+                    img = "data:image/jpeg;base64," + btoa(atob(`${data[i].user.profilePicture}`));
+
+                } else {
+                    img = "https://bootdey.com/img/Content/avatar/avatar1.png";
+                }
+                if (data[i].flag == false) {
+                    UnRead = `<img class="Notification" src="/images/Unreaded.gif" style="width:50px;" />`
+                }
+                else {
+                    UnRead = "";
+                }
+                text += `<a class="list-group-item py-3" >
+                                <input type="text" value="${data[i].user.id}" hidden />
+                                <div class="pull-right">
+                                    <img src="${img}" alt="" class="img-avatar">
+                                        <small class="list-group-item-heading">${data[i].user.userName} </small>
+                                </div>
+                                ${UnRead}
+                            </a>`;
+
+            }
+            $("#Users").html(text).addClass("");
+        }
+    });
     
     });
 
 
 $("body").on("click", "#Users a", function (e) {
     e.preventDefault();
+
     $("#Messages").removeClass("d-none");
     $("#Header").removeClass("d-none");
     $("#Image").addClass("d-none");
+    $(this).children(".Notification").addClass("d-none");
     $("#btnSend").attr("disabled",false);
     $("#txtId").val($(this).children("input").val());
     $("#CurrentUserHeader").html($(this).html());
     var IdR = $("#txtId").val();
     $("#Header").html($(this).html());
     sessionStorage.setItem("IdUserChating", IdR);
+
     $.ajax({
         method: 'Post',
         url: `/ContactUser/GetMessages?ReciverId=${IdR}`,
@@ -137,18 +185,20 @@ $("body").on("click", "#Users a", function (e) {
 
             $("#Messages").html(text);
         }
-        });
+    });
+ 
 });
 
 $("#btnSend").click(function () {
     
 
     var val = $("#txtInput").val().length;
-
+  
     if (val > 0) {
         var IdSender = $("#txtId").val().trim();
         var thisUser = $("#txtIdUserCurrent").val().trim();
         var message = $("#txtInput").val();
+
         if (thisUser != IdSender) {
            
             var text = ` <div class="message-feed media text-end">
@@ -156,16 +206,16 @@ $("#btnSend").click(function () {
                             <div class="mf-content">
                                 ${message}
                             </div>
-                            <small class="mf-date"><i class="bi bi-clock-o"></i>${getLastSeen(Date.now())}</small>
+                          
                         </div>
                     </div>`;
             $("#Messages").append(text);
-            
+            $("#txtInput").val("");
         }
         Connection.invoke("SendMessage", message, IdSender);
     }
         
-        
+   
     
    
 });
