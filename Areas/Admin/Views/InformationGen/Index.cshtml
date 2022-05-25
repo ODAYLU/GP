@@ -4,43 +4,63 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<h4>InformationGen</h4>
-<a class="btn btn-outline-primary" onclick="OpenForm()">تعديل</a>
+<h1 class="text-center"  style="color: #0f4f54">المعلومات العامة</h1>
 <hr />
+
 <div class="row">
     <div class="">
-        <form asp-action="Index">
+         <a class="btn btn-outline-green  mb-5  mt-2 px-5 fw-bold fs-5" onclick="OpenForm()">تعديل</a>
+
+        <form asp-action="Index" class="w-50 mx-auto border-3 shadow-lg p-5">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label">الإيميل</label>
-                <input asp-for="Email" class="form-control" />
+
+
+           
+            
+        <h5 class="text-center"  style="color: #0f4f54"> بيانات التواصل </h5>
+        <hr />
+            <div class="form-group input-group  mt-5 ">
+                
+                    <span class="input-group-text  " id="basic-addon1">
+                       <i class="bi bi-envelope"></i>
+                    </span>
+              
+                <input asp-for="Email" class="form-control   border-right-0 " aria-describedby = "basic-addon1" placeholder="الإيميل" />
+             
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Phone" class="control-label">رقم الهاتف</label>
-                <input asp-for="Phone" class="form-control" />
+
+            <div class="form-group input-group">
+                     <span class="input-group-text  " id="basic-addon2">
+                       <i class="bi bi-envelope"></i>
+                    </span>
+                <input asp-for="Phone" class="form-control border-right-0" aria-describedby = "basic-addon2" placeholder="رقم الهاتف" />
                 <span asp-validation-for="Phone" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="UrlFacebook" class="control-label">رابط فيسبوك</label>
-                <input asp-for="UrlFacebook" class="form-control" />
+            <div class="form-group input-group">
+                     <span class="input-group-text  " id="basic-addon3">
+                       <i class="bi bi-envelope"></i>
+                    </span>
+                <input asp-for="UrlFacebook" class="form-control border-right-0" aria-describedby = "basic-addon3" placeholder="رابط فيسبوك" />
                 <span asp-validation-for="UrlFacebook" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="UrlTwitter" class="control-label">رابط تويتر</label>
-                <input asp-for="UrlTwitter" class="form-control" />
+            <div class="form-group input-group">
+                     <span class="input-group-text  " id="basic-addon4">
+                       <i class="bi bi-envelope"></i>
+                    </span>
+                <input asp-for="UrlTwitter" class="form-control border-right-0" aria-describedby = "basic-addon4" placeholder="رابط تويتر" />
                 <span asp-validation-for="UrlTwitter" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="UrlInstegrame" class="control-label"> رابط انستقرام</label>
-                <input asp-for="UrlInstegrame" class="form-control" />
+            <div class="form-group input-group">
+                     <span class="input-group-text  " id="basic-addon5">
+                       <i class="bi bi-envelope"></i>
+                    </span>
+                <input asp-for="UrlInstegrame" class="form-control border-right-0" aria-describedby = "basic-addon5" placeholder="رابط انستقرام" />
                 <span asp-validation-for="UrlInstegrame" class="text-danger"></span>
             </div>
             <br />
-            <div class="form-group">
-                <input type="submit" value="حفظ" class="btn btn-outline-primary" />
+            <div class="form-group ">
+                <input type="submit" value="حفظ" class="btn btn-outline-green" />
             </div>
             <br />
         </form>

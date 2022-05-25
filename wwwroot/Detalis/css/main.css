@@ -1,0 +1,382 @@
+
+/* //////////////////////////////////////////////////////////////////// */
+
+.detl h1,
+.detl h2 {
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+.detl {
+  height: 450px;
+  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 0px;
+}
+
+.image1 {
+  background:linear-gradient(0deg, #2a555596,#2a555596), url("http://media.cleveland.com/business_impact/photo/associated-estates-san-raphael-apartments-dallas-texasjpg-8959a5dfba0d9575.jpg");
+  height: 500px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: contain; 
+  position: relative;
+
+}
+
+.a:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #2a5555;
+    opacity: 0.7;
+    z-index: -1;
+  }
+.chancolhov:hover{
+  color: #2a5555 !important;
+ 
+
+}
+.big:hover{
+  font-size: 100px !important;
+}
+.greencolor{
+  color: #2a5555 !important;
+}
+.bggreencolor{
+  background-color: #2a5555 !important;
+}
+.twittercolor{
+  color: #1DA1F2 !important;
+}
+.whatsappcolor{
+  color:	#25D366 !important;
+}
+.facebookcolor{
+  color:  #4267B2 !important;
+}
+.instgremlogocolor{
+  color: #B900B3 !important;
+}
+.zoom:hover {
+  transform: scale(1.5) !important;
+}
+
+/* .zoom{
+  z-index: 1240 !important ;
+} */
+/* //////////////////////////////////////////////////////////// */
+
+
+
+.button-group {
+margin-bottom: 20px;
+}
+.counter {
+display: inline;
+margin-top: 0;
+margin-bottom: 0;
+margin-right: 10px;
+}
+.posts {
+clear: both;
+list-style: none;
+padding-left: 0;
+width: 100%;
+text-align: end;
+
+}
+.posts li {
+background-color: #fff;
+border: 1.5px solid #d8d8d8;
+border-radius: 10px;
+padding-top: 10px;
+padding-left: 10px;
+padding-right: 10px;
+padding-bottom: 10px;
+margin-bottom: 10px;
+word-wrap: break-word;
+box-shadow:8px 8px 5px #888888;
+}
+.posts li .spase{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+.posts li h5{
+  margin-right: 2rem !important;
+  margin-top: 1.5rem !important;
+}
+@media (max-width: 700px) {
+  .posts li h5{
+    margin-right: 3rem !important;
+   
+  }
+}
+.posts li img{
+
+  margin-bottom: 1rem !important;
+}
+.btn-primary {
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+}
+textarea.form-control.status-box:focus {
+  color: #212529;
+  background-color: #fff;
+  border-color: #2a5555 !important;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem #2a55556b !important;
+}
+.posts li .col-3 div{
+  
+border-radius: 100%;
+width: 50px;
+height: 50px;
+ padding : 10px;
+ box-shadow: #2125293d 5px  5px 8px;
+
+}
+
+#map {
+  height: 500px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+.round{
+  border-top-right-radius: 35px !important;
+  border-top-left-radius: 35px !important;
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 35px !important;
+}
+
+.mt-6{
+     margin-top: 4rem !important;
+ }
+
+/* .satea{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+/* } */
+/* @media (max-width: 700px) {
+  .satea{
+  
+    flex-direction: column;
+    justify-items: center;
+ 
+  }
+} */
+
+/* //////////////////////// */
+header {
+  margin: 30px;
+  text-align: center;
+}
+#mpo-modal-controller {
+  position: absolute;
+  left: -999em;
+  opacity: 0;
+}
+
+.mpo-modal-open:checked ~ .mpo-modal-wrap {
+  display: block;
+}
+.mpo-modal-open:checked ~ .mpo-modal-wrap:before, .mpo-modal-open:checked ~ .mpo-modal-wrap .mpo-modal-overlay {
+  display: block;
+}
+
+.mpo-modal-wrap {
+  display: none;
+}
+.mpo-modal-wrap:before {
+  content: "";
+  display: none;
+  background: rgba(0,0,0,0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 101;
+}
+.mpo-modal-overlay {
+  bottom: 0;
+  display: none;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 102;
+}
+.mpo-modal-body {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  max-width: 90%;
+  max-height: 90%;
+  /* padding: 15px 0; */
+  /* background: #fff; */
+  border-radius: 0.25em;
+  overflow: hidden;
+  text-align: center;
+  z-index: 1000 !important;
+}
+.mpo-modal-body p {
+  text-align: left;
+  line-height: 1.3;
+}
+.mpo-modal-content {
+  margin: 30px 15px 50px;
+  padding: 50px 0 0;
+  position: relative;
+}
+.mpo-modal-slide {
+  display: flex;
+  position: absolute;
+  transition: all 0.4s ease-in;
+  width: 100%;
+}
+.modal-content-2 {
+  left: 100%;
+}
+.modal-content-3 {
+  left: 200%;
+}
+#modal-content-1:checked ~ .content-1 {
+  left: 0;
+  overflow: auto;
+  position: relative;
+}
+#modal-content-1:checked ~ .content-2 {
+  left: 100%;
+}
+#modal-content-2:checked ~ .content-1 {
+  left: -100%;
+}
+#modal-content-2:checked ~ .content-2 {
+  left: 0;
+  overflow: auto;
+  position: relative;
+}
+#modal-content-2:checked ~ .content-3 {
+  left: 100%;
+}
+#modal-content-3:checked ~ .content-1 {
+  left: -200%;
+}
+#modal-content-3:checked ~ .content-2 {
+  left: -100%;
+}
+#modal-content-3:checked ~ .content-4 {
+  left: 100%;
+}
+#modal-content-3:checked ~ .content-3 {
+  left: 0;
+  overflow: auto;
+  position: relative;
+}
+#modal-content-4:checked ~ .content-1 {
+  left: -300%;
+}
+#modal-content-4:checked ~ .content-2 {
+  left: -200%;
+}
+#modal-content-4:checked ~ .content-3 {
+  left: -100%;
+}
+#modal-content-4:checked ~ .content-4 {
+  left: 0;
+  overflow: auto;
+  position: relative;
+}
+.mpo-modal-nav {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+}
+.mpo-modal-nav label {
+  position: absolute;
+  z-index: 0 !important;
+   background: #f7f7f7; 
+  color: #303030;
+  cursor: pointer;
+  display: inline-block;
+  font: 50px Arial;
+  line-height: 45px;
+  height: 50px;
+  width: 80px; 
+   padding: 0 30px 0 25px;
+  text-decoration: none;
+  vertical-align: middle;
+  letter-spacing: -7px;
+  text-align: center;
+}
+.mpo-modal-nav label.prev-slide {
+  content: "";
+  left: 0;
+  top: 200px !important;
+}
+.mpo-modal-nav label.next-slide {
+  content: "";
+  right: 0;
+  top: 200px !important;
+}
+
+
+@media only screen and (max-width: 767px) {
+  .mpo-modal-body {
+    max-width: 100%;
+    width: 100%;
+    border-radius: 0;
+ }
+}
+
+
+
+/* /////////////////////////// */
+@import "compass/css3";
+
+
+
+.gallery > div {
+  position: relative;
+  float: left;
+  padding: 5px;
+}
+
+.gallery > div > img {
+  width: 250px;
+  margin: 0 auto;
+  transition: 0.1s transform;
+  transform: translateZ(0); /* hack */
+}
+
+.gallery > div:hover {
+  z-index: 1;
+}
+
+.gallery > div:hover > img {
+  transform: scale(1.5, 1.5);
+  transition: 0.3s transform;
+}
+
+.cf:before,
+.cf:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+
+.cf:after {
+  clear: both;
+}

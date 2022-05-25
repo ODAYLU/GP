@@ -1,6 +1,277 @@
-﻿@model Comments
+﻿@{
+    Layout = null;
+}
 
- <h3 class="mb-3">
+
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>أملاك</title>
+  <link rel="shortcut icon" href="~/~/Detalis/img/logo/logo.png">
+
+  <link href="~/Detalis/bootstrap/bootstrap4.min.css" rel="stylesheet">
+  <link href="~/Detalis/bootstrap/bootstrap5.min.css" rel="stylesheet">
+  <link href="~/Detalis/bootstrap/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-1.12.2.min.js" integrity="sha256-lZFHibXzMHo3GGeehn1hudTAP3Sc0uKXBXAzHX1sjtk=" crossorigin="anonymous"></script> 
+
+    <!--Bootstrap JS-->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+    </script>
+  <link rel="stylesheet" href="~/Detalis/css/main.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer"
+  />
+
+</head>
+
+
+<body dir="rtl">
+
+ 
+
+
+
+  <div class="overflow-hidden image1 text-white text-center  d-flex flex-column align-items-center justify-content-center mb-5  " >
+
+   
+   
+      <h1 class="mb-5 "> بيت للبيع جنوب محطة تحلية بلدية البريج</h1>
+      <div class="zoom">
+      
+    
+        <label for="mpo-modal-controller" >
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"  "   fill="currentColor" class="bi bi-camera-fill " viewBox="0 0 16 16">
+            <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+            <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+          </svg>
+        
+        </label>
+    
+      
+
+    </div>
+    
+      
+ 
+  </div>
+
+
+  <div class="mpo-modal">
+    <input type="checkbox" id="mpo-modal-controller" class="mpo-modal-open" hidden>
+    <div class="mpo-modal-wrap">
+      <label for="mpo-modal-controller" class="mpo-modal-overlay"></label>
+      <div class="mpo-modal-body">
+  
+       
+  
+        <input type="radio" name="content-nav" id="modal-content-1" class="modal-radio" checked hidden/>
+        <input type="radio" name="content-nav" id="modal-content-2" class="modal-radio" hidden/>
+        <input type="radio" name="content-nav" id="modal-content-3" class="modal-radio" hidden/>
+        <input type="radio" name="content-nav" id="modal-content-4" class="modal-radio" hidden/>
+  
+        <div class="mpo-modal-slide content-1">
+          <div class="mpo-modal-content">
+           <img  src="~/Detalis/img/house-1867187_640.jpg"   class="rounded-3 img-fluid">
+            <div class="mpo-modal-nav">
+              <label for="modal-content-2" class="next-slide">&#8250;&#8250;</label>
+            </div>
+          </div>
+        </div>
+  
+        <div class="mpo-modal-slide content-2">
+          <div class="mpo-modal-content">
+            <img  src="~/Detalis/img/house-1867187_640.jpg"   class="rounded-3 img-fluid">
+  
+            <div class="mpo-modal-nav">
+              <label for="modal-content-1" class="prev-slide">&#8249;&#8249;</label>
+              <label for="modal-content-3" class="next-slide">&#8250;&#8250;</label>
+            </div>
+          </div>
+        </div>
+  
+        <div class="mpo-modal-slide content-3">
+          <div class="mpo-modal-content">
+            <img  src="~/Detalis/img/house-1867187_640.jpg"   class="rounded-3 img-fluid">
+           
+            <div class="mpo-modal-nav">
+              <label for="modal-content-2" class="prev-slide">&#8249;&#8249;</a></label>
+
+                <label for="modal-content-4" class="next-slide">&#8250;&#8250;</label>
+            </div>
+          </div>
+        </div>
+        <div class="mpo-modal-slide content-4">
+          <div class="mpo-modal-content">
+            <img  src="~/Detalis/img/house-1867187_640.jpg"   class="rounded-3 img-fluid">
+           
+            <div class="mpo-modal-nav">
+              <label for="modal-content-3" class="prev-slide">&#8249;&#8249;</a></label>
+            </div>
+          </div>
+        </div>
+  
+      </div>
+    </div>
+  
+  </div>
+   
+
+<div class="d-flex align-items-center justify-content-center">
+<div class="container">
+  <div class="row text-end">
+   <div class="col-lg-8"> 
+      <div class="text-secondary chancolhov  "> 
+        <div class="d-flex flex-row justify-content-between">
+          <h2>
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-house-door   zoom" viewBox="0 0 16 16">
+              <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
+            </svg>
+           منزل
+          </h2>
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-flag-fill img-fluid greencolor" viewBox="0 0 16 16">
+              <path d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12.435 12.435 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A19.626 19.626 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a19.587 19.587 0 0 0 1.349-.476l.019-.007.004-.002h.001"/>
+            </svg>
+          </div>
+
+         
+
+        </div>
+        
+    
+          <p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+          </svg>
+          2022-05-15 08:59 AM
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye me-1" viewBox="0 0 16 16">
+            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+          </svg>
+        <span> مشاهدات 18</span>
+        </p>
+      
+        </div>
+       
+          <h1 class="fw-bold mb-3">
+            منزل للبيع قرب شالية الريحان
+            </h1>
+           
+           
+      
+       
+          <h3 class="greencolor">شارك عبر </h3>
+          <div class="d-flex flex-row text-dark mb-1">
+            <a href="#" class="nav-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-facebook facebookcolor zoom" viewBox="0 0 16 16">
+                <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
+              </svg>
+            </a>
+            <a href="#" class="nav-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-whatsapp whatsappcolor zoom"  viewBox="0 0 16 16">
+                <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+              </svg>
+            </a>
+            <a href="#" class="nav-link"> 
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-twitter twittercolor zoom " viewBox="0 0 16 16">
+                <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334 0-.14 0-.282-.006-.422A6.685 6.685 0 0 0 16 3.542a6.658 6.658 0 0 1-1.889.518 3.301 3.301 0 0 0 1.447-1.817 6.533 6.533 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.325 9.325 0 0 1-6.767-3.429 3.289 3.289 0 0 0 1.018 4.382A3.323 3.323 0 0 1 .64 6.575v.045a3.288 3.288 0 0 0 2.632 3.218 3.203 3.203 0 0 1-.865.115 3.23 3.23 0 0 1-.614-.057 3.283 3.283 0 0 0 3.067 2.277A6.588 6.588 0 0 1 .78 13.58a6.32 6.32 0 0 1-.78-.045A9.344 9.344 0 0 0 5.026 15z"/>
+              </svg>
+            </a>
+            <a href="#" class="nav-link"> 
+              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-instagram instgremlogocolor zoom" viewBox="0 0 16 16">
+                <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.917 3.917 0 0 0-1.417.923A3.927 3.927 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.916 3.916 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.926 3.926 0 0 0-.923-1.417A3.911 3.911 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0h.003zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599.28.28.453.546.598.92.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.47 2.47 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.478 2.478 0 0 1-.92-.598 2.48 2.48 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233 0-2.136.008-2.388.046-3.231.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92.28-.28.546-.453.92-.598.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045v.002zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92zm-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217zm0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334z"/>
+              </svg>
+            </a>
+           
+            
+          </div>
+      
+    
+          <h3 class="fw-light mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-geo-alt" viewBox="0 0 16 16">
+              <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
+              <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            </svg>
+            فلسطين, قطاع غزة, البريج, مخيم البريج
+          </h3>
+          <h4 class="fw-light text-secondary mb-5">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-building " viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
+              <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
+            </svg>
+          1 دينار
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-aspect-ratio me-3" viewBox="0 0 16 16">
+            <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h13A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5v-9zM1.5 3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"/>
+            <path d="M2 4.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H3v2.5a.5.5 0 0 1-1 0v-3zm12 7a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H13V8.5a.5.5 0 0 1 1 0v3z"/>
+          </svg>
+        <span>  150 م2
+        </span>
+        </h4>
+      
+        <h2>عن العقار</h2>
+        <p class="fs-5 fw-light mb-5">
+          بيت للبيع على شارعين 10م العنوان بالقرب من بيت ابو اشرف ابو الروس
+           جنوب محطة تحلية بلدية البريج مساحة الأرض 400م 
+          ومسورة وفيها بئر مياه خاص ومبنى 150م مؤسس لخمس طوابق بعد الدور الارضي *
+           الدور الارضي شقة اربع غرف وصالون ومدخل مضله تصلح صالون خارجي الطابق الثاني 
+          جاهز للبلاطة مسقوف منه زينقو شقة غرفتين وصلون ومطبخ وحمام جاهزة كهربا اسود وسباكة اسود وجاهزة للقصارة
+        </p>
+    
+        
+        <h2 class="mb-4">صور العقار</h2>
+        <div class="row mb-5 gallery cf text-center">
+          <div class="col-lg-4 col-sm-6 col-12">
+        
+              <img  src="~/Detalis/img/house-1867187_640.jpg" class="rounded-3 img-fluid">
+          </div>
+          <div class="col-lg-4 col-sm-6 col-12">
+        
+            <img  src="~/Detalis/img/house-1867187_640.jpg" class="rounded-3 img-fluid">
+        </div>
+        <div class="col-lg-4 col-sm-6 col-12">
+        
+          <img  src="~/Detalis/img/house-1867187_640.jpg" class="rounded-3 img-fluid">
+      </div>
+      <div class="col-lg-4 col-sm-6 col-12">
+        
+        <img  src="~/Detalis/img/house-1867187_640.jpg" class="rounded-3 img-fluid">
+    </div>
+    <div class="col-lg-4 col-sm-6 col-12">
+        
+      <img  src="~/Detalis/img/house-1867187_640.jpg" class="rounded-3 img-fluid">
+  </div>
+  <div class="col-lg-4 col-sm-6 col-12">
+        
+    <img  src="~/Detalis/img/house-1867187_640.jpg" class="rounded-3 img-fluid">
+</div>
+<div class="col-lg-4 col-sm-6 col-12">
+        
+  <img  src="~/Detalis/img/house-1867187_640.jpg" class="rounded-3 img-fluid">
+</div>
+
+          
+          
+
+        </div>
+        
+        
+     
+         
+        <h2 class="mb-4"> موقع العقار</h2>
+        <div>
+          <div id="map" class="mb-5">
+
+          </div>
+        </div>
+
+        
+        <h3 class="mb-3">
           <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chat-dots" viewBox="0 0 16 16">
             <path d="M5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
             <path d="m2.165 15.803.02-.004c1.83-.363 2.948-.842 3.468-1.105A9.06 9.06 0 0 0 8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6a10.437 10.437 0 0 1-.524 2.318l-.003.011a10.722 10.722 0 0 1-.244.637c-.079.186.074.394.273.362a21.673 21.673 0 0 0 .693-.125zm.8-3.108a1 1 0 0 0-.287-.801C1.618 10.83 1 9.468 1 8c0-3.192 3.004-6 7-6s7 2.808 7 6c0 3.193-3.004 6-7 6a8.06 8.06 0 0 1-2.088-.272 1 1 0 0 0-.711.074c-.387.196-1.24.57-2.634.893a10.97 10.97 0 0 0 .398-2z"/>
@@ -11,8 +282,10 @@
        
           
             <ul class="posts  mb-5">
-              ccx
-              <h3 class="text-secondary text-center ss "> لا يوجد تعليقات، كن أول المعلقين</h3>
+             <li>
+
+              <h3 class="te◘xt-secondary text-center ss "> لا يوجد تعليقات، كن أول المعلقين</h3>
+             </li>
              
             </ul>
               
@@ -40,9 +313,99 @@
           </form>
           <div class="button-group pull-right">
            
-            <a  class="btn bggreencolor btn1 text-white">اضافة</a>
+            <a onclick="AddComment('50','60','70')" class=" btn bggreencolor btn1 text-white">اضافة</a>
             <p class="counter">250</p>
           </div>
         
         </div>
+     
+    
 
+    </div> 
+
+      </div>
+            
+     
+
+
+    <div class="col-lg-4">
+      
+      <div class="card  w-100 p-3 mb-5">
+        <div class="card-body row">
+
+            <div class="col-4">
+                <img class="rounded-circle" src="~/Detalis/img/man.png" width="70px" height="70px" />
+            </div>
+            <div class="col-8 ">
+                <h5 class="card-title"> <i class="fa-solid fa-user"></i> مالك العقار</h5>
+                <h6 class="card-text"> <i class="fa-solid fa-location-dot"></i> العنوان </h6>
+                <p class="card-text"> <i class="fa-solid fa-phone"></i> الهاتف</p>
+                <a href="" class="btn  btn-danger" onclick="copy(this)" data-toggle="tooltip" data-placement="top" title="اضغط لنسخ الرقم">
+                    <i class="fa-solid fa-user"></i> +123456
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="bg-secondary h-50 w-100"> 
+    
+    </div>
+
+    </div>
+       
+     
+    
+    </div>
+  </div>
+
+
+
+
+<script>
+    function AddComment(x,y,z){
+        console.log(x,y,z)
+           
+                  
+
+          $.ajax({
+            method: 'Get',
+            url: `/Commments/Add/`,
+            data: {x: x, y: y,z:z},
+            success: function (data) {
+
+                if(data.isAppened=="Donee"){
+                    alert('xfhdg');
+                }
+                         
+
+
+
+            },
+
+
+ });
+
+    }
+
+
+
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js" integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="~/Detalis/bootstrap/ajax_query.min.js"></script>  
+          <script src="~/Detalis/js/main.js"></script>
+     
+      <!-- <script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script> -->
+    
+     
+
+</body>
+  <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
+      
+
+</html>

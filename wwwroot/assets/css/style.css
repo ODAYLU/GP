@@ -15,32 +15,33 @@
 
 :root,
 :root.light {
-  --green: #0f4f54 !important;
-  --bgwhite: #f6f6f6 !important;
-  --txtwhite: #f1f1f1 !important;
-  --txtactive: #111;
-  --contact: rgb(255, 255, 255);
-  --grendark: #0f4f54;
-  --litegreen: #9ba889 !important;
-
-  --bgcolor2: #d7d7d7;
-  --navcolor: chocolate;
-  --navcolorhover: rgb(255, 255, 255);
-  --navbghover: chocolate;
-  --colorscrolbar: #a6bad9;
-  --bg-color: #fff;
-  --text-color: #123;
+    --greencolor: #0f4f54 !important;
+    --green: #0f4f54 !important;
+    --bgwhite: #f6f6f6 !important;
+    --txtwhite: #f1f1f1 !important;
+    --txtactive: #111 !important;
+    --contact: rgb(255, 255, 255);
+    --grendark: #0f4f54;
+    --litegreen: #9ba889 !important;
+    --bgcolor2: #d7d7d7;
+    --navcolor: chocolate;
+    --navcolorhover: rgb(255, 255, 255);
+    --navbghover: chocolate;
+    --colorscrolbar: #a6bad9;
+    --bg-color: #fff;
+    --text-color: #123;
 }
 
-:root.dark {
-  --green: #15202b !important;
-  --bgwhite: #1d2a35 !important;
-  --txtactive: #f1f1f1;
-  --contact: var(--green);
-  --grendark: #0f4f54;
-  --litegreen: var(--litegreen);
-  --bgdark: #0a1a17d4 !important;
-}
+    :root.dark {
+        --greencolor: #f6f6f6 !important;
+          --green: #15202b !important;
+        --bgwhite: #1d2a35 !important;
+        --txtactive: #f1f1f1 !important;
+        --contact: var(--green);
+        --grendark: #0f4f54;
+        --litegreen: var(--litegreen);
+        --bgdark: #0a1a17d4 !important;
+    }
 
 
 
@@ -137,9 +138,10 @@ body {
 /* siebar all */
 
 .sidebar {
-  display: none;
-  right: 0;
-  background-color: var(--green);
+    display: none;
+    right: 0;
+    background-color: var(--green);
+    width: 308px !important;
 }
 
 .sidebar.active {

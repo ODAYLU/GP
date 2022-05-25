@@ -1,0 +1,23 @@
+﻿
+.formFile::before {
+    content: "اختر ملف";
+    position: absolute;
+    z-index: 2;
+    display: block;
+    background-color: #e9ecef;
+    width: 80px;
+    
+}
+
+
+.btn-outline-green {
+    color: #0f4f54 !important;
+    border-color: #0f4f54 !important;
+}
+
+ .btn-outline-green:hover {
+        color: white !important;
+        border-color: #0f4f54 !important;
+        background: #0f4f54;
+  }
+.

@@ -3,17 +3,19 @@
     ViewData["Title"] = "Home Page";
 }
 
+<h1 class="text-center"  style=" color :#0f4f54 ">الاعلانات</h1>
+<hr />
+
 <button id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-        class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">
+        class="btn btn-sm  btn-outline-green ms-2 mb-5 mt-2 px-5 fw-bold fs-5" data-toggle="modal">
     اضافة
 </button>
-<hr />
 
 
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+     aria-labelledby="staticBackdropLabel" aria-hidden="true" >
 
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-md modal-dialog-centered" >
         <div class="modal-content">
             <div style="margin:10px!important;">
                 <form id="formadd" method="post">
@@ -29,74 +31,74 @@
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">الاسم الاول لصاحب الشركة</label>
-                                <input id="fname" asp-for="@Model.FirstName" class="form-control" required placeholder="" name="FirstName" />
+                                <input id="fname" asp-for="@Model.FirstName" class="form-control rounded-pill" required placeholder="" name="FirstName" />
                                 <span asp-validation-for="@Model.FirstName" class="text-danger span"></span>
                             </div>
                         </div>
                          <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">الاسم الاخير لصاحب الشركة</label>
-                                <input id="lname" asp-for="@Model.LastName" class="form-control" required placeholder="" name="LastName" />
+                                <input id="lname" asp-for="@Model.LastName" class="form-control rounded-pill" required placeholder="" name="LastName" />
                                 <span asp-validation-for="@Model.LastName" class="text-danger span"></span>
                             </div>
                         </div> <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">ايميل الشركة </label>
-                                <input id="email" asp-for="@Model.Email" class="form-control" required placeholder="" name="Email" />
+                                <input id="email" asp-for="@Model.Email" class="form-control rounded-pill" required placeholder="" name="Email" />
                                 <span asp-validation-for="@Model.Email" class="text-danger span"></span>
                             </div>
                         </div> <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">هاتف الشركة </label>
-                                <input id="phone" asp-for="@Model.PhoneNumber" class="form-control" required placeholder="" name="PhoneNumber" />
+                                <input id="phone" asp-for="@Model.PhoneNumber" class="form-control rounded-pill" required placeholder="" name="PhoneNumber" />
                                 <span asp-validation-for="@Model.PhoneNumber" class="text-danger span"></span>
                             </div>
                         </div> <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">رابط الاعلان</label>
-                                <input id="link" asp-for="@Model.Link" class="form-control" required placeholder="" name="Link" />
+                                <input id="link" asp-for="@Model.Link" class="form-control rounded-pill" required placeholder="" name="Link" />
                                 <span asp-validation-for="@Model.Link" class="text-danger span"></span>
                             </div>
                         </div> <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">صورة الاعلان </label>
-                                <input id="image" asp-for="@Model.image" class="form-control" required onchange="img_pathUrl(this)" placeholder="" name="image" />
+                                <input id="image" asp-for="@Model.image" class="form-control formFile rounded-pill" required onchange="img_pathUrl(this)" placeholder="" name="image" />
                                 <span asp-validation-for="@Model.image" class="text-danger span"></span>
                             </div>
                               <div class="col-12">
-                            <div class="form-group">
+                            <div class="form-group text-center">
                                 <img id="phot" src="" alt="..."  class="w-25 h-25" asp-append-version="true" />
                             </div>
                         </div>
                              <div class="form-group">
                                 <label for="edit_name_en" class="my-3">الوصف</label>
-                                <input id="desc" asp-for="@Model.Description" class="form-control" required placeholder="" name="Description" />
+                                <textarea id="desc" asp-for="@Model.Description" class="form-control rounded-pill" required placeholder="" name="Description"></textarea>
                                 <span asp-validation-for="@Model.Description" class="text-danger span"></span>
                             </div>
                               <div class="form-group">
                                 <label for="edit_name_en" class="my-3">السعر</label>
-                                <input id="price" asp-for="@Model.Price" class="form-control" required placeholder="" name="Price" />
+                                <input id="price" asp-for="@Model.Price" class="form-control rounded-pill" required placeholder="" name="Price" />
                                 <span asp-validation-for="@Model.Price" class="text-danger span"></span>
                             </div>
                         </div> <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">تاريخ الابتداء</label>
-                                <input id="sdate" asp-for="@Model.StartDate" class="form-control" required placeholder="" name="StartDate" />
+                                <input id="sdate" asp-for="@Model.StartDate" class="form-control rounded-pill" required placeholder="" name="StartDate" />
                                 <span asp-validation-for="@Model.StartDate" class="text-danger span"></span>
                             </div>
                         </div> <div class="col-12">
                             <div class="form-group">
                                 <label for="edit_name_en" class="my-3">تاريخ الانتهاء</label>
-                                <input id="edate" asp-for="@Model.EndDate" class="form-control" required placeholder="" name="EndDate" />
+                                <input id="edate" asp-for="@Model.EndDate" class="form-control rounded-pill" required placeholder="" name="EndDate" />
                                 <span asp-validation-for="@Model.EndDate" class="text-danger span"></span>
                             </div>
                             
                         </div>
                     </div>
 
-                    <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-                    <button id="btnAdd" type="submit" class="btn btn-outline-primary">إضافة</button>
-                    <button id="btnEdit" type="submit" class="btn btn-outline-primary">تعديل</button>
+                         <button id="btnAdd" type="submit" class="btn " style=" color: #fff;background-color: #0f4f54;border-color: #198754;">اضافة</button>
+                    <button id="btnEdit" type="submit" class="btn" style=" color: #fff;background-color: #0f4f54;border-color: #198754;">تعديل</button>
+                    <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
                 </form>
             </div>
 
@@ -204,13 +206,15 @@
         function DeleteCustomer(Id) 
         {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: 'هل أنت متأكد؟',
+                text: "لن تتمكن من التراجع عن هذا!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                cancelButtonColor: '#d33 ',
+                confirmButtonText: 'نعم ، احذفها!',
+                cancelButtonText: "الغاء",    
+
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
@@ -218,11 +222,20 @@
                         url: `/Admin/Advertisement/Delete/${Id}`,
                         data: JSON.stringify({ id: Id }),
                         success: function () {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
+                              Swal.fire({
+                                 title:   'تم الحذف!',
+                                  position: 'top-end',
+                                 icon: 'success',
+                                 showConfirmButton: false,
+                                 timer: 1500,
+                              
+                                                        
+                                 
+                            
+
+                                })
+                            
+                           
                             var Table = $("#Advertisement").DataTable();
                             Table.draw(false);
                         }
@@ -260,12 +273,13 @@
                     processData: false,
                     contentType: false,
                     success: function () {
-                        Swal.fire({
+                          Swal.fire({
                             position: 'top-end',
                             icon: 'success',
-                            title: 'Item has been added successfully',
+                            title: 'تمت إضافة العنصر بنجاح',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 1500,
+                            
                         })
                         $("#btnClose").click();
                         var Table = $("#Advertisement").DataTable();
