@@ -17,7 +17,20 @@
     }
 }
 
-<style>
+<style type="text/css">
+
+  .delete {
+     
+        animation: deleteAnimation 1.5s cubic-bezier(0, 0, 0, 1.12) forwards;
+        animation-delay: .6s;
+     }
+        @@keyframes deleteAnimation{
+        to {
+            transform: translateX( 100px );
+            opacity: 0;
+        }
+     }
+
 
     .a{
     
@@ -83,21 +96,28 @@
 
 @section Scripts{
     <script>
+        var x = "";
        function fu(id,el){
-
+           x=el;
             $.ajax({
             method: 'Get',
             url: `/likedEstates/Delete/${id}`,
             success: function (data) {
                 if(data.status=="success"){
-                     document.getElementsByClassName(el)[0].animate
-                   document.getElementsByClassName(el)[0].remove();
+
+
+                     //code to hide
+
+
+                    
+                   document.getElementsByClassName(el)[0].classList.add('delete');
+                    var myTimeout = setTimeout(remo,1000); 
+
+                  
 
                    if(data.count=="no"){
 
-                   var w=    document.getElementsByClassName('xxx')[0];
-
-                   w.hidden=false;
+                      var myTimeout2 = setTimeout(dde,1200); 
 
                    }
                 }
@@ -117,4 +137,23 @@
       
 
     </script>
+
+    <script>
+    
+    
+      function remo(){
+          console.log(x);
+                        document.getElementsByClassName(x)[0].remove();
+
+              }
+
+              function dde(){
+                  
+                        var w=    document.getElementsByClassName('xxx')[0];
+
+                   w.hidden=false;
+              }
+              
+              
+      </script>
 }

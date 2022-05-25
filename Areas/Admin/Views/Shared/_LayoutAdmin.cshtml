@@ -19,6 +19,7 @@
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/Login/login.css" rel="stylesheet" />
     <link href="~/assets/css/style.css" rel="stylesheet">
+     <link href="~/assets/css/newcss.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
 
 
@@ -32,7 +33,7 @@
     </div>
     <main id="main" style="display: block;">
         <header class="bgcolors">
-            <div class="sidebar  h-100 end-0 " id="myDIV">
+            <div class="sidebar   h-100 end-0 " id="myDIV" >
 
                 <div class="sidebar-header d-flex justify-content-center pb-3 ">
                     <a href="dashbord.html" class="sidebar-logo">
@@ -40,7 +41,7 @@
                     </a>
                 </div>
 
-                <div id="btn " onclick="myFunction()" class="close bg-white rounded-circle border-0 iconpos ">
+                <div id="btn " onclick="myFunction()" class="close bg-white rounded-circle border-0 iconpos px-5 ">
                     <i class="bi bi-x fs-1 "></i>
                 </div>
                 <div class="sidebar-body  scrol">
@@ -79,7 +80,7 @@
                                 <span class="title">المستخدمين</span>
                                 <span class="icon">
 
-                                    <i class="bi bi-columns-gap"></i>
+                                   <i class="bi bi-people"></i>
                                 </span>
                             </a>
                         </li>
@@ -138,7 +139,7 @@
                                  <input value="10" hidden/>
                                 <span class="title">التعليقات</span>
                                 <span class="icon">
-                                    <i class="bi bi-credit-card"></i>
+                                    <i class="bi bi-chat-dots"></i>
                                 </span>
 
                             </a>
@@ -159,7 +160,7 @@
                                  <input value="12" hidden/>
                                 <span class="title">المعلومات العامة</span>
                                 <span class="icon">
-                                    <i class="bi bi-list-ul"></i>
+                                    <i class="bi bi-body-text"></i>
                                 </span>
 
                             </a>
@@ -194,18 +195,7 @@
                             </a>
                         </li>
 
-                        <li class="nav-item me-auto ps-2 ">
-                            <div class="toggle-container">
-                                <button class="theme-btn text-white light" onclick="setTheme('light')"
-                                    title="Light mode">
-                                    <i class="bi bi-brightness-high-fill"></i>
-                                </button>
-                                <button class="theme-btn text-white dark" onclick="setTheme('dark')" title="Dark mode">
-                                    <i class="bi bi-moon-stars-fill"></i>
-                                </button>
-                            </div>
-                        </li>
-                        <li class="nav-item">
+                        <li class="nav-item me-auto ps-2">
                             <a class=" start-0 text-white fs-2" href="#">
                                 <i class="bi bi-bell-fill"></i>
                             </a>
@@ -241,7 +231,8 @@
 
 
         <article class="content">
-            <div class="container-fluid p-lg-5 mb-5">
+            <div class="container-fluid p-lg-5 mb-5"
+            >
                  @RenderBody()       
             </div>           
         </article>

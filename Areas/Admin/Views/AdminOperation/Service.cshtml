@@ -3,17 +3,19 @@
     ViewData["Title"] = "Home Page";
 }
 
+<h1 class="text-center"  style="color: #0f4f54">الخدمات</h1>
+<hr />
+
 <button id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-        class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">
+        class="btn btn-sm  btn-outline-green ms-2 mb-5 mt-2 px-5 fw-bold fs-5" data-toggle="modal">
     اضافة
 </button>
-<hr />
 
 
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
 
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-md modal-dialog-centered">
         <div class="modal-content">
             <div style="margin:10px!important;">
                 <form id="formadd" method="post">
@@ -28,28 +30,28 @@
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="edit_name_en" class="my-3">إسم الفئة</label>
-                                <input id="fname" asp-for="@Model.Name" class="form-control" required placeholder="Category Name" name="Name" />
+                                <label for="edit_name_en" class="my-3">إسم الخدمه</label>
+                                <input id="fname" asp-for="@Model.Name" class="form-control rounded-pill" required placeholder="إسم الخدمه" name="Name" />
                                 <span asp-validation-for="@Model.Name" class="text-danger span "></span>
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="form-group">
+                            <div class="form-group ">
                                 <label for="edit_name_ar" class="my-3">الصورة</label>
-                                <input id="lname" asp-for="@Model.file" class="form-control " onchange="img_pathUrl(this)" placeholder="Image" name="file" />
+                                <input id="lname" asp-for="@Model.file" class="form-control formFile rounded-pill " onchange="img_pathUrl(this)" placeholder="Image" name="file" />
                                 <span asp-validation-for="@Model.file" class="text-danger span"></span>
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="form-group">
+                            <div class="form-group text-center">
                                 <img id="image" src="" alt="..." class="w-25 h-25" asp-append-version="true" />
                             </div>
                         </div>
                     </div>
 
-                    <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="btnAdd" type="submit" class="btn btn-outline-primary">Add</button>
-                    <button id="btnEdit" type="submit" class="btn btn-outline-primary">Edit</button>
+               <button id="btnAdd" type="submit" class="btn " style=" color: #fff;background-color: #0f4f54;border-color: #198754;">اضافة</button>
+                    <button id="btnEdit" type="submit" class="btn" style=" color: #fff;background-color: #0f4f54;border-color: #198754;">تعديل</button>
+                    <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
                 </form>
             </div>
 
@@ -124,13 +126,15 @@
         }
         function DeleteCustomer(Id) {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: 'هل أنت متأكد؟',
+                text: "لن تتمكن من التراجع عن هذا!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                cancelButtonColor: '#d33 ',
+                confirmButtonText: 'نعم ، احذفها!',
+                cancelButtonText: "الغاء",    
+
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
@@ -138,11 +142,19 @@
                         url: `/Admin/Service/Delete/${Id}`,
                         data: JSON.stringify({ id: Id }),
                         success: function () {
-                            Swal.fire(
-                                'Deleted!',
-                                'Your file has been deleted.',
-                                'success'
-                            )
+                            
+                             Swal.fire({
+                                 title:   'تم الحذف!',
+                                  position: 'top-end',
+                                 icon: 'success',
+                                 showConfirmButton: false,
+                                 timer: 1500,
+                              
+                                                        
+                                 
+                            
+
+                                })
                             var Table = $("#Services").DataTable();
                             Table.draw();
                         }
@@ -182,9 +194,10 @@
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
-                            title: 'Item has been added successfully',
+                            title: 'تمت إضافة العنصر بنجاح',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 1500,
+                            
                         })
                         $("#btnClose").click();
                         var Table = $("#Services").DataTable();
