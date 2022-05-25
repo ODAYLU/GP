@@ -3,7 +3,7 @@
     margin-top: 20px;
 }*/
 
-.card {
+/*.card {
     background: #fff;
     transition: .5s;
     border: 0;
@@ -17,15 +17,15 @@
 .chat-app .people-list {
     width: 280px;
     position: absolute;
-    left: 0;
+    right: 0;
     top: 0;
     padding: 20px;
     z-index: 7
 }
 
 .chat-app .chat {
-    margin-left: 280px;
-    border-left: 1px solid #eaeaea
+    margin-right: 280px;
+    border-right: 1px solid #eaeaea
 }
 
 .people-list {
@@ -270,4 +270,4 @@
         height: calc(100vh - 350px);
         overflow-x: auto
     }
-}
+}*/

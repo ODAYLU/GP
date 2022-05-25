@@ -36,6 +36,8 @@ namespace GP.Hubs
                 ReceiverId = Id,
                 UserId = Context.UserIdentifier,
                 UserName = Context.User.Identity.Name
+                
+
             };   
              await _context.Messages.AddAsync(msg);
             await _context.SaveChangesAsync();

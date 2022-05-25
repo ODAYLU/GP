@@ -16,17 +16,23 @@ Connection.on("connectedUsers", function (users) {
         success: function (data) {
             
             var text = "";
+            var img = "";
             for (var i = 0; i < data.length; i++) {
-                
-                text += `<li   class="clearfix ">
-                                 <input type="text" value="${data[i].id}" hidden/>
-                            <img class="" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
-                            <div class="about">
-                                <div class="name">${data[i].userName}</div>
-                                <div class="status"> <i class="fa fa-circle offline"></i> left 7 mins ago </div>
-                            </div>
-                          
-                        </li>`;
+                if (data[i].profilePicture != null) {
+                   
+                    img = "data:image/jpeg;base64," + btoa(atob(`${data[i].profilePicture}`));
+                   
+                } else {
+                    img = "https://bootdey.com/img/Content/avatar/avatar1.png";
+                }
+                text += `<a class="list-group-item py-3" >
+                                <input type="text" value="${data[i].id}" hidden />
+                                <div class="pull-right">
+                                    <img src="${img}" alt="" class="img-avatar">
+                                        <small class="list-group-item-heading">${data[i].userName} </small>
+                                </div>
+                            </a>`;
+
             }
             $("#Users").html(text).addClass("");
         }
@@ -36,36 +42,53 @@ Connection.on("connectedUsers", function (users) {
 Connection.on("receiveMessage", function (msg) {
     
     var Id = $("#txtIdUserCurrent").val();
+  
     var txtMessage = "";
+    var img = "";
+    //if (msg.sender.profilePicture != null) { img = "data:image/jpeg;base64," + btoa(atob(`${data[i].profilePicture}`)); }
+    //else { img = "https://bootdey.com/img/Content/avatar/avatar1.png"; }
     if (msg.userId == Id)
     {
-        txtMessage = `<li class="clearfix d-grid justify-content-start">
-                    <div class="message-data text-right">
-                        <span class="message-data-time">${msg.time}</span>
-                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
-                    </div>
-                    <div class="message other-message float-right"> ${msg.text}</div>
-                </li>`
+        
+        txtMessage = `<div class="message-feed media text-end">
+                        <div class="media-body">
+                            <div class="mf-content">
+                                ${msg.text}
+                            </div>
+                            <small class="mf-date"><i class="bi bi-clock-o"></i>${getLastSeen(msg.time)}</small>
+                        </div>
+                    </div>`;
+        $("#Messages").append(txtMessage);
     }
     else {
-        txtMessage = `<li class="clearfix d-grid justify-content-end" >
-                    <div class="message-data text-right">
-                        <span class="message-data-time">${msg.time}</span>
-                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
-                    </div>
-                    <div class="message other-message float-right"> ${msg.text}</div>
-                </li>`
-        
+        txtMessage = ` <div class="message-feed media text-start">
+                        <div class="media-body">
+                            <div class="mf-content">
+                                ${msg.text}
+                            </div>
+                            <small class="mf-date"><i class="bi bi-clock-o"></i>${getLastSeen(msg.time)}</small>
+                        </div>
+                    </div>`;
+        alert("Hello");
+        $("#Messages").append(txtMessage);
     }
    
-    $("#Messages").append(txtMessage);
+   
     
     });
 
 
-$("body").on("click", "#Users li", function () {
+$("body").on("click", "#Users a", function (e) {
+    e.preventDefault();
+    $("#Messages").removeClass("d-none");
+    $("#Header").removeClass("d-none");
+    $("#Image").addClass("d-none");
+    $("#btnSend").attr("disabled",false);
     $("#txtId").val($(this).children("input").val());
+    $("#CurrentUserHeader").html($(this).html());
     var IdR = $("#txtId").val();
+    $("#Header").html($(this).html());
+    sessionStorage.setItem("IdUserChating", IdR);
     $.ajax({
         method: 'Post',
         url: `/ContactUser/GetMessages?ReciverId=${IdR}`,
@@ -75,25 +98,38 @@ $("body").on("click", "#Users li", function () {
         success: function (data) {
             
             var text = "";
+            var img = "";
             for (var i = 0; i < data.length; i++) {
+                if (data[i].profilePicture != null) {
+
+                    img = "data:image/jpeg;base64," + btoa(atob(`${data[i].profilePicture}`));
+
+                } else {
+                    img = "https://bootdey.com/img/Content/avatar/avatar1.png";
+                }
                 if (data[i].receiverId == IdR) {
                     
-                    text += `<li class="clearfix d-grid justify-content-start">
-                                <div class="message-data text-right">
-                                    <span class="message-data-time">${data[i].time}</span>
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
-                                </div>
-                                <div class="message other-message float-right"> ${data[i].text}</div>
-                            </li>`;
+                    text += `<div class="message-feed media text-end">
+                        <div class="media-body">
+                            <div class="mf-content">
+                                ${data[i].text}
+                            </div>
+                            <small class="mf-date"><i class="bi bi-clock-o"></i>${getLastSeen(data[i].time)}</small>
+                        </div>
+                    </div>`;
                 }
                 else {
-                    text += `<li class="clearfix d-grid justify-content-end">
-                                <div class="message-data text-right">
-                                    <span class="message-data-time">${data[i].time}</span>
-                                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
-                                </div>
-                                <div class="message other-message float-right"> ${data[i].text}</div>
-                            </li>`;
+                    text += `<div class="message-feed right">
+                        <div class="pull-left me-2">
+                            <img src="${img}" alt="" class="img-avatar">
+                        </div>
+                        <div class="media-body">
+                            <div class="mf-content">
+                                ${data[i].text}
+                            </div>
+                            <small class="mf-date"><i class="bi bi-clock-o"></i> ${getLastSeen(data[i].time)}</small>
+                        </div>
+                    </div>`;
                     
                 }
                 
@@ -108,20 +144,21 @@ $("#btnSend").click(function () {
     
 
     var val = $("#txtInput").val().length;
-    alert(val);
+
     if (val > 0) {
         var IdSender = $("#txtId").val().trim();
         var thisUser = $("#txtIdUserCurrent").val().trim();
         var message = $("#txtInput").val();
         if (thisUser != IdSender) {
-            alert("Hello");
-            var text = `<li class="clearfix d-grid justify-content-start" >
-                        <div class="message-data text-right">
-                            <span class="message-data-time"></span>
-                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="avatar">
+           
+            var text = ` <div class="message-feed media text-end">
+                        <div class="media-body">
+                            <div class="mf-content">
+                                ${message}
+                            </div>
+                            <small class="mf-date"><i class="bi bi-clock-o"></i>${getLastSeen(Date.now())}</small>
                         </div>
-                        <div class="message other-message float-right">${message}</div>
-                    </li>`;
+                    </div>`;
             $("#Messages").append(text);
             
         }
@@ -132,5 +169,31 @@ $("#btnSend").click(function () {
     
    
 });
+function getLastSeen(date) {
+
+
+    let milSec = Date.now() - Date.parse(date);
+
+    if (milSec < 5) {
+        return `الآن`
+    }
+    else if (Math.ceil(milSec / 1000) < 60) {
+        return `منذ ${Math.ceil(milSec / 1000)} ثانية`
+    } else if (Math.ceil(milSec / 1000 / 60) < 60) {
+        return `منذ ${Math.ceil(milSec / 1000 / 60)} دقيقة`
+    }
+    else if (Math.ceil(milSec / 1000 / 60 / 60) < 24) {
+        return `منذ ${Math.ceil(milSec / 1000 / 60 / 60)} ساعة`
+    }
+    else if (Math.ceil(milSec / 1000 / 60 / 60 / 24) < 30) {
+        return `منذ ${Math.ceil(milSec / 1000 / 60 / 60 / 24)} يوم`
+    }
+    else if (Math.ceil(milSec / 1000 / 60 / 60 / 24 / 30) < 12) {
+        return `منذ ${Math.ceil(milSec / 1000 / 60 / 60 / 24 / 30)} شهر`
+    }
+    else {
+        return `منذ ${Math.ceil(milSec / 1000 / 60 / 60 / 24 / 30 / 12)} سنة`
+    }
+}
 
     
