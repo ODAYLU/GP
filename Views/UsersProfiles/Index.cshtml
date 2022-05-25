@@ -1,7 +1,6 @@
 ﻿@model IQueryable<GP.Models.AppUser>
 @{
 
-
 }
 
 <link rel="stylesheet" href="~/indexLayout/assets/css/UsersProfiles.css" />
@@ -32,9 +31,9 @@
                                     <h2 class=" mb-5 fw-bold">Live like an artist</h2>
                                     <div class="input-group mb-3 mx-auto  mt-6 search" style="z-index: 1000; ">
 
-                                        <div  class="input-group-append">
+                                        <div class="input-group-append">
                                             <button id="searchy" class="btn btn-primary">Search</button>
-                                            <span  class="input-group-text"> <i class="fa fa-fw fa-search"></i></span>
+                                            <span class="input-group-text"> <i class="fa fa-fw fa-search"></i></span>
                                         </div>
                                         <input type="text" class="pl-5 form-control" id="myInput" placeholder="Search">
                                     </div>
@@ -53,84 +52,121 @@
     </div>
 
     <div id="alldiv" class="container ">
-        <div    class="row active-with-click" id="myUL">
+        <div class="row active-with-click" id="myUL">
         </div>
 
     </div>
- </div>
-    @section Scripts{
+</div>
+<script>
+    $(function () {
+        $(".material-card > .mc-btn-action").click(function () {
+          var card = $(this).parent(".material-card");
+          var icon = $(this).children("i");
+          icon.addClass("fa-spin-fast");
+
+          if (card.hasClass("mc-active")) {
+            card.removeClass("mc-active");
+
+            window.setTimeout(function () {
+              icon
+                .removeClass("fa-arrow-left")
+                .removeClass("fa-spin-fast")
+                .addClass("fa-bars");
+            }, 800);
+          } else {
+            card.addClass("mc-active");
+
+            window.setTimeout(function () {
+              icon
+                .removeClass("fa-bars")
+                .removeClass("fa-spin-fast")
+                .addClass("fa-arrow-left");
+            }, 800);
+          }
+        });
+      });
+</script>
+@section Scripts{
     @(await Html.PartialAsync("_ValidationScriptsPartial"));
-      <script src="~/js/usersprf/ajax_query.min.js"></script>
-      <script src="~/js/usersprf/main.js"></script>
-    <script type="text/javascript">
-       var search=document.getElementById("myInput").value;
-                $(document).ready(function() {
-                   FindbySearch("");
-                });
+<script src="~/js/usersprf/ajax_query.min.js"></script>
+<script src="~/js/usersprf/main.js"></script>
+<script type="text/javascript">
+           var search=document.getElementById("myInput").value;
+                    $(document).ready(function() {
+                       FindbySearch("");
+                    });
 
-                 
-                $("#searchy").on("click",
-                     function(){
-                        var se=document.getElementById("myInput").value;
-                        FindbySearch(se);
-                     });
-               
 
-           function FindbySearch(searchinput){
-                 $.ajax({   
-                          method: 'Get',
-                          url: `/api/Api/GetOwnersCards?search=${searchinput}`,
-                          success: function (data) 
-                          {
-                              alert(data);
-                              console.log(data);
-                              var text = "";
-                              for(var i=0;i<data.length;i++){
-                                  var x = "";
-                                 
-                             x =   "data:image/jpeg;base64," + btoa(data[i].profilePicture);
-                            alert(x);
-                                      
-                                     
-                                  
-                              text+=
-                               `<div class=" txt col-lg-4 col-md-6 col-xs-12">
-                                  <article class="material-card Red">
-                                        <h2>
-                                        <span id="flname" class="A"></span>
-                                        <strong>
-                                        <i class="fa fa-fw fa-star"></i>
-                                        <a class="btn btn-outline-danger" href="/UsersProfiles/GetProfile/${data[i].id}">The Deer Hunter </a>
-                                        </strong>
-                                        </h2>
-                                        <div class="mc-content">
-                                       <div class="img-container">
-                                        <img class=" img-fluid" src="${x}"/>
-                                       </div>
-                                        <div class="mc-description">
-                                        </div>
-                                        </div>
-                                        <a class="mc-btn-action">
-                                        <i class="fa fa-bars"></i>
-                                        </a>
-                                      <div class="mc-footer">
-                                        <h4>
-                                        ${data[i].firstName} ${data[i].lastName}
-                                        </h4>
-                                         <a id="facebook" href="${data[i].facebook}" class="fa fa-fw fa-facebook"></a>
-                                         <a id="twitter" href="${data[i].twitter}" class="fa fa-fw fa-twitter"></a>
-                                         <a id="instagram" href="${data[i].instigram}" class="fa fa-fw fa-instagram"></a>
-                                           
-                                      </div>
-                                       </article>
-                                </div>`  ;
-                           }
-                         $("#myUL").html(text);
-                  }
-           });
-    }  
- 
-    </script>
+                    $("#searchy").on("click",
+                         function(){
+                            var se=document.getElementById("myInput").value;
+                            FindbySearch(se);
+                         });
+
+
+               function FindbySearch(searchinput){
+                     $.ajax({
+                              method: 'Get',
+                              url: `/api/Api/GetOwnersCards?search=${searchinput}`,
+                              success: function (data)
+                              {
+                                  var text = "";
+                                  for(var i=0;i<data.length;i++){
+                                      var src = "";
+                                  //    src=binaryAgent(data[i].profilePicture);
+                                      text+=
+                                           ` <div class=" txt col-lg-4 col-md-6 col-xs-12">
+                                                 <article class="material-card Red">
+                                                        <h2>
+                                                        <span class="A">${data[i].firstName} ${data[i].lastName}</span>
+                                                        <strong>
+                                                              <i class="fa fa-fw fa-star"></i>
+                                                                  The Deer Hunter
+                                                        </strong>
+                                                        </h2>
+                                                   <div class="mc-content">
+                                                      <div class="img-container">
+                                                           <img class=" img-fluid" src="">
+                                                      </div>
+                                                      <div class="mc-description">
+                                                         ${data[i].decription}
+                                                      </div>
+                                                   </div>
+                                                      <a class="mc-btn-action">
+                                                        <i class="fa fa-bars"></i>
+                                                      </a>
+                                                    <div class="mc-footer">
+                                                         <h4>
+                                                             Social
+                                                         </h4>
+                                                      <a id="facebook" href="${data[i].facebook}" class="fa fa-fw fa-facebook"></a>
+                                                      <a id="twitter" href="${data[i].twitter}" class="fa fa-fw fa-twitter"></a>
+                                                      <a id="instagram" href="${data[i].instigram}" class="fa fa-fw fa-instagram"></a>
+
+                                                     </div>
+                                                </article>
+                                            </div>`  ;
+
+                               }
+                             $("#myUL").html(text);
+
+                      }
+               });
+        }
+
+
+    function binaryAgent(str)
+    {
+      var newBin = str.split(" ");
+      var binCode = [];
+      for (i = 0; i < newBin.length; i++)
+      {
+        binCode.push(String.fromCharCode(parseInt(newBin[i], 2)));
+      }
+      return binCode.join("");
+    }
+</script>
+
 
 
 

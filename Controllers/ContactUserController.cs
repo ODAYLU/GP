@@ -1,6 +1,7 @@
 ﻿using GP.Data;
 using GP.Hubs;
 using GP.Models;
+using GP.Service;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,15 +21,17 @@ namespace GP.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ApplicationDbContext _context;
+        private readonly MyEmailService _emailService;
 
         public ContactUserController(IContact contact,UserManager<AppUser> userManager
             , ApplicationDbContext context
-            , SignInManager<AppUser> signInManager)
+            , SignInManager<AppUser> signInManager, MyEmailService emailService)
         {
             _contact = contact;
             _userManager = userManager;
             _context = context;
             _signInManager = signInManager;
+            _emailService = emailService;
         }
 
         public IActionResult Index()
@@ -36,29 +39,18 @@ namespace GP.Controllers
             return View();
         }
 
-        public IActionResult SendEmail(Contact contact)
+        public async Task<IActionResult> SendEmail(Contact contact)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
-            _contact.InsertContact(contact);
-            MailAddress to = new MailAddress(contact.Email.Trim());
-            MailAddress from = new MailAddress("aqaramlack123@gmail.com");
-            MailMessage message = new MailMessage(from, to);
-            message.Subject = "وصلتنا رسالتك سوف نتواصل معك في أقرب وقت";
-            message.Body = contact.Description;
-            SmtpClient client = new SmtpClient("smtp.gmail.com", 465)
-            {
-                Credentials = new NetworkCredential("aqaramlack123@gmail.com", "a@1234567"),
-                Port = 465,
-                UseDefaultCredentials = false,
-                EnableSsl = true
-            };
-            
-            client.Send(message);
+             await _contact.InsertContact(contact);
+          
 
-            
+            await _emailService.SendEmailAsync(contact.Email.Trim(),"موقع أملاك" ,"وصلتنا رسالتك سوف نتواصل معك في أقرب وقت");
+
+
             return RedirectToAction(nameof(Index));
         }
 

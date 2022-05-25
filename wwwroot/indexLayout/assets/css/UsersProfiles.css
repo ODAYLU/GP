@@ -91,7 +91,7 @@
 
 
 
-/*.fa-spin-fast {
+.fa-spin-fast {
     -webkit-animation: fa-spin-fast 0.2s infinite linear;
     animation: fa-spin-fast 0.2s infinite linear;
 }
@@ -608,4 +608,4 @@ span.input-group-text {
 .bg-whitee {
     background-color: rgba(255, 255, 255, 0.514);
     color: #0f4f54;
-}*/
+}

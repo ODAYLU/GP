@@ -95,6 +95,9 @@ namespace GP.Controllers
             ViewBag.Data = data;
             return View();
         }
+
+
+      
         public IActionResult Land(List<Estate> data)
         {
             ViewBag.Data = data;

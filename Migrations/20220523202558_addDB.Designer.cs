@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220522071409_All")]
-    partial class All
+    [Migration("20220523202558_addDB")]
+    partial class addDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -365,6 +365,9 @@ namespace GP.Migrations
                     b.Property<int?>("CurrencyID")
                         .IsRequired()
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsBlock")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Latitude")
                         .IsRequired()
