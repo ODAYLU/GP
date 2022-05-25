@@ -441,42 +441,7 @@ namespace GP
 
         }
 
-        [HttpGet]
-        public async Task<IActionResult> AddLikes(long id)
-        {
-            if(id != 0)
-            {
-                var estate = await services.GetOne(id);
-                var data = new likedEstates
-                {
-                    IdUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                    IdEstate = estate.Id
-                };
-                var like = _like.GetAll().FirstOrDefault(x => (x.IdUser == data.IdUser) && (x.IdEstate == data.IdEstate));
-                if (like == null)
-                {
-                    await _like.InsertObj(data);
-                    estate.Likes++;
-                    await services.UpdateEstate(estate);
-                    int count = estate.Likes;
-                    string status = "dislike";
-                    var JsonData = new { status, count };
-                    return Ok(JsonData);
-                }
-                else
-                {
-                   await _like.DeleteObj(like.Id);
-                    estate.Likes--;
-                    await services.UpdateEstate(estate);
-                    int count = estate.Likes;
-                    string status = "dislike";
-                    var JsonData = new { status, count };
-                    return Ok(JsonData);
-                }
-                
-             
-            }
-            return BadRequest();
-        }
+       
+     
     }
  }

@@ -70,14 +70,14 @@ namespace GP.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(8, ErrorMessage = "كلمة السر لا تتجاوز عدد 8 ولا تقل عن 6 خانات", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = "كلمتا السر غير متطابقتين")]
             public string ConfirmPassword { get; set; }
 
             public IFormFile Image { get; set; }
@@ -166,13 +166,15 @@ namespace GP.Areas.Identity.Pages.Account
                         return LocalRedirect(returnUrl);
                     }
                 }
+                
                 foreach (var error in result.Errors)
                 {
                     ViewData["Error"] = error.Description;
                     ModelState.AddModelError("Input", error.Description);
                 }
             }
-            // If we got this far, something failed, redisplay form
+            
+         
             return Page();
         }
     }

@@ -35,6 +35,7 @@ namespace GP
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging(), ServiceLifetime.Transient);
             services.AddDatabaseDeveloperPageExceptionFilter();
+
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders().AddDefaultUI();
             services.AddSignalR();

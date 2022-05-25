@@ -1,4 +1,6 @@
 ﻿using GP.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -20,13 +22,16 @@ namespace GP.Controllers
         private readonly ICity _city;
         private readonly IEstate _estate;
         private readonly IlikedEstates _likedEstates;
+        private readonly SignInManager<AppUser> signInManager;
+
         public HomeController(ILogger<HomeController> logger, 
             ICategory category,
             IType type,
             ICity city,
             IState state,
             IEstate estate,
-            IlikedEstates likedEstates
+            IlikedEstates likedEstates,
+            SignInManager<AppUser> signInManager
             
         )
         {
@@ -37,13 +42,12 @@ namespace GP.Controllers
             _state = state;
             _estate = estate;
             _likedEstates = likedEstates;
+            this.signInManager = signInManager;
         }
 
         public IActionResult Index()
         {
           
-
-
             ViewBag.Categories = _category.GetAll().ToList();
             ViewBag.Cities = _city.GetAll().ToList();
             ViewBag.States = _state.GetAll().ToList();
@@ -112,5 +116,46 @@ namespace GP.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        
+        [HttpGet]
+        public async Task<IActionResult> AddLikes(long id)
+        {
+            if (!signInManager.IsSignedIn(User)&& !User.IsInRole("Admin"))
+                return Ok("false");
+            if (id != 0)
+            {
+                var estate = await _estate.GetOne(id);
+                var data = new likedEstates
+                {
+                    IdUser = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    IdEstate = estate.Id
+                };
+                var like = _likedEstates.GetAll().FirstOrDefault(x => (x.IdUser == data.IdUser) && (x.IdEstate == data.IdEstate));
+                if (like == null)
+                {
+                    await _likedEstates.InsertObj(data);
+                    estate.Likes++;
+                    await _estate.UpdateEstate(estate);
+                    int count = estate.Likes;
+                    string status = "like";
+                    var JsonData = new { status, count };
+                    return Ok(JsonData);
+                }
+                else
+                {
+                    await _likedEstates.DeleteObj(like.Id);
+                    estate.Likes--;
+                    await _estate.UpdateEstate(estate);
+                    int count = estate.Likes;
+                    string status = "dislike";
+                    var JsonData = new { status, count };
+                    return Ok(JsonData);
+                }
+
+
+            }
+            return BadRequest();
+        }
+
     }
 }
