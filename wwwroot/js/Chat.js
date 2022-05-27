@@ -7,6 +7,7 @@
 Connection.on("connectedUsers", function (users) {
 
     var text = JSON.stringify(users);
+    $("#usersActive").val(users);
     $.ajax({
         method: 'Post',
         url: `/ContactUser/GetUsers?text=${users}`,
@@ -43,6 +44,7 @@ Connection.on("connectedUsers", function (users) {
 
             }
             $("#Users").html(text).addClass("");
+
         }
     });
 });
@@ -120,7 +122,7 @@ Connection.on("receiveMessage", function (msg,users) {
         }
     });
     
-    });
+});
 
 
 $("body").on("click", "#Users a", function (e) {
@@ -218,6 +220,18 @@ $("#btnSend").click(function () {
    
     
    
+});
+
+$("#searchUser").keyup(function () {
+    var value = $(this).val();
+    $("#Users a").each(function () {
+        if ($(this).children(".pull-right").children("small").text().toLowerCase().search(value)) {
+            $(this).show();
+            $(this).prev("a").last().show();
+        } else {
+            $(this).hide();
+        }
+    });
 });
 function getLastSeen(date) {
 

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace GP.Controllers
@@ -112,6 +113,43 @@ namespace GP.Controllers
                     lstUser.Add(new { user, flag });
                 }
                 
+            }
+            return Ok(lstUser);
+        }
+        public async Task<IActionResult> GetUsersContact()
+        {
+            
+            var lstUser = new List<object> ();
+            var userlst = new List<AppUser>();
+            var users = await _context.Messages.Include(x => x.Receiver)
+                .Where(z => z.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .Select(s => s.ReceiverId)
+                .ToListAsync();
+            var msgs = _context.Messages.Where(x => !x.IsReaded).ToList();
+            foreach (var item in users)
+            {
+                var user = await _userManager.FindByIdAsync(item);
+                
+                if (msgs.Select(z => z.UserId).Distinct().Contains(user.Id)&&!userlst.Contains(user))
+                {
+                    bool flag = false;
+                    userlst.Add(user);
+                    
+                    lstUser.Add(new { user, flag });
+                   
+                }
+                else
+                {
+
+
+                    if (!userlst.Contains(user))
+                    {
+                        bool flag = true;
+                    lstUser.Add(new { user, flag });
+                    userlst.Add(user);
+                    }
+
+                }
             }
             return Ok(lstUser);
         }
