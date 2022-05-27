@@ -27,7 +27,7 @@ Connection.on("connectedUsers", function (users) {
                     img = "https://bootdey.com/img/Content/avatar/avatar1.png";
                 }
                 if (data[i].flag == false) {
-                    UnRead = `<img class="Notification" src="/images/Unreaded.gif" style="width:50px;" />`
+                    UnRead = `<img class="Notification" src="/images/Notification.gif" style="width:50px;" />`
                 }
                 else {
                     UnRead = "";
@@ -101,7 +101,7 @@ Connection.on("receiveMessage", function (msg,users) {
                     img = "https://bootdey.com/img/Content/avatar/avatar1.png";
                 }
                 if (data[i].flag == false) {
-                    UnRead = `<img class="Notification" src="/images/Unreaded.gif" style="width:50px;" />`
+                    UnRead = `<img class="Notification" src="/images/Notification.gif" style="width:50px;" />`
                 }
                 else {
                     UnRead = "";
