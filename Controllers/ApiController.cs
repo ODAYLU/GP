@@ -30,7 +30,10 @@ namespace GP.Controllers
         private readonly IAdvertisement _advertisement;
 
         public ApiController(IEstate estate, ICategory category, ICity city, IState state, ICurrency currency, ICommments commments
-            , IService service, IType type, UserManager<AppUser> user, IAdvertisement advertisement)
+            , IService service, IType type,
+            UserManager<AppUser> user,
+            IContact contact,
+            IAdvertisement advertisement)
         {
             _estate = estate;
             _category = category;

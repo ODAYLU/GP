@@ -6,57 +6,13 @@
 }
 <link href="~/css/Chat2.css" rel="stylesheet"/>
 
-@*<div class="container-fluid m-5" >
-    <div class="row row-reverse clearfix">
-        <div class="col-lg-12">
-            <div class="card chat-app">
-                <div id="plist" class="people-list">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-search"></i></span>
-                        </div>
-                        <input type="text" class="form-control" placeholder="Search...">
-                    </div>
-                    <ul id="Users" class="list-unstyled chat-list mt-2 mb-0">
-                    
 
-                    </ul>
-                </div>
-                <div class="chat">
-                    <div id="CurrentUserHeader" class="chat-header clearfix ">
-                        <div class="row">
-                            
-                        </div>
-                    </div>
-                    <div class="chat-history">
-                        <ul id="Messages"class="m-b-0 chatText d-grid">
-
-                            
-                        </ul>
-                    </div>
-                    <div class="chat-message clearfix">
-                        <div class="input-group mb-0">
-                            <input id="txtInput" type="text" class="form-control" placeholder="Enter text here...">
-
-                            <div class="input-group-prepend">
-                                <button id="btnSend" class="btn btn-outline-primary" style="transform: rotate(270deg);border: none;"><i class="bi bi-send-fill" ></i></button>
-                            </div>
-
-                            <input id="txtId" type="text" hidden />
-                            <input id="txtIdUserCurrent" value="@ViewBag.CurrentUserName" type="text" hidden />
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>*@
 
  <div class="container h-100 " >
     <div id="messages-main">
       <div class="ms-menu">
         <div class="ms-user d-flex align-items-center">
-          <input class="form-control mx-2">
+          <input type="text"  class="form-control mx-2">
           <i class="bi bi-search fw-bold"></i>
         </div>
         <div id="Users" class="list-group">

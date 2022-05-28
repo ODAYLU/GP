@@ -10,15 +10,17 @@ namespace GP.Models
     {
 
         public int Id { get; set; }
-        [Required,EmailAddress]
+        [Required(ErrorMessage ="هذا الحقل مطلوب ")]
+        [EmailAddress(ErrorMessage ="يرجى ادخال ايميل بشكل صحيح")]
         public string Email { get; set; }
-        [Phone,Required]
+        [Required(ErrorMessage = "هذا الحقل مطلوب ")]
+        [EmailAddress(ErrorMessage = "يرجى ادخال الرقم بشكل صحيح")]
         public string Phone { get; set; }
-        [Url]
+        [Url(ErrorMessage ="يجب أن يكون رابط صحيح")]
         public string UrlFacebook { get; set; }
-        [Url]
+        [Url(ErrorMessage = "يجب أن يكون رابط صحيح")]
         public string UrlTwitter { get; set; }
-        [Url]
+        [Url(ErrorMessage = "يجب أن يكون رابط صحيح")]
         public string UrlInstegrame { get; set; }
     }
 }
