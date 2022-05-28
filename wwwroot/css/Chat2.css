@@ -1,0 +1,209 @@
+﻿
+
+:root,
+:root.light {
+    --green: #2a5555 !important;
+    --bgwhite: #f6f6f6 !important;
+    --txtwhite: #f1f1f1 !important;
+    --txtactive: #111;
+    --bgsec: #eeeeeed4;
+    --litegreen: #9ba889 !important;
+    --textnav: #f1f1f1 !important;
+    --bgcolor2: #d7d7d7;
+    --bgdark: #fff !important;
+    --form: #fff;
+    --bgseChat: #eeeeee;
+}
+
+:root.dark {
+    --green: #15202b !important;
+    --bgwhite: #1d2a35 !important;
+    --txtactive: #ffffff;
+    --orange: #d46300;
+    --orange2: navajowhite;
+    --contact: var(--green);
+    --litegreen: var(--litegreen);
+    --form: #1d2a35;
+    --bgseChat: #15202b;
+}
+
+.form-control {
+    color: var(--txtactive);
+    background-color: rgba(255, 255, 255, 0);
+    border-color: #85858563 !important;
+    outline: 0;
+    box-shadow: none;
+}
+
+    .form-control:focus {
+        color: var(--txtactive);
+        background-color: rgba(255, 255, 255, 0);
+        border-color: #85858563 !important;
+        outline: 0;
+        box-shadow: none;
+    }
+
+#messages-main {
+    position: relative;
+    margin: 0 auto;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+}
+
+    #messages-main .ms-menu {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding-bottom: 50px;
+        height: 100%;
+        width: 240px;
+        background: var(--bgseChat);
+        overflow: auto;
+    }
+
+.list-group-item {
+    background-color: #00000000;
+    color: var(--txtactive);
+    border: none;
+    border-top: 1px solid #85858563 !important;
+}
+
+    .list-group-item:hover {
+        font-size: 20px;
+        color: var(--orange);
+    }
+
+@media (min-width:768px) {
+    #messages-main .ms-body {
+        padding-right: 240px;
+    }
+}
+
+@media (max-width:767px) {
+    #messages-main .ms-menu {
+        height: calc(100% - 58px);
+        display: none;
+        z-index: 1;
+        top: 58px;
+    }
+
+        #messages-main .ms-menu.toggled {
+            display: block;
+        }
+
+    #messages-main .ms-body {
+        overflow: hidden;
+    }
+}
+
+#messages-main .ms-user {
+    padding: 15px;
+}
+
+    #messages-main .ms-user > div {
+        overflow: hidden;
+        padding: 3px 5px 0 15px;
+        font-size: 11px;
+    }
+
+#messages-main #ms-compose {
+    position: fixed;
+    bottom: 120px;
+    z-index: 1;
+    right: 30px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
+}
+
+
+.message-feed {
+    padding: 20px;
+}
+
+    .message-feed.right > .pull-right {
+        margin-right: 15px;
+    }
+
+    .message-feed:not(.right) .mf-content {
+        background: var(--litegreen);
+        color: #fff;
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+    }
+
+    .message-feed.right .mf-content {
+        background: var(--green);
+        color: white;
+    }
+
+.mf-content {
+    padding: 12px 17px 13px;
+    border-radius: 40px;
+    display: inline-block;
+    max-width: 80%
+}
+
+.mf-date {
+    display: block;
+    color: #B3B3B3;
+    margin-top: 7px;
+}
+
+    .mf-date > i {
+        font-size: 14px;
+        line-height: 100%;
+        position: relative;
+        top: 1px;
+    }
+
+textarea:focus-visible {
+    outline: none;
+}
+
+.msb-reply {
+    position: relative;
+    margin-top: 30px;
+    border-top: 1px solid rgba(238, 238, 238, 0.301);
+    background: var(--bgdark);
+}
+
+    .msb-reply textarea {
+        width: 100%;
+        font-size: 13px;
+        border: 0;
+        padding: 10px 15px;
+        resize: none;
+        height: 60px;
+        background: 0 0;
+    }
+
+    .msb-reply button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        border: 0;
+        height: 100%;
+        width: 60px;
+        font-size: 25px;
+        color: var(--litegreen);
+        background: 0 0;
+    }
+
+        .msb-reply button:hover {
+            background: #f2f2f2;
+        }
+
+.img-avatar {
+    height: 37px;
+    border-radius: 2px;
+    width: 37px;
+}
+
+.action-header {
+    position: relative;
+    background: var(--bgseChat);
+    padding: 15px 13px 15px 17px;
+    border-right: 1px solid #85858563;
+}
+
+.ms-body {
+    background: var(--form);
+}
+

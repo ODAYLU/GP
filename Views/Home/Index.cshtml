@@ -153,45 +153,45 @@
           
            @{
 
-                                                               @if(@ViewBag.FavEstate is not null)
+                                                                           @if(@ViewBag.FavEstate is not null)
                   foreach (var item in (List<Estate>)ViewBag.FavEstate)
                   {
                 
-                                                <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
-                                                            <div class="game px-2">
-                                                            <div class="rank"><span class="bi bi-star-fill checked"></span></div>
-                                                            <div class="front">
-                                                              <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
-                                                              <div>
-                                                                <h3 class="text-center py-3">@item.name</h3>
-                                                              </div>
-                                                              <div class="status d-flex justify-content-between align-items-center">
-                                                                <span>@item.Likes</span>
-                                                                <span class="bi bi-star-fill checked"></span>
-                                                              </div>
-                                                            </div>
-                                                            <div class="back">
-                                                              <div class="streaming-info">
-                                                                <div class="game-stat  text-center">
-                                                                  <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
-                                                                  
-                                                                </div>
-                                                              </div>
-                                                              <div class="d-flex align-items-center">
-                  <a asp-action="DetalesView" asp-controller="Estate" asp-route-id="@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
-                                                                                @if (likes.Contains(item.Id))
+                                                            <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+                                                                        <div class="game px-2">
+                                                                        <div class="rank"><span class="bi bi-star-fill checked"></span></div>
+                                                                        <div class="front">
+                                                                          <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
+                                                                          <div>
+                                                                            <h3 class="text-center py-3">@item.name</h3>
+                                                                          </div>
+                                                                          <div class="status d-flex justify-content-between align-items-center">
+                                                                            <span>@item.Likes</span>
+                                                                            <span class="bi bi-star-fill checked"></span>
+                                                                          </div>
+                                                                        </div>
+                                                                        <div class="back">
+                                                                          <div class="streaming-info">
+                                                                            <div class="game-stat  text-center">
+                                                                              <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
+                                                                              
+                                                                            </div>
+                                                                          </div>
+                                                                          <div class="d-flex align-items-center">
+                                                                            <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                                                                                            @if (likes.Contains(item.Id))
                                                 {
-                                                                                    <a onclick="AddLike(@item.Id,this)"><i  class="heart-des bi bi-heart-fill mx-3"></i></a>
+                                                                                                <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart-des bi bi-heart-fill mx-3"></i></a>
                                                 }
                                                 else
                                                 {
-                                                                                    <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart bi bi-heart-fill mx-3"></i></a>
+                                                                                                <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart bi bi-heart-fill mx-3"></i></a>
                                                 }
-                                                                            </div>
-                                                            </div>
-                                                            <div class="backgroundWrapper"></div>
-                                                          </div>
-                                                        </div>
+                                                                                        </div>
+                                                                        </div>
+                                                                        <div class="backgroundWrapper"></div>
+                                                                      </div>
+                                                                    </div>
 
                   }
               }
@@ -211,45 +211,45 @@
           <div class="swiper-wrapper">
      @{
 
-                                                               @if(@ViewBag.FavEstate is not null)
+                                                                           @if(@ViewBag.FavEstate is not null)
                   foreach (var item in (List<Estate>)ViewBag.FavEstate)
                   {
                 
-                                                <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
-                                                            <div class="game px-2">
-                                                            <div class="rank"><span class="bi bi-star-fill checked"></span></div>
-                                                            <div class="front">
-                                                              <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
-                                                              <div>
-                                                                <h3 class="text-center py-3">@item.name</h3>
-                                                              </div>
-                                                              <div class="status d-flex justify-content-between align-items-center">
-                                                                <span>@item.Likes</span>
-                                                                <span class="bi bi-star-fill checked"></span>
-                                                              </div>
-                                                            </div>
-                                                            <div class="back">
-                                                              <div class="streaming-info">
-                                                                <div class="game-stat  text-center">
-                                                                  <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
-                                                                  
-                                                                </div>
-                                                              </div>
-                                                              <div class="d-flex align-items-center">
-                                                                <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
-                                                                                @if (likes.Contains(item.Id))
+                                                            <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+                                                                        <div class="game px-2">
+                                                                        <div class="rank"><span class="bi bi-star-fill checked"></span></div>
+                                                                        <div class="front">
+                                                                          <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
+                                                                          <div>
+                                                                            <h3 class="text-center py-3">@item.name</h3>
+                                                                          </div>
+                                                                          <div class="status d-flex justify-content-between align-items-center">
+                                                                            <span>@item.Likes</span>
+                                                                            <span class="bi bi-star-fill checked"></span>
+                                                                          </div>
+                                                                        </div>
+                                                                        <div class="back">
+                                                                          <div class="streaming-info">
+                                                                            <div class="game-stat  text-center">
+                                                                              <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
+                                                                              
+                                                                            </div>
+                                                                          </div>
+                                                                          <div class="d-flex align-items-center">
+                                                                            <a href="#" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                                                                                            @if (likes.Contains(item.Id))
                                                 {
-                                                                                    <a onclick="AddLike(@item.Id,this)"><i  class="heart-des bi bi-heart-fill mx-3"></i></a>
+                                                                                                      <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart-des bi bi-heart-fill mx-3"></i></a>
                                                 }
                                                 else
                                                 {
-                                                                                    <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart bi bi-heart-fill mx-3"></i></a>
+                                                                                                <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart bi bi-heart-fill mx-3"></i></a>
                                                 }
-                                                                            </div>
-                                                            </div>
-                                                            <div class="backgroundWrapper"></div>
-                                                          </div>
-                                                        </div>
+                                                                                        </div>
+                                                                        </div>
+                                                                        <div class="backgroundWrapper"></div>
+                                                                      </div>
+                                                                    </div>
 
                   }
               }
@@ -331,7 +331,7 @@
                   <a asp-action="DetalesView" asp-controller="Estate" asp-route-id="@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
                    @if (likes.Contains(item.Id))
                     {
-                            <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart-des bi bi-heart-fill mx-3"></i></a>
+                                  <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart-des bi bi-heart-fill mx-3"></i></a>
                     }
                     else
                     {
@@ -379,7 +379,7 @@
                    <a asp-action="EstateComment" asp-controller="Commments" asp-route-Id="@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
                    @if (likes.Contains(item.Id))
                     {
-                            <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart-des bi bi-heart-fill mx-3"></i></a>
+                                   <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart-des bi bi-heart-fill mx-3"></i></a>
                     }
                     else
                     {
@@ -412,14 +412,16 @@ function AddLike(Id,el) {
    
       $.ajax({
             method: 'Get',
-            url: `/Estate/AddLikes/${Id}`,
+            url: `/Home/AddLikes/${Id}`,
 
             success: function (data) {
+                if (data == "false") window.location = "/Identity/Account/Login";
             $(el).children("span").text(data.count);
+             
                 if (data.status == "like") {
-                    $(el).children("i").addClass("heart-des");
+                    $(el).children("i").removeClass("heart").addClass("heart-des");
                 } else {
-                     $(el).children("i").addClass("heart");
+                     $(el).children("i").removeClass("heart-des").addClass("heart");
                 }
                
             }

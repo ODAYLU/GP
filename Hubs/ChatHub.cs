@@ -36,10 +36,12 @@ namespace GP.Hubs
                 ReceiverId = Id,
                 UserId = Context.UserIdentifier,
                 UserName = Context.User.Identity.Name
+                
+
             };   
              await _context.Messages.AddAsync(msg);
             await _context.SaveChangesAsync();
-            await Clients.User(Id).SendAsync("receiveMessage", msg);
+            await Clients.User(Id).SendAsync("receiveMessage", msg, ConnectedUser.IDs);
         }
 
 
@@ -47,8 +49,7 @@ namespace GP.Hubs
         {
             if (!ConnectedUser.IDs.Contains(Context.UserIdentifier))
                 ConnectedUser.IDs.Add(Context.UserIdentifier);
-            if(!!ConnectedUser.IDsVistor.Contains(Context.ConnectionId))
-                ConnectedUser.IDsVistor.Add(Context.ConnectionId);
+          
             await Clients.All.SendAsync("connectedUsers", ConnectedUser.IDs);
             await base.OnConnectedAsync();
         }
