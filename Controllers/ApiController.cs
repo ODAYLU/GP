@@ -29,7 +29,8 @@ namespace GP.Controllers
         private readonly ICommments _commments;
         private readonly IAdvertisement _advertisement;
 
-        public ApiController(IEstate estate, ICategory category, ICity city, IState state, ICurrency currency, ICommments commments
+        public ApiController(IEstate estate, ICategory category,
+            ICity city, IState state, ICurrency currency, ICommments commments
             , IService service, IType type, UserManager<AppUser> user, IAdvertisement advertisement)
         {
             _estate = estate;

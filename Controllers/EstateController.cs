@@ -482,7 +482,8 @@ namespace GP
         [AllowAnonymous]
         public async Task<IActionResult> DetalesView(long id)
         {
-            return null;
+
+            return View();
         }
     }
  }
