@@ -222,17 +222,7 @@ $("#btnSend").click(function () {
    
 });
 
-$("#searchUser").keyup(function () {
-    var value = $(this).val();
-    $("#Users a").each(function () {
-        if ($(this).children(".pull-right").children("small").text().toLowerCase().search(value)) {
-            $(this).show();
-            $(this).prev("a").last().show();
-        } else {
-            $(this).hide();
-        }
-    });
-});
+
 function getLastSeen(date) {
 
 
