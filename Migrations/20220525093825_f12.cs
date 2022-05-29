@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GP.Migrations
 {
-    public partial class addDB : Migration
+    public partial class f12 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
