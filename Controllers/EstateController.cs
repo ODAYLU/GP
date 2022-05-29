@@ -478,5 +478,11 @@ namespace GP
             }
             return BadRequest();
         }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> DetalesView(long id)
+        {
+            return null;
+        }
     }
  }

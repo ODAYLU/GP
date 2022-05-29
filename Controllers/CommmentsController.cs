@@ -20,7 +20,7 @@ namespace GP
         private readonly IEstate _estate;
         private readonly UserManager<AppUser> _users;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        public CommmentsController(ICommments context, IWebHostEnvironment webHostEnvironment, IReplaies replaies, IEstate estate)
+         public CommmentsController(ICommments context, IWebHostEnvironment webHostEnvironment, IReplaies replaies, IEstate estate)
         {
             this._context = context;
             this._estate = estate;
@@ -109,7 +109,22 @@ namespace GP
             //    x.Add($"{item.body},{item.CommentId},{image} ");
             //}
         }
+        [HttpGet]
+        public async Task<IActionResult> EstateComment(long id)
+        {
+            return View();
+        }
 
+
+        public async Task<IActionResult> Add(int x,int y , int z)
+        {
+            var isAppened = "Done";
+
+            var json = new { isAppened };
+
+            return Ok(json);
+
+        }
     }
 }
     

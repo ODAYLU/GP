@@ -492,6 +492,9 @@ namespace GP.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("IsReaded")
+                        .HasColumnType("bit");
+
                     b.Property<string>("ReceiverId")
                         .HasColumnType("nvarchar(450)");
 

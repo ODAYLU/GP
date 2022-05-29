@@ -87,7 +87,8 @@
 
 @section Scripts{
     @(await Html.PartialAsync("_ValidationScriptsPartial"));
-    <script type="text/javascript">$(document).ready(function () {
+    <script type="text/javascript">
+        $(document).ready(function () {
 
             $("#Cities").DataTable({
                 "processing": true,

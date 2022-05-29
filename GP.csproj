@@ -34,6 +34,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="MimeKit" Version="3.2.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.18" />
   </ItemGroup>
 
@@ -74,6 +75,19 @@
     <None Include="wwwroot\assets\js\loding.js" />
     <None Include="wwwroot\bootbox.js\bootbox.js" />
     <None Include="wwwroot\bootbox.js\bootbox.min.js" />
+    <None Include="wwwroot\Detalis\bootstrap\ajax_query.min.js" />
+    <None Include="wwwroot\Detalis\bootstrap\aos.js" />
+    <None Include="wwwroot\Detalis\bootstrap\bootstrap5.bundle.min.js" />
+    <None Include="wwwroot\Detalis\bootstrap\font\fonts\bootstrap-icons.woff2" />
+    <None Include="wwwroot\Detalis\bootstrap\jquery-3.1.0.min.js" />
+    <None Include="wwwroot\Detalis\bootstrap\wow.min.js" />
+    <None Include="wwwroot\Detalis\css\.DS_Store" />
+    <None Include="wwwroot\Detalis\font\SLXGc1nY6HkvalIhTps.woff2" />
+    <None Include="wwwroot\Detalis\font\SLXGc1nY6HkvalIkTpu0xg.woff2" />
+    <None Include="wwwroot\Detalis\font\SLXGc1nY6HkvalIvTpu0xg.woff2" />
+    <None Include="wwwroot\Detalis\img\pages\vedio.hve" />
+    <None Include="wwwroot\Detalis\js\main.js" />
+    <None Include="wwwroot\Detalis\js\touchTouch.jquery.js" />
     <None Include="wwwroot\DownLoad\chosen.jquery.js" />
     <None Include="wwwroot\DownLoad\chosen.jquery.min.js" />
     <None Include="wwwroot\indexLayout\assets\bootstrap\ajax_query.min.js" />

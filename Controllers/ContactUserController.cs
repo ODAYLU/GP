@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace GP.Controllers
@@ -69,6 +70,13 @@ namespace GP.Controllers
         {
             List<Message> data;
             string SenderId = _userManager.GetUserId(User);
+            var msg = _context.Messages.Where(x => !x.IsReaded).ToList();
+            foreach (var message in msg)
+            {
+                message.IsReaded = true;
+            }
+            _context.Messages.UpdateRange(msg);
+            _context.SaveChanges();
             if(SenderId == ReciverId)
             {
                  data = await _context.Messages.Where(x => x.ReceiverId == ReciverId &&  x.ReceiverId == x.UserId).ToListAsync();
@@ -88,12 +96,60 @@ namespace GP.Controllers
         [HttpPost]
         public async Task<IActionResult> GetUsers(string text)
         {
-            List<AppUser> lstUser = new List<AppUser>();
+            List<object> lstUser = new List<object>();
             var Ids = text.Split(',');
+            var msgs = _context.Messages.Where(x => !x.IsReaded).ToList();
             foreach (var item in Ids)
             {
               var user  = await _userManager.FindByIdAsync(item);
-                lstUser.Add(user);
+                if(msgs.Select(z => z.UserId).Contains(user.Id))
+                {
+                    bool flag = false;
+                    lstUser.Add(new {user, flag });
+                }
+                else
+                {
+                    bool flag = true;
+                    lstUser.Add(new { user, flag });
+                }
+                
+            }
+            return Ok(lstUser);
+        }
+        public async Task<IActionResult> GetUsersContact()
+        {
+            
+            var lstUser = new List<object> ();
+            var userlst = new List<AppUser>();
+            var users = await _context.Messages.Include(x => x.Receiver)
+                .Where(z => z.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                .Select(s => s.ReceiverId)
+                .ToListAsync();
+            var msgs = _context.Messages.Where(x => !x.IsReaded).ToList();
+            foreach (var item in users)
+            {
+                var user = await _userManager.FindByIdAsync(item);
+                
+                if (msgs.Select(z => z.UserId).Distinct().Contains(user.Id)&&!userlst.Contains(user))
+                {
+                    bool flag = false;
+                    userlst.Add(user);
+                    
+                    lstUser.Add(new { user, flag });
+                   
+                }
+                else
+                {
+
+
+                    if (!userlst.Contains(user))
+                    {
+                        bool flag = true;
+                    lstUser.Add(new { user, flag });
+                    userlst.Add(user);
+                    }
+
+                }
             }
             return Ok(lstUser);
         }
