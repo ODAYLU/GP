@@ -144,121 +144,243 @@
 
   <div class="position-absolute w-100 bgdaeke" style="z-index: 5;">
 
-    <main class="">
- @*العقارات المميزة*@
-      <section class="mb-5 ">
-        <div class="container py-3">
-          <p class="text-center fs-2 py-5" data-aos="fade-down"><span class="txtborder">العقارات المميزة</span></p>
-          <div class="row pt-3 g-3">
-          
-           @{
 
-                                                                           @if(@ViewBag.FavEstate is not null)
-                  foreach (var item in (List<Estate>)ViewBag.FavEstate)
-                  {
-                
-                                                            <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
-                                                                        <div class="game px-2">
-                                                                        <div class="rank"><span class="bi bi-star-fill checked"></span></div>
-                                                                        <div class="front">
-                                                                          <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
-                                                                          <div>
-                                                                            <h3 class="text-center py-3">@item.name</h3>
-                                                                          </div>
-                                                                          <div class="status d-flex justify-content-between align-items-center">
-                                                                            <span>@item.Likes</span>
-                                                                            <span class="bi bi-star-fill checked"></span>
-                                                                          </div>
-                                                                        </div>
-                                                                        <div class="back">
-                                                                          <div class="streaming-info">
-                                                                            <div class="game-stat  text-center">
-                                                                              <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
-                                                                              
-                                                                            </div>
-                                                                          </div>
-                                                                          <div class="d-flex align-items-center">
-                                                                            <a href="/Estate/Detalis/@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
-                                                                                            @if (likes.Contains(item.Id))
-                                                {
-                                                                                                <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart-des bi bi-heart-fill mx-3"></i></a>
-                                                }
-                                                else
-                                                {
-                                                                                                <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart bi bi-heart-fill mx-3"></i></a>
-                                                }
-                                                                                        </div>
-                                                                        </div>
-                                                                        <div class="backgroundWrapper"></div>
-                                                                      </div>
-                                                                    </div>
+    @*العقارات المميزة*@
+    <section class="mb-5 ">
+      <div class="container py-3">
+        <p class="text-center fs-2 py-5" data-aos="fade-down"><span class="txtborder">العقارات المميزة</span></p>
+        <div class="row pt-3 g-3">
 
-                  }
-              }
-            
-            
-          </div>
+          @{
+
+          @if(@ViewBag.FavEstate is not null)
+          foreach (var item in (List<Estate>)ViewBag.FavEstate)
+            {
+
+            <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+              <div class="game px-2">
+                <div class="rank"><span class="bi bi-star-fill checked"></span></div>
+                <div class="front">
+                  <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
+                  <div>
+                    <h3 class="text-center py-3">@item.name</h3>
+                  </div>
+                  <div class="status d-flex justify-content-between align-items-center">
+                    <span>@item.Likes</span>
+                    <span class="bi bi-star-fill checked"></span>
+                  </div>
+                </div>
+                <div class="back">
+                  <div class="streaming-info">
+                    <div class="game-stat  text-center">
+                      <b> السعر: @item.price @item.Currency.currency </b> <br /> <b> المدينة @item.City.name </b><br />
+                      <b>الدولة @item.State.name </b>
+
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <a href="/Estate/Detalis/@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                    @if (likes.Contains(item.Id))
+                    {
+                    <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i
+                        class="heart-des bi bi-heart-fill mx-3"></i></a>
+                    }
+                    else
+                    {
+                    <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i
+                        class="heart bi bi-heart-fill mx-3"></i></a>
+                    }
+                  </div>
+                </div>
+                <div class="backgroundWrapper"></div>
+              </div>
+            </div>
+
+            }
+            }
+
+
         </div>
-      </section>
+      </div>
+    </section>
+
 
     @*  أحدث العقارات*@
-  
+
+
+
+
+
+
+
       <section class="mb-5  container-fluid container-md">
-        <p class="text-center fs-2 " data-aos="fade-down"><span class="txtborder">أحدث العقارات</span></p>
-        <p class="text-secondary  text-center fs-4 mb-5" data-aos="fade-down">أملاك يقدم لك أحدث العقارات للعثور على
-          العقار الذي تحلم به بسهولة </p>
-        <div class="swiper mySwiper" data-aos="zoom-in-down">
-          <div class="swiper-wrapper">
-     @{
+      <p class="text-center fs-2 " data-aos="fade-down"><span class="txtborder">أحدث العقارات</span></p>
+      <p class="text-secondary  text-center fs-4 mb-5" data-aos="fade-down">أملاك يقدم لك أحدث العقارات للعثور على
+        العقار الذي تحلم به بسهولة </p>
 
-                                                                           @if(@ViewBag.FavEstate is not null)
-                  foreach (var item in (List<Estate>)ViewBag.FavEstate)
-                  {
-                
-                                                            <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
-                                                                        <div class="game px-2">
-                                                                        <div class="rank"><span class="bi bi-star-fill checked"></span></div>
-                                                                        <div class="front">
-                                                                          <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
-                                                                          <div>
-                                                                            <h3 class="text-center py-3">@item.name</h3>
-                                                                          </div>
-                                                                          <div class="status d-flex justify-content-between align-items-center">
-                                                                            <span>@item.Likes</span>
-                                                                            <span class="bi bi-star-fill checked"></span>
-                                                                          </div>
-                                                                        </div>
-                                                                        <div class="back">
-                                                                          <div class="streaming-info">
-                                                                            <div class="game-stat  text-center">
-                                                                              <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
-                                                                              
-                                                                            </div>
-                                                                          </div>
-                                                                          <div class="d-flex align-items-center">
-                                                                            <a href="/Estate/Detalis/@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
-                                                                                            @if (likes.Contains(item.Id))
-                                                {
-                                                                                                      <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart-des bi bi-heart-fill mx-3"></i></a>
-                                                }
-                                                else
-                                                {
-                                                                                                <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart bi bi-heart-fill mx-3"></i></a>
-                                                }
-                                                                                        </div>
-                                                                        </div>
-                                                                        <div class="backgroundWrapper"></div>
-                                                                      </div>
-                                                                    </div>
 
-                  }
-              }
+      <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="card">
+              <img class="card-img-top img-fluid" src="assets/img/pages/home1.jpg" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title">John Doe</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+              </div>
+            </div>
           </div>
-          <div class="swiper-pagination p-2"></div>
-          <div class="swiper-button-next"></div>
-          <div class="swiper-button-prev"></div>
+          <div class="swiper-slide">
+            <div class="card">
+              <img class="card-img-top img-fluid" src="assets/img/pages/home1.jpg" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title">John Doe</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="card">
+              <img class="card-img-top img-fluid" src="assets/img/pages/home-3.png" alt="Card image">
+              <div class="card-body">
+                <h4 class="card-title">John Doe</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="card">
+              <img class="card-img-top img-fluid" src="assets/img/pages/home-3.png">
+              <div class="card-body">
+                <h4 class="card-title">John Doe</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="card">
+              <img class="card-img-top img-fluid" src="assets/img/pages/home-3.png">
+              <div class="card-body">
+                <h4 class="card-title">John Doe</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="card">
+              <img class="card-img-top img-fluid" src="assets/img/pages/home-3.png">
+              <div class="card-body">
+                <h4 class="card-title">John Doe</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="card">
+              <img class="card-img-top img-fluid" src="assets/img/pages/home-3.png">
+              <div class="card-body">
+                <h4 class="card-title">John Doe</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="card">
+              <img class="card-img-top img-fluid" src="assets/img/pages/home-3.png">
+              <div class="card-body">
+                <h4 class="card-title">John Doe</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="card">
+              <img class="card-img-top img-fluid" src="assets/img/pages/home-3.png">
+              <div class="card-body">
+                <h4 class="card-title">John Doe</h4>
+                <p class="card-text">Some example text some example text. John Doe is an architect and engineer</p>
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
+        <div class="swiper-pagination p-2"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+    <section class="mb-5  container-fluid container-md">
+      <p class="text-center fs-2 " data-aos="fade-down"><span class="txtborder">أحدث العقارات</span></p>
+      <p class="text-secondary  text-center fs-4 mb-5" data-aos="fade-down">أملاك يقدم لك أحدث العقارات للعثور على
+        العقار الذي تحلم به بسهولة </p>
+      <div class="swiper mySwiper" data-aos="zoom-in-down">
+        <div class="swiper-wrapper">
+          @{
+
+          @if(@ViewBag.FavEstate is not null)
+          foreach (var item in (List<Estate>)ViewBag.FavEstate)
+            {
+
+            <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+              <div class="game px-2">
+                <div class="rank"><span class="bi bi-star-fill checked"></span></div>
+                <div class="front">
+                  <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
+                  <div>
+                    <h3 class="text-center py-3">@item.name</h3>
+                  </div>
+                  <div class="status d-flex justify-content-between align-items-center">
+                    <span>@item.Likes</span>
+                    <span class="bi bi-star-fill checked"></span>
+                  </div>
+                </div>
+                <div class="back">
+                  <div class="streaming-info">
+                    <div class="game-stat  text-center">
+                      <b> السعر: @item.price @item.Currency.currency </b> <br /> <b> المدينة @item.City.name </b><br />
+                      <b>الدولة @item.State.name </b>
+
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <a href="/Estate/Detalis/@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                    @if (likes.Contains(item.Id))
+                    {
+                    <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i
+                        class="heart-des bi bi-heart-fill mx-3"></i></a>
+                    }
+                    else
+                    {
+                    <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i
+                        class="heart bi bi-heart-fill mx-3"></i></a>
+                    }
+                  </div>
+                </div>
+                <div class="backgroundWrapper"></div>
+              </div>
+            </div>
+
+            }
+            }
+        </div>
+        <div class="swiper-pagination p-2"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+    </section>
+
+
+
 
       <section class="pb-5 ">
         <div class="elementor-shape elementor-shape-top" data-negative="false">
@@ -296,11 +418,17 @@
         </div>
       </section>
 
+
+  @*    التصنيفات*@
       <section>
         <p class="text-center fs-2 " data-aos="fade-down"><span class="txtborder">التصنيفات</span></p>
         <div class="container-fluid">
           <div class="row">
-            <div class="col-6">
+            <div class="col-12 col-lg-6">
+
+
+
+
                  <h1 class="text-center p-5">عقارات شقق</h1>
               <div class="row g-2">
                   
@@ -400,11 +528,519 @@
             </div>
           </div>
         </div>
-
-       
       </section>
-</main>
-</div>
+
+
+
+          <section>
+      <p class="text-center fs-2 " data-aos="fade-down"><span class="txtborder">التصنيفات</span></p>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 p-5 col-lg-6 ">
+                  <h1 class="text-center ">عقارات شقق</h1>
+            <div class="row g-2">
+              <div class="col-12 col-md-6">
+
+                <div id="cards_landscape_wrap-2">
+                  <div class="card  card-flyer">
+                    <a href="">
+                      <div class="text-box">
+                        <div class="image-box">
+                          <img src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_960_720.jpg" alt="" />
+                        </div>
+                        <div class="text-container">
+                          <div class="">
+                            <h6 class="card-title "> عنوان للعقار </h6>
+                            <p class="card-text"> وصف عن العقار وصف عن العقار وصف عن العقار وصف عن العقار وصف عن العقار
+                              وصف عن
+                              العقار</p>
+                            <p class="text-secondary mb-0"> تاريخ الإضافة : 31/3/2022</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <div class="card-footer d-flex align-items-center justify-content-between text-muted">
+                      <div class="d-flex align-items-center ">
+                        <img class="img-fluid text-right rounded-circle" style="width: 50px;height: 50px;"
+                          src="assets/img/pages/bg-mobile-fallback.jpg">
+                        <a href="" class="text-secondary">
+                          <p class="px-2 m-0">يزن اشرف صالح</p>
+                        </a>
+                      </div>
+                      <i class="heart bi bi-heart-fill "></i>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-12 col-md-6">
+
+                <div id="cards_landscape_wrap-2">
+                  <div class="card  card-flyer">
+                    <a href="">
+                      <div class="text-box">
+                        <div class="image-box">
+                          <img src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_960_720.jpg" alt="" />
+                        </div>
+                        <div class="text-container">
+                          <div class="">
+                            <h6 class="card-title "> عنوان للعقار </h6>
+                            <p class="card-text"> وصف عن العقار وصف عن العقار وصف عن العقار وصف عن العقار وصف عن العقار
+                              وصف عن
+                              العقار</p>
+                            <p class="text-secondary mb-0"> تاريخ الإضافة : 31/3/2022</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <div class="card-footer d-flex align-items-center justify-content-between text-muted">
+                      <div class="d-flex align-items-center ">
+                        <img class="img-fluid text-right rounded-circle" style="width: 50px;height: 50px;"
+                          src="assets/img/pages/bg-mobile-fallback.jpg">
+                        <a href="" class="text-secondary">
+                          <p class="px-2 m-0">يزن اشرف صالح</p>
+                        </a>
+                      </div>
+                      <i class="heart bi bi-heart-fill "></i>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="col-12 col-md-6">
+
+
+                <div id="cards_landscape_wrap-2">
+                  <div class="card  card-flyer">
+                    <a href="">
+                      <div class="text-box">
+                        <div class="image-box">
+                          <img src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_960_720.jpg" alt="" />
+                        </div>
+                        <div class="text-container">
+                          <div class="">
+                            <h6 class="card-title "> عنوان للعقار </h6>
+                            <p class="card-text"> وصف عن العقار وصف عن العقار وصف عن العقار وصف عن العقار وصف عن العقار
+                              وصف عن
+                              العقار</p>
+                            <p class="text-secondary mb-0"> تاريخ الإضافة : 31/3/2022</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <div class="card-footer d-flex align-items-center justify-content-between text-muted">
+                      <div class="d-flex align-items-center ">
+                        <img class="img-fluid text-right rounded-circle" style="width: 50px;height: 50px;"
+                          src="assets/img/pages/bg-mobile-fallback.jpg">
+                        <a href="" class="text-secondary">
+                          <p class="px-2 m-0">يزن اشرف صالح</p>
+                        </a>
+                      </div>
+                      <i class="heart bi bi-heart-fill "></i>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="col-12 col-md-6">
+
+                <div id="cards_landscape_wrap-2">
+                  <div class="card  card-flyer">
+                    <a href="">
+                      <div class="text-box">
+                        <div class="image-box">
+                          <img src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_960_720.jpg" alt="" />
+                        </div>
+                        <div class="text-container">
+                          <div class="">
+                            <h6 class="card-title "> عنوان للعقار </h6>
+                            <p class="card-text"> وصف عن العقار وصف عن العقار وصف عن العقار وصف عن العقار وصف عن العقار
+                              وصف عن
+                              العقار</p>
+                            <p class="text-secondary mb-0"> تاريخ الإضافة : 31/3/2022</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <div class="card-footer d-flex align-items-center justify-content-between text-muted">
+                      <div class="d-flex align-items-center ">
+                        <img class="img-fluid text-right rounded-circle" style="width: 50px;height: 50px;"
+                          src="assets/img/pages/bg-mobile-fallback.jpg">
+                        <a href="" class="text-secondary">
+                          <p class="px-2 m-0">يزن اشرف صالح</p>
+                        </a>
+                      </div>
+                      <i class="heart bi bi-heart-fill "></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 p-5 col-lg-6  ">
+                  <h1 class="text-center ">عقارات شقق</h1>
+            <div class="row g-2">
+              <div class="col-12 col-md-6">
+
+                <div id="cards_landscape_wrap-2">
+                  <div class="card  card-flyer">
+                    <a href="">
+                      <div class="text-box">
+                        <div class="image-box">
+                          <img src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_960_720.jpg" alt="" />
+                        </div>
+                        <div class="text-container">
+                          <div class="">
+                            <h6 class="card-title "> عنوان للعقار </h6>
+                            <p class="card-text"> وصف عن العقار وصف عن العقار وصف عن العقار وصف عن العقار وصف عن العقار
+                              وصف عن
+                              العقار</p>
+                            <p class="text-secondary mb-0"> تاريخ الإضافة : 31/3/2022</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <div class="card-footer d-flex align-items-center justify-content-between text-muted">
+                      <div class="d-flex align-items-center ">
+                        <img class="img-fluid text-right rounded-circle" style="width: 50px;height: 50px;"
+                          src="assets/img/pages/bg-mobile-fallback.jpg">
+                        <a href="" class="text-secondary">
+                          <p class="px-2 m-0">يزن اشرف صالح</p>
+                        </a>
+                      </div>
+                      <i class="heart bi bi-heart-fill "></i>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-12 col-md-6">
+
+                <div id="cards_landscape_wrap-2">
+                  <div class="card  card-flyer">
+                    <a href="">
+                      <div class="text-box">
+                        <div class="image-box">
+                          <img src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_960_720.jpg" alt="" />
+                        </div>
+                        <div class="text-container">
+                          <div class="">
+                            <h6 class="card-title "> عنوان للعقار </h6>
+                            <p class="card-text"> وصف عن العقار وصف عن العقار وصف عن العقار وصف عن العقار وصف عن العقار
+                              وصف عن
+                              العقار</p>
+                            <p class="text-secondary mb-0"> تاريخ الإضافة : 31/3/2022</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <div class="card-footer d-flex align-items-center justify-content-between text-muted">
+                      <div class="d-flex align-items-center ">
+                        <img class="img-fluid text-right rounded-circle" style="width: 50px;height: 50px;"
+                          src="assets/img/pages/bg-mobile-fallback.jpg">
+                        <a href="" class="text-secondary">
+                          <p class="px-2 m-0">يزن اشرف صالح</p>
+                        </a>
+                      </div>
+                      <i class="heart bi bi-heart-fill "></i>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="col-12 col-md-6">
+
+
+                <div id="cards_landscape_wrap-2">
+                  <div class="card  card-flyer">
+                    <a href="">
+                      <div class="text-box">
+                        <div class="image-box">
+                          <img src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_960_720.jpg" alt="" />
+                        </div>
+                        <div class="text-container">
+                          <div class="">
+                            <h6 class="card-title "> عنوان للعقار </h6>
+                            <p class="card-text"> وصف عن العقار وصف عن العقار وصف عن العقار وصف عن العقار وصف عن العقار
+                              وصف عن
+                              العقار</p>
+                            <p class="text-secondary mb-0"> تاريخ الإضافة : 31/3/2022</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <div class="card-footer d-flex align-items-center justify-content-between text-muted">
+                      <div class="d-flex align-items-center ">
+                        <img class="img-fluid text-right rounded-circle" style="width: 50px;height: 50px;"
+                          src="assets/img/pages/bg-mobile-fallback.jpg">
+                        <a href="" class="text-secondary">
+                          <p class="px-2 m-0">يزن اشرف صالح</p>
+                        </a>
+                      </div>
+                      <i class="heart bi bi-heart-fill "></i>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+              <div class="col-12 col-md-6">
+
+                <div id="cards_landscape_wrap-2">
+                  <div class="card  card-flyer">
+                    <a href="">
+                      <div class="text-box">
+                        <div class="image-box">
+                          <img src="https://cdn.pixabay.com/photo/2018/03/30/15/11/deer-3275594_960_720.jpg" alt="" />
+                        </div>
+                        <div class="text-container">
+                          <div class="">
+                            <h6 class="card-title "> عنوان للعقار </h6>
+                            <p class="card-text"> وصف عن العقار وصف عن العقار وصف عن العقار وصف عن العقار وصف عن العقار
+                              وصف عن
+                              العقار</p>
+                            <p class="text-secondary mb-0"> تاريخ الإضافة : 31/3/2022</p>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <div class="card-footer d-flex align-items-center justify-content-between text-muted">
+                      <div class="d-flex align-items-center ">
+                        <img class="img-fluid text-right rounded-circle" style="width: 50px;height: 50px;"
+                          src="assets/img/pages/bg-mobile-fallback.jpg">
+                        <a href="" class="text-secondary">
+                          <p class="px-2 m-0">يزن اشرف صالح</p>
+                        </a>
+                      </div>
+                      <i class="heart bi bi-heart-fill "></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     <section class="py-5">
+      <div class="container-lg">
+        <div class="row">
+          <div class="col-12 ">
+            <p class="text-center fs-2 " data-aos="fade-down"><span class="txtborder">أراء العملاء</span></p>
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+              <!-- Carousel indicators -->
+              <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+              </ol>
+              <!-- Wrapper for carousel items -->
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <div class="row">
+                    <div class="col-12 col-md-6 ">
+                      <div class="testimonial">
+                        <p>يتوفر هنا عدد ضخم من العقارات للبيع والشراء والإيجار. تجد هنا أيضًا عقارًا للعيش المشترك ،
+                          لذا عليك أن تختار هنا وتستمتع بخصم كبير.يتوفر هنا عدد ضخم من العقارات للبيع والشراء والإيجار.
+                          تجد هنا أيضًا عقارًا للعيش المشترك ، لذا عليك أن تختار هنا وتستمتع بخصم كبير.</p>
+                      </div>
+                      <div class="media">
+                        <img src="/examples/images/clients/1.jpg" class="mr-3" alt="">
+                        <div class="media-body ">
+                          <div class="overview px-2">
+                            <div class="name"><b>عدي لبد</b></div>
+                            <div class="details">Media Analyst / SkyNet</div>
+                            <div class="star-rating">
+                              <ul class="list-inline p-0">
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star"></i></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6 ">
+                      <div class="testimonial">
+                        <p>يتوفر هنا عدد ضخم من العقارات للبيع والشراء والإيجار. تجد هنا أيضًا عقارًا للعيش المشترك ،
+                          لذا عليك أن تختار هنا وتستمتع بخصم كبير.يتوفر هنا عدد ضخم من العقارات للبيع والشراء والإيجار.
+                          تجد هنا أيضًا عقارًا للعيش المشترك ، لذا عليك أن تختار هنا وتستمتع بخصم كبير.</p>
+                      </div>
+                      <div class="media">
+                        <img src="/examples/images/clients/1.jpg" class="mr-3" alt="">
+                        <div class="media-body">
+                          <div class="overview px-2">
+                            <div class="name"><b>محمد السيد</b></div>
+                            <div class="details">Media Analyst / SkyNet</div>
+                            <div class="star-rating">
+                              <ul class="list-inline p-0">
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star"></i></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel-item ">
+                  <div class="row">
+                    <div class="col-12 col-md-6 ">
+                      <div class="testimonial">
+                        <p>يتوفر هنا عدد ضخم من العقارات للبيع والشراء والإيجار. تجد هنا أيضًا عقارًا للعيش المشترك ،
+                          لذا عليك أن تختار هنا وتستمتع بخصم كبير.يتوفر هنا عدد ضخم من العقارات للبيع والشراء والإيجار.
+                          تجد هنا أيضًا عقارًا للعيش المشترك ، لذا عليك أن تختار هنا وتستمتع بخصم كبير.</p>
+                      </div>
+                      <div class="media">
+                        <img src="assets/img/pages/profille.png" class="mr-3" alt="">
+                        <div class="media-body ">
+                          <div class="overview px-2">
+                            <div class="name"><b>عدي لبد</b></div>
+                            <div class="details">Media Analyst / SkyNet</div>
+                            <div class="star-rating">
+                              <ul class="list-inline p-0">
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star"></i></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6 ">
+                      <div class="testimonial">
+                        <p>يتوفر هنا عدد ضخم من العقارات للبيع والشراء والإيجار. تجد هنا أيضًا عقارًا للعيش المشترك ،
+                          لذا عليك أن تختار هنا وتستمتع بخصم كبير.يتوفر هنا عدد ضخم من العقارات للبيع والشراء والإيجار.
+                          تجد هنا أيضًا عقارًا للعيش المشترك ، لذا عليك أن تختار هنا وتستمتع بخصم كبير.</p>
+                      </div>
+                      <div class="media">
+                        <img src="assets/img/pages/profille.png" class="mr-3" alt="">
+                        <div class="media-body">
+                          <div class="overview px-2">
+                            <div class="name"><b>محمد السيد</b></div>
+                            <div class="details">Media Analyst / SkyNet</div>
+                            <div class="star-rating">
+                              <ul class="list-inline p-0">
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star"></i></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="carousel-item  ">
+                  <div class="row">
+                    <div class="col-12 col-md-6 ">
+                      <div class="testimonial">
+                        <p>يتوفر هنا عدد ضخم من العقارات للبيع والشراء والإيجار. تجد هنا أيضًا عقارًا للعيش المشترك ،
+                          لذا عليك أن تختار هنا وتستمتع بخصم كبير.يتوفر هنا عدد ضخم من العقارات للبيع والشراء والإيجار.
+                          تجد هنا أيضًا عقارًا للعيش المشترك ، لذا عليك أن تختار هنا وتستمتع بخصم كبير.</p>
+                      </div>
+                      <div class="media">
+                        <img src="assets/img/pages/profille.png" class="mr-3" alt="">
+                        <div class="media-body ">
+                          <div class="overview px-2">
+                            <div class="name"><b>عدي لبد</b></div>
+                            <div class="details">Media Analyst / SkyNet</div>
+                            <div class="star-rating">
+                              <ul class="list-inline p-0">
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star"></i></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6 ">
+                      <div class="testimonial">
+                        <p>يتوفر هنا عدد ضخم من العقارات للبيع والشراء والإيجار. تجد هنا أيضًا عقارًا للعيش المشترك ،
+                          لذا عليك أن تختار هنا وتستمتع بخصم كبير.يتوفر هنا عدد ضخم من العقارات للبيع والشراء والإيجار.
+                          تجد هنا أيضًا عقارًا للعيش المشترك ، لذا عليك أن تختار هنا وتستمتع بخصم كبير.</p>
+                      </div>
+                      <div class="media">
+                        <img src="assets/img/pages/profille.png" class="mr-3" alt="">
+                        <div class="media-body">
+                          <div class="overview px-2">
+                            <div class="name"><b>محمد السيد</b></div>
+                            <div class="details">Media Analyst / SkyNet</div>
+                            <div class="star-rating">
+                              <ul class="list-inline p-0">
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+                                <li class="list-inline-item"><i class="bi bi-star"></i></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Carousel controls -->
+              <a class="carousel-control-prev d-none d-lg-block" href="#myCarousel" data-slide="prev">
+                <i class="bi bi-chevron-compact-left fs-1"></i>
+              </a>
+              <a class="carousel-control-next d-none d-lg-block" href="#myCarousel" data-slide="next">
+                <i class="bi bi-chevron-compact-right fs-1"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </section>
+
+
+
+
+
+
+
 @section Scripts{
     <script type="text/javascript">
 
@@ -432,3 +1068,74 @@ function AddLike(Id,el) {
     </script>
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
