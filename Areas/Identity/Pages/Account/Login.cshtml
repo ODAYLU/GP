@@ -2,8 +2,7 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Log in";
-    Layout = null;
+  Layout = "/Views/Shared/_Layout.cshtml";
 }
 
 <html lang="ar">
@@ -116,7 +115,7 @@ a:hover {
 }
 </style>
 </head>
-<body dir="rtl" style="overflow: hidden;">
+<body dir="rtl" >
 
     <section class="mt-5">
         <div class="circle-main"></div>
@@ -200,10 +199,6 @@ a:hover {
 
     </section>
 
-  
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
 
        <script src="~/js/Login/all.js"></script>
     <script src="~/js/Login/lottie-player.js"></script>
@@ -214,4 +209,3 @@ a:hover {
     </body>
 
 </html>
-}
