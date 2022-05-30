@@ -112,7 +112,10 @@ namespace GP
         [HttpGet]
         public async Task<IActionResult> EstateComment(long id)
         {
-            return View();
+            Estate es = await _estate.GetOne(id);
+            es.Views = es.Views + 1;
+          await  _estate.UpdateEstate(es);
+            return View(es);
         }
 
 

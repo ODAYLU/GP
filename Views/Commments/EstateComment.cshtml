@@ -1,6 +1,8 @@
-﻿@{
+﻿@model Estate;
+@{
     Layout = null;
 }
+
 
 
 <!DOCTYPE html>
@@ -39,13 +41,12 @@
   <div class="overflow-hidden image1 text-white text-center  d-flex flex-column align-items-center justify-content-center mb-5  " >
 
    
-   
-      <h1 class="mb-5 "> بيت للبيع جنوب محطة تحلية بلدية البريج</h1>
-      <div class="zoom">
+       <h1 class="mb-5 "> @Model.Category.category @Model.Type.type @Model.State.name @Model.City.name</h1>
+     <div class="zoom">
       
     
         <label for="mpo-modal-controller" >
-          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"  "   fill="currentColor" class="bi bi-camera-fill " viewBox="0 0 16 16">
+          <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50"    fill="currentColor" class="bi bi-camera-fill " viewBox="0 0 16 16">
             <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
             <path d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
           </svg>
@@ -131,7 +132,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-house-door   zoom" viewBox="0 0 16 16">
               <path d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5z"/>
             </svg>
-           منزل
+           @Model.Category.category
           </h2>
           <div>
             <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-flag-fill img-fluid greencolor" viewBox="0 0 16 16">
@@ -149,24 +150,25 @@
             <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
             <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
           </svg>
-          2022-05-15 08:59 AM
+          @Model.OnDate
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye me-1" viewBox="0 0 16 16">
             <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
             <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
           </svg>
-        <span> مشاهدات 18</span>
+        <span> مشاهدات @Model.Views</span>
         </p>
       
         </div>
-       
-          <h1 class="fw-bold mb-3">
+          <h1 class="mb-5 ">@Model.Category.category</h1>
+
+         @* <h1 class="fw-bold mb-3">
             منزل للبيع قرب شالية الريحان
-            </h1>
+            </h1>*@
            
            
       
        
-          <h3 class="greencolor">شارك عبر </h3>
+       @*   <h3 class="greencolor">شارك عبر </h3>
           <div class="d-flex flex-row text-dark mb-1">
             <a href="#" class="nav-link">
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-facebook facebookcolor zoom" viewBox="0 0 16 16">
@@ -190,7 +192,7 @@
             </a>
            
             
-          </div>
+          </div>*@
       
     
           <h3 class="fw-light mb-4">
@@ -198,29 +200,26 @@
               <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"/>
               <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
             </svg>
-            فلسطين, قطاع غزة, البريج, مخيم البريج
+            @Model.State.name, @Model.City.name
           </h3>
           <h4 class="fw-light text-secondary mb-5">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-building " viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694 1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
               <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
             </svg>
-          1 دينار
+          @Model.price @Model.Currency.currency
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-aspect-ratio me-3" viewBox="0 0 16 16">
             <path d="M0 3.5A1.5 1.5 0 0 1 1.5 2h13A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5v-9zM1.5 3a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-13z"/>
             <path d="M2 4.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1H3v2.5a.5.5 0 0 1-1 0v-3zm12 7a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H13V8.5a.5.5 0 0 1 1 0v3z"/>
           </svg>
-        <span>  150 م2
+        <span> 
+            @Model.space م2
         </span>
         </h4>
       
         <h2>عن العقار</h2>
         <p class="fs-5 fw-light mb-5">
-          بيت للبيع على شارعين 10م العنوان بالقرب من بيت ابو اشرف ابو الروس
-           جنوب محطة تحلية بلدية البريج مساحة الأرض 400م 
-          ومسورة وفيها بئر مياه خاص ومبنى 150م مؤسس لخمس طوابق بعد الدور الارضي *
-           الدور الارضي شقة اربع غرف وصالون ومدخل مضله تصلح صالون خارجي الطابق الثاني 
-          جاهز للبلاطة مسقوف منه زينقو شقة غرفتين وصلون ومطبخ وحمام جاهزة كهربا اسود وسباكة اسود وجاهزة للقصارة
+            @Model.description
         </p>
     
         
@@ -334,14 +333,28 @@
         <div class="card-body row">
 
             <div class="col-4">
-                <img class="rounded-circle" src="~/Detalis/img/man.png" width="70px" height="70px" />
+                  @{
+
+                  if (Model.Users.ProfilePicture is not null)
+                  {
+                  <img id="prof" class="img-fluid circle" alt="Profile"
+                    src="data:image/*;base64,@(Convert.ToBase64String(Model.Users.ProfilePicture))" />
+                  }
+
+                  else
+                  {
+                  <img id="prof" class="img-fluid circle" alt="Profile"
+                    src="~/indexLayout/assets/img/pages/user.jpg" />
+
+                  }
+                  }
             </div>
             <div class="col-8 ">
-                <h5 class="card-title"> <i class="fa-solid fa-user"></i> مالك العقار</h5>
+                <h5 class="card-title"> <i class="fa-solid fa-user"></i> @Model.Users.FirstName @Model.Users.LastName</h5>
                 <h6 class="card-text"> <i class="fa-solid fa-location-dot"></i> العنوان </h6>
                 <p class="card-text"> <i class="fa-solid fa-phone"></i> الهاتف</p>
                 <a href="" class="btn  btn-danger" onclick="copy(this)" data-toggle="tooltip" data-placement="top" title="اضغط لنسخ الرقم">
-                    <i class="fa-solid fa-user"></i> +123456
+                    <i class="fa-solid fa-user"></i> @Model.phone_num
                 </a>
             </div>
 

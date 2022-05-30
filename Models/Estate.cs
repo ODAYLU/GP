@@ -88,6 +88,7 @@ namespace GP.Models
         public string UserId { get; set; }
         [ForeignKey("UserId")]
         public AppUser Users { get; set; }
+        public long Views { get; set; }
     }
     public interface IEstate
     {
