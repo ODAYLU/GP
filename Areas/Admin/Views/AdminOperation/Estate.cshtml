@@ -4,7 +4,9 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="text-center"  style="color: #0f4f54">العقارات</h1>
+<hr />
+
 
 @if (GP.Models.Toast.ShowTost)
 {
@@ -22,7 +24,7 @@
 }
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">أضف جديد </a>
 </p>
 <table id="Estates" class="table hover display stripe order-column  cell-border text-center nowrap compact w-100 flex-nowrap">
     <thead>
