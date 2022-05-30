@@ -22,7 +22,15 @@
      <link href="~/assets/css/newcss.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
 
+    <style>
+    
+    .dropdown-item.active, .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #558286;
+}
 
+    </style>
 </head>
 
 <body dir="rtl">
@@ -35,20 +43,29 @@
         <header class="bgcolors">
             <div class="sidebar   h-100 end-0 " id="myDIV" >
 
-                <div class="sidebar-header d-flex justify-content-center pb-3 ">
+                <div class="sidebar-header d-flex justify-content-center pb-3 " >
                     <a href="dashbord.html" class="sidebar-logo">
                         <img src="~/assets/img/logo/logowit.png" class="logo" id="logo" />
                     </a>
                 </div>
 
-                <div id="btn " onclick="myFunction()" class="close bg-white rounded-circle border-0 iconpos px-5 ">
+                <div id="btn " onclick="myFunction()" class="close bg-white rounded-circle border-0 iconpos">
                     <i class="bi bi-x fs-1 "></i>
                 </div>
                 <div class="sidebar-body  scrol">
+                    <div class="">
+                        <div class="sidebar-search">
+                            <div class="search-body align-items-center text-white ">
+                                <input type="text" class=" form-control shadow-none border-0 text-end" id="mySearch"
+                                       placeholder="ابحث...">
+                                <i class="bi bi-search fs-4"></i>
+                            </div>
+                        </div>
+                    </div>
                     <ul id="myList">
                         <li id="1" class="main ">
-                            <a  class="list " asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
-                               
+                            <a class="list " asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
+
                                 <span class="title ">الرئيسية</span>
                                 <span class="icon">
                                     <i class="bi bi-house-door"></i>
@@ -56,8 +73,8 @@
                             </a>
                         </li>
                         <li id="2" class="" id="real estates">
-                            <a  class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Estate">
-                                 <input value="2" hidden/>
+                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Estate">
+                                <input value="2" hidden />
                                 <span class="title">العقارات</span>
                                 <span class="icon">
                                     <i class="bi bi-building"></i>
@@ -66,7 +83,7 @@
                         </li>
                         <li id="3" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Category">
-                                 <input value="3" hidden/>
+                                <input value="3" hidden />
                                 <span class="title">التصنيفات</span>
                                 <span class="icon">
 
@@ -76,17 +93,17 @@
                         </li>
                         <li id="4" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="User">
-                                 <input value="4" hidden/>
+                                <input value="4" hidden />
                                 <span class="title">المستخدمين</span>
                                 <span class="icon">
 
-                                   <i class="bi bi-people"></i>
+                                    <i class="bi bi-people"></i>
                                 </span>
                             </a>
                         </li>
                         <li id="5" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Type">
-                                 <input value="5" hidden/>
+                                <input value="5" hidden />
                                 <span class="title">الانواع</span>
                                 <span class="icon">
                                     <i class="bi bi-tags"></i>
@@ -96,7 +113,7 @@
                         </li>
                         <li id="6" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="State">
-                                 <input value="6" hidden/>
+                                <input value="6" hidden />
                                 <span class="title">الدول</span>
                                 <span class="icon">
                                     <i class="bi bi-flag"></i>
@@ -106,7 +123,7 @@
                         </li>
                         <li id="7" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="City">
-                                 <input value="7" hidden/>
+                                <input value="7" hidden />
                                 <span class="title">المدن</span>
                                 <span class="icon">
                                     <i class="bi bi-map"></i>
@@ -125,8 +142,8 @@
                             </a>
                         </li>
                         <li id="8" class="">
-                            <a class="list" asp-area="Admin" asp-controller="AdminOperation"asp-action="Advertisement">
-                                 <input value="8" hidden/>
+                            <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Advertisement">
+                                <input value="8" hidden />
                                 <span class="title">الاعلانات</span>
                                 <span class="icon">
                                     <i class="bi bi-newspaper"></i>
@@ -136,7 +153,7 @@
                         </li>
                         <li id="9" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Currency">
-                                 <input value="9" hidden/>
+                                <input value="9" hidden />
                                 <span class="title">العملات</span>
                                 <span class="icon">
                                     <i class="bi bi-credit-card"></i>
@@ -146,7 +163,7 @@
                         </li>
                         <li id="10" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Comments">
-                                 <input value="10" hidden/>
+                                <input value="10" hidden />
                                 <span class="title">التعليقات</span>
                                 <span class="icon">
                                     <i class="bi bi-chat-dots"></i>
@@ -157,7 +174,7 @@
 
                         <li id="11" class="">
                             <a class="list" asp-area="Admin" asp-controller="AdminOperation" asp-action="Service">
-                                 <input value="11" hidden/>
+                                <input value="11" hidden />
                                 <span class="title">الخدمات</span>
                                 <span class="icon">
                                     <i class="bi bi-list-ul"></i>
@@ -167,7 +184,7 @@
                         </li>
                         <li id="12" class="">
                             <a class="list" asp-area="Admin" asp-controller="InformationGen" asp-action="Index">
-                                 <input value="12" hidden/>
+                                <input value="12" hidden />
                                 <span class="title">المعلومات العامة</span>
                                 <span class="icon">
                                     <i class="bi bi-body-text"></i>
@@ -178,15 +195,7 @@
                     </ul>
                 </div>
 
-                <div class=" bottom-0">
-                    <div class="sidebar-search">
-                        <div class="search-body align-items-center text-white ">
-                            <input type="text" class=" form-control shadow-none border-0 text-end" id="mySearch"
-                                   placeholder="ابحث...">
-                            <i class="bi bi-search fs-4"></i>
-                        </div>
-                    </div>
-                </div>
+                
             </div>
 
             <div class="container-fluid p-0">
@@ -206,9 +215,25 @@
                         </li>
 
                         <li class="nav-item me-auto ps-2">
-                            <a class=" start-0 text-white fs-2" href="#">
+                            <div class="dropdown">
+                              <button type="button" class="btn start-0 text-white fs-2 dropdown-toggle " data-bs-toggle="dropdown">
                                 <i class="bi bi-bell-fill"></i>
-                            </a>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">L ink 1 لوحة التحكم ink 1 لوحة التحكم ink 1 لوحة التحكم </a></li>
+                                <li><a class="dropdown-item" href="#">Link 2</a></li>
+                                <li><a class="dropdown-item" href="#">Link 3</a></li>
+                                <li><a class="dropdown-item" href="#">Link 1</a></li>
+                                <li><a class="dropdown-item" href="#">Link 2</a></li>
+                                <li><a class="dropdown-item" href="#">Link 3</a></li>
+                                <li><a class="dropdown-item" href="#">Link 1</a></li>
+                                <li><a class="dropdown-item" href="#">Link 2</a></li>
+                                <li><a class="dropdown-item" href="#">Link 3</a></li>
+                                <li><a class="dropdown-item" href="#">Link 1</a></li>
+                                <li><a class="dropdown-item" href="#">Link 2</a></li>
+                                <li><a class="dropdown-item" href="#">Link 3</a></li>
+                              </ul>
+                            </div>
                         </li>
 
 
@@ -241,8 +266,7 @@
 
 
         <article class="content">
-            <div class="container-fluid p-lg-5 mb-5"
-            >
+            <div class="container-fluid p-lg-5 mb-5">
                  @RenderBody()       
             </div>           
         </article>

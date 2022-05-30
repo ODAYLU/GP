@@ -30,17 +30,19 @@
     --colorscrolbar: #a6bad9;
     --bg-color: #fff;
     --text-color: #123;
+    --grernwith: #0f4f54 !important;
 }
 
     :root.dark {
         --greencolor: #f6f6f6 !important;
-          --green: #15202b !important;
+        --green: #15202b !important;
         --bgwhite: #1d2a35 !important;
         --txtactive: #f1f1f1 !important;
         --contact: var(--green);
         --grendark: #0f4f54;
         --litegreen: var(--litegreen);
         --bgdark: #0a1a17d4 !important;
+        --grernwith: #fff !important;
     }
 
 
@@ -53,7 +55,7 @@ body {
   text-align: right;
 }
 .text-white {
-  color: var(----txtwhite);
+  color: var(--txtwhite);
 }
 
 /***************************************** start loding **************************/
@@ -141,11 +143,13 @@ body {
     display: none;
     right: 0;
     background-color: var(--green);
-  
+ 
+
+
 }
 
 .sidebar.active {
-  width: 100px;
+  width: 100px !important;
   transition: all 0.5s ease;
 }
 
@@ -183,7 +187,7 @@ body {
 @media (min-width: 992px) {
   .sidebar {
     position: fixed;
-    width: 208px;
+  width: 218px !important;
     display: flex;
     flex-direction: column;
     z-index: 200;

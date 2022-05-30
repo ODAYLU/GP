@@ -112,9 +112,13 @@
                       class="px-2 bi bi-flag-fill"></i>التعليقات</a>
                 </li>
                 <li class="nav-item @ManageNavPages.IndexLikedNavClass(ViewContext)">
+                  <a class="nav-link fs-5" id="profile" >
+                      <i class="px-2 bi bi-flag-fill"></i>تحدث مع زبون</a>
+                </li>
+                <li class="nav-item @ManageNavPages.IndexLikedNavClass(ViewContext)">
                   <a class="nav-link fs-5" id="profile" asp-controller="likedEstates" asp-action="Index" asp-area=""><i
                       class="px-2 bi bi-flag-fill"></i>المُعجب به</a>
-                </li>
+                </li>            
               </ul>
               <div class="py-4">
                 <div class="row my-2 profile-stat">
@@ -177,9 +181,7 @@ for (var i = 0; i < btns.length; i++) {
   });  
 }  
    
-   </script>
 
-    <script>
       function clickOn() {
         var x = document.getElementsByClassName('custom-file-input')[0];
         x.click();
@@ -188,7 +190,7 @@ for (var i = 0; i < btns.length; i++) {
       var loadFile = function (event) {
         var image = document.getElementById("output");
         var imgs = image.src = URL.createObjectURL(event.target.files[0]);
-      };
+      }
     </script>
      @RenderSection("Scripts", required: false)
     }
