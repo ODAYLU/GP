@@ -197,10 +197,10 @@ body {
     /* box-shadow: -5px 8px 20px 0px #68585869; */
   }
 
-  .content {
-    padding-right: 207px;
-    transition: all 0.5s ease-in-out;
-  }
+    .content {
+        padding-right: 293px;
+        transition: all 0.5s ease-in-out;
+    }
 
   .content.active {
     padding: 0;
