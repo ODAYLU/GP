@@ -98,7 +98,12 @@ namespace GP.Areas.Identity.Pages.Account
                 {
                     user = await _userManager.FindByNameAsync(Input.Email);
                 }
-               result  = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+                if (!user.is_active)
+                {
+                    await _userManager.SetLockoutEnabledAsync(user, true);
+                    await _userManager.SetLockoutEndDateAsync(user, DateTime.MaxValue);
+                }
+               result  = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe , lockoutOnFailure:false);
                 if (result.Succeeded)
                 {
                     user.is_active = true;
@@ -111,6 +116,7 @@ namespace GP.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
+                   await _signInManager.SignOutAsync();
                     _logger.LogWarning("User account locked out.");
                     return RedirectToPage("./Lockout");
                 }

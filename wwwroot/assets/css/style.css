@@ -141,7 +141,7 @@ body {
     display: none;
     right: 0;
     background-color: var(--green);
-    width: 308px !important;
+  
 }
 
 .sidebar.active {
