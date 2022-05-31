@@ -26,7 +26,7 @@
             <form class="form-inline " asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <div class="fs-3">
                     
-                    <button type="submit" class="dropdown-item d-flex justify-content-center align-items-center">تسجيل خروج <ion-icon name="log-out"></ion-icon></button>
+                    <button type="submit" class="dropdown-item d-flex justify-content-center align-items-center">تسجيل خروج</button>
                 </div>
 
             </form>
@@ -41,7 +41,7 @@
     {
         <div class="">
         <div>
-            <a class=" d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Register">تسجيل مستخدم جديد</a>
+            <a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Register">تسجيل مستخدم جديد</a>
         </div>
         <div>
             <a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Login">تسجيل دخول </a>
