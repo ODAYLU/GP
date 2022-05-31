@@ -98,11 +98,17 @@ namespace GP.Areas.Identity.Pages.Account
                 {
                     user = await _userManager.FindByNameAsync(Input.Email);
                 }
-                if (!user.is_active)
+                if (user != null)
                 {
-                    await _userManager.SetLockoutEnabledAsync(user, true);
-                    await _userManager.SetLockoutEndDateAsync(user, DateTime.MaxValue);
+                    if (!user.is_active)
+                    {
+                        await _userManager.SetLockoutEnabledAsync(user, true);
+                        await _userManager.SetLockoutEndDateAsync(user, DateTime.MaxValue);
+                    }
                 }
+                 
+                
+               
                result  = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe , lockoutOnFailure:false);
                 if (result.Succeeded)
                 {
