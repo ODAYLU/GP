@@ -226,7 +226,7 @@
                 <b> السعر: @item.price @item.Currency.currency </b> <br /> <b> المدينة @item.City.name </b><br />
                       <b>الدولة @item.State.name </b>
                  <div class="d-flex align-items-center">
-                    <a href="/commments/EstateComment/@item.Id"  class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                    <a href="/commments/EstateComment/@item.Id"   class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
                     @if (likes.Contains(item.Id))
                     {
                     <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i
@@ -313,30 +313,21 @@
                         <div class="image-box">
                           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHZDXGsLPahHg7Ib5aISArJBURuTOuRdlvUQ&usqp=CAU" alt="" />
                         </div>
-                        <div class="text-container">
+                          <div class="text-container">
                           <div class="">
                             <h6 class="card-title "> @item.name </h6>
-                            <div class="back">
-                  <div class="streaming-info">
-                    <div class="game-stat  text-center">
-                      <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
-                      
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center">
-                  <a href="/commments/EstateComment/@item.Id"  class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
-                   @if (likes.Contains(item.Id))
-                    {
-                                  <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart-des bi bi-heart-fill mx-3"></i></a>
-                    }
-                    else
-                    {
-                            <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i  class="heart bi bi-heart-fill mx-3"></i></a>
-                    }
+                            <p class="text-secondary mb-0"> السعر: @item.price @item.Currency.currency  <br />  المدينة @item.City.name <br />
+                      الدولة @item.State.name </p>
+                       
+                            
+                      <p class="text-secondary mb-0"> تاريخ الإضافة : @item.OnDate/</p>
+                        <div class="d-flex align-items-center">
+                    <a href="/Commments/EstateComment/@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                  
                   </div>
                           </div>
                         </div>
-                      </div>
+                         
                         </div>
                     </a>
                     <div class="card-footer d-flex align-items-center justify-content-between text-muted">
