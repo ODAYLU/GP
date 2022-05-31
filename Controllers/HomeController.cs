@@ -1,4 +1,5 @@
-﻿using GP.Models;
+﻿using GP.Hubs;
+using GP.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,7 @@ namespace GP.Controllers
         private readonly ICity _city;
         private readonly IEstate _estate;
         private readonly IlikedEstates _likedEstates;
+      //  private readonly NotificationHub _notification;
         private readonly SignInManager<AppUser> signInManager;
 
         public HomeController(ILogger<HomeController> logger, 
@@ -32,7 +34,7 @@ namespace GP.Controllers
             IEstate estate,
             IlikedEstates likedEstates,
             SignInManager<AppUser> signInManager
-            
+           
         )
         {
             _logger = logger;
@@ -43,6 +45,7 @@ namespace GP.Controllers
             _estate = estate;
             _likedEstates = likedEstates;
             this.signInManager = signInManager;
+            //_notification = notification;
         }
 
         public IActionResult Index()
