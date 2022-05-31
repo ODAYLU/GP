@@ -1515,3 +1515,54 @@ a:hover {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Start sales*/
+
+main .sales-form {
+    background-color: #f7f7f7;
+}
+
+    main .sales-form .img-Home {
+        margin: 0 30px;
+    }
+
+@media (max-width: 991px) {
+    main .sales-form .img-Home {
+        margin: 0 56px;
+    }
+}
+
+@media (min-width: 720px) and (max-width: 795px) {
+    main .sales-form .img-Home {
+        margin: 0 10px;
+    }
+}
+
+@media (max-width: 650px) {
+    main .sales-form .img-Home {
+        margin: 0;
+    }
+}
+/*End sales*/
+
+
