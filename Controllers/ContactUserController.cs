@@ -97,6 +97,7 @@ namespace GP.Controllers
         public async Task<IActionResult> GetUsers(string text)
         {
             List<object> lstUser = new List<object>();
+            text ??= "";
             var Ids = text.Split(',');
             var msgs = _context.Messages.Where(x => !x.IsReaded).ToList();
             foreach (var item in Ids)
