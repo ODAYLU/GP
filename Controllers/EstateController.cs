@@ -97,6 +97,7 @@ namespace GP
 
 
             long idPr = estate.Id;
+
             if (images.Count() > 0)
             {
 
@@ -117,7 +118,10 @@ namespace GP
                 }
             }
 
+            if (estate.list!=null)
+            {
 
+          
             if (estate.list.Count() > 0)
             {
                 for (int i = 0; i < estate.list.Count(); i++)
@@ -128,7 +132,9 @@ namespace GP
                     await _service_Estate.InsertService_Estate(service);
 
                 }
-            }
+            }}
+            
+            
             GP.Models.Toast.ShowTost = true;
             GP.Models.Toast.Message = "تم اضافة العقار بنجاح ";
             return RedirectToAction("Index");

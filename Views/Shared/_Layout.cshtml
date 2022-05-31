@@ -81,21 +81,16 @@
                                 <i class="bi bi-bell-fill"></i>
                               </button>
                               <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">L ink 1 لوحة التحكم ink 1 لوحة التحكم ink 1 لوحة التحكم </a></li>
-                                <li><a class="dropdown-item" href="#">Link 2</a></li>
-                                <li><a class="dropdown-item" href="#">Link 3</a></li>
-                                <li><a class="dropdown-item" href="#">Link 1</a></li>
-                                <li><a class="dropdown-item" href="#">Link 2</a></li>
-                                <li><a class="dropdown-item" href="#">Link 3</a></li>
-                                <li><a class="dropdown-item" href="#">Link 1</a></li>
-                                <li><a class="dropdown-item" href="#">Link 2</a></li>
-                                <li><a class="dropdown-item" href="#">Link 3</a></li>
-                                <li><a class="dropdown-item" href="#">Link 1</a></li>
+                                <li><a class="dropdown-item" href="#">Link 1 </a></li>
                                 <li><a class="dropdown-item" href="#">Link 2</a></li>
                                 <li><a class="dropdown-item" href="#">Link 3</a></li>
                               </ul>
                             </div>
                         </div>
+                         <a type="button" class="btn start-0 text-white fs-2 px-3 " asp-action="Chat" asp-controller="ContactUser"  style="box-shadow: none">
+                                <i class="bi bi-chat-fill"></i>
+                        </a>
+                        
             }
                       
 
@@ -111,16 +106,16 @@
              
            
 
-                            @{
-                                if (User.IsInRole("Owner"))
-                                {
-                                     <li><a class="dropdown-item d-flex justify-content-center align-items-center"asp-area="Identity" asp-page="/Account/Manage/Index" >الصفحة الشخصية</a></li>
-                                }
-                                else if (User.IsInRole("User"))
-                                {
-                                     <li><a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Manage/PersonalUser">الصفحة الشخصية</a></li>
-                                }
-                            }
+                @{
+                    if (User.IsInRole("Owner"))
+                    {
+                            <li><a class="dropdown-item d-flex justify-content-center align-items-center"asp-area="Identity" asp-page="/Account/Manage/Index" >الصفحة الشخصية</a></li>
+                    }
+                    else if (User.IsInRole("User"))
+                    {
+                            <li><a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Manage/PersonalUser">الصفحة الشخصية</a></li>
+                    }
+                }
               @if (User.IsInRole("Owner") )
               {
                 <li>
@@ -197,16 +192,16 @@
                 <h4 class="fw-bold text-dark pb-3"> عقارات </h4>
               </li>
               <li class="nav-item">
-                <a class="nav-link fw-bold text-dark"aasp-action="House" asp-controller="Home" >منازل</a>
+                <a class="nav-link fw-bold text-dark" asp-action="House" asp-controller="Home" >منازل</a>
+              </li>
+               <li class="nav-item">
+                <a class="nav-link fw-bold text-dark" asp-action="Apartment" asp-controller="Home" >شقق</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link fw-bold text-dark" href="#">Link</a>
+                <a class="nav-link fw-bold text-dark" asp-action="Land" asp-controller="Home" >أراضي</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link fw-bold text-dark" href="#">Link</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link fw-bold text-dark" href="#">Link</a>
+                <li class="nav-item">
+                <a class="nav-link fw-bold text-dark" asp-action="Chalet" asp-controller="Home" >شاليهات</a>
               </li>
             </ul>
           </div>
@@ -216,10 +211,10 @@
                 <h4 class="fw-bold text-dark pb-3"> عن أملاك </h4>
               </li>
               <li class="nav-item">
-                <a class="nav-link fw-bold text-dark" href="#">Link</a>
+                <a class="nav-link fw-bold text-dark" href="#">تنزيل من قوقل بلاي </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link fw-bold text-dark" href="#">Link</a>
+               <a class="nav-link fw-bold text-dark" href="#">تنزيل من متجر أبل</a>
               </li>
             </ul>
           </div>
