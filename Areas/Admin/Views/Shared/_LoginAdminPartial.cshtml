@@ -3,24 +3,49 @@
 @inject UserManager<AppUser> UserManager
 
 <ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
-</ul>
+    @if (SignInManager.IsSignedIn(User))
+    {
+        @*<li >
+            <div class="scripthiden">
+                @{
+                    if (User.IsInRole("Owner"))
+                    {
+                        <span> <a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Manage/Index" title="لوحة التحكم">تفاصيل أخرى</a></span>
+
+                    }
+
+                    else if (User.IsInRole("User"))
+                    {
+                        <span> <a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Manage/PersonalUser" title="لوحة التحكم">تفاصيل أخرى</a></span>
+                    }
+                }
+            </div>
+        </li>*@
+
+        <li >
+            <form class="form-inline " asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                <div class="fs-3">
+                    
+                    <button type="submit" class="dropdown-item d-flex justify-content-center align-items-center">تسجيل خروج <ion-icon name="log-out"></ion-icon></button>
+                </div>
+
+            </form>
+        </li>
+
+        }
+
+ </ul>
+
+    
+     @if (!SignInManager.IsSignedIn(User))
+    {
+        <div class="">
+        <div>
+            <a class=" d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Register">تسجيل مستخدم جديد</a>
+        </div>
+        <div>
+            <a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Login">تسجيل دخول </a>
+        </div>
+
+        </div>
+    }

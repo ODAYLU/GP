@@ -28,7 +28,8 @@ namespace GP
                 var user = new AppUser
                 {
                     UserName = "admin@website.com",
-                    Email = "admin@website.com"
+                    Email = "admin@website.com",
+                    is_active = true,
                 };
                 var result = userManager.CreateAsync(user ,"a@1234567").Result;
                 if (result.Succeeded)

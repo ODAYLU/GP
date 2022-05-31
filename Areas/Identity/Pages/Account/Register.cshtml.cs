@@ -113,7 +113,8 @@ namespace GP.Areas.Identity.Pages.Account
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     memory = 10,
-                    NameRole = Input.Role
+                    NameRole = Input.Role,
+                    is_active = true
                 };
                 //if (Input.Image != null)
                 //{

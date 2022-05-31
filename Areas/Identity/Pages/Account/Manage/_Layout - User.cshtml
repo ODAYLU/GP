@@ -24,6 +24,9 @@
                 <a asp-controller="likedEstates" asp-area="" asp-action="Index" class="nav-link @ManageNavPages.IndexLikedNavClass(ViewContext)  m-1 fw-bold text-center"  onclick="openTab(event, 'aqar', 'arrow2')">
                        <i class="bi bi-person-fill"></i>عقارات أعجبتكك
                 </a>
+                <a href="" class="nav-link @ManageNavPages.IndexPersonalUserNavClass(ViewContext) fw-bold text-center m-1">
+                  <i class="bi bi-person-fill"></i>تحدث مع صاحب عقار
+                </a>
             </div>
                        
              <div class="col-12 col-lg-9 col-xl-10 my-3 py-3 shado justify-content-center text-end">
@@ -36,8 +39,5 @@
         
 @section Scripts {
     @RenderSection("Scripts", required: false)
-
-
-    
 
 }

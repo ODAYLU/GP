@@ -22,7 +22,15 @@
      <link href="~/assets/css/newcss.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
 
+    <style>
+    
+    .dropdown-item.active, .dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #558286;
+}
 
+    </style>
 </head>
 
 <body dir="rtl">
@@ -190,7 +198,7 @@
                 
             </div>
 
-                        <div class="container-fluid p-0">
+            <div class="container-fluid p-0">
                 <div class="content">
                     <ul class="nav p-0 align-items-center">
                         <li class="nav-item">
@@ -207,9 +215,25 @@
                         </li>
 
                         <li class="nav-item me-auto ps-2">
-                            <a class=" start-0 text-white fs-2" href="#">
+                            <div class="dropdown">
+                              <button type="button" class="btn start-0 text-white fs-2 dropdown-toggle " data-bs-toggle="dropdown">
                                 <i class="bi bi-bell-fill"></i>
-                            </a>
+                              </button>
+                              <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">L ink 1 لوحة التحكم ink 1 لوحة التحكم ink 1 لوحة التحكم </a></li>
+                                <li><a class="dropdown-item" href="#">Link 2</a></li>
+                                <li><a class="dropdown-item" href="#">Link 3</a></li>
+                                <li><a class="dropdown-item" href="#">Link 1</a></li>
+                                <li><a class="dropdown-item" href="#">Link 2</a></li>
+                                <li><a class="dropdown-item" href="#">Link 3</a></li>
+                                <li><a class="dropdown-item" href="#">Link 1</a></li>
+                                <li><a class="dropdown-item" href="#">Link 2</a></li>
+                                <li><a class="dropdown-item" href="#">Link 3</a></li>
+                                <li><a class="dropdown-item" href="#">Link 1</a></li>
+                                <li><a class="dropdown-item" href="#">Link 2</a></li>
+                                <li><a class="dropdown-item" href="#">Link 3</a></li>
+                              </ul>
+                            </div>
                         </li>
 
 
@@ -242,8 +266,7 @@
 
 
         <article class="content">
-            <div class="container-fluid p-lg-5 mb-5"
-            >
+            <div class="container-fluid p-lg-5 mb-5">
                  @RenderBody()       
             </div>           
         </article>
