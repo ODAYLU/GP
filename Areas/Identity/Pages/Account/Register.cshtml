@@ -2,8 +2,7 @@
 @model GP.Areas.Identity.Pages.Account.RegisterModel
 @{
     ViewData["Title"] = "Register";
-   Layout = null;
-    }
+  Layout = "/Views/Shared/_Layout.cshtml";    }
     <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -19,6 +18,16 @@
   <link href="~/indexLayout/assets/css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="~/login/bulma.min.css" />
     <style>
+                .header{
+            padding:0 !important;
+        }
+        .navbar{
+            background-color:var(--green);
+        }
+
+        .dropdown-item {
+            color:#fff;
+        }
 .padable{
     padding: 3em;
     color:var(--txtactive);

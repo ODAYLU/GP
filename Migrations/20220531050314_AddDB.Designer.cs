@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220525093825_f12")]
-    partial class f12
+    [Migration("20220531050314_AddDB")]
+    partial class AddDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -400,6 +400,9 @@ namespace GP.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<long>("Views")
+                        .HasColumnType("bigint");
+
                     b.Property<int?>("categoryID")
                         .IsRequired()
                         .HasColumnType("int");
@@ -493,6 +496,9 @@ namespace GP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsReaded")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ReceiverId")
                         .HasColumnType("nvarchar(450)");
