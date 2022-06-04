@@ -20,12 +20,14 @@ namespace GP
         private readonly IEstate _estate;
         private readonly UserManager<AppUser> _users;
         private readonly IWebHostEnvironment _webHostEnvironment;
-         public CommmentsController(ICommments context, IWebHostEnvironment webHostEnvironment, IReplaies replaies, IEstate estate)
+        private readonly IService_Estate _service_Estate;
+         public CommmentsController(ICommments context, IWebHostEnvironment webHostEnvironment, IReplaies replaies, IEstate estate, IService_Estate service_Estate)
         {
             this._context = context;
             this._estate = estate;
             this._replaies = replaies;
             this._webHostEnvironment = webHostEnvironment;
+            this._service_Estate = service_Estate;
         }
         public IActionResult Commments()
         {
@@ -113,6 +115,10 @@ namespace GP
         public async Task<IActionResult> EstateComment(long id)
         {
             Estate es = await _estate.GetOne(id);
+
+            var services =  _service_Estate.GetALl(id);
+             List<string>lst=services.Select(s => s.Name).ToList();
+            ViewBag.services=lst;
             es.Views = es.Views + 1;
           await  _estate.UpdateEstate(es);
             return View(es);
