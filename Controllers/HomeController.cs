@@ -1,8 +1,11 @@
 ﻿using GP.Hubs;
 using GP.Models;
+using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -23,18 +26,20 @@ namespace GP.Controllers
         private readonly ICity _city;
         private readonly IEstate _estate;
         private readonly IlikedEstates _likedEstates;
-      //  private readonly NotificationHub _notification;
+        private readonly IHubContext<NotificationHub> _hub;
         private readonly SignInManager<AppUser> signInManager;
-
-        public HomeController(ILogger<HomeController> logger, 
+        private readonly INotification _notification;
+        public HomeController(ILogger<HomeController> logger,
             ICategory category,
             IType type,
             ICity city,
             IState state,
             IEstate estate,
             IlikedEstates likedEstates,
-            SignInManager<AppUser> signInManager
-           
+            SignInManager<AppUser> signInManager,
+           IHubContext<NotificationHub> hub,
+            INotification notification
+
         )
         {
             _logger = logger;
@@ -45,12 +50,12 @@ namespace GP.Controllers
             _estate = estate;
             _likedEstates = likedEstates;
             this.signInManager = signInManager;
-            //_notification = notification;
+            _hub = hub;
+            _notification = notification;
         }
 
         public IActionResult Index()
         {
-          
             ViewBag.Categories = _category.GetAll().ToList();
             ViewBag.Cities = _city.GetAll().ToList();
             ViewBag.States = _state.GetAll().ToList();
@@ -65,32 +70,32 @@ namespace GP.Controllers
             return View();
         }
 
-        public IActionResult FilterEstate(int Type,  int Category, int State,  long City)
+        public IActionResult FilterEstate(int Type, int Category, int State, long City)
         {
             ModelState.Remove("Type");
             ModelState.Remove("State");
             ModelState.Remove("City");
             ModelState.Remove("Category");
             if (!ModelState.IsValid) return View("Index");
-            var data =  _estate.GetAll().Where(x => (Type == 0 ? true : x.TypeID == Type) &&
-                                                    (Category == 0? true : x.categoryID == Category) &&
-                                                    (State == 0? true: x.StateID == State) &&
-                                                    (City == 0 ? true: x.CityID == City)&&
-                                                    x.is_active
-                                                    ).ToList();
-            var Categ =  _category.GetOne(Category).Result;
-            if(Categ is not null)
-           ViewBag.CategoryName = Categ.category;
+            var data = _estate.GetAll().Where(x => (Type == 0 ? true : x.TypeID == Type) &&
+                            (Category == 0 ? true : x.categoryID == Category) &&
+                            (State == 0 ? true : x.StateID == State) &&
+                            (City == 0 ? true : x.CityID == City) &&
+                            x.is_active
+                            ).ToList();
+            var Categ = _category.GetOne(Category).Result;
+            if (Categ is not null)
+                ViewBag.CategoryName = Categ.category;
             return View(data);
         }
 
         public IActionResult Apartment()
         {
-            ViewBag.Categories = _category.GetAll().ToList() ;
+            ViewBag.Categories = _category.GetAll().ToList();
             ViewBag.Cities = _city.GetAll().ToList();
             ViewBag.States = _state.GetAll().ToList();
             ViewBag.Types = _type.GetAll().ToList();
-            var data = _estate.GetAll().Where(x => x.Category.category.Trim() == "شقة" && x.is_active&&x.publish&&!x.IsBlock).ToList();
+            var data = _estate.GetAll().Where(x => x.Category.category.Trim() == "شقة" && x.is_active && x.publish && !x.IsBlock).ToList();
             return View();
         }
         public IActionResult House(List<Estate> data)
@@ -100,7 +105,7 @@ namespace GP.Controllers
         }
 
 
-      
+
         public IActionResult Land(List<Estate> data)
         {
             ViewBag.Data = data;
@@ -122,11 +127,13 @@ namespace GP.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> AddLikes(long id)
         {
-            if (!signInManager.IsSignedIn(User)&& !User.IsInRole("Admin"))
+
+
+            if (!signInManager.IsSignedIn(User) && !User.IsInRole("Admin"))
                 return Ok("false");
             if (id != 0)
             {
@@ -144,6 +151,20 @@ namespace GP.Controllers
                     await _estate.UpdateEstate(estate);
                     int count = estate.Likes;
                     string status = "like";
+                    //  await _notification.SendNotification($"{estate.Users.UserName}تم تسجيل الاعجاب على عقارك بواسطة ",estate.UserId,"action");
+
+                    Notification msg = new Notification
+                    {
+                        Text = $"{estate.Users.UserName}تم تسجيل الاعجاب على عقارك بواسطة ",
+                        Time = DateTime.Now,
+                        ReciverId = estate.UserId,
+                        SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                        Type = "action",
+                        IsReaded = (ConnectedUser.IDs.Contains(estate.UserId) ? true : false)
+                    };
+                    await _notification.InsertNot(msg);
+
+                    await _hub.Clients.User(estate.UserId).SendAsync("receiveNotification", msg);
                     var JsonData = new { status, count };
                     return Ok(JsonData);
                 }
@@ -161,6 +182,30 @@ namespace GP.Controllers
 
             }
             return BadRequest();
+        }
+
+        public async Task<IActionResult> GetNotification()
+
+        {
+            var data = await _notification.GetAll()
+                 .Where(x => !x.IsReaded &&
+                 x.ReciverId == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                 .ToListAsync();
+
+            if (data is not null) return Ok(data);
+            else return Ok(null);
+        }
+
+        public async Task<IActionResult> SetNotificationReaded()
+        {
+            var data = await _notification.GetAll().Where(x => !x.IsReaded &&
+                 x.ReciverId == User.FindFirstValue(ClaimTypes.NameIdentifier)).ToListAsync();
+            foreach (var item in data)
+            {
+                item.IsReaded = true;
+            }
+           await _notification.UpdateNot(data);
+            return Ok();
         }
 
     }

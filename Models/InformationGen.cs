@@ -14,7 +14,7 @@ namespace GP.Models
         [EmailAddress(ErrorMessage ="يرجى ادخال ايميل بشكل صحيح")]
         public string Email { get; set; }
         [Required(ErrorMessage = "هذا الحقل مطلوب ")]
-        [EmailAddress(ErrorMessage = "يرجى ادخال الرقم بشكل صحيح")]
+        [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "يرجى ادخال الرقم بشكل صحيح")]
         public string Phone { get; set; }
         [Url(ErrorMessage ="يجب أن يكون رابط صحيح")]
         public string UrlFacebook { get; set; }

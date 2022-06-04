@@ -2,10 +2,9 @@
 @model GP.Areas.Identity.Pages.Account.RegisterModel
 @{
     ViewData["Title"] = "Register";
-  Layout = "/Views/Shared/_Layout.cshtml";    }
-    <!DOCTYPE html>
-<html lang="ar">
-<head>
+    Layout = "/Views/Shared/_Layout.cshtml"; 
+}
+
   <link rel="shortcut icon" href="~/indexLayout/assets/img/logo/logo.png">
   <link href="~/indexLayout/assets/bootstrap/bootstrap4.min.css" rel="stylesheet">
   <link href="~/indexLayout/assets/bootstrap/bootstrap5.min.css" rel="stylesheet">
@@ -123,9 +122,9 @@ a:hover {
   color: #dbdbdb;
 }
 </style>
-</head>
-<body dir="rtl" style="overflow: hidden;">
-      <section class="mt-5">
+
+
+      <section class="my-5" >
         <div class="circle-main"></div>
         <div class="circle-main-m"></div>
         <div class="circle-main-s"></div>
@@ -259,6 +258,3 @@ a:hover {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    </body>
-
-</html>

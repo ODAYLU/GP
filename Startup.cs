@@ -1,11 +1,13 @@
     using GP.Data;
 using GP.Hubs;
 using GP.Models;
+using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -75,6 +77,7 @@ namespace GP
             services.AddScoped<IContract, ContractManage>();
             services.AddScoped<InformationGen>();
             services.AddScoped<IlikedEstates, likedEstatesManage>();
+            services.AddScoped<INotification, NotificationManagement>();
             services.AddTransient<IContact,ContactManagments>();
         }
 
@@ -82,8 +85,7 @@ namespace GP
         public void Configure(IApplicationBuilder app, 
             IWebHostEnvironment env,
             UserManager<AppUser> userManager,
-            RoleManager<IdentityRole> roleManager
-            )
+            RoleManager<IdentityRole> roleManager )
         {
             if (env.IsDevelopment())
             {
@@ -109,6 +111,7 @@ namespace GP
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapHub<NotificationHub>("/notification");
             });
             app.UseEndpoints(endpoints =>
             {   

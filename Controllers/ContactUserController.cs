@@ -106,6 +106,7 @@ namespace GP.Controllers
                 if(msgs.Select(z => z.UserId).Contains(user.Id))
                 {
                     bool flag = false;
+                    
                     lstUser.Add(new {user, flag });
                 }
                 else
@@ -122,9 +123,10 @@ namespace GP.Controllers
             
             var lstUser = new List<object> ();
             var userlst = new List<AppUser>();
+            bool IsActive = false;
             var users = await _context.Messages.Include(x => x.Receiver)
                 .Where(z => z.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
-                .Select(s => s.ReceiverId)
+                .Select(s => s.ReceiverId).Distinct()
                 .ToListAsync();
             var msgs = _context.Messages.Where(x => !x.IsReaded).ToList();
             foreach (var item in users)
@@ -134,9 +136,12 @@ namespace GP.Controllers
                 if (msgs.Select(z => z.UserId).Distinct().Contains(user.Id)&&!userlst.Contains(user))
                 {
                     bool flag = false;
+                    if (ConnectedUser.IDs.Contains(user.Id)) IsActive = true;
+                    else IsActive = false;
+
                     userlst.Add(user);
                     
-                    lstUser.Add(new { user, flag });
+                    lstUser.Add(new { user, flag,IsActive });
                    
                 }
                 else
@@ -146,8 +151,10 @@ namespace GP.Controllers
                     if (!userlst.Contains(user))
                     {
                         bool flag = true;
-                    lstUser.Add(new { user, flag });
-                    userlst.Add(user);
+                        if (ConnectedUser.IDs.Contains(user.Id)) IsActive = true;
+                        else IsActive = false;
+                        lstUser.Add(new { user, flag , IsActive });
+                        userlst.Add(user);
                     }
 
                 }

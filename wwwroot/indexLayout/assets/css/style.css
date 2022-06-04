@@ -956,7 +956,8 @@ select:focus-visible {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  z-index: -2;
+  z-index: 1;
+  
 }
 
 footer .nav .nav-item .text-dark {
