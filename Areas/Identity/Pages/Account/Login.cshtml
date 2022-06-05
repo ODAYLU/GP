@@ -2,11 +2,10 @@
 @model LoginModel
 
 @{
-  Layout = "/Views/Shared/_Layout.cshtml";
+      Layout = "/Views/Shared/_Layout.cshtml"; 
 }
 
-<html lang="ar">
-<head>
+
   <link rel="shortcut icon" href="~/indexLayout/assets/img/logo/logo.png">
   <link href="~/indexLayout/assets/bootstrap/bootstrap4.min.css" rel="stylesheet">
   <link href="~/indexLayout/assets/bootstrap/bootstrap5.min.css" rel="stylesheet">
@@ -43,7 +42,7 @@
   justify-content: center;
 }
 .component-row{
-  overflow: hidden;
+    overflow:hidden;
   border-radius: 12px;
   box-shadow: 0px 0px 5px #858585;
 }
@@ -126,10 +125,10 @@ a:hover {
   color: #dbdbdb;
 }
 </style>
-</head>
-<body dir="rtl" >
 
-    <section class="mt-5">
+
+
+    <section class="my-5">
         <div class="circle-main"></div>
         <div class="circle-main-m"></div>
         <div class="circle-main-s"></div>
@@ -218,6 +217,4 @@ a:hover {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
-    </body>
 
-</html>

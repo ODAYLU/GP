@@ -1,4 +1,5 @@
-﻿using GP.Models;
+﻿using GP.Hubs;
+using GP.Models;
 using GP.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,23 +28,28 @@ namespace GP
         private readonly IService_Estate _service_Estate;
         private readonly IlikedEstates _like;
         private readonly IWebHostEnvironment webHostEnvironment;
-
+        private readonly IHubContext<NotificationHub> _hub;
+        private readonly INotification _notification;
 
         public EstateController(UserManager<AppUser> userManager , 
-            GP.Models.IEstate Services, 
-            IWebHostEnvironment webHostEnvironment, 
-            IPhotoEstate photoservices, 
-            IService_Estate service_Estate, 
-            IService servicesList,
-            IlikedEstates like)
-        {
-            this._userManager = userManager;
-            services = Services;
-            this.webHostEnvironment = webHostEnvironment;
-            _photoservices = photoservices;
-            _service_Estate = service_Estate;
-            this.servicesList = servicesList;
-            _like = like;
+                    GP.Models.IEstate Services, 
+                    IWebHostEnvironment webHostEnvironment, 
+                    IPhotoEstate photoservices, 
+                    IService_Estate service_Estate, 
+                    IService servicesList,
+                    IlikedEstates like,
+                    IHubContext<NotificationHub> hub,
+                    INotification notification )
+                {
+                    this._userManager = userManager;
+                    services = Services;
+                    this.webHostEnvironment = webHostEnvironment;
+                    _photoservices = photoservices;
+                    _service_Estate = service_Estate;
+                    this.servicesList = servicesList;
+                    _like = like;
+                    _hub = hub;
+            _notification = notification;
         }
 
         [HttpGet]
@@ -133,10 +140,20 @@ namespace GP
 
                 }
             }}
-            
-            
+            var userAdmin = await _userManager.GetUsersInRoleAsync("Admin");
+            var userEstate = await _userManager.FindByIdAsync(estate.UserId);
+            Notification msg = new Notification
+            {
+                Text = $"تمت إضافة عقار جديد بواسطة {userEstate.UserName}",
+                Time = DateTime.Now,
+                ReciverId = userAdmin[0].Id,
+                SenderId = estate.UserId,
+                Type = "action",
+                IsReaded = (ConnectedUser.IDs.Contains(userAdmin[0].Id) ? true : false)
+            };
+            await _hub.Clients.User(userAdmin[0].Id).SendAsync("receiveNotificationAdmin", msg);
             GP.Models.Toast.ShowTost = true;
-            GP.Models.Toast.Message = "تم اضافة العقار بنجاح ";
+            GP.Models.Toast.Message = "تم إضافة العقار بنجاح";
             return RedirectToAction("Index");
         }
        // [HttpGet]
