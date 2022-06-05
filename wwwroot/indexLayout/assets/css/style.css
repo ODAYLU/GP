@@ -25,7 +25,7 @@
     --textnav: #f1f1f1 !important;
     --bgcolor2: #d7d7d7;
     --bgdark: #fff !important;
-    293px --orange: #d46300;
+    --orange: #d46300;
     --navcolor: chocolate;
     --navcolorhover: rgb(255, 255, 255);
     --navbghover: chocolate;
@@ -70,19 +70,14 @@ html {
 
 
 .text-white {
-  color: var(----txtwhite);
+  color: var(--txtwhite);
 }
 
 .bg-white {
   background: var(--bgwhite)
 }
 
-body {
-  background: var(--bgwhite);
-  color: var(--txtactive);
-  height: 100%;
-  position: relative;
-}
+
 
 /***************************************** start header **************************/
 /*****************land*******************************************/
@@ -99,16 +94,6 @@ video.bg-video {
   z-index: 0;
 }
 
-@media (pointer: coarse) and (hover: none) {
-  body {
-    background: url("../assets/img/bg-mobile-fallback.jpg") #2a5555 no-repeat center center scroll;
-    background-size: cover;
-  }
-
-  body video {
-    display: none;
-  }
-}
 
 .masthead {
   position: relative;
@@ -136,6 +121,12 @@ video.bg-video {
   max-width: 50rem;
   padding-top: 5rem;
   padding-bottom: 5rem;
+}
+body {
+    background: var(--bgwhite) !important;
+    color: var(--txtactive);
+    height: 100%;
+    position: relative;
 }
 
 @media (min-width: 992px) {
