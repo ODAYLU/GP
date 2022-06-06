@@ -3,11 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GP.Migrations
 {
-<<<<<<<< HEAD:Migrations/20220602132615_f56.cs
-    public partial class f56 : Migration
-========
-    public partial class AddTables : Migration
->>>>>>>> 09fbc67b42811692896d16b212c77b670f394b79:Migrations/20220605053701_AddTables.cs
+    public partial class All : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -348,12 +344,8 @@ namespace GP.Migrations
                     SenderId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     ReciverId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     IsReaded = table.Column<bool>(type: "bit", nullable: false),
-<<<<<<<< HEAD:Migrations/20220602132615_f56.cs
-                    Time = table.Column<DateTime>(type: "datetime2", nullable: false)
-========
                     Time = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true)
->>>>>>>> 09fbc67b42811692896d16b212c77b670f394b79:Migrations/20220605053701_AddTables.cs
                 },
                 constraints: table =>
                 {
@@ -450,6 +442,7 @@ namespace GP.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Body = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Rating = table.Column<double>(type: "float", nullable: false),
+                    OnDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "Getdate()"),
                     EstateId = table.Column<long>(type: "bigint", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },

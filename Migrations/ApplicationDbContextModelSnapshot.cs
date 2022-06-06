@@ -551,12 +551,9 @@ namespace GP.Migrations
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
 
-<<<<<<< HEAD
-=======
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
->>>>>>> 09fbc67b42811692896d16b212c77b670f394b79
                     b.HasKey("Id");
 
                     b.HasIndex("ReciverId");

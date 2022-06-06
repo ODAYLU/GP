@@ -1,4 +1,5 @@
 ﻿using GP.Data;
+using GP.Hubs;
 using GP.Models;
 using GP.Service;
 using Microsoft.AspNetCore.Authorization;
@@ -94,6 +95,7 @@ namespace GP.Controllers
         public async Task<IActionResult> GetUsers(string text)
         {
             List<object> lstUser = new List<object>();
+            bool flag = false;
             text ??= "";
             var Ids = text.Split(',');
             var msgs = _context.Messages.Where(x => !x.IsReaded).ToList();
@@ -102,22 +104,22 @@ namespace GP.Controllers
                 var user = await _userManager.FindByIdAsync(item);
                 if (user != null)
                 {
-<<<<<<< HEAD
+
                     if (msgs.Select(z => z.UserId).Contains(user.Id))
                     {
-                        bool flag = false;
+                         flag = false;
                         lstUser.Add(new { user, flag });
                     }
                     else
                     {
-                        bool flag = true;
+                         flag = true;
                         lstUser.Add(new { user, flag });
                     }
-=======
-                    bool flag = false;
+
+                     flag = false;
                     
                     lstUser.Add(new {user, flag });
->>>>>>> 09fbc67b42811692896d16b212c77b670f394b79
+
                 }
 
 
@@ -146,15 +148,15 @@ namespace GP.Controllers
                     else IsActive = false;
 
                     userlst.Add(user);
-<<<<<<< HEAD
+
 
                     lstUser.Add(new { user, flag });
 
-=======
+
                     
                     lstUser.Add(new { user, flag,IsActive });
                    
->>>>>>> 09fbc67b42811692896d16b212c77b670f394b79
+
                 }
                 else
                 {
@@ -163,13 +165,13 @@ namespace GP.Controllers
                     if (!userlst.Contains(user))
                     {
                         bool flag = true;
-<<<<<<< HEAD
+
                         lstUser.Add(new { user, flag });
-=======
+
                         if (ConnectedUser.IDs.Contains(user.Id)) IsActive = true;
                         else IsActive = false;
                         lstUser.Add(new { user, flag , IsActive });
->>>>>>> 09fbc67b42811692896d16b212c77b670f394b79
+
                         userlst.Add(user);
                     }
 

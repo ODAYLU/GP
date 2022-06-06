@@ -10,13 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:Migrations/20220602132615_f56.Designer.cs
-    [Migration("20220602132615_f56")]
-    partial class f56
-========
-    [Migration("20220605053701_AddTables")]
-    partial class AddTables
->>>>>>>> 09fbc67b42811692896d16b212c77b670f394b79:Migrations/20220605053701_AddTables.Designer.cs
+    [Migration("20220606093609_All")]
+    partial class All
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -226,6 +221,11 @@ namespace GP.Migrations
 
                     b.Property<long>("EstateId")
                         .HasColumnType("bigint");
+
+                    b.Property<DateTime>("OnDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("Getdate()");
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
@@ -553,12 +553,9 @@ namespace GP.Migrations
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
 
-<<<<<<<< HEAD:Migrations/20220602132615_f56.Designer.cs
-========
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
->>>>>>>> 09fbc67b42811692896d16b212c77b670f394b79:Migrations/20220605053701_AddTables.Designer.cs
                     b.HasKey("Id");
 
                     b.HasIndex("ReciverId");
