@@ -20,6 +20,8 @@ namespace GP.Models
         [Required,MaxLength(200,ErrorMessage ="لحد 200 حرف ")]
         public string Body { get; set; }
         public double Rating { get; set; }
+
+        public DateTime OnDate { get; set; }
         public long EstateId { get; set; }
         [ForeignKey("EstateId")]
 

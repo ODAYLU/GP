@@ -458,12 +458,12 @@
 
 .material-card.Red.mc-active .mc-footer {
     background-color: navajowhite;
-    ;
+
 }
 
 .material-card.Red.mc-active .mc-btn-action {
     border-color: navajowhite;
-    ;
+
 }
 
 body {
@@ -478,7 +478,7 @@ h1,
 h2,
 h3 {
     font-weight: 200;
-}*/
+}
 
 /* //////////////////////////////////////////////////////////////////// */
 
@@ -499,7 +499,7 @@ h3 {
 }
 
 .image {
-    background: url("http://media.cleveland.com/business_impact/photo/associated-estates-san-raphael-apartments-dallas-texasjpg-8959a5dfba0d9575.jpg");
+    background: url("http:/ /media.cleveland.com/business_impact/photo/associated-estates-san-raphael-apartments-dallas-texasjpg-8959a5dfba0d9575.jpg");
     height: 100%;
     background-size: cover;
     background-position: center;
@@ -525,7 +525,7 @@ h3 {
 }
 
 .image-overlay {
-    background: url("http://media.cleveland.com/business_impact/photo/associated-estates-san-raphael-apartments-dallas-texasjpg-8959a5dfba0d9575.jpg");
+    background: url("http:/ /media.cleveland.com/business_impact/photo/associated-estates-san-raphael-apartments-dallas-texasjpg-8959a5dfba0d9575.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -609,3 +609,4 @@ span.input-group-text {
     background-color: rgba(255, 255, 255, 0.514);
     color: #0f4f54;
 }
+    */

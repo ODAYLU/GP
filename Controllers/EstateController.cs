@@ -1,4 +1,5 @@
-﻿using GP.Models;
+﻿using GP.Hubs;
+using GP.Models;
 using GP.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,26 +17,34 @@ using System.Threading.Tasks;
 
 namespace GP
 {
-    
-    [Authorize(Roles ="Owner")]
+
+    [Authorize(Roles = "Owner")]
     public class EstateController : Controller
     {
+        private readonly ICommments _context;
+        private readonly IReplaies _replaies;
         private readonly UserManager<AppUser> _userManager;
         private readonly IEstate services;
-        private readonly IService servicesList; 
+        private readonly IService servicesList;
         private readonly IPhotoEstate _photoservices;
         private readonly IService_Estate _service_Estate;
         private readonly IlikedEstates _like;
         private readonly IWebHostEnvironment webHostEnvironment;
+        private readonly IHubContext<NotificationHub> _hub;
+        private readonly INotification _notification;
 
+    
+ 
 
         public EstateController(UserManager<AppUser> userManager , 
-            GP.Models.IEstate Services, 
-            IWebHostEnvironment webHostEnvironment, 
-            IPhotoEstate photoservices, 
-            IService_Estate service_Estate, 
-            IService servicesList,
-            IlikedEstates like)
+                    GP.Models.IEstate Services, 
+                    IWebHostEnvironment webHostEnvironment, 
+                    IPhotoEstate photoservices, 
+                    IService_Estate service_Estate, 
+                    IService servicesList,
+                    IlikedEstates like,
+                    IHubContext<NotificationHub> hub,
+                    INotification notification)
         {
             this._userManager = userManager;
             services = Services;
@@ -43,6 +53,9 @@ namespace GP
             _service_Estate = service_Estate;
             this.servicesList = servicesList;
             _like = like;
+            _hub = hub;
+            _notification = notification;
+
         }
 
         [HttpGet]
@@ -50,19 +63,19 @@ namespace GP
         {
             SeedData.IsPserosalPhoto = false;
             string UserId1 = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            List<Estate> list = services.GetAll().Where(x=>x.UserId== UserId1 && x.is_active==true).ToList();
-         
+            List<Estate> list = services.GetAll().Where(x => x.UserId == UserId1 && x.is_active == true).ToList();
+
             return View(list);
         }
 
         [HttpGet]
-        public  IActionResult GetEstate()
+        public IActionResult GetEstate()
         {
 
-            var data =  services.GetAll();
+            var data = services.GetAll();
             return Ok(data);
         }
-        
+
         [HttpGet]
         public IActionResult CreateTemp()
         {
@@ -90,7 +103,7 @@ namespace GP
             {
                 await image_main.CopyToAsync(fileStream);
             }
-            estate.Main_photo =  fileName + extension;
+            estate.Main_photo = fileName + extension;
             var user = _userManager.GetUserAsync(User);
             estate.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             await services.InsertEstate(estate);
@@ -118,28 +131,31 @@ namespace GP
                 }
             }
 
-            if (estate.list!=null)
+            if (estate.list != null)
             {
 
-          
-            if (estate.list.Count() > 0)
-            {
-                for (int i = 0; i < estate.list.Count(); i++)
+
+                if (estate.list.Count() > 0)
                 {
-                    Service_Estate service = new Service_Estate();
-                    service.EstateID = idPr;
-                    service.ServiceID = int.Parse(estate.list[i].Trim());
-                    await _service_Estate.InsertService_Estate(service);
+                    for (int i = 0; i < estate.list.Count(); i++)
+                    {
+                        Service_Estate service = new Service_Estate();
+                        service.EstateID = idPr;
+                        service.ServiceID = int.Parse(estate.list[i].Trim());
+                        await _service_Estate.InsertService_Estate(service);
 
+                    }
                 }
-            }}
-            
-            
-            GP.Models.Toast.ShowTost = true;
-            GP.Models.Toast.Message = "تم اضافة العقار بنجاح ";
-            return RedirectToAction("Index");
+
+            }
+
+
+            return View();
         }
-       // [HttpGet]
+          
+          
+        
+    
         public async Task<ActionResult<Estate>> Detalis(long id)
         {
 
@@ -157,7 +173,7 @@ namespace GP
                 }
                 return View(estate);
             }
-          return View();
+            return View();
 
         }
 
@@ -165,12 +181,12 @@ namespace GP
         [HttpGet]
         public async Task<ActionResult<Estate>> Edit(long id)
         {
-          
+
             if (id != 0)
             {
                 Estate estate = await services.GetOne(id);
 
-                if(estate != null)
+                if (estate != null)
                 {
                     string UserIdLogin = @User.FindFirstValue(ClaimTypes.NameIdentifier);
                     if (!UserIdLogin.Equals(estate.UserId))
@@ -179,7 +195,7 @@ namespace GP
                     }
 
 
-                        SeedData.IsPserosalPhoto = false;
+                    SeedData.IsPserosalPhoto = false;
                     List<Services> list = _service_Estate.GetALl(id).ToList();
 
 
@@ -195,8 +211,8 @@ namespace GP
 
                     return View(estate);
                 }
-               
-                
+
+
             }
 
             return View("/Views/NotAccess.cshtml");
@@ -211,13 +227,13 @@ namespace GP
 
             Estate old = await services.GetOne(estate.Id);
 
-        
+
             if (estate != null)
             {
-               
-                    await _service_Estate.DeleteService_Estate(old.Id);
 
-                if(estate.list != null)
+                await _service_Estate.DeleteService_Estate(old.Id);
+
+                if (estate.list != null)
                 {
                     if (estate.list.Count() > 0)
                     {
@@ -236,8 +252,8 @@ namespace GP
                 }
 
                 estate.Main_photo = old.Main_photo;
-                estate.is_active= old.is_active;
-                estate.is_spacial=old.is_spacial;
+                estate.is_active = old.is_active;
+                estate.is_spacial = old.is_spacial;
                 estate.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 await services.UpdateEstate(estate);
 
@@ -272,7 +288,7 @@ namespace GP
                 {
                     estate.publish = true;
                 }
-              
+
                 await services.UpdateEstate(estate);
 
                 return RedirectToAction("Index");
@@ -290,7 +306,8 @@ namespace GP
             if (id != 0)
             {
                 Estate estate = await services.GetOne(id);
-                if(estate != null){
+                if (estate != null)
+                {
                     string UserIdLogin = @User.FindFirstValue(ClaimTypes.NameIdentifier);
                     if (!UserIdLogin.Equals(estate.UserId))
                     {
@@ -313,10 +330,10 @@ namespace GP
                     return RedirectToAction("Index");
 
                 }
-               
+
             }
 
-             return View("/Views/NotAccess.cshtml");
+            return View("/Views/NotAccess.cshtml");
         }
 
 
@@ -325,11 +342,11 @@ namespace GP
         {
             Estate estate = await services.GetOne(id);
 
-            if(estate == null)
+            if (estate == null)
             {
                 return View("/Views/NotAccess.cshtml");
             }
-            if(estate != null)
+            if (estate != null)
             {
                 string UserIdLogin = @User.FindFirstValue(ClaimTypes.NameIdentifier);
                 if (!UserIdLogin.Equals(estate.UserId))
@@ -337,7 +354,7 @@ namespace GP
                     return View("/Views/NotAccess.cshtml");
                 }
             }
-           
+
             SeedData.IsPserosalPhoto = false;
             if (id != 0)
             {
@@ -362,7 +379,7 @@ namespace GP
             ids = estate.IdEstate;
             if (id != 0)
             {
-                
+
                 string webRootPath = webHostEnvironment.WebRootPath;
                 string oldfile = webRootPath + @"\images\Estate\" + estate.ImagePath;
                 if (System.IO.File.Exists(oldfile))
@@ -377,7 +394,7 @@ namespace GP
 
             SeedData.EstateByImage = ids;
 
-            return RedirectToAction("ImageList",new {id= ids});
+            return RedirectToAction("ImageList", new { id = ids });
 
         }
         [HttpPost]
@@ -443,14 +460,14 @@ namespace GP
                 ViewBag.id = q;
             }
             SeedData.EstateByImage = q;
-            return RedirectToAction("ImageList", new {id=q});
+            return RedirectToAction("ImageList", new { id = q });
 
         }
 
         [HttpGet]
         public async Task<IActionResult> AddLikes(long id)
         {
-            if(id != 0)
+            if (id != 0)
             {
                 var estate = await services.GetOne(id);
                 var data = new likedEstates
@@ -471,7 +488,7 @@ namespace GP
                 }
                 else
                 {
-                   await _like.DeleteObj(like.Id);
+                    await _like.DeleteObj(like.Id);
                     estate.Likes--;
                     await services.UpdateEstate(estate);
                     int count = estate.Likes;
@@ -479,16 +496,110 @@ namespace GP
                     var JsonData = new { status, count };
                     return Ok(JsonData);
                 }
-                
-             
+
+
             }
             return BadRequest();
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> DetalesView(long id)
+        public async Task<IActionResult> DetalesView()
         {
-            return null;
+            //  var list = _context.GetAll().Where(x=>x.EstateId=="الي جاي من التفاصيل ").ToList();
+
+            var list = _context.GetAll().ToList();
+            return View(list);
         }
+
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> AddComment(long id, string body)
+        {
+            //Estate estate =   await  services.GetOne(id);
+
+            // if(estate == null) return View("/Views/NotAccess.cshtml");
+            string status = "Insert";
+            string name = "";
+            string photo = "";
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                name = user.FirstName + ' ' + user.LastName;
+
+                photo = Convert.ToBase64String(user.ProfilePicture);
+
+                Comments comments = new Comments()
+                {
+                    EstateId = 4,
+                    Body = body,
+                    UserId = user.Id,
+                    Rating = 0
+
+                };
+                await _context.InsertComment(comments);
+
+
+                GP.Models.Toast.Message = "تم إضافة التعليق بنجاح";
+                GP.Models.Toast.ShowTost = true;
+
+            }
+
+            else
+            {
+                status = "Disconnected";
+            }
+
+
+
+            var JsonData = new { status, name, photo };
+            return Ok(JsonData);
+
+
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> AddReplay(long id, string body)
+        {
+            string status = "Insert";
+            string name = "";
+
+            string photo = "";
+            if (User.Identity.IsAuthenticated)
+            {
+                var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                name = user.FirstName + ' ' + user.LastName;
+                photo = Convert.ToBase64String(user.ProfilePicture);
+
+
+
+                Replaies replaies = new Replaies()
+                {
+                    CommentId = id,
+                    body = body,
+                    UserId = user.Id,
+
+                };
+                await _replaies.InsertReply(replaies);
+
+
+
+
+            }
+
+            else
+            {
+                status = "Disconnected";
+            }
+
+
+            var JsonData = new { status, name, photo };
+            return Ok(JsonData);
+
+
+        }
+
     }
- }
+}

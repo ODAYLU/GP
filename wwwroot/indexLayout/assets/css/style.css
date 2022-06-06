@@ -25,7 +25,7 @@
     --textnav: #f1f1f1 !important;
     --bgcolor2: #d7d7d7;
     --bgdark: #fff !important;
-    293px --orange: #d46300;
+    --orange: #d46300;
     --navcolor: chocolate;
     --navcolorhover: rgb(255, 255, 255);
     --navbghover: chocolate;
@@ -70,15 +70,16 @@ html {
 
 
 .text-white {
-  color: var(----txtwhite);
+  color: var(--txtwhite);
 }
 
 .bg-white {
   background: var(--bgwhite)
 }
+
 body {
-  background: var(--bgwhite) !important;
-  color: var(--txtactive) !important;
+  background: var(--bgwhite);
+  color: var(--txtactive);
   height: 100%;
   position: relative;
 }
@@ -125,6 +126,12 @@ video.bg-video {
   max-width: 50rem;
   padding-top: 5rem;
   padding-bottom: 5rem;
+}
+body {
+    background: var(--bgwhite) !important;
+    color: var(--txtactive);
+    height: 100%;
+    position: relative;
 }
 
 @media (min-width: 992px) {
@@ -945,7 +952,8 @@ select:focus-visible {
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
-  z-index: -2;
+  z-index: 1;
+  
 }
 
 footer .nav .nav-item .text-dark {

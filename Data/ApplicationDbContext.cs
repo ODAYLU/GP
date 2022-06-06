@@ -18,6 +18,7 @@ namespace GP.Data
             base.OnModelCreating(builder);
             builder.Entity<Estate>().Property(c => c.OnDate).HasDefaultValueSql("Getdate()");
             builder.Entity<Contract>().Property(c => c.OnDate).HasDefaultValueSql("Getdate()");
+            builder.Entity<Comments>().Property(c => c.OnDate).HasDefaultValueSql("Getdate()");
             builder.Entity<Estate>().Property(c => c .is_active).HasDefaultValueSql("1");
             builder.Entity<Estate>().Property(c => c.publish).HasDefaultValueSql("1");
             builder.Entity<Message>().HasOne(a => a.Sender).WithMany(x => x.Messages)
