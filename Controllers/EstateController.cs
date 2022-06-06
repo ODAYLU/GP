@@ -1,4 +1,4 @@
-using GP.Hubs;
+﻿using GP.Hubs;
 using GP.Models;
 using GP.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -44,16 +44,16 @@ namespace GP
                     IService servicesList,
                     IlikedEstates like,
                     IHubContext<NotificationHub> hub,
-                    INotification notification )
-                {
-                    this._userManager = userManager;
-                    services = Services;
-                    this.webHostEnvironment = webHostEnvironment;
-                    _photoservices = photoservices;
-                    _service_Estate = service_Estate;
-                    this.servicesList = servicesList;
-                    _like = like;
-                    _hub = hub;
+                    INotification notification)
+        {
+            this._userManager = userManager;
+            services = Services;
+            this.webHostEnvironment = webHostEnvironment;
+            _photoservices = photoservices;
+            _service_Estate = service_Estate;
+            this.servicesList = servicesList;
+            _like = like;
+            _hub = hub;
             _notification = notification;
 
         }
