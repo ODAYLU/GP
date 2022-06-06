@@ -1,28 +1,4 @@
-<<<<<<< HEAD
-﻿using GP.Models;
-=======
-﻿using GP.Hubs;
-using GP.Models;
-using GP.Models.ViewModels;
->>>>>>> 09fbc67b42811692896d16b212c77b670f394b79
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-<<<<<<< HEAD
-=======
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.SignalR;
->>>>>>> 09fbc67b42811692896d16b212c77b670f394b79
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-
-namespace GP
+﻿namespace GP
 {
 
     [Authorize(Roles = "Owner")]
@@ -40,18 +16,15 @@ namespace GP
         private readonly IHubContext<NotificationHub> _hub;
         private readonly INotification _notification;
 
-<<<<<<< HEAD
         public EstateController(UserManager<AppUser> userManager,
-            GP.Models.IEstate Services,
-            IWebHostEnvironment webHostEnvironment,
-            IPhotoEstate photoservices,
-            IService_Estate service_Estate,
-            IService servicesList,
-            IlikedEstates like,
-            ICommments _context,
-            IReplaies _replaies
-
-            )
+                    GP.Models.IEstate Services,
+                    IWebHostEnvironment webHostEnvironment,
+                    IPhotoEstate photoservices,
+                    IService_Estate service_Estate,
+                    IService servicesList,
+                    IlikedEstates like,
+                    IHubContext<NotificationHub> hub,
+                    INotification notification)
         {
             this._userManager = userManager;
             services = Services;
@@ -60,29 +33,8 @@ namespace GP
             _service_Estate = service_Estate;
             this.servicesList = servicesList;
             _like = like;
-            this._context = _context;
-            this._replaies = _replaies;
-=======
-        public EstateController(UserManager<AppUser> userManager , 
-                    GP.Models.IEstate Services, 
-                    IWebHostEnvironment webHostEnvironment, 
-                    IPhotoEstate photoservices, 
-                    IService_Estate service_Estate, 
-                    IService servicesList,
-                    IlikedEstates like,
-                    IHubContext<NotificationHub> hub,
-                    INotification notification )
-                {
-                    this._userManager = userManager;
-                    services = Services;
-                    this.webHostEnvironment = webHostEnvironment;
-                    _photoservices = photoservices;
-                    _service_Estate = service_Estate;
-                    this.servicesList = servicesList;
-                    _like = like;
-                    _hub = hub;
+            _hub = hub;
             _notification = notification;
->>>>>>> 09fbc67b42811692896d16b212c77b670f394b79
         }
 
         [HttpGet]
@@ -173,12 +125,7 @@ namespace GP
 
                     }
                 }
-<<<<<<< HEAD
             }
-
-
-=======
-            }}
             var userAdmin = await _userManager.GetUsersInRoleAsync("Admin");
             var userEstate = await _userManager.FindByIdAsync(estate.UserId);
             Notification msg = new Notification
@@ -191,7 +138,6 @@ namespace GP
                 IsReaded = (ConnectedUser.IDs.Contains(userAdmin[0].Id) ? true : false)
             };
             await _hub.Clients.User(userAdmin[0].Id).SendAsync("receiveNotificationAdmin", msg);
->>>>>>> 09fbc67b42811692896d16b212c77b670f394b79
             GP.Models.Toast.ShowTost = true;
             GP.Models.Toast.Message = "تم إضافة العقار بنجاح";
             return RedirectToAction("Index");
