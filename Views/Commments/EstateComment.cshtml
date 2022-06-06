@@ -3,80 +3,57 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
-<html lang="ar">
+<style>
+/*****************تفاصيل*************************/
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أملاك</title>
-    <link rel="shortcut icon" href="assets/img/logo/logo.png">
-    <link href="~/assets/bootstrap/bootstrap4.min.css" rel="stylesheet">
-    <link href="~/assets/bootstrap/bootstrap5.min.css" rel="stylesheet">
-    <link href="~/assets/bootstrap/font-awesome.min.css" rel="stylesheet">
-    <link href="~/assets/bootstrap/bootstrap-icons.css" rel="stylesheet">
-    <link href="~/assets/bootstrap/animate.min.css" rel="stylesheet">
-    <link href="~/assets/bootstrap/aos.css" rel="stylesheet">
-    <link href="~/assets/css/swiper.css" rel="stylesheet" />
-    <link href="~/assets/css/style.css" rel="stylesheet">
-    <style>
-        /*****************تفاصيل*************************/
+.image-thumbnail {
+  display: inline-block;
+  cursor: pointer;
+  box-shadow: 3px 2px 5px #444;
+  transition: 300ms ease;
+}
+.home {
+  height: 100%;
+}
+.gallery:hover .image-thumbnail:not(:hover) {
+  filter: blur(2px) grayscale(1);
+  opacity: 0.7;
+  transform: scale(0.9);
+}
+/*   Light Box Styling  */
+ .light-box {
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  opacity: 0;
+  height: 100%;
+  background-color: rgb(35 35 35 / 61%);
+  backdrop-filter: blur(0.3rem);
+  transition: 500ms ease;
+  position: absolute;
+  z-index: 1000;
+  text-align: right;
+}
+.light-box:target {
+  visibility: visible;
+  opacity: 1;
+}
 
+.edges {
+  height: auto;
+  background-color: #ccc;
+  padding: 20px;
+  margin: 150px auto;
+  box-shadow: 0 0 30px #333;
 
-        .image-thumbnail {
-            display: inline-block;
-            cursor: pointer;
-            box-shadow: 3px 2px 5px #444;
-            transition: 300ms ease;
-        }
+}
 
-        .home {
-            height: 100%;
-        }
-
-        .gallery:hover .image-thumbnail:not(:hover) {
-            filter: blur(2px) grayscale(1);
-            opacity: 0.7;
-            transform: scale(0.9);
-        }
-
-        /*   Light Box Styling  */
-        .light-box {
-            top: 0;
-            left: 0;
-            visibility: hidden;
-            opacity: 0;
-            height: 100%;
-            background-color: rgb(35 35 35 / 61%);
-            backdrop-filter: blur(0.3rem);
-            transition: 500ms ease;
-            position: absolute;
-            z-index: 1000;
-            text-align: right;
-        }
-
-        .light-box:target {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .edges {
-            height: auto;
-            background-color: #ccc;
-            padding: 20px;
-            margin: 150px auto;
-            box-shadow: 0 0 30px #333;
-
-        }
-    </style>
-
-</head>
-
-<body dir="rtl">
-
-   
-
+.incaht{
+  right:20px;
+  bottom: 20px; 
+  background: var(--litegreen); 
+}
+</style>
 
     <section class="pb-5">
 
@@ -88,12 +65,19 @@
                             src="http://www.anipedia.net/imagenes/elefantes-800x375.jpg" class="img-fluid h-100"></a>
                 </div>
                 <div class="col-12 col-md-3 d-flex d-md-block gallery">
-                    <a class="image-thumbnail" href="#lightbox_2"><img
-                            src="http://www.anipedia.net/imagenes/imagen-aguilas-800x375.jpg" class=" img-fluid"></a>
-                    <a class="image-thumbnail" href="#lightbox_3"><img
+                @{
+                    foreach (var pic in ViewBag.photosPaths)
+                    {
+                          <a class="image-thumbnail" href="#lightbox_2"><img
+                            src="@pic" class=" img-fluid"></a>
+                    }
+                }
+                  @*  <a class="image-thumbnail" href="#lightbox_2"><img
+                            src="http://www.anipedia.net/imagenes/imagen-aguilas-800x375.jpg" class=" img-fluid"></a>*@
+                   @* <a class="image-thumbnail" href="#lightbox_3"><img
                             src="http://www.anipedia.net/imagenes/conejos-800x375.jpg" class="img-fluid"></a>
                     <a class="image-thumbnail" href="#lightbox_4"><img
-                            src="http://www.anipedia.net/imagenes/gatos-800x375.jpg" class=" img-fluid"></a>
+                            src="http://www.anipedia.net/imagenes/gatos-800x375.jpg" class=" img-fluid"></a>*@
 
                 </div>
             </div>
@@ -150,6 +134,13 @@
                         <span class="next-btn "><a href="#lightbox_4"><i class="bi bi-arrow-right fs-1"></i></a></span>
                     </div>
                     <div class="col-10 p-0">
+                   @* @{
+                        foreach(var ph in ViewBag.photosPaths)
+                        {
+                        <img src="@ph"class="img-fluid position-relative" />
+                            
+                        }
+                    }*@
                         <img src="http://www.anipedia.net/imagenes/gatos-800x375.jpg"
                             class="img-fluid position-relative" />
                     </div>
@@ -166,132 +157,143 @@
             <div class="row py-4 text-end ">
                 <div class="col-12 col-md-9 ">
                     <div class="pe-xl-5">
+                        <a class="fs-6 d-block text-secondary"><i class="bi bi-person-badge-fill"></i> مالك العقار :<span>@Model.Users.FirstName @Model.Users.LastName</span> </a>
+
                         <p class="fs-2 ">عنوان العقار</p>
-                        <p><i class="bi bi-geo-alt-fill"></i> @Model.State.name _@Model.City.name</p>
+                        <p><i class="bi bi-geo-alt-fill"></i>@Model.State.name _ @Model.City.name</p>
                         <div class="d-flex justify-content-between align-items-center fs-5">
                             <p><i class="bi bi-building"></i> نوع العقار: @Model.Category.category </p>
                             <p><i class="bi bi-aspect-ratio"></i> مساحة العقار : @Model.space م </p>
                             <p><i class="bi bi-cash"></i> سعر العقار :@Model.price $</p>
                         </div>
-                        <div>
-                            <p class="fs-5">خدمات العقار :<ul class="d-flex">@{foreach(var ser in ViewBag.services){ 
-                            <li >@ser</li>
-                        }} </ul>  </p>
+                        <div class="d-flex">
+                            <p class="fs-5">خدمات العقار :</p>
+                            <ul class="nav px-0">
+                            @{
+                                foreach (var ser in @ViewBag.services)
+                                {
+                                    <li class="px-2"> @ser </li>
+                                }
+                            }
+                                
+                               
+                            </ul>
                         </div>
-                       
                         <div class="pt-5">
                             <p class="fs-5 fw-bold">تفاصيل العقار</p>
-                            <p> 
-                                @Model.description
+                            <p> @Model.description
                             </p>
+                        </div>
+                        <div class="pt-5">
+                            <p class="fs-5 fw-bold">التعليقات</p>
+                            
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-3">
-                    <div class="card text-center p-2 align-items-center">
-                   @{
+                    <span class="fs-6 d-block text-secondary"><i class="bi bi-eye-fill px-1"></i> المشاهدات @Model.Views+ </span>
+                    <span class="fs-6 d-block text-secondary"><i class="bi bi-clock-fill px-1"></i> @Model.OnDate </span>
 
-                  if (Model.Users.ProfilePicture is not null)
-                  {
-                  <img id="prof" class="img-fluid rounded-circle" style="width: 150px;height: 150px;"  alt="Profile"
-                    src="data:image/*;base64,@(Convert.ToBase64String(Model.Users.ProfilePicture))" />
-                  }
-
-                  else
-                  {
-                  <img id="prof" class="img-fluid rounded-circle" style="width: 150px;height: 150px;" alt="Profile"
-                    src="~/indexLayout/assets/img/pages/user.jpg" />
-
-                  }
-                  }
-                         
-                        <div class="card-body">
-                            <h5 class="card-title">@Model.Users.FirstName @Model.Users.LastName</h5>
-                            <p class="card-text"> @Model.Users.decription.
-                            </p>
-                            <a href="#" class="btn btn-primary"> عرض الصفحة الشخصية </a>
+                    <div class="pt-4">
+                        <p class="fs-5 fw-bold">موقع العقار</p>
+                        <div class="col-12 bg-warning py-5">
+الخريطة
                         </div>
                     </div>
-
-                    <span class="fs-6 d-block text-secondary"><i class="bi bi-eye-fill px-1"></i> المشاهدات @Model.Views + </span>
-                    <span class="fs-6 d-block text-secondary"><i class="bi bi-clock-fill px-1"></i>  @Model.OnDate  </span>
-
-
 
                 </div>
             </div>
 
         </div>
 
+        <a class="position-fixed py-2 px-3 rounded-circle WOW heartBeat incaht" data-wow-iteration="infinite" data-wow-duration="800ms" data-bs-toggle="tooltip" data-bs-placement="top" title="تواصل مع صاحب العقار" >
+            <i class="bi bi-chat fs-1 wow pulse"  data-wow-iteration="infinite" data-wow-duration="500ms" ></i>
+        </a>
     </section>
-        
-</body>
+  
 
-</html>
 
- 
+
 @section Scripts {
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
-    <script src="~/assets/bootstrap/bootstrap5.bundle.min.js"></script>
-    <script src="~/assets/bootstrap/ajax_query.min.js"></script>
-    <script src="~/assets/bootstrap/wow.min.js"></script>
-    <script src="~/assets/bootstrap/aos.js"></script>
-    <script src="~/assets/js/swipar.js"></script>
-    <script src="~/assets/js/loding.js"></script>
-    <script src="~/assets/js/index.js"></script>
+<script type="text/javascript">
+    new WOW().init();
+    AOS.init({
+    })
 
-    <script type="text/javascript">
-        new WOW().init();
-        AOS.init({
-        })
+    //التفاصيل
 
+    function openModal() {
+        document.getElementById("myModal").style.display = "block";
+    }
 
+    function closeModal() {
+        document.getElementById("myModal").style.display = "none";
+    }
 
+    var slideIndex = 1;
+    showSlides(slideIndex);
 
-        //التفاصيل 
+    function plusSlides(n) {
+        showSlides(slideIndex += n);
+    }
 
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
 
-        function openModal() {
-            document.getElementById("myModal").style.display = "block";
+    function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        var captionText = document.getElementById("caption");
+        if (n > slides.length) { slideIndex = 1 }
+        if (n < 1) { slideIndex = slides.length }
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
         }
-
-        function closeModal() {
-            document.getElementById("myModal").style.display = "none";
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
         }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+        captionText.innerHTML = dots[slideIndex - 1].alt;
+    }
 
-        var slideIndex = 1;
-        showSlides(slideIndex);
+    //the map
+       var x = document.getElementById('Long');
+       var xx= x.innerHTML;
 
-        function plusSlides(n) {
-            showSlides(slideIndex += n);
-        }
+        var y = document.getElementById('Lat');
+        var yy= y.innerHTML;
 
-        function currentSlide(n) {
-            showSlides(slideIndex = n);
-        }
+    function initMap() {
 
-        function showSlides(n) {
-            var i;
-            var slides = document.getElementsByClassName("mySlides");
-            var dots = document.getElementsByClassName("demo");
-            var captionText = document.getElementById("caption");
-            if (n > slides.length) { slideIndex = 1 }
-            if (n < 1) { slideIndex = slides.length }
-            for (i = 0; i < slides.length; i++) {
-                slides[i].style.display = "none";
-            }
-            for (i = 0; i < dots.length; i++) {
-                dots[i].className = dots[i].className.replace(" active", "");
-            }
-            slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
-            captionText.innerHTML = dots[slideIndex - 1].alt;
-        }
 
-    </script>
+        var mapOptions = {
+            center: new google.maps.LatLng(`${xx}`, `${yy}`),
+            mapTypeId: google.maps.MapTypeId.satellite,   /* ()أنواع 4)نوع الخريطة*/
+            zoom: 16 // The largest 16 (zooming)
+        };
+        var elm = document.getElementById('map');
+        var mymap = new google.maps.Map(elm, mapOptions);  // create an object (new)
+
+        var pinlocation = new google.maps.LatLng(`${xx}`, `${yy}`);
+        var startposition = new google.maps.Marker(
+            {
+                position: pinlocation,
+                map: mymap,
+                icon: "/images/Untitled-1.png"
+
+            });
+    }
+    window.onload = function () {
+        var code = document.createElement('script');
+        code.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAXuizXxXdy3kjKyHQrjt7femrQR2QtZaE&callback=initMap";
+        document.body.appendChild(code);
+    }
+
+</script>
 
 }
 
