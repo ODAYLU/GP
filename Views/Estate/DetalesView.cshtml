@@ -2,11 +2,26 @@
     @using System.Security.Claims
     @inject UserManager<AppUser> _userManager;
         @inject IReplaies rep;
-@{
-    var user = await _userManager.GetUserAsync(User);
-    var photo = Convert.ToBase64String(user.ProfilePicture);
+@*@{
+    if (User.Identity.IsAuthenticated)
+    {
+        var photo = "";
+        var user = await _userManager.GetUserAsync(User);
+        if (user.ProfilePicture != null)
+        {
+            photo = Convert.ToBase64String(user.ProfilePicture);
 
         }
+
+        else
+        {
+            photo = "";
+        }
+
+        
+    }
+
+        }*@
 
         @section Styles{
 
@@ -211,7 +226,7 @@
                 display: block;
                 border-width: 14PX;
                 border-style: solid;
-                border-color: #dee1e3 #dee1e3 #dee1e3 #ffffff99;
+                border-color: #f6f6f6 #f6f6f6 #f6f6f6 #e5e2e2e3;
                 top: 0;
                 right: -27PX;
             }
@@ -398,93 +413,125 @@
             <ul id="comments-list" class="comments-list ">
                 @{
                 for (int i = 0; i < Model.Count(); i++) { <li class="@((i!=0 && i!=1) ?" closed":"") @i">
-                                                                                            <div class="comment-main-level">
+                                                                                                    <div class="comment-main-level">
 
-                                                                                                <div class="comment-avatar"><img
-                                                                                                        src="data:image/*;base64,@(Convert.ToBase64String(Model[i].AppUser.ProfilePicture))"
-                                                                                                        alt=""></div>
+                                                                                                        <div class="comment-avatar">
+                                                                        @{
 
-                                                                                                <div class="comment-box">
-                                                                                                    <div class="comment-head">
-                                                                                                        <h6 class="comment-name"><a
-                                                                                                                href="http://creaticode.com/blog">@Model[i].AppUser.FirstName
-                                                                                                                @Model[i].AppUser.LastName </a></h6>
-                                                                                                      
-                                                                                                   
-                                                                                                              <i class="fa fa-reply"onclick="ShowFormReplay(@i)" >  </i>
-                                                                                                      
-                                                                                                      
+                                                                                              
+                                                                                                
+                                                         if(Model[i].AppUser.ProfilePicture != null)
+                                                        {
+                                                                              <img
+                                                                            src="data:image/*;base64,@(Convert.ToBase64String(Model[i].AppUser.ProfilePicture))"
+                                                                            alt="">
+                                                        }
+
+                                                        else
+                                                        {
+                                                                            <img     src="/indexLayout/assets/img/pages/user.jpg"/>
+                                                        }
+                                                                    }                                            
+                                                                                                                
+                                                                                                                
+                                                                                                                </div>
+
+                                                                                                        <div class="comment-box">
+                                                                                                            <div class="comment-head">
+                                                                                                                <h6 class="comment-name"><a
+                                                                                                                        href="http://creaticode.com/blog">@Model[i].AppUser.FirstName
+                                                                                                                        @Model[i].AppUser.LastName </a></h6>
+                                                                                                              
+                                                                                                           
+                                                                                                                      <i class="fa fa-reply"onclick="ShowFormReplay(@i)" >  </i>
+                                                                                                              
+                                                                                                              
+                                                                                                            </div>
+                                                                                                            <div class="comment-content">
+                                                                                                                <p>@Model[i].Body</p>
+                                                                                                            </div>
+                                                                                                        </div>
                                                                                                     </div>
-                                                                                                    <div class="comment-content">
-                                                                                                        <p>@Model[i].Body</p>
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                            <!-- Respuestas de los comentarios -->
-                                                                                            @{
+                                                                                                    <!-- Respuestas de los comentarios -->
+                                                                                                    @{
                     List<Replaies> lst=await rep.GetCommentReplies(Model[i].Id);
 
                         if(lst != null)
                         {
                         long q= -1;
-                                                                                                                                                                        <ul class="comments-list reply-list ul-@Model[i].Id">
+                                                                                                                                                                                        <ul class="comments-list reply-list ul-@Model[i].Id">
 
-                                                                                                                                                                            @{
+                                                                                                                                                                                            @{
 for (int x = 0; x < lst.Count(); x++) { q=lst[x].Id; <li
-                                                                                                                        class=" closedReplaies-@Model[i].Id closedReplaies ">
-                                                                                                                        <div class="comment-main-level">
+                                                                                                                                                class=" closedReplaies-@Model[i].Id closedReplaies ">
+                                                                                                                                                <div class="comment-main-level">
 
-                                                                                                                        <div class="comment-avatar"><img
-                                                                                                                        src="data:image/*;base64,@(Convert.ToBase64String(lst[x].AppUser.ProfilePicture))"
-                                                                                                                        alt=""></div>
+                                                                                                                                                <div class="comment-avatar">
+                                                                            @{
+                                                        if(lst[x].AppUser.ProfilePicture != null)
+                                                        {
+                                                                                              <img
+                                                                                            src="data:image/*;base64,@(Convert.ToBase64String(lst[x].AppUser.ProfilePicture))"
+                                                                                            alt="">
+                                                        }
 
-                                                                                                                        <div class="comment-box">
-                                                                                                                        <div class="comment-head">
-                                                                                                                        <h6 class="comment-name"><a
-                                                                                                                                href="http://creaticode.com/blog">@lst[x].AppUser.FirstName
-                                                                                                                                @lst[x].AppUser.LastName </a></h6>
+                                                        else
+                                                        {
+                                                                                            <img     src="/indexLayout/assets/img/pages/user.jpg"/>
+                                                        }
+                                                                            }
+                                                                                                                                                  
+                                                                                                                                                
+                                                                                                                                                
+                                                                                                                                                </div>
 
-                                                                                                                        </div>
-                                                                                                                        <div class="comment-content">
-                                                                                                                        <p style="width:0px">@lst[x].body</p>
-                                                                                                                        </div>
-                                                                                                                        </div>
-                                                                                                                        </div>
+                                                                                                                                                <div class="comment-box">
+                                                                                                                                                <div class="comment-head">
+                                                                                                                                                <h6 class="comment-name"><a
+                                                                                                                                                        href="http://creaticode.com/blog">@lst[x].AppUser.FirstName
+                                                                                                                                                        @lst[x].AppUser.LastName </a></h6>
 
-                                                                                                                        </li>
+                                                                                                                                                </div>
+                                                                                                                                                <div class="comment-content">
+                                                                                                                                                <p style="width:0px">@lst[x].body</p>
+                                                                                                                                                </div>
+                                                                                                                                                </div>
+                                                                                                                                                </div>
+
+                                                                                                                                                </li>
 
 
                                 }
-                                                                                                                                                                                }
+                                                                                                                                                                                                }
 
 
-                                                                                                                                                                        </ul>
+                                                                                                                                                                                        </ul>
 
-                                                                                                                                                                        <div class="showRepShow" style="display: @((q==-1 ) ?" none":"") "  ><a class=" x-@Model[i].Id"
-                                                                                                                                                                            onclick="showReplaies(@Model[i].Id)">عرض الردود</a></div>
+                                                                                                                                                                                        <div class="showRepShow" style="display: @((q==-1 ) ?" none":"") "  ><a class=" x-@Model[i].Id"
+                                                                                                                                                                                            onclick="showReplaies(@Model[i].Id)">عرض الردود</a></div>
 
                         }
 
-                                                                                                }
-                                                                                                </li>
+                                                                                                        }
+                                                                                                        </li>
 
-                                                                                                <form method="" id="form-@i" class="closedForm">
-                                                                                                    <span class="loginPlac" id="loginPlease-@Model[i].Id" style="display:none !important;"> عليك تسجيل
-                                                                                                        الدخول اولا <a href="/Identity/Account/Login"> تسجيل الدخول</a></span>
-                                                                                                    <div class="formrepla">
-                                                                                                        <textarea id="bodytextarea-@Model[i].Id" class="textrep" rows="3"
-                                                                                                            placeholder="اكتب هنا الرد...."></textarea>
+                                                                                                        <form method="" id="form-@i" class="closedForm">
+                                                                                                            <span class="loginPlac" id="loginPlease-@Model[i].Id" style="display:none !important;"> عليك تسجيل
+                                                                                                                الدخول اولا <a href="/Identity/Account/Login"> تسجيل الدخول</a></span>
+                                                                                                            <div class="formrepla">
+                                                                                                                <textarea id="bodytextarea-@Model[i].Id" class="textrep" rows="3"
+                                                                                                                    placeholder="اكتب هنا الرد...."></textarea>
 
-                                                                                                        <a class="writeRep" onclick="createRepaliy(@Model[i].Id)"> إضافة هنا
-                                                                                                            <span class="errorrep" id="errorEmpty-@Model[i].Id"></span>
-
-
-                                                                                                        </a>
+                                                                                                                <a class="writeRep" onclick="createRepaliy(@Model[i].Id)"> إضافة هنا
+                                                                                                                    <span class="errorrep" id="errorEmpty-@Model[i].Id"></span>
 
 
-                                                                                                    </div>
+                                                                                                                </a>
 
-                                                                                                </form>
+
+                                                                                                            </div>
+
+                                                                                                        </form>
 
 
 
@@ -572,7 +619,7 @@ for (int x = 0; x < lst.Count(); x++) { q=lst[x].Id; <li
                 var image = document.createElement('img');
               
 
-                image.src = "data:image/*;base64,"+ photo;
+                image.src = photo;
                
          
 
@@ -662,6 +709,8 @@ for (int x = 0; x < lst.Count(); x++) { q=lst[x].Id; <li
                     success: function (data) {
                         if (data.status == "Insert") {
                             hicreateElement(data.name,data.photo, txt);
+
+                            added.innerHTML = "تم إضافة التعليق بنجاح";
                             added.classList.remove('d-none')
                         }
 
@@ -710,6 +759,9 @@ for (int x = 0; x < lst.Count(); x++) { q=lst[x].Id; <li
 
                 var txt = document.getElementById(`bodytextarea-${id}`).value;
 
+               var added = document.getElementsByClassName('added')[0];
+
+
 
                 var errorEmpty = document.getElementById(`errorEmpty-${id}`);
                 var loginPlease = document.getElementById(`loginPlease-${id}`);
@@ -736,7 +788,8 @@ for (int x = 0; x < lst.Count(); x++) { q=lst[x].Id; <li
                         if (data.status == "Insert") {
 
                             hicreateElementRep(data.name,data.photo,id, txt);
-
+                             added.innerHTML = "تم إضافة الرد بنجاح";
+                            added.classList.remove('d-none')
 
                         }
 
@@ -772,7 +825,7 @@ for (int x = 0; x < lst.Count(); x++) { q=lst[x].Id; <li
 
                 var imagex = document.createElement('img');
 
-                imagex.src = "data:image/*;base64,"+photo;
+                imagex.src = photo;
                 divs1.appendChild(imagex);
 
                 var divs2 = document.createElement('div');
