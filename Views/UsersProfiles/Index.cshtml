@@ -85,10 +85,14 @@
                               url: `/api/Api/GetOwnersCards?search=${searchinput}`,
                               success: function (data)
                               {
+                                  console.log(data[1]);
                                   var text = "";
+                                  var img ="";
                                   for(var i=0;i<data.length;i++){
                                       var src = "";
-                                  //    src=binaryAgent(data[i].profilePicture);
+                                     if (data[i].profilePicture != null) {
+                                       img = "data:image/jpeg;base64," + btoa(atob(`${data[i].profilePicture}`));
+                                        } 
                                       text+=
                                            ` <div class=" txt col-lg-4 col-md-6 col-xs-12">
                                                  <article class="material-card Red">
@@ -101,7 +105,7 @@
                                                         </h2>
                                                    <div class="mc-content">
                                                       <div class="img-container">
-                                                           <img class=" img-fluid" src="">
+                                                           <img class=" img-fluid" src="${img}">
                                                       </div>
                                                       <div class="mc-description">
                                                          ${data[i].decription}
@@ -130,16 +134,16 @@
         }
 
 
-    function binaryAgent(str)
-    {
-      var newBin = str.split(" ");
-      var binCode = [];
-      for (i = 0; i < newBin.length; i++)
-      {
-        binCode.push(String.fromCharCode(parseInt(newBin[i], 2)));
-      }
-      return binCode.join("");
-    }
+    //function binaryAgent(str)
+    //{
+    //  var newBin = str.split(" ");
+    //  var binCode = [];
+    //  for (i = 0; i < newBin.length; i++)
+    //  {
+    //    binCode.push(String.fromCharCode(parseInt(newBin[i], 2)));
+    //  }
+    //  return binCode.join("");
+    //}
 </script>
 
 

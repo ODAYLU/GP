@@ -18,17 +18,19 @@ namespace GP
         private readonly ICommments _context;
         private readonly IReplaies _replaies;
         private readonly IEstate _estate;
+        private readonly IPhotoEstate _photoEstate;
         private readonly UserManager<AppUser> _users;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IService_Estate _service_Estate;
-         public CommmentsController(ICommments context, IWebHostEnvironment webHostEnvironment, IReplaies replaies, IEstate estate, IService_Estate service_Estate)
-        {
+         public CommmentsController(ICommments context, IPhotoEstate photoEstate, IWebHostEnvironment webHostEnvironment, IReplaies replaies, IEstate estate, IService_Estate service_Estate)
+         {
             this._context = context;
             this._estate = estate;
             this._replaies = replaies;
             this._webHostEnvironment = webHostEnvironment;
             this._service_Estate = service_Estate;
-        }
+            this._photoEstate= photoEstate;
+         }
         public IActionResult Commments()
         {
 
@@ -118,7 +120,10 @@ namespace GP
 
             var services =  _service_Estate.GetALl(id);
              List<string>lst=services.Select(s => s.Name).ToList();
-            ViewBag.services=lst;
+             ViewBag.services=lst;
+            var Ephotos = _photoEstate.GetAllByEstate(id);
+            List<string> photosPaths = Ephotos.Select(ph=>ph.ImagePath).ToList();
+            ViewBag.photosPaths=photosPaths;
             es.Views = es.Views + 1;
           await  _estate.UpdateEstate(es);
             return View(es);
