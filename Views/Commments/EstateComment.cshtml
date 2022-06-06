@@ -2,7 +2,6 @@
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
-
 <style>
 /*****************تفاصيل*************************/
 
@@ -62,14 +61,14 @@
             <div class="row ">
                 <div class="col-12 col-md-9 p-0">
                     <a class="image-thumbnail home" href="#lightbox_1"><img
-                            src="http://www.anipedia.net/imagenes/elefantes-800x375.jpg" class="img-fluid h-100"></a>
+                            src="~/images/Estate/@Model.Main_photo" class="img-fluid h-100"></a>
                 </div>
                 <div class="col-12 col-md-3 d-flex d-md-block gallery">
                 @{
                     foreach (var pic in ViewBag.photosPaths)
                     {
                           <a class="image-thumbnail" href="#lightbox_2"><img
-                            src="@pic" class=" img-fluid"></a>
+                            src="~/images/Estate/@pic" class=" img-fluid"></a>
                     }
                 }
                   @*  <a class="image-thumbnail" href="#lightbox_2"><img
