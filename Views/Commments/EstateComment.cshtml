@@ -159,22 +159,22 @@
         <div class="row py-4 text-end ">
             <div class="col-12 col-md-9 ">
                 <div class="pe-xl-5">
-                    @{
+                    <div href="/Commments/GetProfile/@Model.UserId">
+                        @{
                         if(@Model.Users.ProfilePicture==null)
                         {
-                            <img src="~/images/unknown-person-icon-Image-from.png" />
-
+                            <img src="~/indexLayout/assets/img/pages/user.jpg" />
                         }
                         else
                         {
-                        <img src="~/images/Users/@Convert.ToBase64String(@Model.Users.ProfilePicture) " />
-                            
-                        }
-
+                        <img src="data:image/*;base64,@(Convert.ToBase64String(Model.Users.ProfilePicture)) " />
+                         }
                     }
-                        <a class="fs-6 d-block text-secondary"><i class="bi bi-person-badge-fill"></i> مالك العقار :<span>@Model.Users.FirstName @Model.Users.LastName</span> </a>
+                        <a href="/UsersProfiles/GetProfile/@Model.UserId" class="fs-6 d-block text-secondary"><i class="bi bi-person-badge-fill"></i> مالك العقار :<span>@Model.Users.FirstName @Model.Users.LastName</span> </a>
                         @*<a class="fs-6 d-block text-secondary"><i class="bi bi-person-badge-fill"></i> مالك العقار :<span>Model.name_owner</span> </a>*@
 
+                    </div>
+                    
                         <p class="fs-2 ">عنوان العقار</p>
                         <p><i class="bi bi-geo-alt-fill"></i>@Model.State.name _ @Model.City.name</p>
                         <div class="d-flex justify-content-between align-items-center fs-5">

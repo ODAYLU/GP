@@ -8,7 +8,17 @@
    <div class="row justify-content-center justify-content-between" >
      <div class="col-lg-3 bg-color position-relative "> 
       <div>
-        <img class="img-fluid" src="~/images/Category/d5eae43c-6495-4b73-808b-358107ed8da0.jpg" style="margin-top: -50px;">
+           @{
+                        if(@Model.ProfilePicture==null)
+                        {
+                            <img class="img-fluid" style="margin-top: -50px;" src="~/indexLayout/assets/img/pages/user.jpg" />
+                        }
+                        else
+                        {
+                        <img class="img-fluid" style="margin-top: -50px;" src="data:image/*;base64,@(Convert.ToBase64String(Model.ProfilePicture)) " />
+                         }
+                    }
+        @*<img class="img-fluid" src="~/images/Category/d5eae43c-6495-4b73-808b-358107ed8da0.jpg" style="margin-top: -50px;">*@
         <div class="bregreen  d-flex flex-column   ">
 
 
