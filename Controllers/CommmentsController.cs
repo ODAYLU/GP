@@ -118,9 +118,11 @@ namespace GP
         {
             Estate es = await _estate.GetOne(id);
 
-            var services =  _service_Estate.GetALl(id);
+            var services =  _service_Estate.GetALl(id).ToList();
              List<string>lst=services.Select(s => s.Name).ToList();
-             ViewBag.services=lst;
+            // List<string>pics=services.Select(s => s.ImagePath).ToList();
+            //ViewBag.image = pics;
+             ViewBag.services= services;
             var Ephotos = _photoEstate.GetAllByEstate(id);
             List<string> photosPaths = Ephotos.Select(ph=>ph.ImagePath).ToList();
             ViewBag.photosPaths=photosPaths;

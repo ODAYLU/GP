@@ -69,97 +69,111 @@
                         foreach (var pic in ViewBag.photosPaths)
                     {
                           <a id="EPic" class="image-thumbnail" href="#lightbox_2">
-                          <img src="~/images/Estate/@pic" class=" img-fluid"></a>
-                    
+                            <img src="~/images/Estate/@pic" class=" img-fluid"></a>
+
                     }
-                    
+
                 }
-                  @*  <a class="image-thumbnail" href="#lightbox_2"><img
-                            src="http://www.anipedia.net/imagenes/imagen-aguilas-800x375.jpg" class=" img-fluid"></a>*@
-                   @* <a class="image-thumbnail" href="#lightbox_3"><img
-                            src="http://www.anipedia.net/imagenes/conejos-800x375.jpg" class="img-fluid"></a>
+                @*  <a class="image-thumbnail" href="#lightbox_2"><img
+                    src="http://www.anipedia.net/imagenes/imagen-aguilas-800x375.jpg" class=" img-fluid"></a>*@
+                @* <a class="image-thumbnail" href="#lightbox_3"><img
+                    src="http://www.anipedia.net/imagenes/conejos-800x375.jpg" class="img-fluid"></a>
                     <a class="image-thumbnail" href="#lightbox_4"><img
-                            src="http://www.anipedia.net/imagenes/gatos-800x375.jpg" class=" img-fluid"></a>*@
+                    src="http://www.anipedia.net/imagenes/gatos-800x375.jpg" class=" img-fluid"></a>*@
 
-                </div>
             </div>
+        </div>
 
 
-           
 
 
-            <div class="light-box modal-content" id="lightbox_1">
-                <div class="row edges align-items-baseline">
-                    <span class="close-btn d-inline"><a href="#"><i
+
+        <div class="light-box modal-content" id="lightbox_1">
+            <div class="row edges align-items-baseline">
+                <span class="close-btn d-inline"><a href="#"><i
                                 class="bi bi-x-lg fs-1 position-absolute"></i></a></span>
 
-                    <div class="col p-0">
-                        <span class="next-btn "><a href="#lightbox_2"><i class="bi bi-arrow-right fs-1"></i></a></span>
-                    </div>
-                    <div class="col-10 p-0">
-                        <img src="http://www.anipedia.net/imagenes/elefantes-800x375.jpg"
+                <div class="col p-0">
+                    <span class="next-btn "><a href="#lightbox_2"><i class="bi bi-arrow-right fs-1"></i></a></span>
+                </div>
+                <div class="col-10 p-0">
+                    <img src="http://www.anipedia.net/imagenes/elefantes-800x375.jpg"
                             class="img-fluid position-relative" />
-                    </div>
-                    <div class="col p-0">
-                        <span class="previous-btn "><a href="#lightbox_6"><i
+                </div>
+                <div class="col p-0">
+                    <span class="previous-btn "><a href="#lightbox_6"><i
                                     class="bi bi-arrow-left fs-1"></i></a></span>
-                    </div>
                 </div>
             </div>
+        </div>
 
 
-            <div class="light-box modal-content" id="lightbox_2">
-                <div class="row edges align-items-baseline">
-                    <span class="close-btn d-inline"><a href="#"><i
+        <div class="light-box modal-content" id="lightbox_2">
+            <div class="row edges align-items-baseline">
+                <span class="close-btn d-inline"><a href="#"><i
                                 class="bi bi-x-lg fs-1 position-absolute"></i></a></span>
 
-                    <div class="col p-0">
-                        <span class="next-btn "><a href="#lightbox_3"><i class="bi bi-arrow-right fs-1"></i></a></span>
-                    </div>
-                    <div class="col-10 p-0">
-                        <img src="http://www.anipedia.net/imagenes/conejos-800x375.jpg"
+                <div class="col p-0">
+                    <span class="next-btn "><a href="#lightbox_3"><i class="bi bi-arrow-right fs-1"></i></a></span>
+                </div>
+                <div class="col-10 p-0">
+                    <img src="http://www.anipedia.net/imagenes/conejos-800x375.jpg"
                             class="img-fluid position-relative" />
-                    </div>
-                    <div class="col p-0">
-                        <span class="previous-btn "><a href="#lightbox_6"><i
+                </div>
+                <div class="col p-0">
+                    <span class="previous-btn "><a href="#lightbox_6"><i
                                     class="bi bi-arrow-left fs-1"></i></a></span>
-                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="light-box modal-content" id="lightbox_3">
-                <div class="row edges align-items-baseline">
-                    <span class="close-btn d-inline"><a href="#"><i
+        <div class="light-box modal-content" id="lightbox_3">
+            <div class="row edges align-items-baseline">
+                <span class="close-btn d-inline"><a href="#"><i
                                 class="bi bi-x-lg fs-1 position-absolute"></i></a></span>
 
-                    <div class="col p-0">
-                        <span class="next-btn "><a href="#lightbox_4"><i class="bi bi-arrow-right fs-1"></i></a></span>
-                    </div>
-                    <div class="col-10 p-0">
-                   @* @{
+                <div class="col p-0">
+                    <span class="next-btn "><a href="#lightbox_4"><i class="bi bi-arrow-right fs-1"></i></a></span>
+                </div>
+                <div class="col-10 p-0">
+                    @* @{
                         foreach(var ph in ViewBag.photosPaths)
                         {
                         <img src="@ph"class="img-fluid position-relative" />
-                            
+
                         }
-                    }*@
-                        <img src="http://www.anipedia.net/imagenes/gatos-800x375.jpg"
+                        }*@
+                    <img src="http://www.anipedia.net/imagenes/gatos-800x375.jpg"
                             class="img-fluid position-relative" />
-                    </div>
-                    <div class="col p-0">
-                        <span class="previous-btn "><a href="#lightbox_2"><i
+                </div>
+                <div class="col p-0">
+                    <span class="previous-btn "><a href="#lightbox_2"><i
                                     class="bi bi-arrow-left fs-1"></i></a></span>
-                    </div>
                 </div>
             </div>
+        </div>
 
 
 
 
-            <div class="row py-4 text-end ">
-                <div class="col-12 col-md-9 ">
-                    <div class="pe-xl-5">
+        <div class="row py-4 text-end ">
+            <div class="col-12 col-md-9 ">
+                <div class="pe-xl-5">
+                    @{
+                        if(@Model.Users.ProfilePicture==null)
+                        {
+                            <img src="~/images/unknown-person-icon-Image-from.png" />
+
+                        }
+                        else
+                        {
+                        <img src="~/images/Users/@Convert.ToBase64String(@Model.Users.ProfilePicture) " />
+                            
+                        }
+
+                    }
                         <a class="fs-6 d-block text-secondary"><i class="bi bi-person-badge-fill"></i> مالك العقار :<span>@Model.Users.FirstName @Model.Users.LastName</span> </a>
+                        @*<a class="fs-6 d-block text-secondary"><i class="bi bi-person-badge-fill"></i> مالك العقار :<span>Model.name_owner</span> </a>*@
 
                         <p class="fs-2 ">عنوان العقار</p>
                         <p><i class="bi bi-geo-alt-fill"></i>@Model.State.name _ @Model.City.name</p>
@@ -172,9 +186,11 @@
                             <p class="fs-5">خدمات العقار :</p>
                             <ul class="nav px-0">
                             @{
-                                foreach (var ser in @ViewBag.services)
+                                foreach (var ser in (List<Services>)ViewBag.services)
                                 {
-                                    <li class="px-2"> @ser </li>
+                                    <img src="@ser.ImagePath" />
+
+                                    <li class="px-2"> @ser.Name </li>
                                 }
                             }
                                 
