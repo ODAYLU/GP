@@ -1,25 +1,17 @@
-    using GP.Data;
+using GP.Data;
 using GP.Hubs;
 using GP.Models;
-using Microsoft.AspNet.SignalR.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace GP 
+namespace GP
 {
     public class Startup
     {
@@ -40,7 +32,8 @@ namespace GP
                     Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging(), ServiceLifetime.Transient);
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            services.AddIdentity<AppUser, IdentityRole>(o => {
+            services.AddIdentity<AppUser, IdentityRole>(o =>
+            {
                 o.SignIn.RequireConfirmedEmail = false;
             }).AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders().AddDefaultUI();
@@ -49,7 +42,7 @@ namespace GP
 
 
             services.AddControllersWithViews();
-          
+
             services.AddScoped<IEstate, ProductManage>();
             services.AddScoped<ICategory, CategoryManage>();
             services.AddScoped<IReplaies, ManageReplayies>();
@@ -81,7 +74,7 @@ namespace GP
                 options.SignIn.RequireConfirmedAccount = false;
                 options.SignIn.RequireConfirmedEmail = false;
 
-                 
+
             });
 
             services.AddAuthentication().AddCookie(options =>
@@ -105,14 +98,14 @@ namespace GP
                 };
             });
 
-        
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, 
+        public void Configure(IApplicationBuilder app,
             IWebHostEnvironment env,
             UserManager<AppUser> userManager,
-            RoleManager<IdentityRole> roleManager )
+            RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -129,20 +122,20 @@ namespace GP
             app.UseStaticFiles();
 
             app.UseRouting();
-            
+
             app.UseAuthentication();
-            
+
             app.UseAuthorization();
-            
-            SeedData.Seed(userManager,roleManager);
+
+            SeedData.Seed(userManager, roleManager);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<ChatHub>("/chat");
                 endpoints.MapHub<NotificationHub>("/notification");
             });
             app.UseEndpoints(endpoints =>
-            {   
-               
+            {
+
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
                 endpoints.MapControllerRoute(
@@ -151,7 +144,7 @@ namespace GP
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                
+
             });
         }
     }

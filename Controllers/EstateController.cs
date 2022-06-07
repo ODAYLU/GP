@@ -1,12 +1,10 @@
 ﻿using GP.Hubs;
 using GP.Models;
-using GP.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
@@ -33,18 +31,23 @@ namespace GP
         private readonly IHubContext<NotificationHub> _hub;
         private readonly INotification _notification;
 
-    
- 
 
-        public EstateController(UserManager<AppUser> userManager , 
-                    GP.Models.IEstate Services, 
-                    IWebHostEnvironment webHostEnvironment, 
-                    IPhotoEstate photoservices, 
-                    IService_Estate service_Estate, 
+
+
+        public EstateController(UserManager<AppUser> userManager,
+                    GP.Models.IEstate Services,
+                    IWebHostEnvironment webHostEnvironment,
+                    IPhotoEstate photoservices,
+                    IService_Estate service_Estate,
                     IService servicesList,
                     IlikedEstates like,
                     IHubContext<NotificationHub> hub,
-                    INotification notification)
+                    INotification notification,
+                    ICommments _context,
+                    IReplaies _replaies
+
+
+                    )
         {
             this._userManager = userManager;
             services = Services;
@@ -55,7 +58,8 @@ namespace GP
             _like = like;
             _hub = hub;
             _notification = notification;
-
+            this._context = _context;
+            this._replaies = _replaies;
         }
 
         [HttpGet]
@@ -152,10 +156,10 @@ namespace GP
 
             return View();
         }
-          
-          
-        
-    
+
+
+
+
         public async Task<ActionResult<Estate>> Detalis(long id)
         {
 
@@ -528,7 +532,17 @@ namespace GP
                 var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 name = user.FirstName + ' ' + user.LastName;
 
-                photo = Convert.ToBase64String(user.ProfilePicture);
+                if (user.ProfilePicture != null)
+                {
+                    photo = "data:image/*;base64," + Convert.ToBase64String(user.ProfilePicture);
+
+                }
+
+                else
+                {
+                    photo = "/indexLayout/assets/img/pages/user.jpg";
+                }
+
 
                 Comments comments = new Comments()
                 {
@@ -571,7 +585,16 @@ namespace GP
             {
                 var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 name = user.FirstName + ' ' + user.LastName;
-                photo = Convert.ToBase64String(user.ProfilePicture);
+                if (user.ProfilePicture != null)
+                {
+                    photo = "data:image/*;base64," + Convert.ToBase64String(user.ProfilePicture);
+
+                }
+
+                else
+                {
+                    photo = "/indexLayout/assets/img/pages/user.jpg";
+                }
 
 
 
