@@ -1,8 +1,414 @@
 ﻿@model Estate;
 @{
- 
-  Layout = "/Views/Shared/_Layout.cshtml";
+Layout = "/Views/Shared/_Layout.cshtml";
+    @inject ICommments _context
+@inject IReplaies rep
+@inject IPhotoEstate _photoEstate
+@inject IService_Estate _service_Estate
+
+  
+// select Comments From DataBase where Model.EstateId equals Id
+IList<Comments>  Models=  _context.GetAll().Where(x=>x.EstateId==Model.Id).ToList();
+
+// select Services From DataBase where Model.EstateId equals Id
+
+IList<Services> listServices=  _service_Estate.GetALl(Model.Id).ToList();
+
+// select PhotoEstate From DataBase where Model.EstateId equals Id
+
+IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
+
 }
+
+
+
+@section Styles{
+
+        <!-- Fuentes de Google -->
+        <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
+        <!-- Iconos -->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="./style.css">
+
+        <style>
+            /**
+    التعليقات
+    ----------------------------------*/
+
+            .closed {
+                display: none !important;
+
+            }
+
+            .closedReplaies {
+                display: none !important;
+            }
+
+            .closedForm {
+                display: none !important;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                text-align: right;
+            }
+
+            a {
+                color: #03658c;
+                text-decoration: none;
+            }
+
+            ul {
+                list-style-type: none;
+            }
+
+            body {
+                font-family: 'Roboto', Arial, Helvetica, Sans-serif, Verdana;
+                background: #dee1e3;
+            }
+
+            /** ====================
+    * Lista de Comentarios
+    =======================*/
+            .comments-container {
+                margin: 60px auto 15px;
+                width: 768px;
+            }
+
+            .comments-container h1 {
+                font-size: 36px;
+                color: #283035;
+                font-weight: 400;
+            }
+
+            .comments-container h1 a {
+                font-size: 18px;
+                font-weight: 700;
+            }
+
+            .comments-list {
+                margin-top: 30px;
+                position: relative;
+            }
+
+            /**
+    * Lineas / Detalles
+    -----------------------*/
+            .comments-list:before {
+                content: '';
+                width: 2px;
+                height: 100%;
+                background: #c7cacb;
+                position: absolute;
+                right: 32px;
+                top: 0;
+            }
+
+            .comments-list:after {
+                content: '';
+                position: absolute;
+                background: #c7cacb;
+                bottom: 0;
+                left: 27px;
+                width: 7px;
+                height: 7px;
+                border: 3px solid #dee1e3;
+                -webkit-border-radius: 50%;
+                -moz-border-radius: 50%;
+                border-radius: 50%;
+            }
+
+            .reply-list:before,
+            .reply-list:after {
+                display: none;
+            }
+
+            .reply-list li:before {
+                content: '';
+                width: 60px;
+                height: 2px;
+                background: #c7cacb;
+                position: absolute;
+                top: 25px;
+                right: -77px;
+            }
+
+
+            .comments-list li {
+                margin-bottom: 15px;
+                display: block;
+                position: relative;
+            }
+
+            .comments-list li:after {
+                content: '';
+                display: block;
+                clear: both;
+                height: 0;
+                width: 0;
+            }
+
+            .reply-list {
+
+                clear: both;
+                margin-top: 15px;
+                margin-right: 112px;
+            }
+
+            /**
+    * Avatar
+    ---------------------------*/
+            .comments-list .comment-avatar {
+                margin-left: 27px;
+                width: 65px;
+                height: 65px;
+                position: relative;
+                z-index: 99;
+                float: left;
+                border: 3px solid #FFF;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                border-radius: 4px;
+                -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+                overflow: hidden;
+            }
+
+            .comments-list .comment-avatar img {
+                width: 100%;
+                height: 100%;
+            }
+
+            .reply-list .comment-avatar {
+                width: 50px;
+                height: 50px;
+            }
+
+            .comment-main-level {
+                display: flex;
+            }
+
+            .comment-main-level:after {
+                content: '';
+                width: 0;
+                height: 0;
+                display: block;
+                clear: both;
+            }
+
+            /**
+    * Caja del Comentario
+    ---------------------------*/
+            .comments-list .comment-box {
+                width: 680px;
+                float: right;
+                position: relative;
+                -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+                -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+            }
+
+            .comments-list .comment-box:before,
+            .comments-list .comment-box:after {
+                content: '';
+                height: 0;
+                width: 0;
+                position: absolute;
+                display: block;
+                border-width: 14PX;
+                border-style: solid;
+                border-color: #f6f6f6 #f6f6f6 #f6f6f6 #e5e2e2e3;
+                top: 0;
+                right: -27PX;
+            }
+
+
+            .comments-list .comment-box:before {
+                border-width: 11px 13px 11px 0;
+                border-color: transparent rgba(0, 0, 0, 0.05);
+                left: -12px;
+            }
+
+            .reply-list .comment-box {
+                width: 610px;
+            }
+
+            .comment-box .comment-head {
+                background: #FCFCFC;
+                padding: 10px 12px;
+                border-bottom: 1px solid #E5E5E5;
+                overflow: hidden;
+                -webkit-border-radius: 4px 4px 0 0;
+                -moz-border-radius: 4px 4px 0 0;
+                border-radius: 4px 4px 0 0;
+                display: flex;
+                align-items: baseline;
+                justify-content: space-between;
+            }
+
+            .comment-box .comment-head i {
+                float: right;
+                margin-left: 14px;
+                position: relative;
+                top: 2px;
+                color: #A6A6A6;
+                cursor: pointer;
+                -webkit-transition: color 0.3s ease;
+                -o-transition: color 0.3s ease;
+                transition: color 0.3s ease;
+            }
+
+            .comment-box .comment-head i:hover {
+                color: #03658c;
+            }
+
+            .comment-box .comment-name {
+                color: #283035;
+                font-size: 14px;
+                font-weight: 700;
+                float: left;
+                margin-right: 10px;
+            }
+
+            .comment-box .comment-name a {
+                color: #283035;
+            }
+
+            .comment-box .comment-head span {
+                float: left;
+                color: #999;
+                font-size: 13px;
+                position: relative;
+                top: 1px;
+            }
+
+            .comment-box .comment-content {
+                background: #FFF;
+                padding: 12px;
+                font-size: 15px;
+                color: #595959;
+                -webkit-border-radius: 0 0 4px 4px;
+                -moz-border-radius: 0 0 4px 4px;
+                border-radius: 0 0 4px 4px;
+            }
+
+            .comment-box .comment-name.by-author,
+            .comment-box .comment-name.by-author a {
+                color: #03658c;
+            }
+
+            .comment-box .comment-name.by-author:after {
+                content: 'autor';
+                background: #03658c;
+                color: #FFF;
+                font-size: 12px;
+                padding: 3px 5px;
+                font-weight: 700;
+                margin-left: 10px;
+                -webkit-border-radius: 3px;
+                -moz-border-radius: 3px;
+                border-radius: 3px;
+            }
+
+            .showRepShow {
+                display: flex;
+                justify-content: end;
+
+                margin-top: -6px;
+                margin-left: 23px;
+            }
+
+            .show {
+                display: flex;
+                justify-content: end;
+            }
+
+            .witeComment {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 16px;
+            }
+
+            .writeRep {
+                display: flex;
+                justify-content: space-evenly;
+                margin-bottom: 16px;
+                margin-top: 16px;
+
+
+            }
+
+            .formrepla {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .textrep {
+                width: 50%;
+                margin: auto;
+            }
+
+
+            .loginPlac {
+                display: flex !important;
+                justify-content: center !important;
+            }
+
+            #errorEmpty {
+                color: red;
+            }
+
+            .errorrep {
+                color: red;
+
+            }
+
+            .showx {
+                color: blue;
+            }
+
+            .showx:hover {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+
+            /** =====================
+    * Responsive
+    ========================*/
+            @@media only screen and (max-width: 766px) {
+                .comments-container {
+                    width: 480px;
+                }
+
+                .comments-list .comment-box {
+                    width: 390px;
+                }
+
+                .reply-list .comment-box {
+                    width: 320px;
+                }
+            }
+
+
+
+               /** =====================
+    * التفاصيل
+    ========================*/
+
+        </style>
+
+        }
+
+
+
+
+
+
 <style>
 /*****************تفاصيل*************************/
 
@@ -67,10 +473,10 @@
                 <div class="col-12 col-md-3 d-flex d-md-block gallery">
                 @{
                    
-                        foreach (var pic in ViewBag.photosPaths)
+                        foreach (var pic in @photosPaths)
                     {
-                          <a id="EPic" class="image-thumbnail" href="#lightbox_2">
-                            <img src="~/images/Estate/@pic" class=" img-fluid"></a>
+                                      <a id="EPic" class="image-thumbnail" href="#lightbox_2">
+                                        <img src="~/images/Estate/@pic.ImagePath" class=" img-fluid"></a>
 
                     }
 
@@ -164,15 +570,15 @@
                         @{
                         if(@Model.Users.ProfilePicture==null)
                         {
-                            <img src="~/indexLayout/assets/img/pages/user.jpg" />
+                                        <img src="~/indexLayout/assets/img/pages/user.jpg" />
                         }
                         else
                         {
-                        <img src="data:image/*;base64,@(Convert.ToBase64String(Model.Users.ProfilePicture)) " />
+                                    <img src="data:image/*;base64,@(Convert.ToBase64String(Model.Users.ProfilePicture)) " />
                          }
                     }
                         <a href="/UsersProfiles/GetProfile/@Model.UserId" class="fs-6 d-block text-secondary"><i class="bi bi-person-badge-fill"></i> مالك العقار :<span>@Model.Users.FirstName @Model.Users.LastName</span> </a>
-                        @*<a class="fs-6 d-block text-secondary"><i class="bi bi-person-badge-fill"></i> مالك العقار :<span>Model.name_owner</span> </a>*@
+                        @*<a class="fs-6 d-block text-secondary"><i class="bi bi-person-badge-fill"></i> مالك العقار :<span>Models.name_owner</span> </a>*@
 
                     </div>
                     
@@ -187,11 +593,11 @@
                             <p class="fs-5">خدمات العقار :</p>
                             <ul class="nav px-0">
                             @{
-                                foreach (var ser in (List<Services>)ViewBag.services)
+                                foreach (var ser in listServices)
                                 {
-                                    <img src="@ser.ImagePath" />
+                                                <img src="@ser.ImagePath" />
 
-                                    <li class="px-2"> @ser.Name </li>
+                                                <li class="px-2"> @ser.Name </li>
                                 }
                             }
                                 
@@ -220,8 +626,8 @@
 الخريطة
   <p>
             <div class="d-flex justify-content-around">
-                <p   class="px-3"><span>@Html.DisplayNameFor(model => model.Longitude): </span><strong id="Long">@Html.DisplayFor(model => model.Longitude)</strong></p>
-                <p   class="px-3"><span>@Html.DisplayNameFor(model => model.Latitude): </span><strong id="Lat">@Html.DisplayFor(model => model.Latitude)</strong></p>
+                <p   class="px-3"><span>@Html.DisplayNameFor(Models => Models.Longitude): </span><strong id="Long">@Html.DisplayFor(Models => Models.Longitude)</strong></p>
+                <p   class="px-3"><span>@Html.DisplayNameFor(Models => Models.Latitude): </span><strong id="Lat">@Html.DisplayFor(Models => Models.Latitude)</strong></p>
             </div>
             <div id="map" style="width: 100%; height: 450px; margin:12px 0;"></div>
         </p>
@@ -237,13 +643,570 @@
             <i class="bi bi-chat fs-1 wow pulse"  data-wow-iteration="infinite" data-wow-duration="500ms" ></i>
         </a>
     </section>
-  
+
+     @*التعليقات*@
+
+     
+        <!-- partial:index.partial.html -->
+        <!-- Contenedor Principal -->
+        <div class="comments-container">
+            <span id="loginPlease" style="display:none;"> عليك تسجيل الدخول اولا <a href="/Identity/Account/Login">
+                    تسجيل الدخول</a></span>
+            <form method="">
+                <div class="">
+                    <textarea id="bodytextarea" style="width:100%" rows="3"
+                        placeholder="اكتب هنا التعليق...."></textarea>
+                    <div class="witeComment">
+
+                        <a class="showx" onclick="createComments(@Model.Id)">
 
 
 
-@section Scripts {
 
+                            إضافة هنا
+                        </a>
+
+                        <span id="errorEmpty"></span>
+                    </div>
+
+
+
+                </div>
+
+            </form>
+
+            <p class="text-danger d-none added">تم إضافة التعليق بنجاح</p>
+
+            <h1>التعليقات </h1>
+
+            <ul id="comments-list" class="comments-list ">
+                @{
+                            @if(Models.Count()==0)
+                {
+                            <h1 class="text-center text-danger insertdata"> لا يوجد تعليقات </h1>
+                }
+                for (int i = 0; i < Models.Count(); i++) { <li class="@((i!=0 && i!=1) ?" closed":"") @i">
+                                <div class="comment-main-level">
+
+                                    <div class="comment-avatar">
+                                        @{
+
+
+
+                            if(Models[i].AppUser.ProfilePicture != null)
+                            {
+                                                    <img src="data:image/*;base64,@(Convert.ToBase64String(Models[i].AppUser.ProfilePicture))"
+                                                        alt="">
+                            }
+
+                            else
+                            {
+                                                    <img src="/indexLayout/assets/img/pages/user.jpg" />
+                            }
+                                        }
+
+
+                                    </div>
+
+                                    <div class="comment-box">
+                                        <div class="comment-head">
+                                            <h6 class="comment-name"><a>@Models[i].AppUser.FirstName
+                                                    @Models[i].AppUser.LastName </a></h6>
+
+
+                                            <i class="fa fa-reply" onclick="ShowFormReplay(@i)"> </i>
+
+
+                                        </div>
+                                        <div class="comment-content">
+                                            <p>@Models[i].Body</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Respuestas de los comentarios -->
+                                @{
+                    List<Replaies> lst=await rep.GetCommentReplies(Models[i].Id);
+
+                        if(lst != null)
+                        {
+                        long q= -1;
+                                                <ul class="comments-list reply-list ul-@Models[i].Id">
+
+                                                    @{
+                            for (int x = 0; x < lst.Count(); x++) { q=lst[x].Id; <li
+                                                                    class=" closedReplaies-@Models[i].Id closedReplaies ">
+                                                                    <div class="comment-main-level">
+
+                                                                        <div class="comment-avatar">
+                                                                            @{
+                                        if(lst[x].AppUser.ProfilePicture != null)
+                                        {
+                                                                                        <img src="data:image/*;base64,@(Convert.ToBase64String(lst[x].AppUser.ProfilePicture))"
+                                                                                            alt="">
+                                        }
+
+                                        else
+                                        {
+                                                                                        <img src="/indexLayout/assets/img/pages/user.jpg" />
+                                        }
+                                                                            }
+
+
+
+                                                                        </div>
+
+                                                                        <div class="comment-box">
+                                                                            <div class="comment-head">
+                                                                                <h6 class="comment-name"><a>@lst[x].AppUser.FirstName
+                                                                                        @lst[x].AppUser.LastName </a></h6>
+
+                                                                            </div>
+                                                                            <div class="comment-content">
+                                                                                <p style="width:0px">@lst[x].body</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    </li>
+
+
+                                }
+                                                        }
+
+
+                                                </ul>
+
+                                                <div class="showRepShow showx" style="display: @((q==-1 ) ?" none":"") "  ><a class="
+                                                    x-@Models[i].Id" onclick="showReplaies(@Models[i].Id)">عرض الردود</a></div>
+
+                        }
+
+                                    }
+                                    </li>
+
+                                    <form method="" id="form-@i" class="closedForm closeafterwirte">
+                                        <span class="loginPlac" id="loginPlease-@Models[i].Id" style="display:none !important;"> عليك
+                                            تسجيل
+                                            الدخول اولا <a href="/Identity/Account/Login"> تسجيل الدخول</a></span>
+                                        <div class="formrepla">
+                                            <textarea id="bodytextarea-@Models[i].Id" class="textrep" rows="3"
+                                                placeholder="اكتب هنا الرد...."></textarea>
+
+                                            <div class="writeRep">
+
+                                                <a class="showx" onclick="createRepaliy(@Models[i].Id)">
+
+
+
+                                                    إضافة هنا
+
+
+                                                </a>
+
+                                                <span class="errorrep" id="errorEmpty-@Models[i].Id"></span>
+
+                                            </div>
+
+
+                                        </div>
+
+                                    </form>
+
+
+
+                        }
+                        }
+
+
+            </ul>
+            @{
+            if(Models.Count() > 2)
+            {
+                        <div class="show showx"><a>عرض المزيد</a></div>
+            }
+            }
+
+        </div>
+
+
+        <!-- partial -->
+
+
+
+      
+
+
+
+@section Scripts{
+
+
+
+        <script type="text/javascript">
+
+            const showContainers = document.querySelectorAll(".closed");
+
+
+            let sh = document.getElementsByClassName('show')[0];
+
+            sh.addEventListener('click', function () {
+                if (sh.innerHTML == "عرض أقل") {
+                    sh.innerHTML = "عرض المزيد"
+                }
+
+                else {
+                    sh.innerHTML = "عرض أقل"
+                }
+                showContainers.forEach((child) => child.classList.toggle("closed"));
+
+            })
+            function showReplaies(id) {
+
+
+                const showContainers1 = document.querySelectorAll(`.closedReplaies-${id}`);
+
+                console.log(showContainers1)
+
+
+                let shs = document.getElementsByClassName(`x-${id}`)[0];
+                if (shs.innerHTML == "عرض الردود") {
+                    shs.innerHTML = "إخفاء الردود"
+                }
+
+                else {
+                    shs.innerHTML = "عرض الردود"
+                }
+                showContainers1.forEach((child) => child.classList.toggle("closedReplaies"));
+
+            }
+
+
+
+
+
+
+            function hicreateElement(name, photo, txt,Id) {
+
+
+
+                console.log('hicreateElement');
+
+                var li = document.createElement('li');
+
+
+
+
+
+                var div1 = document.createElement('div');
+                div1.classList.add('comment-main-level');
+
+
+
+
+                var divAvatar = document.createElement('div');
+                divAvatar.classList.add('comment-avatar');
+
+                var image = document.createElement('img');
+
+
+                image.src = photo;
+
+
+
+
+
+
+
+
+
+                var div2 = document.createElement('div');
+                div2.classList.add("comment-box");
+                divAvatar.appendChild(image);
+
+                div1.appendChild(divAvatar);
+                var div3 = document.createElement('div');
+                div3.classList.add('comment-head');
+
+                var h6 = document.createElement('h6');
+
+                h6.classList.add('comment-name');
+
+
+                var Ah6 = document.createElement('a');
+                Ah6.href = "";
+
+                Ah6.innerHTML = name;
+
+
+
+
+
+                var replay1 = document.createElement('i');
+                replay1.classList.add('fa');
+                replay1.classList.add('fa-reply');
+
+                replay1.setAttribute('onclick',`ShowFormReplay(${Id})`)
+
+
+                h6.appendChild(Ah6);
+                div3.appendChild(h6);
+                div3.appendChild(replay1);
+
+                var div4 = document.createElement('div');
+                div4.classList.add('comment-content');
+                var p = document.createElement('p');
+                p.innerHTML = txt;
+                li.appendChild(div1);
+                div1.appendChild(div2);
+                div4.appendChild(p);
+
+                div2.appendChild(div3);
+                div2.appendChild(div4);
+
+
+
+
+                var ul = document.getElementById('comments-list');
+                ul.appendChild(li);
+
+
+
+            }
+
+
+
+            function createComments(idestate) {
+                var txt = document.getElementById('bodytextarea').value;
+                var errorEmpty = document.getElementById('errorEmpty');
+                var loginPlease = document.getElementById('loginPlease');
+
+                var added = document.getElementsByClassName('added')[0];
+
+                var insertdata = document.getElementsByClassName('insertdata')[0];
+
+                if (txt == "") {
+                    errorEmpty.innerHTML = "أدخل التعليق "
+
+                    return;
+                }
+
+                else if (txt.length > 50) {
+                    errorEmpty.innerHTML = "الحد الاقصى 50 حرف "
+
+                    return;
+                }
+                $.ajax({
+                    method: 'Get',
+                    url: `/Estate/AddComment`,
+                    data: { id: idestate, body: txt },
+
+                    success: function (data) {
+                        if (data.status == "Insert") {
+                            hicreateElement(data.name, data.photo, txt,data.Id);
+                            document.getElementById('bodytextarea').value = "";
+
+                            errorEmpty.innerHTML = "";
+                            loginPlease.innerHTML = ""
+
+                            added.innerHTML = "تم إضافة التعليق بنجاح";
+                            added.classList.remove('d-none');
+
+                            setTimeout(() => {
+                                added.classList.add('d-none');
+                            }, "3000")
+
+                            insertdata.classList.add('d-none');
+
+                        }
+
+                        else if (data.status == "Disconnected") {
+
+                            loginPlease.style.display = "block"
+
+
+                        }
+                    }
+                });
+
+
+
+
+                console.log(txt, idestate);
+
+
+
+
+
+            }
+        </script>
+
+        <script>
+
+            function ShowFormReplay(i) {
+
+                console.log('createRepalys');
+
+
+
+
+                let formRep = document.getElementById(`form-${i}`);
+
+
+
+                formRep.classList.toggle("closedForm");
+
+
+            }
+
+
+
+        </script>
+
+        <script>
+            function createRepaliy(id) {
+
+                console.log('hiEveryOne')
+
+                var txt = document.getElementById(`bodytextarea-${id}`).value;
+
+                var added = document.getElementsByClassName('added')[0];
+
+
+
+                var errorEmpty = document.getElementById(`errorEmpty-${id}`);
+                var loginPlease = document.getElementById(`loginPlease-${id}`);
+
+
+                var closedForm = document.getElementsByClassName('closeafterwirte')[0]
+
+
+                if (txt == "") {
+                    errorEmpty.innerHTML = "أدخل الرد ";
+
+                    return;
+                }
+
+                else if (txt.length > 50) {
+                    errorEmpty.innerHTML = "الحد الاقصى 50 حرف "
+
+                    return;
+                }
+
+                $.ajax({
+                    method: 'Get',
+                    url: `/Estate/AddReplay`,
+                    data: { id: id, body: txt },
+
+                    success: function (data) {
+                        if (data.status == "Insert") {
+
+                            hicreateElementRep(data.name, data.photo, id, txt);
+                            added.innerHTML = "تم إضافة الرد بنجاح";
+                            added.classList.remove('d-none')
+
+                            document.getElementById(`bodytextarea-${id}`).value = "";
+
+                            errorEmpty.innerHTML = "";
+
+
+                            setTimeout(() => {
+                                added.classList.add('d-none');
+                            }, "3000")
+
+                            closedForm.classList.add('closedForm')
+
+                            loginPlease.innerHTML = "";
+
+                        }
+
+                        else if (data.status == "Disconnected") {
+
+                            loginPlease.style.display = "block"
+
+                        }
+                    }
+                });
+
+
+            }
+
+        </script>
+
+        <script>
+
+
+
+
+
+            function hicreateElementRep(name, photo, id, txt) {
+                var li = document.createElement('li');
+                li.classList.add(`closedReplaies-${id}`);
+
+
+                var divs = document.createElement('div');
+                divs.classList.add('comment-main-level');
+
+                var divs1 = document.createElement('div');
+                divs1.classList.add('comment-avatar');
+
+                var imagex = document.createElement('img');
+
+                imagex.src = photo;
+                divs1.appendChild(imagex);
+
+                var divs2 = document.createElement('div');
+                divs2.classList.add('comment-box');
+
+
+                var divs3 = document.createElement('div');
+                divs3.classList.add('comment-head');
+
+                divs2.appendChild(divs3);
+
+                var h6 = document.createElement('h6');
+                h6.classList.add('comment-name');
+
+                var a = document.createElement('a');
+
+
+                h6.textContent = name;
+                h6.appendChild(a);
+
+                divs3.appendChild(h6);
+                var divs4 = document.createElement('div');
+                divs4.classList.add('comment-content');
+
+                divs4.innerHTML = txt;
+
+                divs2.appendChild(divs4);
+
+                divs.appendChild(divs1);
+                divs.appendChild(divs2);
+
+                li.appendChild(divs);
+
+
+                var ul = document.getElementsByClassName(`ul-${id}`)[0];
+
+
+
+                ul.appendChild(li);
+
+
+
+
+
+
+            }
+
+        </script>
+
+
+        
+
+
+        
 <script type="text/javascript">
+    //التفاصيل
     new WOW().init();
     AOS.init({
     })
@@ -321,5 +1284,8 @@
         document.body.appendChild(code);
     }
 </script>
-}
+
+        }
+
+
 

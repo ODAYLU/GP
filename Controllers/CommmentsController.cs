@@ -1,14 +1,8 @@
 ﻿using GP.Models;
-using GP.Models.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace GP
@@ -22,15 +16,15 @@ namespace GP
         private readonly UserManager<AppUser> _users;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IService_Estate _service_Estate;
-         public CommmentsController(ICommments context, IPhotoEstate photoEstate, IWebHostEnvironment webHostEnvironment, IReplaies replaies, IEstate estate, IService_Estate service_Estate)
-         {
+        public CommmentsController(ICommments context, IPhotoEstate photoEstate, IWebHostEnvironment webHostEnvironment, IReplaies replaies, IEstate estate, IService_Estate service_Estate)
+        {
             this._context = context;
             this._estate = estate;
             this._replaies = replaies;
             this._webHostEnvironment = webHostEnvironment;
             this._service_Estate = service_Estate;
-            this._photoEstate= photoEstate;
-         }
+            this._photoEstate = photoEstate;
+        }
         public IActionResult Commments()
         {
 
@@ -63,16 +57,16 @@ namespace GP
             }
             ModelState.Remove("Id");
             AppUser user = await _users.GetUserAsync(User);
-        Comments newone = new Comments()
-        {
-            UserId = user.Id,
-            EstateId = 7,
-            Body=comments.Body,
-            Rating = comments.Rating,
-        };
-             
+            Comments newone = new Comments()
+            {
+                UserId = user.Id,
+                EstateId = 7,
+                Body = comments.Body,
+                Rating = comments.Rating,
+            };
 
-            await  _context.InsertComment(newone);
+
+            await _context.InsertComment(newone);
 
             return RedirectToAction("/Index");
         }
@@ -95,7 +89,7 @@ namespace GP
             {
                 Comments com = await _context.GetOne(id);
                 var replaies = await _replaies.GetCommentReplies(id);
-                 return Ok(replaies);
+                return Ok(replaies);
             }
             else
                 return NotFound();
@@ -118,21 +112,20 @@ namespace GP
         {
             Estate es = await _estate.GetOne(id);
 
-            var services =  _service_Estate.GetALl(id).ToList();
-             List<string>lst=services.Select(s => s.Name).ToList();
-            // List<string>pics=services.Select(s => s.ImagePath).ToList();
-            //ViewBag.image = pics;
-             ViewBag.services= services;
-            var Ephotos = _photoEstate.GetAllByEstate(id);
-            List<string> photosPaths = Ephotos.Select(ph=>ph.ImagePath).ToList();
-            ViewBag.photosPaths=photosPaths;
+            //var services =  _service_Estate.GetALl(id).ToList();
+            // List<string>lst=services.Select(s => s.Name).ToList();
+
+            // ViewBag.services= services;
+            //var Ephotos = _photoEstate.GetAllByEstate(id);
+            //List<string> photosPaths = Ephotos.Select(ph=>ph.ImagePath).ToList();
+            //ViewBag.photosPaths=photosPaths;
             es.Views = es.Views + 1;
-          await  _estate.UpdateEstate(es);
+            await _estate.UpdateEstate(es);
             return View(es);
         }
 
 
-        public async Task<IActionResult> Add(int x,int y , int z)
+        public async Task<IActionResult> Add(int x, int y, int z)
         {
             var isAppened = "Done";
 
@@ -143,4 +136,4 @@ namespace GP
         }
     }
 }
-    
+
