@@ -38,6 +38,7 @@
     --form: #fff;
     --dartcc: #000;
     --bgseChat: #eeeeee;
+    --hover: #5f8e92;
 }
 
     :root.dark {
@@ -56,6 +57,7 @@
         --form: #1d2a35;
         --dartcc: #e0e0e0;
         --bgseChat: #15202b;
+        --hover: #5f8e92;
     }
 
 
@@ -1563,3 +1565,210 @@ main .sales-form {
 /*End sales*/
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/************اراضي ***************/
+
+.switcher {
+    display: none;
+    margin: 1em 1em 3em 1em;
+    text-align: right;
+}
+
+@media (min-width: 700px) {
+    .switcher {
+        display: block;
+        border-top: 1px solid #cbcbcb73;
+        border-bottom: 1px solid #cbcbcb73;
+        padding: 6px 0;
+    }
+}
+
+.switcher > button {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    vertical-align: middle;
+    color: var(--secondery);
+    opacity: 0.3;
+    outline: none;
+    transition: opacity 0.4s ease;
+}
+
+    .switcher > button[data-trigger].active {
+        opacity: 1;
+    }
+
+
+
+.download-cards {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    transform: translateY(-7px);
+}
+
+.download-card:hover {
+    transform: translateY(-7px);
+    transition: all .8s ease;
+}
+
+.download-card {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 2em);
+    background: var(--bgdark);
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 2em;
+    box-shadow: 0 1px 25px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.06);
+    border-bottom: 1px solid #d2d2d2;
+    border-left: 1px solid #dadada;
+    margin: 0 1em 2em 1em;
+}
+
+@media (min-width: 700px) {
+    .download-cards[data-view="grid-view"] .download-card {
+        float: left;
+        width: calc(50% - 2em);
+    }
+
+        .download-cards[data-view="grid-view"] .download-card:nth-child(3) {
+            clear: both;
+        }
+
+        .download-cards[data-view="grid-view"] .download-card:nth-child(4) {
+            clear: initial;
+        }
+}
+
+@media (min-width: 1000px) {
+    .download-cards[data-view="grid-view"] .download-card {
+        width: calc((100% / 3) - 2em);
+    }
+
+        .download-cards[data-view="grid-view"] .download-card:nth-child(3) {
+            clear: initial;
+        }
+
+        .download-cards[data-view="grid-view"] .download-card:nth-child(4) {
+            clear: both;
+        }
+}
+
+.download-card__icon-box {
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+@media (min-width: 700px) {
+    .download-card__icon-box {
+        justify-content: center;
+    }
+}
+
+.download-card__icon-box img {
+    height: 100%;
+    width: 100%;
+    height: 350px;
+}
+
+.download-cards[data-view="list-view"] .content {
+    padding: 20px 20px 20px 20px;
+}
+
+.download-cards[data-view="grid-view"] .content {
+    padding: 20px 20px;
+}
+
+@media (min-width: 700px) {
+    .download-cards[data-view="list-view"] .download-card__icon-box {
+        width: 400px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-right: 1px solid #e6e6e6;
+    }
+
+    .download-cards[data-view="list-view"] .content {
+        padding: 20px 420px 20px 20px !important;
+    }
+}
+
+.p {
+    display: block;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    min-height: 19px; /*font-size*line-height*line-clamp*/
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bottomright {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 18px;
+    background-color: #58888ca6;
+    color: white;
+    padding: 12px;
+}
+
+.content .titleral {
+    text-decoration: none;
+    color: var(--txtactive);
+}
+
+    .content .titleral:hover {
+        color: var(--hover);
+    }
+
+.sect {
+    /*height: 450px;   
+    overflow: hidden;*/
+    background-image: url(../img/pages/land1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    height: 500px;
+    padding: 200px 0 30px 0;
+}
+
+section .land1 {
+    position: absolute;
+    top: 25%;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+}

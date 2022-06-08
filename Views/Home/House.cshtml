@@ -1,58 +1,224 @@
-﻿<style>
-    header{
-      position: absolute;z-index: 100000;
-    }
-    nav {
-  background-color: rgba(17, 17, 17, 0);
-} 
+﻿    <style>
+        header{
+            padding: 0 !important;
+        }
+    </style>
+    <section class="py-5 py-md-2">
+        <div class="sect">
+            <div class="bgacground rounded-5 w-50 mx-auto p-3 py-4 animated wow fadeInUp">
+                <div class="row justify-content-between align-items-center " >
+                  <div class="col-lg-2 col-md-6 col-12 d-flex flex-column align-items-center ">
+                    <h5>النوع</h5>
+                    <select class="form-selectt" aria-label="Default select example">
+                      <option selected>ِِشقة</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-2 col-md-6 col-12 d-flex flex-column align-items-center">
+                    <h5>التصنيف </h5>
+                    <select class="form-selectt" aria-label="Default select example">
+                      <option selected>ِِشقة</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-2 col-md-6 col-12 d-flex flex-column align-items-center">
+                    <h5>الدولة</h5>
+                    <select class="form-selectt" aria-label="Default select example">
+                      <option selected>ِِشقة</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-2 col-md-6 col-12 d-flex flex-column align-items-center">
+                    <h5>المدينة</h5>
+                    <select class="form-selectt" aria-label="Default select example">
+                      <option selected>ِِشقة</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-2 col-12">
+                    <button class="btn btn-search px-3 py-2 rounded-5"><i class="bi bi-search"></i></button>
+                  </div>
+                </div>
+              </div>
+        </div>        
+    </section>
 
-  </style> 
- <video class="bg-video" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-    <source src="~/indexLayout/assets/img/pages/bg.mp4" type="video/mp4" />
-  </video>
-<div class="container-fluid d-none d-lg-block pt-5 mb-5" >
+    <section>
+        <div class="container text-end">
+            <div class="switcher">
+                <button data-trigger="grid-view" class="bi bi-grid-3x2-gap-fill"></button>
+                <button data-trigger="list-view" class="active bi bi-view-list"></button>
+            </div>
+            <div data-view="list-view" class="download-cards">
 
-    <div class="row justify-content-center align-items-center text-center ">
 
-      <p class="fs-1 text-white animated wow fadeInDown">ابحث عن العقار الأنسب لك </p>
-      <p class="fs-4 text-white pb-5 animated wow fadeInDown">لديك الفرصة لوضع عقارك</p>
-      
-      <div class="bgacground rounded-5 w-50  p-3 py-4 animated wow fadeInUp">
-        <div class="row justify-content-between align-items-center ">
-            
-                <h1>
-                    عقارات
-                  -  @ViewBag.CategoryName
-                </h1>
-              
+                <article class="download-card">
+
+                    <div class="download-card__icon-box">
+                        <img src="assets/img/pages/1.png" class="img-fluid" />
+                        <div class="bottomright">بيع</div>
+                    </div>
+                    <div class="content">
+                        <a class="titleral" href="">
+                            <h3> عنوان العقار </h3>
+                        </a>
+                        <p class="pt-2"><i class="bi bi-geo-alt"></i>فلسطين - غزة - شارع النخيل</p>
+                        <p class="p"> وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف
+                            العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف
+                            العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف
+                            العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف
+                            العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف
+                            العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف
+                            العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف العقار وصف
+                            العقار </p>
+
+                        <div class="d-flex justify-content-between align-items-center pt-3">
+                            <div class=" d-flex align-items-center">
+                                <img class="img-fluid text-right rounded-circle" style="width: 50px;height: 50px;"
+                                    src="assets/img/pages/bg-mobile-fallback.jpg">
+                                <div class="pe-3">
+                                    <a href="" class="mb-0 titleral">
+                                        مالك العقار: سوار صيام
+                                    </a>
+                                    <p class="mb-0 text-secondary">تاريخ الاضاقة : 24/7/2021</p>
+
+                                </div>
+                            </div>
+                            <p class="m-0"><i class="heart bi bi-heart-fill ms-5"></i></p>
+                        </div>
+                    </div>
+                </article>
+
+
+
+
+                <article class="download-card">
+                    <div class="download-card__icon-box"><img src="assets/img/pages/about.png" class="img-fluid" />
+                        <div class="bottomright">بيع</div>
+                    </div>
+                    <div class="content">
+                        <h2 class="download-card__content-box__catagory">PDF</h2>
+                        <h3 class="download-card__content-box__title">Tool Safety Catalogues</h3>
+                        <p class="download-card__content-box__description">Print and web ready PDF's. </p>
+                        <a class="button"> <i class="fa fa-cloud-download"></i> Download</a>
+                    </div>
+                </article>
+                <article class="download-card">
+                    <div class="download-card__icon-box">
+                        <img src="assets/img/pages/bg-mobile-fallback.jpg" class="img-fluid" />
+                        <div class="bottomright">ايجار</div>
+                    </div>
+                    <div class="content">
+                        <h2 class="download-card__content-box__catagory">Photos</h2>
+                        <h3 class="download-card__content-box__title">Height Safety Products</h3>
+                        <p class="download-card__content-box__description">High & low-res photos for print and web
+                            media. </p>
+                        <a class="button"> <i class="fa fa-cloud-download"></i> Download</a>
+                    </div>
+                </article>
+                <article class="download-card">
+                    <div class="download-card__icon-box"><img src="assets/img/pages/foot.png" class="img-fluid" /></div>
+                    <div class="content">
+                        <h2 class="download-card__content-box__catagory">Document</h2>
+                        <h3 class="download-card__content-box__title">Course Booking Form</h3>
+                        <p class="download-card__content-box__description">Word document </p>
+                        <a class="button"> <i class="fa fa-cloud-download"></i> Download</a>
+                    </div>
+                </article>
+                <article class="download-card">
+                    <div class="download-card__icon-box"><img src="assets/img/pages/home-3 - Copy.png"
+                            class="img-fluid" /></div>
+                    <div class="content">
+                        <h2 class="download-card__content-box__catagory">Photos</h2>
+                        <h3 class="download-card__content-box__title">Height Safety Products</h3>
+                        <p class="download-card__content-box__description">High & low-res photos for print and web
+                            media. </p>
+                        <a class="button"> <i class="fa fa-cloud-download"></i> Download</a>
+                    </div>
+                </article>
+                <article class="download-card">
+                    <div class="download-card__icon-box"><img src="assets/img/pages/land.jpg" class="img-fluid" /></div>
+                    <div class="content">
+                        <h2 class="download-card__content-box__catagory">Photos</h2>
+                        <h3 class="download-card__content-box__title">Height Safety Products</h3>
+                        <p class="download-card__content-box__description">High & low-res photos for print and web
+                            media. </p>
+                        <a class="button"> <i class="fa fa-cloud-download"></i> Download</a>
+                    </div>
+                </article>
+                <article class="download-card">
+                    <div class="download-card__icon-box"><img src="assets/img/pages/home-3.png" class="img-fluid" />
+                    </div>
+                    <div class="content">
+                        <h2 class="download-card__content-box__catagory">Photos</h2>
+                        <h3 class="download-card__content-box__title">Height Safety Products</h3>
+                        <p class="download-card__content-box__description">High & low-res photos for print and web
+                            media. </p>
+                        <a class="button"> <i class="fa fa-cloud-download"></i> Download</a>
+                    </div>
+                </article>
+                <article class="download-card">
+                    <div class="download-card__icon-box"><img src="assets/img/pages/home1.jpg" class="img-fluid" />
+                    </div>
+                    <div class="content">
+                        <h2 class="download-card__content-box__catagory">Photos</h2>
+                        <h3 class="download-card__content-box__title">Height Safety Products</h3>
+                        <p class="download-card__content-box__description">High & low-res photos for print and web
+                            media. </p>
+                        <a class="button"> <i class="fa fa-cloud-download"></i> Download</a>
+                    </div>
+                </article>
+            </div>
         </div>
-      </div>
-        
-    </div>
-  </div>
-  
-    <div class="position-absolute w-100 bgdaeke" style="z-index: 5;">
-        <main class="">
-  <section class="mb-5 ">
-        <div class="container py-3">
-          <p class="text-center fs-2 py-5" data-aos="fade-down"><span class="txtborder"> عقارات أملاك @ViewBag.CategoryName </span></p>
-          <div id="Estates" class="row pt-3 g-3">
+    </section>
        
-          </div>
 
-        </div>
-         <ul  id="pagination" class="pagination ">
+
+       @*  <ul  id="pagination" class="pagination ">
   
         </ul>
-      </section>
-
- 
-
-      </main>
-      
-      </div>
+*@
      
       @section Scripts{
+
+          <script>
+              
+
+var downloadGrid = (function () {
+
+    "use strict";
+    var $cardContainer = $('.download-cards');
+    var $downloadCard = $('.download-card__content-box');
+    var $viewTrigger = $('button').attr('data', 'trigger');
+
+    function swapTriggerActiveClass(e) {
+        $viewTrigger.removeClass('active');
+        $(e.target).addClass('active');
+    }
+
+    function swapView(e) {
+        var $currentView = $(e.target).attr('data-trigger');
+        $cardContainer.attr('data-view', $currentView);
+    }
+
+    $(document).ready(function () {
+        // Event Listener
+        $viewTrigger.click(function (e) {
+            swapTriggerActiveClass(e);
+            swapView(e);
+        });
+    });
+
+})();
+              </script>
     <script type="text/javascript">
 $(document).ready(function() {
     localStorage.setItem("pageNumberHouse","1");
@@ -149,7 +315,10 @@ function GetDataPage(z,el) {
 
                 var text = "";
                 for (var i = 1; i < estate.data.length; i++) {
-                    text += `<div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+                    text += `
+                    rftghjdkl,as
+                    edfgywhlknjasxm
+                    <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
                 <div class="game px-2">
                 <div class="rank"><span class="bi bi-star checked"></span></div>
                 <div class="front">
