@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace GP.Controllers
@@ -13,10 +14,11 @@ namespace GP.Controllers
     public class ApiEstateController : ControllerBase
     {
         private readonly IEstate _estate;
-
-        public ApiEstateController(IEstate estate)
+        private readonly IlikedEstates _likeEstates;
+        public ApiEstateController(IEstate estate, IlikedEstates likeEstates)
         {
             _estate = estate;
+            _likeEstates = likeEstates;
         }
 
         [HttpGet("GetApartments")]
@@ -31,7 +33,8 @@ namespace GP.Controllers
             decimal total = estates.Count();
             decimal totalDecimal = total / 20;
             int pages = (int)Math.Ceiling(totalDecimal);
-            var JsonData = new {pages,data };
+            var likes = _likeEstates.GetAll().Where(x => x.IdUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(z => z.IdEstate).ToList();
+            var JsonData = new {pages,data ,likes};
             return Ok(JsonData);
         }
         [HttpGet("GetHouses")]
@@ -46,7 +49,8 @@ namespace GP.Controllers
             decimal total = estates.Count();
             decimal totalDecimal = total / 20;
             int pages = (int)Math.Ceiling(totalDecimal);
-            var JsonData = new { pages, data };
+            var likes = _likeEstates.GetAll().Where(x => x.IdUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(z => z.IdEstate).ToList();
+            var JsonData = new { pages, data, likes };
             return Ok(JsonData);
         }
         [HttpGet("GetLands")]
@@ -61,7 +65,8 @@ namespace GP.Controllers
             decimal total = estates.Count();
             decimal totalDecimal = total / 20;
             int pages = (int)Math.Ceiling(totalDecimal);
-            var JsonData = new { pages, data };
+            var likes = _likeEstates.GetAll().Where(x => x.IdUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(z => z.IdEstate).ToList();
+            var JsonData = new { pages, data, likes };
             return Ok(JsonData);
         }
         [HttpGet("GetChalets")]
@@ -76,7 +81,8 @@ namespace GP.Controllers
             decimal total = estates.Count();
             decimal totalDecimal = total / 20;
             int pages = (int)Math.Ceiling(totalDecimal);
-            var JsonData = new { pages, data };
+            var likes = _likeEstates.GetAll().Where(x => x.IdUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(z => z.IdEstate).ToList();
+            var JsonData = new { pages, data, likes };
             return Ok(JsonData);
         }
     }
