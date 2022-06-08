@@ -4,14 +4,16 @@ using GP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220601094410_nn")]
+    partial class nn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,11 +221,6 @@ namespace GP.Migrations
 
                     b.Property<long>("EstateId")
                         .HasColumnType("bigint");
-
-                    b.Property<DateTime>("OnDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("Getdate()");
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
@@ -551,12 +548,6 @@ namespace GP.Migrations
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
 
-<<<<<<< HEAD
-=======
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
->>>>>>> 076c853ab6f958456d9f9058a699d741cee18c7d
                     b.HasKey("Id");
 
                     b.HasIndex("ReciverId");
