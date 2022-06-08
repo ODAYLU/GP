@@ -1,11 +1,14 @@
 ﻿using GP.Data;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace GP.Models
 {
+  
     public class Notification
     {
         public long Id { get; set; }
@@ -18,13 +21,14 @@ namespace GP.Models
         public AppUser Reciver { get; set; }
         public bool IsReaded { get; set; }
         public DateTime Time { get; set; }
+        public string Type { get; set; }
     }
      public interface INotification
     {
         public Task<Notification> GetOne(long id);
-        public IQueryable<Notification> GetAll(string search = "");
-        public Task<bool> InsertNot(Comments comment);
-        public Task<bool> UpdateNot(Comments comment);
+        public IQueryable<Notification> GetAll();
+        public Task<bool> InsertNot(Notification comment);
+        public Task<bool> UpdateNot(List<Notification> comment);
         public Task<bool> DeleteNot(long id);
     }
     class NotificationManagement : INotification
@@ -50,24 +54,37 @@ namespace GP.Models
 
         }
 
-        public IQueryable<Notification> GetAll(string search = "")
+        public IQueryable<Notification> GetAll()
         {
-            throw new NotImplementedException();
+            var data = _context.Notifications.AsQueryable();
+            return data;
         }
 
-        public Task<Notification> GetOne(long id)
+        public async Task<Notification> GetOne(long id)
         {
-            throw new NotImplementedException();
+          return  await _context.Notifications.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
-        public Task<bool> InsertNot(Comments comment)
+        public async Task<bool> InsertNot(Notification notification)
         {
-            throw new NotImplementedException();
+            if (notification is not null)
+            {
+                await _context.Notifications.AddAsync(notification);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
 
-        public Task<bool> UpdateNot(Comments comment)
+        public async Task<bool> UpdateNot(List<Notification> comment)
         {
-            throw new NotImplementedException();
+            if (comment is not null)
+            {
+                 _context.Notifications.UpdateRange(comment);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
     }
 }

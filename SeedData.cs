@@ -20,7 +20,7 @@ namespace GP
         public static bool IsPserosalPhoto { get; set; }
 
         public static long EstateByImage { get; set; }
-        public static void SeedUsers(
+        public static async Task SeedUsers(
             UserManager<AppUser> userManager)
         {
             if(userManager.FindByNameAsync("admin@website.com").Result == null)
@@ -38,7 +38,7 @@ namespace GP
                 }
             }
         }
-        public static void SeedRoles(
+        public static async Task SeedRoles(
             RoleManager<IdentityRole> roleManager)
         {
             if (!roleManager.RoleExistsAsync("Admin").Result)
@@ -57,7 +57,7 @@ namespace GP
                 };
                 roleManager.CreateAsync(role);
             }
-            if (!roleManager.RoleExistsAsync("User").Result)
+            if (!(await roleManager.RoleExistsAsync("User")))
             {
                 var role = new IdentityRole
                 {

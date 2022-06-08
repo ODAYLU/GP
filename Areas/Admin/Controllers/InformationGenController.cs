@@ -32,6 +32,7 @@ namespace GP.Areas.Admin.Controllers
 
         public IActionResult SaveInformation(InformationGen informatiom)
         {
+            if (!ModelState.IsValid) return BadRequest();
            var data  = _context.TInformatiomGensT.ToList();
             _context.TInformatiomGensT.RemoveRange(data);
             _context.TInformatiomGensT.Add(informatiom);

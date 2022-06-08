@@ -220,6 +220,11 @@ namespace GP.Migrations
                     b.Property<long>("EstateId")
                         .HasColumnType("bigint");
 
+                    b.Property<DateTime>("OnDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("Getdate()");
+
                     b.Property<double>("Rating")
                         .HasColumnType("float");
 
@@ -546,6 +551,12 @@ namespace GP.Migrations
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
 
+<<<<<<< HEAD
+=======
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+>>>>>>> 076c853ab6f958456d9f9058a699d741cee18c7d
                     b.HasKey("Id");
 
                     b.HasIndex("ReciverId");

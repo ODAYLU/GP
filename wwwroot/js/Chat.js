@@ -9,8 +9,8 @@ Connection.on("connectedUsers", function (users) {
     var text = JSON.stringify(users);
     $("#usersActive").val(users);
     $.ajax({
-        method: 'Post',
-        url: `/ContactUser/GetUsers?text=${users}`,
+        method: 'Get',
+        url: `/ContactUser/GetUsersContact`,
         data: { text: text },
         processData: false,
         contentType: false,
@@ -19,6 +19,8 @@ Connection.on("connectedUsers", function (users) {
             var text = "";
             var img = "";
             var UnRead = "";
+            var isactive = "";
+            var NewMessages = "";
             for (var i = 0; i < data.length; i++) {
                 if (data[i].user.profilePicture != null) {
                    
@@ -29,20 +31,31 @@ Connection.on("connectedUsers", function (users) {
                 }
                 if (data[i].flag == false) {
                     UnRead = `<img class="Notification" src="/images/Notification.gif" style="width:50px;" />`
+                    NewMessages = `<span  style="position: absolute;height: 25px;width:25px;  top: 0px;right:5px; border-radius: 50%;background: red;color: white; padding:5px">+1</span>`
                 }
                 else {
                     UnRead = "";
                 }
+                if (data[i].isActive == true) {
+
+                    isactive = `<span  style="float:left; height: 10px; width: 10px; top:calc(50% - 5px); left: 80px; border-radius:50%; background: red; color: white; padding: 1px; position: absolute;"></span>`
+                }
+                else {
+                    isactive = "";
+                }
                 text += `<a class="list-group-item py-3" >
                                 <input type="text" value="${data[i].user.id}" hidden />
-                                <div class="pull-right">
+                                <div class="pull-right" >
                                     <img src="${img}" alt="" class="img-avatar">
                                         <small class="list-group-item-heading">${data[i].user.userName} </small>
+                                        
                                 </div>
+                            ${isactive}
                                 ${UnRead}
                             </a>`;
 
             }
+            $("#btnChat").append(NewMessages);
             $("#Users").html(text).addClass("");
 
         }
@@ -186,13 +199,14 @@ $("body").on("click", "#Users a", function (e) {
             }
 
             $("#Messages").html(text);
+            $('#Messages').scrollTop($("#Messages")[0].scrollHeight);
         }
     });
  
 });
 
 $("#btnSend").click(function () {
-    
+    debugger;
 
     var val = $("#txtInput").val().length;
   
@@ -212,6 +226,7 @@ $("#btnSend").click(function () {
                         </div>
                     </div>`;
             $("#Messages").append(text);
+            $('#Messages').scrollTop($("#Messages")[0].scrollHeight);
             $("#txtInput").val("");
         }
         Connection.invoke("SendMessage", message, IdSender);

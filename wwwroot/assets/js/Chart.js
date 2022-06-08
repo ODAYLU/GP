@@ -4,7 +4,7 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'line',
     data: {
-        labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+        labels: ['غزة', 'رفح', 'خانيونس', 'بيت حانون', 'النصيرات', 'S', 'S'],
         datasets: [{
             label: 'عدد العقارت',
             data: [12, 19, 3, 17, 6, 3, 7],
