@@ -45,9 +45,7 @@ namespace GP
                     INotification notification,
                     ICommments _context,
                     IReplaies _replaies
-
-
-                    )
+         )
         {
             this._userManager = userManager;
             services = Services;
@@ -154,7 +152,7 @@ namespace GP
             }
 
 
-            return View();
+            return RedirectToAction("Index");
         }
 
 
@@ -509,7 +507,7 @@ namespace GP
         [AllowAnonymous]
         public async Task<IActionResult> DetalesView()
         {
-            //  var list = _context.GetAll().Where(x=>x.EstateId=="الي جاي من التفاصيل ").ToList();
+
 
             var list = _context.GetAll().ToList();
             return View(list);
@@ -526,6 +524,7 @@ namespace GP
             string status = "Insert";
             string name = "";
             string photo = "";
+            long Id = -1;
 
             if (User.Identity.IsAuthenticated)
             {
@@ -546,13 +545,15 @@ namespace GP
 
                 Comments comments = new Comments()
                 {
-                    EstateId = 4,
+                    EstateId = id,
                     Body = body,
                     UserId = user.Id,
                     Rating = 0
 
                 };
                 await _context.InsertComment(comments);
+
+                Id = comments.Id;
 
 
                 GP.Models.Toast.Message = "تم إضافة التعليق بنجاح";
@@ -567,7 +568,7 @@ namespace GP
 
 
 
-            var JsonData = new { status, name, photo };
+            var JsonData = new { status, name, photo, Id };
             return Ok(JsonData);
 
 
