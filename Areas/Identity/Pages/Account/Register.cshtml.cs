@@ -70,7 +70,7 @@ namespace GP.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(8, ErrorMessage = "كلمة السر لا تتجاوز عدد 8 ولا تقل عن 6 خانات", MinimumLength = 6)]
+            
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }

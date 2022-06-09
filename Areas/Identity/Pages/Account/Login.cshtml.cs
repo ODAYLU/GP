@@ -105,26 +105,30 @@ namespace GP.Areas.Identity.Pages.Account
                         await _userManager.SetLockoutEnabledAsync(user, true);
                         await _userManager.SetLockoutEndDateAsync(user, DateTime.MaxValue);
                     }
-                }
-                 
-                
-               
-               result  = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe , lockoutOnFailure:false);
-                if (result.Succeeded)
-                {
-                    user.is_active = true;
-                    _logger.LogInformation("User logged in.");
-                    return LocalRedirect(returnUrl);
-                }
-                if (result.RequiresTwoFactor)
-                {
-                    return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
-                }
-                if (result.IsLockedOut)
-                {
-                   await _signInManager.SignOutAsync();
-                    _logger.LogWarning("User account locked out.");
-                    return RedirectToPage("./Lockout");
+                    result = await _signInManager.PasswordSignInAsync(user, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
+                    if (result.Succeeded)
+                    {
+                        user.is_active = true;
+                        _logger.LogInformation("User logged in.");
+                        return LocalRedirect(returnUrl);
+                    }
+                    if (result.RequiresTwoFactor)
+                    {
+                        return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, RememberMe = Input.RememberMe });
+                    }
+                    if (result.IsLockedOut)
+                    {
+                        await _signInManager.SignOutAsync();
+                        _logger.LogWarning("User account locked out.");
+                        return RedirectToPage("./Lockout");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, "عملية تسجيل الدخول غير صحيحة");
+                        ViewData["Error"] = "عملية تسجيل الدخول غير صحيحة";
+                        return Page();
+                    }
                 }
                 else
                 {
@@ -132,6 +136,10 @@ namespace GP.Areas.Identity.Pages.Account
                     ViewData["Error"] = "عملية تسجيل الدخول غير صحيحة";
                     return Page();
                 }
+
+
+
+             
             }
 
             // If we got this far, something failed, redisplay form

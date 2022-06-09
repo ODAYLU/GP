@@ -111,7 +111,8 @@ namespace GP
         public async Task<IActionResult> EstateComment(long id)
         {
             Estate es = await _estate.GetOne(id);
-
+            if (es == null)
+                return View("/Views/NotAccess.cshtml");
             //var services =  _service_Estate.GetALl(id).ToList();
             // List<string>lst=services.Select(s => s.Name).ToList();
 
