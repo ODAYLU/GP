@@ -380,7 +380,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
             /** =====================
     * Responsive
     ========================*/
-            @@media only screen and (max-width: 766px) {
+          /*  @@media only screen and (max-width: 766px) {
                 .comments-container {
                     width: 480px;
                 }
@@ -392,7 +392,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                 .reply-list .comment-box {
                     width: 320px;
                 }
-            }
+            }*/
 
 
 
@@ -417,6 +417,9 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
   cursor: pointer;
   box-shadow: 3px 2px 5px #444;
   transition: 300ms ease;
+  width: 100%;
+  height: 50%;
+  overflow:hidden;
 }
 .home {
   height: 100%;
@@ -459,6 +462,35 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
   bottom: 20px; 
   background: var(--litegreen); 
 }
+.userimgs{
+    width:50px;
+
+}
+.sl{
+    color:var(--txtactive);
+    background-color: #5f8e9266; 
+    padding: 20px 5px 20px 0;
+    border-radius:20px;
+}
+.sl:hover{
+   background-color: #5f8e9266;
+    padding: 20px 5px 20px 0;
+    box-shadow: inset 2px -2px 2px 2px #78512e36;
+    text-decoration:none;
+    color:var(--orange);
+}
+.imgsername{
+    width:50px;
+
+}
+.imgsernamehover:hover{
+    background-color:#5f8e9266;
+    border-radius:20px;
+    
+}
+.iconsend:hover{
+    color: var(--hover); 
+}
 </style>
 
     <section class="pb-5">
@@ -467,98 +499,74 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
         <div class="container-fluid container-md">
             <div class="row ">
                 <div  class="col-12 col-md-9 p-0">
-                    <a id="EPic"    class="image-thumbnail home" href="#lightbox_1"><img
-                            src="~/images/Estate/@Model.Main_photo" class="img-fluid h-100"></a>
+                    <a id="EPic"  class="image-thumbnail home" href="#lightbox_1"><img src="~/images/Estate/@Model.Main_photo" class="img-fluid w-100 h-100"></a>
                 </div>
                 <div class="col-12 col-md-3 d-flex d-md-block gallery">
                 @{
-                   
-                        foreach (var pic in @photosPaths)
+                    var sewar = 0;
+                    for (int e=0;e <2;e++)
                     {
-                                      <a id="EPic" class="image-thumbnail" href="#lightbox_2">
-                                        <img src="~/images/Estate/@pic.ImagePath" class=" img-fluid"></a>
-
+                        sewar++;
+                        
+                         <a id="EPic" class="image-thumbnail" href="#@sewar">
+                            <img src="~/images/Estate/@photosPaths[e].ImagePath" class=" img-fluid w-100 h-100"></a>
                     }
-
                 }
-                @*  <a class="image-thumbnail" href="#lightbox_2"><img
-                    src="http://www.anipedia.net/imagenes/imagen-aguilas-800x375.jpg" class=" img-fluid"></a>*@
-                @* <a class="image-thumbnail" href="#lightbox_3"><img
-                    src="http://www.anipedia.net/imagenes/conejos-800x375.jpg" class="img-fluid"></a>
-                    <a class="image-thumbnail" href="#lightbox_4"><img
-                    src="http://www.anipedia.net/imagenes/gatos-800x375.jpg" class=" img-fluid"></a>*@
 
             </div>
         </div>
 
-
-
-
-
+        
         <div class="light-box modal-content" id="lightbox_1">
             <div class="row edges align-items-baseline">
-                <span class="close-btn d-inline"><a href="#"><i
-                                class="bi bi-x-lg fs-1 position-absolute"></i></a></span>
-
+                <span class="close-btn d-inline"><a href="#"><i class="bi bi-x-lg fs-1 position-absolute"></i></a></span>
                 <div class="col p-0">
-                    <span class="next-btn "><a href="#lightbox_2"><i class="bi bi-arrow-right fs-1"></i></a></span>
+                    <span class="previous-btn "><a href="#0"><i class="bi bi-arrow-right fs-1"></i></a></span>
                 </div>
                 <div class="col-10 p-0">
-                    <img src="http://www.anipedia.net/imagenes/elefantes-800x375.jpg"
-                            class="img-fluid position-relative" />
+                    <img  src="~/images/Estate/@Model.Main_photo" class="img-fluid position-relative" />
                 </div>
                 <div class="col p-0">
-                    <span class="previous-btn "><a href="#lightbox_6"><i
-                                    class="bi bi-arrow-left fs-1"></i></a></span>
+                    <span class="next-btn"><a href="#0"><i class="bi bi-arrow-left fs-1"></i></a></span>
                 </div>
             </div>
         </div>
 
 
-        <div class="light-box modal-content" id="lightbox_2">
-            <div class="row edges align-items-baseline">
-                <span class="close-btn d-inline"><a href="#"><i
-                                class="bi bi-x-lg fs-1 position-absolute"></i></a></span>
 
-                <div class="col p-0">
-                    <span class="next-btn "><a href="#lightbox_3"><i class="bi bi-arrow-right fs-1"></i></a></span>
-                </div>
-                <div class="col-10 p-0">
-                    <img src="http://www.anipedia.net/imagenes/conejos-800x375.jpg"
-                            class="img-fluid position-relative" />
-                </div>
-                <div class="col p-0">
-                    <span class="previous-btn "><a href="#lightbox_6"><i
-                                    class="bi bi-arrow-left fs-1"></i></a></span>
-                </div>
-            </div>
-        </div>
 
-        <div class="light-box modal-content" id="lightbox_3">
-            <div class="row edges align-items-baseline">
-                <span class="close-btn d-inline"><a href="#"><i
-                                class="bi bi-x-lg fs-1 position-absolute"></i></a></span>
 
-                <div class="col p-0">
-                    <span class="next-btn "><a href="#lightbox_4"><i class="bi bi-arrow-right fs-1"></i></a></span>
-                </div>
-                <div class="col-10 p-0">
-                    @* @{
-                        foreach(var ph in ViewBag.photosPaths)
-                        {
-                        <img src="@ph"class="img-fluid position-relative" />
+        @{
+            var sear = 0;
 
-                        }
-                        }*@
-                    <img src="http://www.anipedia.net/imagenes/gatos-800x375.jpg"
-                            class="img-fluid position-relative" />
+            foreach (var pic in @photosPaths)
+            {
+                <div class="light-box modal-content" id="@sear">
+                    <div class="row edges align-items-baseline">
+                        <span class="close-btn d-inline"><a href="#"><i class="bi bi-x-lg fs-1 position-absolute"></i></a></span>
+
+                        <div class="col p-0">
+                            <span class="previous-btn "><a href="#@sear"><i class="bi bi-arrow-right fs-1"></i></a></span>
+                        </div>
+
+
+                        <div class="col-10 p-0">
+                            <img src="~/images/Estate/@pic.ImagePath"
+                                    class="img-fluid position-relative" />
+                        </div>
+     
+                        <div class="col p-0">
+                            <span class=" next-btn"><a href="#@sear"><i
+                                            class="bi bi-arrow-left fs-1"></i></a></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="col p-0">
-                    <span class="previous-btn "><a href="#lightbox_2"><i
-                                    class="bi bi-arrow-left fs-1"></i></a></span>
-                </div>
-            </div>
-        </div>
+
+              }
+        }
+
+
+
 
 
 
@@ -566,21 +574,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
         <div class="row py-4 text-end ">
             <div class="col-12 col-md-9 ">
                 <div class="pe-xl-5">
-                    <div href="/Commments/GetProfile/@Model.UserId">
-                        @{
-                        if(@Model.Users.ProfilePicture==null)
-                        {
-                                        <img src="~/indexLayout/assets/img/pages/user.jpg" />
-                        }
-                        else
-                        {
-                                    <img src="data:image/*;base64,@(Convert.ToBase64String(Model.Users.ProfilePicture)) " />
-                         }
-                    }
-                        <a href="/UsersProfiles/GetProfile/@Model.UserId" class="fs-6 d-block text-secondary"><i class="bi bi-person-badge-fill"></i> مالك العقار :<span>@Model.Users.FirstName @Model.Users.LastName</span> </a>
-                        @*<a class="fs-6 d-block text-secondary"><i class="bi bi-person-badge-fill"></i> مالك العقار :<span>Models.name_owner</span> </a>*@
-
-                    </div>
+                  
                     
                         <p class="fs-2 ">عنوان العقار</p>
                         <p><i class="bi bi-geo-alt-fill"></i>@Model.State.name _ @Model.City.name</p>
@@ -589,121 +583,88 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                             <p><i class="bi bi-aspect-ratio"></i> مساحة العقار : @Model.space م </p>
                             <p><i class="bi bi-cash"></i> سعر العقار :@Model.price $</p>
                         </div>
-                        <div class="d-flex">
+                        <div class="d-flex align-items-center flex-wrap">
                             <p class="fs-5">خدمات العقار :</p>
-                            <ul class="nav px-0">
+                            <ul class=" d-flex px-0 overflow-auto">
                             @{
+                               
                                 foreach (var ser in listServices)
                                 {
-                                                <img src="@ser.ImagePath" />
-
-                                                <li class="px-2"> @ser.Name </li>
+                                    <li class="px-4 imgsernamehover text-center"> 
+                                        @ser.Name 
+                                        <img class="imgsername" src="@ser.ImagePath" />    
+                                    </li>
                                 }
                             }
                                 
                                
                             </ul>
                         </div>
+
                         <div class="pt-5">
                             <p class="fs-5 fw-bold">تفاصيل العقار</p>
-                            <p> @Model.description
-                            </p>
+                            <p> @Model.description</p>
                         </div>
-                        <div class="pt-5">
-                            <p class="fs-5 fw-bold">التعليقات</p>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3">
-                    <span class="fs-6 d-block text-secondary"><i class="bi bi-eye-fill px-1"></i> المشاهدات @Model.Views+ </span>
-                    <span class="fs-6 d-block text-secondary"><i class="bi bi-clock-fill px-1"></i> @Model.OnDate </span>
 
+
+                        
                     <div class="pt-4">
                         <p class="fs-5 fw-bold">موقع العقار</p>
-                        <div class="col-12 bg-warning py-5">
-
-الخريطة
-  <p>
-            <div class="d-flex justify-content-around">
-                <p   class="px-3"><span>@Html.DisplayNameFor(Models => Models.Longitude): </span><strong id="Long">@Html.DisplayFor(Models => Models.Longitude)</strong></p>
-                <p   class="px-3"><span>@Html.DisplayNameFor(Models => Models.Latitude): </span><strong id="Lat">@Html.DisplayFor(Models => Models.Latitude)</strong></p>
-            </div>
-            <div id="map" style="width: 100%; height: 450px; margin:12px 0;"></div>
-        </p>
+                        <div class="col-12">
+                            <div class="d-flex justify-content-around">
+                                <p class="px-3"><span>@Html.DisplayNameFor(Models => Models.Longitude): </span><strong
+                                        id="Long">@Html.DisplayFor(Models => Models.Longitude)</strong></p>
+                                <p class="px-3"><span>@Html.DisplayNameFor(Models => Models.Latitude): </span><strong
+                                        id="Lat">@Html.DisplayFor(Models => Models.Latitude)</strong></p>
+                            </div>
+                            <div id="map" style="width: 100%; height: 450px; margin:12px 0;"></div>
                         </div>
                     </div>
 
-                </div>
-            </div>
 
-        </div>
 
-        <a class="position-fixed py-2 px-3 rounded-circle WOW heartBeat incaht" data-wow-iteration="infinite" data-wow-duration="800ms" data-bs-toggle="tooltip" data-bs-placement="top" title="تواصل مع صاحب العقار" >
-            <i class="bi bi-chat fs-1 wow pulse"  data-wow-iteration="infinite" data-wow-duration="500ms" ></i>
-        </a>
-    </section>
-
-     @*التعليقات*@
-
-     
-        <!-- partial:index.partial.html -->
-        <!-- Contenedor Principal -->
-        <div class="comments-container">
+                        <div class="pt-5">
+                            <p class="fs-5 fw-bold">اكتب تعليقك</p>
+                               <div class="">
             <span id="loginPlease" style="display:none;"> عليك تسجيل الدخول اولا <a href="/Identity/Account/Login">
                     تسجيل الدخول</a></span>
             <form method="">
-                <div class="">
-                    <textarea id="bodytextarea" style="width:100%" rows="3"
-                        placeholder="اكتب هنا التعليق...."></textarea>
-                    <div class="witeComment">
-
-                        <a class="showx" onclick="createComments(@Model.Id)">
-
-
-
-
-                            إضافة هنا
+                <div class="d-flex align-items-center">
+                    <textarea id="bodytextarea" style="width:100%;background: var(--bgwhite);color: var(--txtactive);border-radius:20px; padding:8px" rows="3" placeholder="اكتب هنا التعليق...."></textarea>
+    
+                        <a class="showx " onclick="createComments(@Model.Id)">
+                            <i class="bi bi-send-fill iconsend px-2  fs-1 w-100 h-100"></i>
                         </a>
-
-                        <span id="errorEmpty"></span>
-                    </div>
-
-
-
+               
                 </div>
-
+                <span id="errorEmpty"></span>
             </form>
 
-            <p class="text-danger d-none added">تم إضافة التعليق بنجاح</p>
+            <p class="text-success d-none added">تم إضافة التعليق بنجاح</p>
 
-            <h1>التعليقات </h1>
+            <h1 class="pt-3 m-0">التعليقات </h1>
 
             <ul id="comments-list" class="comments-list ">
                 @{
                             @if(Models.Count()==0)
                 {
-                            <h1 class="text-center text-danger insertdata"> لا يوجد تعليقات </h1>
+                            <li class="text-center text-warning insertdata"> لا يوجد تعليقات </li>
                 }
                 for (int i = 0; i < Models.Count(); i++) { <li class="@((i!=0 && i!=1) ?" closed":"") @i">
                                 <div class="comment-main-level">
 
                                     <div class="comment-avatar">
-                                        @{
-
-
+              @{
 
                             if(Models[i].AppUser.ProfilePicture != null)
                             {
-                                                    <img src="data:image/*;base64,@(Convert.ToBase64String(Models[i].AppUser.ProfilePicture))"
-                                                        alt="">
+                                <img src="data:image/*;base64,@(Convert.ToBase64String(Models[i].AppUser.ProfilePicture))"  alt="">
                             }
-
                             else
-                            {
-                                                    <img src="/indexLayout/assets/img/pages/user.jpg" />
+                            { 
+                                <img src="/indexLayout/assets/img/pages/user.jpg" />
                             }
-                                        }
+              }
 
 
                                     </div>
@@ -829,7 +790,63 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
         </div>
 
 
-        <!-- partial -->
+  
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+
+
+                <a href="/UsersProfiles/GetProfile/@Model.UserId" class="fs-6 d-block fw-bold text-decoration-none my-4 sl" > 
+                     <div class="d-flex align-items-center" href="/Commments/GetProfile/@Model.UserId">
+                    @{
+                        if(@Model.Users.ProfilePicture==null)
+                        {
+                                        <img src="~/indexLayout/assets/img/pages/user.jpg" class="userimgs" />
+                        }
+                        else
+                        {
+                                    <img class="userimgs" src="data:image/*;base64,@(Convert.ToBase64String(Model.Users.ProfilePicture)) " />
+                         }
+                    }
+                        
+                        <p class="m-0 px-1">مالك العقار :</p>
+                        <p class="m-0 ">@Model.Users.FirstName @Model.Users.LastName</p>
+
+                    </div>
+
+                </a>
+
+
+
+                    <span class="fs-6 d-block text-secondary"><i class="bi bi-eye-fill px-1"></i> المشاهدات @Model.Views+ </span>
+                    <span class="fs-6 d-block text-secondary"><i class="bi bi-clock-fill px-1"></i> @Model.OnDate </span>
+
+                    <div class="bg-secondary p-5 my-3">
+                        <p class="p-5">
+                            اعلان
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <a class="position-fixed py-2 px-3 rounded-circle WOW heartBeat incaht" data-wow-iteration="infinite" data-wow-duration="800ms" data-bs-toggle="tooltip" data-bs-placement="top" title="تواصل مع صاحب العقار" >
+            <i class="bi bi-chat fs-1 wow pulse"  data-wow-iteration="infinite" data-wow-duration="500ms" ></i>
+        </a>
+    </section>
+
+     @*التعليقات*@
+
+     
+        <!-- partial:index.partial.html -->
+        <!-- Contenedor Principal -->
+     
 
 
 
