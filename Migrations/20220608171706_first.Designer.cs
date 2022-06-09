@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220601094410_nn")]
-    partial class nn
+    [Migration("20220608171706_first")]
+    partial class first
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,6 +221,11 @@ namespace GP.Migrations
 
                     b.Property<long>("EstateId")
                         .HasColumnType("bigint");
+
+                    b.Property<DateTime>("OnDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValueSql("Getdate()");
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
@@ -547,6 +552,9 @@ namespace GP.Migrations
 
                     b.Property<DateTime>("Time")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
