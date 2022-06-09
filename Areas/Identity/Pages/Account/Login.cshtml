@@ -148,12 +148,13 @@ a:hover {
                         </h1>
                         <span class="text-danger">@ViewData["Error"]</span>
                         <form id="account" method="post">
+                            
                             <div class="field">
                                 
                                 <div class="control has-icons-left has-icons-right">
-                                    <input asp-for="Input.Email" class="input is-medium form-control rounded-pill" type="text" placeholder="البريد الالكتروني" value="" required>
-                                    <span class="icon is-small is-right">
-                                        <i class="bi bi-person-fill"></i>
+                                    <input asp-for="Input.Email" class="input is-medium form-control rounded-pill"  placeholder="البريد الالكتروني">
+                                    <span class="icon is-small is-right" asp-validation-for="Input.Email">
+                                       
                                     </span>
                                 </div>
                                 <p class="text-danger"></p>
@@ -161,14 +162,11 @@ a:hover {
 
                             <div class="field">
                                 <div class="control has-icons-left has-icons-right">
-                                    <input asp-for="Input.Password" class="input is-medium form-control rounded-pill" type="password"  id="password" placeholder="كلمة المرور">
-                                    <span class="icon is-small is-right">
-                                        <i class="bi bi-lock-fill"></i>
+                                    <input asp-for="Input.Password" class="input is-medium form-control rounded-pill"   id="password" placeholder="كلمة المرور">
+                                    <span asp-validation-for="Input.Password">
+                                        
                                     </span>
-                                    <span class="is-small position-absolute justify-content-center " style="color: #dbdbdb; left: 20px; top:10px;">
-                                        <i class="bi bi-eye-slash" id="togglePassword"></i>
-
-                                    </span>
+                                  
                                 </div>
                                 <p class="text-danger"></p>
                             </div>
