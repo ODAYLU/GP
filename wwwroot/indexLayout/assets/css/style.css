@@ -63,7 +63,6 @@
 
 * {
   font-family: Cairo;
-  direction: rtl;
 }
 
 html {
@@ -1772,3 +1771,158 @@ section .land1 {
     text-align: center;
     font-size: 18px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*****************تفاصيل*************************/
+
+.image-thumbnail {
+    display: inline-block;
+    cursor: pointer;
+    box-shadow: 3px 2px 5px #444;
+    transition: 300ms ease;
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+}
+
+.home {
+    height: 100%;
+}
+
+.gallery:hover .image-thumbnail:not(:hover) {
+    filter: blur(2px) grayscale(1);
+    opacity: 0.7;
+    transform: scale(0.9);
+}
+/*   Light Box Styling  */
+.light-box {
+    top: 0;
+    left: 0;
+    visibility: hidden;
+    opacity: 0;
+    height: 100%;
+    background-color: rgb(35 35 35 / 61%);
+    backdrop-filter: blur(0.3rem);
+    transition: 500ms ease;
+    position: absolute;
+    z-index: 1000;
+    text-align: right;
+}
+
+    .light-box:target {
+        visibility: visible;
+        opacity: 1;
+    }
+
+.edges {
+    height: auto;
+    background-color: #ccc;
+    padding: 20px;
+    margin: 150px auto;
+    box-shadow: 0 0 30px #333;
+}
+
+.incaht {
+    right: 20px;
+    bottom: 20px;
+    background: var(--litegreen);
+}
+
+.userimgs {
+    width: 50px;
+}
+
+.sl {
+    color: var(--txtactive);
+    background-color: #5f8e9266;
+    padding: 20px 5px 20px 0;
+    border-radius: 20px;
+}
+
+    .sl:hover {
+        background-color: #5f8e9266;
+        padding: 20px 5px 20px 0;
+        box-shadow: inset 2px -2px 2px 2px #78512e36;
+        text-decoration: none;
+        color: var(--orange);
+    }
+
+.imgsername {
+    width: 50px;
+}
+
+.imgsernamehover:hover {
+    background-color: #5f8e9266;
+    border-radius: 20px;
+}
+
+.iconsend:hover {
+    color: var(--hover);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
