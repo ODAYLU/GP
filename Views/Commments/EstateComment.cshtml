@@ -404,12 +404,12 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                         </div>
                         <div class="d-flex align-items-center flex-wrap">
                             <p class="fs-5">خدمات العقار :</p>
-                            <ul class=" d-flex px-0 overflow-auto">
+                            <ul class=" d-flex px-0 nav">
                             @{
                                
                                 foreach (var ser in listServices)
                                 {
-                                    <li class="px-4 imgsernamehover text-center"> 
+                                    <li class="px-3 imgsernamehover text-center"> 
                                         @ser.Name 
                                         <img class="imgsername" src="@ser.ImagePath" />    
                                     </li>
