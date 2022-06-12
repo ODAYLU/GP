@@ -31,7 +31,7 @@ namespace GP.Controllers
         [HttpGet]
         public async Task<IActionResult> GetProfile(string id)
         {
-          AppUser user=  await _user.FindByIdAsync(id);
+           AppUser user=  await _user.FindByIdAsync(id);
             return View(user);
 
         }
