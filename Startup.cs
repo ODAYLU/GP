@@ -68,7 +68,7 @@ namespace GP
                 //options.Lockout.MaxFailedAccessAttempts = 5;
                 //options.Lockout.AllowedForNewUsers = true;
                 options.Password.RequireDigit = false;
-                options.Password.RequiredLength = 8;
+          
                 options.Password.RequireUppercase = false;
 
                 options.SignIn.RequireConfirmedAccount = false;

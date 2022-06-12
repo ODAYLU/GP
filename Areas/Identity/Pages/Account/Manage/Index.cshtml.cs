@@ -111,8 +111,6 @@ namespace GP.Areas.Identity.Pages.Account.Manage
                 insta= userNow.instigram,
                 twitter=userNow.twitter,
                 ContactNumber= userNow.ContactNumber
-
-
             };
         }
 
