@@ -1,8 +1,8 @@
-﻿    var Connection = new signalR.HubConnectionBuilder()
-        .withUrl('/chat').build();
-    Connection.start()
-        .catch(error =>
-            console.log(error));
+﻿var Connection = new signalR.HubConnectionBuilder()
+    .withUrl('/chat').build();
+Connection.start()
+    .catch(error =>
+        console.log(error));
 
 Connection.on("connectedUsers", function (users) {
 
@@ -15,7 +15,7 @@ Connection.on("connectedUsers", function (users) {
         processData: false,
         contentType: false,
         success: function (data) {
-            
+
             var text = "";
             var img = "";
             var UnRead = "";
@@ -23,9 +23,9 @@ Connection.on("connectedUsers", function (users) {
             var NewMessages = "";
             for (var i = 0; i < data.length; i++) {
                 if (data[i].user.profilePicture != null) {
-                   
+
                     img = "data:image/jpeg;base64," + btoa(atob(`${data[i].user.profilePicture}`));
-                   
+
                 } else {
                     img = "https://bootdey.com/img/Content/avatar/avatar1.png";
                 }
@@ -38,21 +38,26 @@ Connection.on("connectedUsers", function (users) {
                 }
                 if (data[i].isActive == true) {
 
-                    isactive = `<span  style="float:left; height: 10px; width: 10px; top:calc(50% - 5px); left: 80px; border-radius:50%; background: red; color: white; padding: 1px; position: absolute;"></span>`
+                    isactive = `<div class="user-status"></div>`
                 }
                 else {
                     isactive = "";
                 }
-                text += `<a class="list-group-item py-3" >
-                                <input type="text" value="${data[i].user.id}" hidden />
-                                <div class="pull-right" >
-                                    <img src="${img}" alt="" class="img-avatar">
-                                        <small class="list-group-item-heading">${data[i].user.userName} </small>
-                                        
-                                </div>
-                            ${isactive}
-                                ${UnRead}
-                            </a>`;
+
+                text += `<li class="messaging-member messaging-member--new messaging-member--online">
+                        <input type="text" value="${data[i].user.id}" hidden />
+                    <div class="messaging-member__wrapper">
+                        <div class="messaging-member__avatar">
+                            <img src="${img}" alt="Bessie Cooper" loading="lazy" />
+                         ${isactive}
+                        </div>
+
+                        <span class="messaging-member__name  textstart"> ${data[i].user.userName} </span>
+                    ${UnRead}
+                    </div>
+
+
+                </li>`;
 
             }
             $("#btnChat").append(NewMessages);
@@ -62,40 +67,35 @@ Connection.on("connectedUsers", function (users) {
     });
 });
 
-Connection.on("receiveMessage", function (msg,users) {
-    
+Connection.on("receiveMessage", function (msg, users) {
+
     var Id = $("#txtIdUserCurrent").val();
     var text = JSON.stringify(users);
     var txtMessage = "";
     var img = "";
     //if (msg.sender.profilePicture != null) { img = "data:image/jpeg;base64," + btoa(atob(`${data[i].profilePicture}`)); }
     //else { img = "https://bootdey.com/img/Content/avatar/avatar1.png"; }
-    if (msg.userId == Id)
-    {
-        
-        txtMessage = `<div class="message-feed media text-end">
-                        <div class="media-body">
-                            <div class="mf-content">
-                                ${msg.text}
-                            </div>
-                            <small class="mf-date"><i class="bi bi-clock-o"></i>${getLastSeen(msg.time)}</small>
+    if (msg.userId == Id) {
+
+        txtMessage = `<li>
+                        <div class="chat__time">${getLastSeen(msg.time)}</div>
+                        <div class="chat__bubble chat__bubble--you">
+                            ${msg.text}
                         </div>
-                    </div>`;
+                    </li>`;
         $("#Messages").append(txtMessage);
     }
     else {
-        txtMessage = ` <div class="message-feed media text-start">
-                        <div class="media-body">
-                            <div class="mf-content">
-                                ${msg.text}
-                            </div>
-                            <small class="mf-date"><i class="bi bi-clock-o"></i>${getLastSeen(msg.time)}</small>
+        txtMessage = `<li>
+                        <div class="chat__time">${getLastSeen(msg.time)}</div>
+                        <div class="chat__bubble chat__bubble--me">
+                            ${msg.text}
                         </div>
-                    </div>`;
-        
+                    </li>`;
+
         $("#Messages").append(txtMessage);
     }
-   
+
     $.ajax({
         method: 'Post',
         url: `/ContactUser/GetUsers?text=${users}`,
@@ -107,13 +107,14 @@ Connection.on("receiveMessage", function (msg,users) {
             var text = "";
             var img = "";
             var UnRead = "";
+            var isactive = ""
             for (var i = 0; i < data.length; i++) {
                 if (data[i].user.profilePicture != null) {
 
                     img = "data:image/jpeg;base64," + btoa(atob(`${data[i].user.profilePicture}`));
 
                 } else {
-                    img = "https://bootdey.com/img/Content/avatar/avatar1.png";
+                    img = "https://randomuser.me/api/portraits/thumb/men/74.jpg";
                 }
                 if (data[i].flag == false) {
                     UnRead = `<img class="Notification" src="/images/Notification.gif" style="width:50px;" />`
@@ -121,31 +122,43 @@ Connection.on("receiveMessage", function (msg,users) {
                 else {
                     UnRead = "";
                 }
-                text += `<a class="list-group-item py-3" >
-                                <input type="text" value="${data[i].user.id}" hidden />
-                                <div class="pull-right">
-                                    <img src="${img}" alt="" class="img-avatar">
-                                        <small class="list-group-item-heading">${data[i].user.userName} </small>
-                                </div>
-                                ${UnRead}
-                            </a>`;
+                if (data[i].user.isActive == true) {
+
+                    isactive = `<div class="user-status"></div>`
+                }
+                else {
+                    isactive = "";
+                }
+                text += `<li class="messaging-member messaging-member--new messaging-member--online">	
+                    <input type="text" value="${data[i].user.id}" hidden />
+                    <div class="messaging-member__wrapper">
+                        <div class="messaging-member__avatar">
+                            <img src="${img}" alt="Bessie Cooper" loading="lazy" />
+                                ${isactive}
+                        </div>
+
+                        <span class="messaging-member__name  textstart"> ${data[i].user.userName} </span>
+                    ${UnRead}
+                    </div>
+
+                </li>`;
 
             }
             $("#Users").html(text).addClass("");
         }
     });
-    
+
 });
 
 
-$("body").on("click", "#Users a", function (e) {
+$("body").on("click", "#Users li", function (e) {
     e.preventDefault();
 
     $("#Messages").removeClass("d-none");
     $("#Header").removeClass("d-none");
     $("#Image").addClass("d-none");
     $(this).children(".Notification").addClass("d-none");
-    $("#btnSend").attr("disabled",false);
+    $("#btnSend").attr("disabled", false);
     $("#txtId").val($(this).children("input").val());
     $("#CurrentUserHeader").html($(this).html());
     var IdR = $("#txtId").val();
@@ -155,11 +168,11 @@ $("body").on("click", "#Users a", function (e) {
     $.ajax({
         method: 'Post',
         url: `/ContactUser/GetMessages?ReciverId=${IdR}`,
-        data: { ReciverId: IdR},
+        data: { ReciverId: IdR },
         processData: false,
         contentType: false,
         success: function (data) {
-            
+
             var text = "";
             var img = "";
             for (var i = 0; i < data.length; i++) {
@@ -171,70 +184,60 @@ $("body").on("click", "#Users a", function (e) {
                     img = "https://bootdey.com/img/Content/avatar/avatar1.png";
                 }
                 if (data[i].receiverId == IdR) {
-                    
-                    text += `<div class="message-feed media text-end">
-                        <div class="media-body">
-                            <div class="mf-content">
-                                ${data[i].text}
-                            </div>
-                            <small class="mf-date"><i class="bi bi-clock-o"></i>${getLastSeen(data[i].time)}</small>
+
+                    text += `<li>
+                        <div class="chat__time">${getLastSeen(data[i].time)}</div>
+                        <div class="chat__bubble chat__bubble--you">
+                            ${data[i].text}
                         </div>
-                    </div>`;
+                    </li>`;
                 }
                 else {
-                    text += `<div class="message-feed right">
-                        <div class="pull-left me-2">
-                            <img src="${img}" alt="" class="img-avatar">
+                    text += `<li>
+                        <div class="chat__time">${getLastSeen(data[i].time)}</div>
+                        <div class="chat__bubble chat__bubble--me">
+                            ${data[i].text}
                         </div>
-                        <div class="media-body">
-                            <div class="mf-content">
-                                ${data[i].text}
-                            </div>
-                            <small class="mf-date"><i class="bi bi-clock-o"></i> ${getLastSeen(data[i].time)}</small>
-                        </div>
-                    </div>`;
-                    
+                    </li>`;
+
                 }
-                
+
             }
 
             $("#Messages").html(text);
-            $('#Messages').scrollTop($("#Messages")[0].scrollHeight);
+            $('.chat__content').scrollTop($(".chat__content")[0].scrollHeight);
         }
     });
- 
+
 });
 
 $("#btnSend").click(function () {
     debugger;
 
     var val = $("#txtInput").val().length;
-  
+
     if (val > 0) {
         var IdSender = $("#txtId").val().trim();
         var thisUser = $("#txtIdUserCurrent").val().trim();
         var message = $("#txtInput").val();
 
         if (thisUser != IdSender) {
-           
-            var text = ` <div class="message-feed media text-end">
-                        <div class="media-body">
-                            <div class="mf-content">
-                                ${message}
-                            </div>
-                          
-                        </div>
-                    </div>`;
+
+            var text = ` <li>
+                <div class="chat__bubble chat__bubble--you">
+                    ${message}
+                </div>
+            </li>`;
             $("#Messages").append(text);
-            $('#Messages').scrollTop($("#Messages")[0].scrollHeight);
+            $('.chat__content').scrollTop($(".chat__content")[0].scrollHeight);
             $("#txtInput").val("");
         }
         Connection.invoke("SendMessage", message, IdSender);
     }
-        
-   
-    
-   
+
+
+
+
 });
 
 
@@ -265,4 +268,3 @@ function getLastSeen(date) {
     }
 }
 
-    

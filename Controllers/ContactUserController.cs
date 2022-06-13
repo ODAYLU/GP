@@ -150,7 +150,7 @@ namespace GP.Controllers
                     userlst.Add(user);
 
 
-                    lstUser.Add(new { user, flag });
+                   
 
 
                     
@@ -165,9 +165,6 @@ namespace GP.Controllers
                     if (!userlst.Contains(user))
                     {
                         bool flag = true;
-
-                        lstUser.Add(new { user, flag });
-
                         if (ConnectedUser.IDs.Contains(user.Id)) IsActive = true;
                         else IsActive = false;
                         lstUser.Add(new { user, flag , IsActive });
