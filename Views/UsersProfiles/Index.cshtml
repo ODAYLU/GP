@@ -3,77 +3,73 @@
 
 }
 
+<style>
+    header{
+        padding-bottom:80px !important;
+    }
+</style>
+
 <link rel="stylesheet" href="~/indexLayout/assets/css/UsersProfiles.css" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 
 
-<div>
-    <div class="wrapper mb-6">
+  <div class="container-fluid pb-4">
+    <div class="row justify-content-center align-items-center rowwws">
 
-        <div class="row align-items-center" style="height:100%;">
-
-
-
-            <div class="container">
-
-                <div class="card">
-
-                    <div class="card-body" style="height:100%;">
-
-                        <div class="image-overlay d-sm-none"></div>
-
-                        <div class="row align-items-center" style="height:100%;">
-                            <div class="image d-none d-sm-block" style="height:100%;">
-                                <div class="a"> </div>
-                                <div class="  text-center  justify-content-center pt-4 col-sm-4 bg-whitee h-75 mx-auto  mt-5">
-
-                                    <h1 class="fw-bolder text-white ">Buy Elite Real Estate</h1>
-                                    <h2 class=" mb-5 fw-bold">Live like an artist</h2>
-                                    <div class="input-group mb-3 mx-auto  mt-6 search" style="z-index: 1000; ">
-
-                                        <div class="input-group-append">
-                                            <button id="searchy" class="btn btn-primary">Search</button>
-                                            <span class="input-group-text"> <i class="fa fa-fw fa-search"></i></span>
-                                        </div>
-                                        <input type="text" class="pl-5 form-control" id="myInput" placeholder="Search">
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
+        <img src="~/indexLayout/assets/img/pages/pepole.jpeg"  class="img-fluid w-100 imgheder p-0 ">
+ 
+      <div class="position-absolute w-100 text-center" style="top:25%; z-index: 1000;">
+        <div class="form-floating text-end rounded-pill  w-75 my-3 d-flex align-items-center px-2 mx-auto" style="background-color:var(--form);">
+          <input type="text" class="form-control rounded-pill text-end border-0"  id="mySearch" onkeyup="myFunction()" placeholder="ابحث...">
+          <label for="floatingInput" class="labalfloat">ابحث عن اسم صاحب العقار...</label>
+          <p class="m-0 fs-2 p-3"style="position: absolute; left: 0; "><i class="bi bi-search"></i></p>
         </div>
+      </div>
     </div>
+  </div>
 
-    <div id="alldiv" class="container ">
-        <div class="row active-with-click" id="myUL">
-        </div>
+
+
+   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+  <section class="container ">
+    <div class="row active-with-click" id="myMenu">
+        
     </div>
-</div>
+  </section>
+
 
 @section Scripts{
     @(await Html.PartialAsync("_ValidationScriptsPartial"));
-<script src="~/js/usersprf/ajax_query.min.js"></script>
-<script src="~/js/usersprf/main.js"></script>
-<script type="text/javascript">
-           var search=document.getElementById("myInput").value;
+    <script type="text/javascript">
+
+                function myFunction() {
+                  var input, filter, ul,article, li,strong, a, i;
+                  input = document.getElementById("mySearch");
+                  filter = input.value.toUpperCase();
+                  li = document.getElementsByClassName("article");
+
+                  const collection = document.getElementsByClassName("n");
+                    for (let i = 0; i < collection.length; i++) {
+                      if (collection[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        li[i].style.display = "";
+                      } else {
+                        li[i].style.display = "none";
+        
+                      }
+                    }
+                }
+
+
+                     
+
+
+
+           var search=document.getElementById("mySearch").value;
                     $(document).ready(function() {
                        FindbySearch("");
                     });
-
-                    //$("#myInput").on("change",function(){
-                    //     var se=document.getElementById("myInput").value;
-                    //        FindbySearch(se);
-                    //})
                     $("#searchy").on("click",
                          function(){
-                            var se=document.getElementById("myInput").value;
+                            var se=document.getElementById("mySearch").value;
                             FindbySearch(se);
                          });
 
@@ -92,62 +88,54 @@
                                      if (data[i].profilePicture != null) {
                                        img = "data:image/jpeg;base64," + btoa(atob(`${data[i].profilePicture}`));
                                         } 
+                                    else{
+                                        img= "/indexLayout/assets/img/pages/user.jpg";
+                                    }
                                       text+=
-                                           ` <div class=" txt col-lg-4 col-md-6 col-xs-12">
-                                                 <article class="material-card Red">
-                                                        <h2>
-                                                       
-                                                        <a href="/UsersProfiles/getprofile/${data[i].id}"> <span class="A">${data[i].firstName} ${data[i].lastName}</span> </a>
-                                                        <strong>
-                                                              <i class="fa fa-fw fa-star"></i>
-                                                                  The Deer Hunter
-                                                        </strong>
-                                                        </h2>
-                                                   <div class="mc-content">
-                                                      <div class="img-container">
-                                                           <img class=" img-fluid" src="${img}">
-                                                      </div>
-                                                      <div class="mc-description">
-                                                         ${data[i].decription}
-                                                      </div>
-                                                   </div>
-                                                      <a class="mc-btn-action">
-                                                        <i class="fa fa-bars"></i>
-                                                      </a>
-                                                    <div class="mc-footer">
-                                                         <h4>
-                                                             Social
-                                                         </h4>
-                                                      <a id="facebook" href="${data[i].facebook}" class="fa fa-fw fa-facebook"></a>
-                                                      <a id="twitter" href="${data[i].twitter}" class="fa fa-fw fa-twitter"></a>
-                                                      <a id="instagram" href="${data[i].instigram}" class="fa fa-fw fa-instagram"></a>
-
-                                                     </div>
-                                                </article>
-                                            </div>`  ;
+                                           `     
+                                          <div class="col-lg-4 col-sm-6 col-12 article">
+                                        <article class="material-card Red">
+                                          <a href="/UsersProfiles/getprofile/${data[i].id}" class="">
+                                            <h2>
+                                              <p class="m-0"><strong class="n">${data[i].firstName} ${data[i].lastName}</strong></p>
+                                              <span class="fs-6"> 
+                                                صفحة صاحب العقار
+                                                <i class="bi bi-arrow-left pt-3 px-1"></i>
+                                              </span>
+                                            </h2>
+                                          </a>
+                                          <div class="mc-content">
+                                            <div class="img-container">
+                                              <img class="img-fluid w-100 h-100" src="${img}">
+                                            </div>
+                                            <div class="mc-description">
+                                                ${data[i].decription}
+                                            </div>
+                                          </div>
+                                          <a class="mc-btn-action">
+                                            <i class="fa fa-bars"></i>
+                                          </a>
+                                          <div class="mc-footer d-flex align-items-center justify-content-center">
+                                            <a href="${data[i].facebook}" class="bi bi-facebook fa-fw "></a> 
+                                            <a href="${data[i].twitter}" class="bi bi-twitter fa-fw "></a>
+                                            <a href="${data[i].instigram}" class="bi bi-instagram fa-fw "></a>
+                                            <a class="bi bi-whatsapp fa-fw "></a>
+                                          </div>
+                                        </article>
+                                      </div>`  ;
 
                                }
-                             $("#myUL").html(text);
+                             $("#myMenu").html(text);
 
                       }
                });
         }
 
 
-    //function binaryAgent(str)
-    //{
-    //  var newBin = str.split(" ");
-    //  var binCode = [];
-    //  for (i = 0; i < newBin.length; i++)
-    //  {
-    //    binCode.push(String.fromCharCode(parseInt(newBin[i], 2)));
-    //  }
-    //  return binCode.join("");
-    //}
-</script>
+    </script>
 
 
+  
 
-
-    }
+}
 
