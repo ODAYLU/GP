@@ -3,11 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GP.Migrations
 {
-<<<<<<<< HEAD:Migrations/20220608170613_newDB.cs
-    public partial class newDB : Migration
-========
-    public partial class first : Migration
->>>>>>>> 3c821e11c5823aa1c17e8f7f6a24c8e146374a64:Migrations/20220608171706_first.cs
+    public partial class nwefdf : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

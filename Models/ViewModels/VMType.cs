@@ -11,7 +11,8 @@ namespace GP.Models.ViewModels
         public string type { get; set; }
         public string ImagePath { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "الرجاء ادخال الصورة")]
+
         public IFormFile file { get; set; }
 
     }

@@ -10,13 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:Migrations/20220608170613_newDB.Designer.cs
-    [Migration("20220608170613_newDB")]
-    partial class newDB
-========
-    [Migration("20220608171706_first")]
-    partial class first
->>>>>>>> 3c821e11c5823aa1c17e8f7f6a24c8e146374a64:Migrations/20220608171706_first.Designer.cs
+    [Migration("20220613052610_nwefdf")]
+    partial class nwefdf
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
