@@ -65,8 +65,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
     font-family: "Inter", sans-serif;
     font-weight: normal;
-    color: var(--colour-text);
-    background-color: var(--bg-page);
+    /*color: var(--colour-text);*/
+/*    background-color: var(--bg-page);*/
 }
 /* ===================================
  Mixins & functions

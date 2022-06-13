@@ -24,12 +24,6 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
 @section Styles{
 
-        <!-- Fuentes de Google -->
-        <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
-        <!-- Iconos -->
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="./style.css">
-
         <style>
             /**
     التعليقات
@@ -48,47 +42,10 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                 display: none !important;
             }
 
-            * {
-                margin: 0;
-                padding: 0;
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                box-sizing: border-box;
-                text-align: right;
-            }
+          
 
-            a {
-                color: #03658c;
-                text-decoration: none;
-            }
+    
 
-            ul {
-                list-style-type: none;
-            }
-
-            body {
-                font-family: 'Roboto', Arial, Helvetica, Sans-serif, Verdana;
-                background: #dee1e3;
-            }
-
-            /** ====================
-    * Lista de Comentarios
-    =======================*/
-            .comments-container {
-                margin: 60px auto 15px;
-                width: 768px;
-            }
-
-            .comments-container h1 {
-                font-size: 36px;
-                color: #283035;
-                font-weight: 400;
-            }
-
-            .comments-container h1 a {
-                font-size: 18px;
-                font-weight: 700;
-            }
 
             .comments-list {
                 margin-top: 30px;
@@ -169,7 +126,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                 position: relative;
                 z-index: 99;
                 float: left;
-                border: 3px solid #FFF;
+              
                 -webkit-border-radius: 4px;
                 -moz-border-radius: 4px;
                 border-radius: 4px;
@@ -205,6 +162,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
     * Caja del Comentario
     ---------------------------*/
             .comments-list .comment-box {
+                background-color: var(--bgdark);
                 width: 680px;
                 float: right;
                 position: relative;
@@ -220,11 +178,14 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                 width: 0;
                 position: absolute;
                 display: block;
-                border-width: 14PX;
-                border-style: solid;
-                border-color: #f6f6f6 #f6f6f6 #f6f6f6 #e5e2e2e3;
-                top: 0;
-                right: -27PX;
+               
+     
+  border-left: 20px solid var(--bgdark);
+  border-top: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  right: -20px;
+  bottom: 65px;
+
             }
 
 
@@ -239,7 +200,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
             }
 
             .comment-box .comment-head {
-                background: #FCFCFC;
+
                 padding: 10px 12px;
                 border-bottom: 1px solid #E5E5E5;
                 overflow: hidden;
@@ -267,31 +228,11 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                 color: #03658c;
             }
 
-            .comment-box .comment-name {
-                color: #283035;
-                font-size: 14px;
-                font-weight: 700;
-                float: left;
-                margin-right: 10px;
-            }
-
-            .comment-box .comment-name a {
-                color: #283035;
-            }
-
-            .comment-box .comment-head span {
-                float: left;
-                color: #999;
-                font-size: 13px;
-                position: relative;
-                top: 1px;
-            }
-
             .comment-box .comment-content {
-                background: #FFF;
+               
                 padding: 12px;
                 font-size: 15px;
-                color: #595959;
+                
                 -webkit-border-radius: 0 0 4px 4px;
                 -moz-border-radius: 0 0 4px 4px;
                 border-radius: 0 0 4px 4px;
@@ -315,14 +256,6 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                 border-radius: 3px;
             }
 
-            .showRepShow {
-                display: flex;
-                justify-content: end;
-
-                margin-top: -6px;
-                margin-left: 23px;
-            }
-
             .show {
                 display: flex;
                 justify-content: end;
@@ -343,15 +276,8 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
             }
 
-            .formrepla {
-                display: flex;
-                flex-direction: column;
-            }
+         
 
-            .textrep {
-                width: 50%;
-                margin: auto;
-            }
 
 
             .loginPlac {
@@ -368,37 +294,29 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
             }
 
-            .showx {
-                color: blue;
-            }
-
+         
             .showx:hover {
                 text-decoration: underline;
                 cursor: pointer;
             }
 
-            /** =====================
-    * Responsive
-    ========================*/
-            @@media only screen and (max-width: 766px) {
-                .comments-container {
-                    width: 480px;
-                }
 
-                .comments-list .comment-box {
-                    width: 390px;
-                }
 
-                .reply-list .comment-box {
-                    width: 320px;
-                }
+            
+
+            .bottomimgright {
+             position: absolute;
+            bottom: 8px;
+            right: 16px;
+            background-color: #bacdce;
+            border-radius: 20px;
+            color: #000;
+            font-weight: 800;
+            box-shadow: -2px 2px 3px #111;
+}
+
+
             }
-
-
-
-               /** =====================
-    * التفاصيل
-    ========================*/
 
         </style>
 
@@ -406,159 +324,87 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
 
 
-
-
-
-<style>
-/*****************تفاصيل*************************/
-
-.image-thumbnail {
-  display: inline-block;
-  cursor: pointer;
-  box-shadow: 3px 2px 5px #444;
-  transition: 300ms ease;
-}
-.home {
-  height: 100%;
-}
-.gallery:hover .image-thumbnail:not(:hover) {
-  filter: blur(2px) grayscale(1);
-  opacity: 0.7;
-  transform: scale(0.9);
-}
-/*   Light Box Styling  */
- .light-box {
-  top: 0;
-  left: 0;
-  visibility: hidden;
-  opacity: 0;
-  height: 100%;
-  background-color: rgb(35 35 35 / 61%);
-  backdrop-filter: blur(0.3rem);
-  transition: 500ms ease;
-  position: absolute;
-  z-index: 1000;
-  text-align: right;
-}
-.light-box:target {
-  visibility: visible;
-  opacity: 1;
-}
-
-.edges {
-  height: auto;
-  background-color: #ccc;
-  padding: 20px;
-  margin: 150px auto;
-  box-shadow: 0 0 30px #333;
-
-}
-
-.incaht{
-  right:20px;
-  bottom: 20px; 
-  background: var(--litegreen); 
-}
-</style>
-
     <section class="pb-5">
 
 
         <div class="container-fluid container-md">
             <div class="row ">
                 <div  class="col-12 col-md-9 p-0">
-                    <a id="EPic"    class="image-thumbnail home" href="#lightbox_1"><img
-                            src="~/images/Estate/@Model.Main_photo" class="img-fluid h-100"></a>
+                    <a id="EPic"  class="image-thumbnail home" href="#lightbox_1">
+                        
+                        <img src="~/images/Estate/@Model.Main_photo" class="img-fluid w-100 h-100">
+                        <div class="bottomimgright p-3">اضغط لمشاهدة جميع الصور</div>
+                    </a>
                 </div>
-                <div class="col-12 col-md-3 d-flex d-md-block gallery">
+                <div class="col-12 col-md-3 d-flex d-none d-md-block gallery">
                 @{
-                   
-                        foreach (var pic in @photosPaths)
+                    var sewar = 0;
+                    for (int e=0;e <2;e++)
                     {
-                                      <a id="EPic" class="image-thumbnail" href="#lightbox_2">
-                                        <img src="~/images/Estate/@pic.ImagePath" class=" img-fluid"></a>
+                        
+                         <a id="EPic" class="image-thumbnail" href="#@sewar">
+                            <img src="~/images/Estate/@photosPaths[e].ImagePath" class=" img-fluid w-100 h-100"></a>
 
+                            
+                        sewar++;
                     }
-
                 }
-                @*  <a class="image-thumbnail" href="#lightbox_2"><img
-                    src="http://www.anipedia.net/imagenes/imagen-aguilas-800x375.jpg" class=" img-fluid"></a>*@
-                @* <a class="image-thumbnail" href="#lightbox_3"><img
-                    src="http://www.anipedia.net/imagenes/conejos-800x375.jpg" class="img-fluid"></a>
-                    <a class="image-thumbnail" href="#lightbox_4"><img
-                    src="http://www.anipedia.net/imagenes/gatos-800x375.jpg" class=" img-fluid"></a>*@
 
             </div>
         </div>
 
-
-
-
-
+        
         <div class="light-box modal-content" id="lightbox_1">
             <div class="row edges align-items-baseline">
-                <span class="close-btn d-inline"><a href="#"><i
-                                class="bi bi-x-lg fs-1 position-absolute"></i></a></span>
-
-                <div class="col p-0">
-                    <span class="next-btn "><a href="#lightbox_2"><i class="bi bi-arrow-right fs-1"></i></a></span>
-                </div>
+                <span class="close-btn d-inline"><a href="#">
+                    <i class="bi bi-x-lg fs-1 position-absolute" style="z-index:10;"></i></a></span>
+ 
                 <div class="col-10 p-0">
-                    <img src="http://www.anipedia.net/imagenes/elefantes-800x375.jpg"
-                            class="img-fluid position-relative" />
+                    <img  src="~/images/Estate/@Model.Main_photo" class="img-fluid position-relative" width="100%" height="100%"/>
                 </div>
                 <div class="col p-0">
-                    <span class="previous-btn "><a href="#lightbox_6"><i
-                                    class="bi bi-arrow-left fs-1"></i></a></span>
+                    <span class="next-btn"><a href="#0"><i class="bi bi-arrow-left fs-1"></i></a></span>
                 </div>
             </div>
         </div>
 
 
-        <div class="light-box modal-content" id="lightbox_2">
-            <div class="row edges align-items-baseline">
-                <span class="close-btn d-inline"><a href="#"><i
-                                class="bi bi-x-lg fs-1 position-absolute"></i></a></span>
 
-                <div class="col p-0">
-                    <span class="next-btn "><a href="#lightbox_3"><i class="bi bi-arrow-right fs-1"></i></a></span>
-                </div>
-                <div class="col-10 p-0">
-                    <img src="http://www.anipedia.net/imagenes/conejos-800x375.jpg"
-                            class="img-fluid position-relative" />
-                </div>
-                <div class="col p-0">
-                    <span class="previous-btn "><a href="#lightbox_6"><i
-                                    class="bi bi-arrow-left fs-1"></i></a></span>
-                </div>
-            </div>
-        </div>
 
-        <div class="light-box modal-content" id="lightbox_3">
-            <div class="row edges align-items-baseline">
-                <span class="close-btn d-inline"><a href="#"><i
-                                class="bi bi-x-lg fs-1 position-absolute"></i></a></span>
 
-                <div class="col p-0">
-                    <span class="next-btn "><a href="#lightbox_4"><i class="bi bi-arrow-right fs-1"></i></a></span>
-                </div>
-                <div class="col-10 p-0">
-                    @* @{
-                        foreach(var ph in ViewBag.photosPaths)
-                        {
-                        <img src="@ph"class="img-fluid position-relative" />
+        @{
+            var sear = 0;
 
-                        }
-                        }*@
-                    <img src="http://www.anipedia.net/imagenes/gatos-800x375.jpg"
-                            class="img-fluid position-relative" />
+            foreach (var pic in @photosPaths)
+            {
+                <div class="light-box modal-content" id="@sear">
+                    <div class="row edges align-items-baseline">
+                        <span class="close-btn d-inline"><a href="#"><i class="bi bi-x-lg fs-1 position-absolute"></i></a></span>
+
+                        <div class="col p-0">
+                            <span class="previous-btn "><a href="#@sear"><i class="bi bi-arrow-right fs-1"></i></a></span>
+                        </div>
+
+
+                        <div class="col-10 p-0">
+                            <img src="~/images/Estate/@pic.ImagePath"
+                                    class="img-fluid position-relative" />
+                        </div>
+     
+                        <div class="col p-0">
+                            <span class=" next-btn"><a href="#@sear"><i
+                                            class="bi bi-arrow-left fs-1"></i></a></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="col p-0">
-                    <span class="previous-btn "><a href="#lightbox_2"><i
-                                    class="bi bi-arrow-left fs-1"></i></a></span>
-                </div>
-            </div>
-        </div>
+
+                sear++;
+
+              }
+        }
+
+
+
 
 
 
@@ -566,21 +412,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
         <div class="row py-4 text-end ">
             <div class="col-12 col-md-9 ">
                 <div class="pe-xl-5">
-                    <div href="/Commments/GetProfile/@Model.UserId">
-                        @{
-                        if(@Model.Users.ProfilePicture==null)
-                        {
-                                        <img src="~/indexLayout/assets/img/pages/user.jpg" />
-                        }
-                        else
-                        {
-                                    <img src="data:image/*;base64,@(Convert.ToBase64String(Model.Users.ProfilePicture)) " />
-                         }
-                    }
-                        <a href="/UsersProfiles/GetProfile/@Model.UserId" class="fs-6 d-block text-secondary"><i class="bi bi-person-badge-fill"></i> مالك العقار :<span>@Model.Users.FirstName @Model.Users.LastName</span> </a>
-                        @*<a class="fs-6 d-block text-secondary"><i class="bi bi-person-badge-fill"></i> مالك العقار :<span>Models.name_owner</span> </a>*@
-
-                    </div>
+                  
                     
                         <p class="fs-2 ">عنوان العقار</p>
                         <p><i class="bi bi-geo-alt-fill"></i>@Model.State.name _ @Model.City.name</p>
@@ -589,121 +421,88 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                             <p><i class="bi bi-aspect-ratio"></i> مساحة العقار : @Model.space م </p>
                             <p><i class="bi bi-cash"></i> سعر العقار :@Model.price $</p>
                         </div>
-                        <div class="d-flex">
+                        <div class="d-flex align-items-center flex-wrap">
                             <p class="fs-5">خدمات العقار :</p>
-                            <ul class="nav px-0">
+                            <ul class=" d-flex px-0 nav">
                             @{
+                               
                                 foreach (var ser in listServices)
                                 {
-                                                <img src="@ser.ImagePath" />
-
-                                                <li class="px-2"> @ser.Name </li>
+                                    <li class="px-3 imgsernamehover text-center"> 
+                                        @ser.Name 
+                                        <img class="imgsername" src="@ser.ImagePath" />    
+                                    </li>
                                 }
                             }
                                 
                                
                             </ul>
                         </div>
+
                         <div class="pt-5">
                             <p class="fs-5 fw-bold">تفاصيل العقار</p>
-                            <p> @Model.description
-                            </p>
+                            <p> @Model.description</p>
                         </div>
-                        <div class="pt-5">
-                            <p class="fs-5 fw-bold">التعليقات</p>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-3">
-                    <span class="fs-6 d-block text-secondary"><i class="bi bi-eye-fill px-1"></i> المشاهدات @Model.Views+ </span>
-                    <span class="fs-6 d-block text-secondary"><i class="bi bi-clock-fill px-1"></i> @Model.OnDate </span>
 
+
+                        
                     <div class="pt-4">
                         <p class="fs-5 fw-bold">موقع العقار</p>
-                        <div class="col-12 bg-warning py-5">
-
-الخريطة
-  <p>
-            <div class="d-flex justify-content-around">
-                <p   class="px-3"><span>@Html.DisplayNameFor(Models => Models.Longitude): </span><strong id="Long">@Html.DisplayFor(Models => Models.Longitude)</strong></p>
-                <p   class="px-3"><span>@Html.DisplayNameFor(Models => Models.Latitude): </span><strong id="Lat">@Html.DisplayFor(Models => Models.Latitude)</strong></p>
-            </div>
-            <div id="map" style="width: 100%; height: 450px; margin:12px 0;"></div>
-        </p>
+                        <div class="col-12">
+                            <div class="d-flex justify-content-around">
+                                <p class="px-3"><span>@Html.DisplayNameFor(Models => Models.Longitude): </span><strong
+                                        id="Long">@Html.DisplayFor(Models => Models.Longitude)</strong></p>
+                                <p class="px-3"><span>@Html.DisplayNameFor(Models => Models.Latitude): </span><strong
+                                        id="Lat">@Html.DisplayFor(Models => Models.Latitude)</strong></p>
+                            </div>
+                            <div id="map" style="width: 100%; height: 450px; margin:12px 0;"></div>
                         </div>
                     </div>
 
-                </div>
-            </div>
 
-        </div>
 
-        <a class="position-fixed py-2 px-3 rounded-circle WOW heartBeat incaht" data-wow-iteration="infinite" data-wow-duration="800ms" data-bs-toggle="tooltip" data-bs-placement="top" title="تواصل مع صاحب العقار" >
-            <i class="bi bi-chat fs-1 wow pulse"  data-wow-iteration="infinite" data-wow-duration="500ms" ></i>
-        </a>
-    </section>
-
-     @*التعليقات*@
-
-     
-        <!-- partial:index.partial.html -->
-        <!-- Contenedor Principal -->
-        <div class="comments-container">
+                        <div class="pt-5">
+                            <p class="fs-5 fw-bold">اكتب تعليقك</p>
+                               <div class="">
             <span id="loginPlease" style="display:none;"> عليك تسجيل الدخول اولا <a href="/Identity/Account/Login">
                     تسجيل الدخول</a></span>
             <form method="">
-                <div class="">
-                    <textarea id="bodytextarea" style="width:100%" rows="3"
-                        placeholder="اكتب هنا التعليق...."></textarea>
-                    <div class="witeComment">
-
-                        <a class="showx" onclick="createComments(@Model.Id)">
-
-
-
-
-                            إضافة هنا
+                <div class="d-flex align-items-center">
+                    <textarea id="bodytextarea" style="width:100%;background: var(--bgwhite);color: var(--txtactive);border-radius:20px; padding:8px" rows="3" placeholder="اكتب هنا التعليق...."></textarea>
+    
+                        <a class="showx " onclick="createComments(@Model.Id)">
+                            <i class="bi bi-send-fill iconsend px-2  fs-1 w-100 h-100"></i>
                         </a>
-
-                        <span id="errorEmpty"></span>
-                    </div>
-
-
-
+               
                 </div>
-
+                <span id="errorEmpty"></span>
             </form>
 
-            <p class="text-danger d-none added">تم إضافة التعليق بنجاح</p>
+            <p class="text-success d-none added">تم إضافة التعليق بنجاح</p>
 
-            <h1>التعليقات </h1>
+            <h1 class="pt-3 m-0">التعليقات </h1>
 
             <ul id="comments-list" class="comments-list ">
                 @{
                             @if(Models.Count()==0)
                 {
-                            <h1 class="text-center text-danger insertdata"> لا يوجد تعليقات </h1>
+                            <li class="text-center text-warning insertdata"> لا يوجد تعليقات </li>
                 }
                 for (int i = 0; i < Models.Count(); i++) { <li class="@((i!=0 && i!=1) ?" closed":"") @i">
                                 <div class="comment-main-level">
 
                                     <div class="comment-avatar">
-                                        @{
-
-
+              @{
 
                             if(Models[i].AppUser.ProfilePicture != null)
                             {
-                                                    <img src="data:image/*;base64,@(Convert.ToBase64String(Models[i].AppUser.ProfilePicture))"
-                                                        alt="">
+                                <img src="data:image/*;base64,@(Convert.ToBase64String(Models[i].AppUser.ProfilePicture))"  alt="">
                             }
-
                             else
-                            {
-                                                    <img src="/indexLayout/assets/img/pages/user.jpg" />
+                            { 
+                                <img src="/indexLayout/assets/img/pages/user.jpg" />
                             }
-                                        }
+              }
 
 
                                     </div>
@@ -713,9 +512,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                                             <h6 class="comment-name"><a>@Models[i].AppUser.FirstName
                                                     @Models[i].AppUser.LastName </a></h6>
 
-
-                                            <i class="fa fa-reply" onclick="ShowFormReplay(@i)"> </i>
-
+                                            <i class="bi bi-reply-all-fill"  onclick="ShowFormReplay(@i)"></i>
 
                                         </div>
                                         <div class="comment-content">
@@ -776,7 +573,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
                                                 </ul>
 
-                                                <div class="showRepShow showx" style="display: @((q==-1 ) ?" none":"") "  ><a class="
+                                                <div class="d-flex justify-content-end" style="display: @((q==-1 ) ?" none":"") "  ><a class="
                                                     x-@Models[i].Id" onclick="showReplaies(@Models[i].Id)">عرض الردود</a></div>
 
                         }
@@ -788,19 +585,14 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                                         <span class="loginPlac" id="loginPlease-@Models[i].Id" style="display:none !important;"> عليك
                                             تسجيل
                                             الدخول اولا <a href="/Identity/Account/Login"> تسجيل الدخول</a></span>
-                                        <div class="formrepla">
-                                            <textarea id="bodytextarea-@Models[i].Id" class="textrep" rows="3"
+                                        <div class=" d-flex justify-content-center align-items-center">
+                                            <textarea id="bodytextarea-@Models[i].Id" style="background: var(--bgwhite);color: var(--txtactive);border-radius:20px; padding:8px" class="" rows="3"
                                                 placeholder="اكتب هنا الرد...."></textarea>
 
-                                            <div class="writeRep">
+                                            <div class="">
 
                                                 <a class="showx" onclick="createRepaliy(@Models[i].Id)">
-
-
-
-                                                    إضافة هنا
-
-
+                                                     <i class="bi bi-send-fill iconsend px-2  fs-3 w-100 h-100"></i>
                                                 </a>
 
                                                 <span class="errorrep" id="errorEmpty-@Models[i].Id"></span>
@@ -829,7 +621,63 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
         </div>
 
 
-        <!-- partial -->
+  
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-3">
+
+
+                <a href="/UsersProfiles/GetProfile/@Model.UserId" class="fs-6 d-block fw-bold text-decoration-none my-4 sl" > 
+                     <div class="d-flex align-items-center" href="/Commments/GetProfile/@Model.UserId">
+                    @{
+                        if(@Model.Users.ProfilePicture==null)
+                        {
+                                        <img src="~/indexLayout/assets/img/pages/user.jpg" class="userimgs" />
+                        }
+                        else
+                        {
+                                    <img class="userimgs" src="data:image/*;base64,@(Convert.ToBase64String(Model.Users.ProfilePicture)) " />
+                         }
+                    }
+                        
+                        <p class="m-0 px-1">مالك العقار :</p>
+                        <p class="m-0 ">@Model.Users.FirstName @Model.Users.LastName</p>
+
+                    </div>
+
+                </a>
+
+
+
+                    <span class="fs-6 d-block text-secondary"><i class="bi bi-eye-fill px-1"></i> المشاهدات @Model.Views+ </span>
+                    <span class="fs-6 d-block text-secondary"><i class="bi bi-clock-fill px-1"></i> @Model.OnDate </span>
+
+                    <div class="bg-secondary p-5 my-3">
+                        <p class="p-5">
+                            اعلان
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <a class="position-fixed py-2 px-3 rounded-circle WOW heartBeat incaht" data-wow-iteration="infinite" data-wow-duration="800ms" data-bs-toggle="tooltip" data-bs-placement="top" title="تواصل مع صاحب العقار" >
+            <i class="bi bi-chat fs-1 wow pulse"  data-wow-iteration="infinite" data-wow-duration="500ms" ></i>
+        </a>
+    </section>
+
+     @*التعليقات*@
+
+     
+        <!-- partial:index.partial.html -->
+        <!-- Contenedor Principal -->
+     
 
 
 
