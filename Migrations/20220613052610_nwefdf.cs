@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GP.Migrations
 {
-    public partial class first : Migration
+    public partial class nwefdf : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
