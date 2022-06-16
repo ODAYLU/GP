@@ -6,16 +6,11 @@ Layout = "/Views/Shared/_Layout.cshtml";
 @inject IPhotoEstate _photoEstate
 @inject IService_Estate _service_Estate
 
-  
 // select Comments From DataBase where Model.EstateId equals Id
 IList<Comments>  Models=  _context.GetAll().Where(x=>x.EstateId==Model.Id).ToList();
-
 // select Services From DataBase where Model.EstateId equals Id
-
 IList<Services> listServices=  _service_Estate.GetALl(Model.Id).ToList();
-
 // select PhotoEstate From DataBase where Model.EstateId equals Id
-
 IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
 }
@@ -319,8 +314,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
             }
 
         </style>
-
-        }
+}
 
 
 
@@ -339,7 +333,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                 <div class="col-12 col-md-3 d-flex d-none d-md-block gallery">
                 @{
                     var sewar = 0;
-                    for (int e=0;e <2;e++)
+                    for (int e=0;e <@photosPaths.Count;e++)
                     {
                         
                          <a id="EPic" class="image-thumbnail" href="#@sewar">
@@ -667,9 +661,6 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
         </div>
 
-        <a class="position-fixed py-2 px-3 rounded-circle WOW heartBeat incaht" data-wow-iteration="infinite" data-wow-duration="800ms" data-bs-toggle="tooltip" data-bs-placement="top" title="تواصل مع صاحب العقار" >
-            <i class="bi bi-chat fs-1 wow pulse"  data-wow-iteration="infinite" data-wow-duration="500ms" ></i>
-        </a>
     </section>
 
      @*التعليقات*@
