@@ -110,7 +110,12 @@ namespace GP.Models
         }
         public IEnumerable<Estate> GetAll()
         {
-            IEnumerable<Estate> list = _context.TEstates.AsNoTracking().Include(c => c.Currency).Include(x => x.Category).Include(x => x.State).Include(x => x.Type).Include(x => x.Users).Include(x => x.City).AsEnumerable();
+            IEnumerable<Estate> list = _context.TEstates
+                .AsNoTracking()
+                .Include(c => c.Currency)
+                .Include(x => x.Category)
+                .Include(x => x.State)
+                .Include(x => x.Type).Include(x => x.Users).Include(x => x.City).AsEnumerable();
 
 
             return list;
