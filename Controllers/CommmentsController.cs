@@ -1,7 +1,9 @@
-﻿using GP.Models;
+﻿using GP.Hubs;
+using GP.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,7 +18,15 @@ namespace GP
         private readonly UserManager<AppUser> _users;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IService_Estate _service_Estate;
-        public CommmentsController(ICommments context, IPhotoEstate photoEstate, IWebHostEnvironment webHostEnvironment, IReplaies replaies, IEstate estate, IService_Estate service_Estate)
+        private readonly IHubContext<NotificationHub> _hub;
+        private readonly INotification _notification;
+        public CommmentsController(ICommments context,
+            IPhotoEstate photoEstate, 
+            IWebHostEnvironment webHostEnvironment,
+            IReplaies replaies, IEstate estate,
+            IService_Estate service_Estate,
+            IHubContext<NotificationHub> hub,
+            INotification notification)
         {
             this._context = context;
             this._estate = estate;
@@ -24,6 +34,8 @@ namespace GP
             this._webHostEnvironment = webHostEnvironment;
             this._service_Estate = service_Estate;
             this._photoEstate = photoEstate;
+            _hub = hub;
+            _notification = notification;
         }
         public IActionResult Commments()
         {
@@ -107,7 +119,7 @@ namespace GP
             //    x.Add($"{item.body},{item.CommentId},{image} ");
             //}
         }
-        [HttpGet]
+       
         public async Task<IActionResult> EstateComment(long id)
         {
             Estate es = await _estate.GetOne(id);
