@@ -79,10 +79,10 @@ html {
 }
 
 body {
-  background: var(--bgwhite);
-  color: var(--txtactive);
-  height: 100%;
-  position: relative;
+    background: var(--bgwhite);
+    color: var(--txtactive);
+    height: 100%;
+    position: relative;
 }
 
 /***************************************** start header **************************/
