@@ -210,20 +210,6 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
         }
     </form>
 
-@*
-            <div class="containerr hoverimg">
-
-            <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
-            <img id="expandedImg" class="image">
-            <div class="middle">
-                <div class="text">
-                    <button type="submit" class="btn" asp-action="DeleteImage" asp-route-id="@item.Id"
-                        onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                    <a class="btn" href="#" onclick="UpdateState(@item.Id,'@item.ImagePath');">Edit</a>
-                </div>
-            </div>
-        </div>
-*@
 
 
 
@@ -400,7 +386,7 @@ swalWithBootstrapButtons.fire({
 
     </script>
 
-    @idupp=idUp;
+ @*   @idupp=idUp;*@
 
     <script>
     </script>

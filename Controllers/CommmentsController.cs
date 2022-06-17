@@ -82,15 +82,16 @@ namespace GP
 
             return RedirectToAction("/Index");
         }
-        [HttpPost]
-        public async Task<IActionResult> DeleteComment(long id)
+        [HttpGet]
+        public async Task<IActionResult> DeleteComment(string id)
         {
-            if (id == 0)
+            if (id == null)
             {
                 return NotFound();
             }
             //  Comments com = await _context.GetOne(id);
-            await _context.DeleteComment(id);
+            await _context.DeleteComment(long.Parse(id));
+            
             return Ok();
 
         }
