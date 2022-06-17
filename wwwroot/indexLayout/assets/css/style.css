@@ -11,6 +11,120 @@
 
 
 
+.prof-img {
+    width: 200px;
+    height: 200px;
+    border: 1px solid #2a5555;
+    padding: 5px;
+}
+
+.accordion-item {
+    background-color: var(--bgdark);
+    border: 1px solid rgb(0 0 0 / 0%);
+}
+
+.accordion-button:not(.collapsed) {
+    color: #111;
+    background-color: var(--litegreen);
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+}
+
+.accordion-button {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    color: #111;
+    font-weight: bold;
+    text-align: left;
+    background-color: var(--litegreen);
+    border: 0;
+    border-radius: 0;
+    overflow-anchor: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,border-radius .15s ease;
+}
+
+    .accordion-button:not(.collapsed)::after {
+        transform: rotate(92deg);
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23212529'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
+
+    .accordion-button:focus {
+        z-index: 3;
+        border-color: var(--green);
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgb(42 85 85/ 25%);
+    }
+
+.bg-icon {
+    border-radius: 50%;
+    padding: 6px 10px;
+    margin: 7px;
+    text-align: center;
+}
+
+.f {
+    background-color: #1b74e4;
+}
+
+.n {
+    background-color: #FA383E;
+}
+
+.t {
+    background-color: #1da1f2;
+}
+
+.w {
+    background-color: #00a783;
+}
+
+.bg-icon:hover {
+    background-color: #111;
+    font-size: 30px;
+    padding: 6px 15px;
+    text-align: center;
+}
+
+.download-card:hover {
+    transform: none;
+    transition: none;
+}
+
+@media (min-width: 700px) {
+  .download-cards[data-view="list-view"] .download-card__icon-box {
+    width: 400px;
+    position: relative;
+    width: 100%;
+    border-right: 1px solid #e6e6e6;
+  }
+  .download-cards[data-view="list-view"] .content{
+    padding: 20px 20px 20px 20px !important;
+  }
+}
+
+
+@media (min-width: 1000px) {
+  .download-cards[data-view="list-view"] .download-card__icon-box {
+    width: 400px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-right: 1px solid #e6e6e6;
+  }
+  .download-cards[data-view="list-view"] .content{
+    padding: 20px 420px 20px 20px !important;
+  }
+}
+
+
+
+
+
 :root,
 :root.light {
     --green: #2a5555 !important;
@@ -1867,6 +1981,10 @@ section .land1 {
     right: 20px;
     bottom: 20px;
     background: var(--litegreen);
+    color:black;
+}
+.incaht:hover{
+    color:white;
 }
 
 .userimgs {
