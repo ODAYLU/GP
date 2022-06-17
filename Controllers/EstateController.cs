@@ -12,7 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using X.PagedList;
+//using X.PagedList;
 
 namespace GP
 {
@@ -69,8 +69,8 @@ namespace GP
             int pageSize = 3;
             SeedData.IsPserosalPhoto = false;
             string UserId1 = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var list = services.GetAll().Where(x => x.UserId == UserId1 && x.is_active == true).ToPagedList(pageNumber, pageSize);
-
+            //var list = services.GetAll().Where(x => x.UserId == UserId1 && x.is_active == true).ToPagedList(pageNumber, pageSize);
+            var list = "";
             return View(list);
         }
 
