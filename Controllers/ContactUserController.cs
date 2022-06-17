@@ -74,7 +74,7 @@ namespace GP.Controllers
                 message.IsReaded = true;
             }
             _context.Messages.UpdateRange(msg);
-            _context.SaveChanges();
+           await _context.SaveChangesAsync();
             if (SenderId == ReciverId)
             {
                 data = await _context.Messages.Where(x => x.ReceiverId == ReciverId && x.ReceiverId == x.UserId).ToListAsync();

@@ -53,9 +53,9 @@ Connection.on("connectedUsers", function (users) {
                         </div>
 
                         <span class="messaging-member__name  textstart"> ${data[i].user.userName} </span>
-                    ${UnRead}
+                   
                     </div>
-
+                     ${UnRead}
 
                 </li>`;
 
@@ -66,7 +66,10 @@ Connection.on("connectedUsers", function (users) {
         }
     });
 });
-
+$(document).ready(function () {
+    $("#boxSend").attr("hidden", true);
+    $("#Messages").attr("hidden", true);
+});
 Connection.on("receiveMessage", function (msg, users) {
 
     var Id = $("#txtIdUserCurrent").val();
@@ -98,7 +101,7 @@ Connection.on("receiveMessage", function (msg, users) {
 
     $.ajax({
         method: 'Post',
-        url: `/ContactUser/GetUsers?text=${users}`,
+        url: `/ContactUser/GetUsersContact`,
         data: { text: text },
         processData: false,
         contentType: false,
@@ -138,9 +141,9 @@ Connection.on("receiveMessage", function (msg, users) {
                         </div>
 
                         <span class="messaging-member__name  textstart"> ${data[i].user.userName} </span>
-                    ${UnRead}
+                   
                     </div>
-
+                    ${UnRead}
                 </li>`;
 
             }
@@ -150,13 +153,20 @@ Connection.on("receiveMessage", function (msg, users) {
 
 });
 
+$("body").on("mouseenter", "#Messages li",function () {
+   
+    $(this).children(".chat__time").attr("hidden", false);
+}).on("mouseleave", "#Messages li", function () {
 
+    $(this).children(".chat__time").attr("hidden", true);
+});
 $("body").on("click", "#Users li", function (e) {
     e.preventDefault();
-
+    $("#boxSend").attr("hidden", false);
     $("#Messages").removeClass("d-none");
     $("#Header").removeClass("d-none");
     $("#Image").addClass("d-none");
+    $("#Messages").attr("hidden", false);
     $(this).children(".Notification").addClass("d-none");
     $("#btnSend").attr("disabled", false);
     $("#txtId").val($(this).children("input").val());
@@ -175,7 +185,14 @@ $("body").on("click", "#Users li", function (e) {
 
             var text = "";
             var img = "";
+            var time = "";
             for (var i = 0; i < data.length; i++) {
+                if (i % 10 == 0) {
+                    time = `<div class="chat__time">${getLastSeen(data[i].time)}</div>`;
+                }
+                else {
+                    time = `<div class="chat__time" hidden>${getLastSeen(data[i].time)}</div>`;
+                }
                 if (data[i].profilePicture != null) {
 
                     img = "data:image/jpeg;base64," + btoa(atob(`${data[i].profilePicture}`));
@@ -186,7 +203,7 @@ $("body").on("click", "#Users li", function (e) {
                 if (data[i].receiverId == IdR) {
 
                     text += `<li>
-                        <div class="chat__time">${getLastSeen(data[i].time)}</div>
+                        ${time}
                         <div class="chat__bubble chat__bubble--you">
                             ${data[i].text}
                         </div>
@@ -194,7 +211,7 @@ $("body").on("click", "#Users li", function (e) {
                 }
                 else {
                     text += `<li>
-                        <div class="chat__time">${getLastSeen(data[i].time)}</div>
+                        ${time}
                         <div class="chat__bubble chat__bubble--me">
                             ${data[i].text}
                         </div>

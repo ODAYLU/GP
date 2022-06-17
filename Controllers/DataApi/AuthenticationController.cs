@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -66,6 +67,55 @@ namespace GP.Controllers.DataApi
                 status = false;
                 des = "The Login Attemp Is Not Valid";
                 return BadRequest(new { status,des});
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody] RegisterModel model)
+        {
+            bool status = false;
+            string des = "";
+            if (!ModelState.IsValid)
+            {
+                des = "Login Is Not Valid";
+                status = false;
+                return BadRequest(new { status, des });
+            }
+            var user = await _userManager.FindByEmailAsync(model.Email);
+            if (user is not null)
+            {
+                status = false;
+                des = "the user is already exist";
+                return BadRequest(new { status, des });
+            }
+            var userModel = new AppUser
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email,
+                UserName = new MailAddress(model.Email).User
+            };
+            var result = await _userManager.CreateAsync(userModel, model.Password);
+
+            if (result.Succeeded)
+            {
+                if (model.IsOwner)
+                {
+                   await _userManager.AddToRoleAsync(userModel,"Owner");
+                }
+                else
+                {
+                    await _userManager.AddToRoleAsync(userModel,"User");
+                }
+                status = true;
+                string Token = CreateJWT(userModel);
+
+                return Ok(new { status, Token });
+            }
+            else
+            {
+                status = false;
+                des = "The Register Attemp Is Not Valid";
+                return BadRequest(new { status, des });
             }
         }
         private string CreateJWT(AppUser user)

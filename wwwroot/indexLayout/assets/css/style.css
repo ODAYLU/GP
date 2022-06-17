@@ -1867,6 +1867,10 @@ section .land1 {
     right: 20px;
     bottom: 20px;
     background: var(--litegreen);
+    color:black;
+}
+.incaht:hover{
+    color:white;
 }
 
 .userimgs {
