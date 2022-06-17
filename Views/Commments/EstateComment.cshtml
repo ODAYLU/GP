@@ -333,7 +333,9 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                 <div class="col-12 col-md-3 d-flex d-none d-md-block gallery">
                 @{
                     var sewar = 0;
-                    for (int e=0;e <2;e++)
+                    if (@photosPaths.Count>=2)
+                    {
+                         for (int e=0;e <2;e++)
                     {
                         
                          <a id="EPic" class="image-thumbnail" href="#@sewar">
@@ -341,6 +343,8 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                          </a>
                         sewar++;
                     }
+                    }
+                   
                 }
 
             </div>
