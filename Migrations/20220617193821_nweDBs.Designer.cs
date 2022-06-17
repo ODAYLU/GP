@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220617172434_f1")]
-    partial class f1
+    [Migration("20220617193821_nweDBs")]
+    partial class nweDBs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
