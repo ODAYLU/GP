@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace GP
 {
@@ -61,11 +62,14 @@ namespace GP
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
+
+            var pageNumber = page ?? 1;
+            int pageSize = 3;
             SeedData.IsPserosalPhoto = false;
             string UserId1 = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            List<Estate> list = services.GetAll().Where(x => x.UserId == UserId1 && x.is_active == true).ToList();
+            var list = services.GetAll().Where(x => x.UserId == UserId1 && x.is_active == true).ToPagedList(pageNumber, pageSize);
 
             return View(list);
         }
@@ -167,7 +171,10 @@ namespace GP
             if (id != 0)
             {
                 Estate estate = await services.GetOne(id);
-
+                if (estate == null)
+                {
+                    return View("/Views/NotAccess.cshtml");
+                }
                 string UserIdLogin = @User.FindFirstValue(ClaimTypes.NameIdentifier);
                 if (!UserIdLogin.Equals(estate.UserId))
                 {

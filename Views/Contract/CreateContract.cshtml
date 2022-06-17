@@ -12,7 +12,7 @@
     Estate estate = _ser.GetOnetoImage(IdEstate.Id);
           //  Layout = "~/Views/Shared/_LayoutOwner.cshtml";
 
-             if (User.IsInRole("Owner"))
+    if (User.IsInRole("Owner"))
     {
         Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
       
