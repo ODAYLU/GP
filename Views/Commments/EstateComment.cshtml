@@ -333,13 +333,12 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                 <div class="col-12 col-md-3 d-flex d-none d-md-block gallery">
                 @{
                     var sewar = 0;
-                    for (int e=0;e <@photosPaths.Count;e++)
+                    for (int e=0;e <2;e++)
                     {
                         
                          <a id="EPic" class="image-thumbnail" href="#@sewar">
-                            <img src="~/images/Estate/@photosPaths[e].ImagePath" class=" img-fluid w-100 h-100"></a>
-
-                            
+                            <img src="~/images/Estate/@photosPaths[e].ImagePath" class=" img-fluid w-100 h-100">
+                         </a>
                         sewar++;
                     }
                 }
@@ -398,16 +397,23 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
         }
 
 
-
-
-
+     
 
 
         <div class="row py-4 text-end ">
             <div class="col-12 col-md-9 ">
                 <div class="pe-xl-5">
-                  
-                    
+           <section>
+               
+                       @{
+            if(@photosPaths.Count>2){
+                for (int k= 0;k < @photosPaths.Count;k++)
+                {
+                    <img src="~/images/Estate/@photosPaths[k].ImagePath" />
+                }
+            }
+        }
+           </section>
                         <p class="fs-2 ">عنوان العقار</p>
                         <p><i class="bi bi-geo-alt-fill"></i>@Model.State.name _ @Model.City.name</p>
                         <div class="d-flex justify-content-between align-items-center fs-5">
