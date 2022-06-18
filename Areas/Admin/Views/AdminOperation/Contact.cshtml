@@ -1,7 +1,7 @@
 ﻿@model GP.Models.ViewModels.ContactVM
-@{ ViewData["Title"] = "Home Page"; }
-
-
+@{
+    ViewData["Title"] = "وسائل التواصل";
+}
 
 
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -71,7 +71,7 @@
     </div>
 </div>
 
-<table id="Cities" class="table hover display stripe order-column  cell-border text-center nowrap compact w-100 flex-nowrap" style="direction:rtl;">
+<table id="Cities" class="table responsive cell-border hover text-center" style="width: 100%">
     <thead>
         <tr>
             <th>الرقم</th>
@@ -96,10 +96,8 @@
                 "filter": true,
                 "responsive": true,
                 "lengthMenu": [10, 20, 30, 40, 50],
-                "language": {
-                    "search": "ابحث",
-                    "lengthMenu": "عرض _MENU_ صفوف"
-                },
+                "stateSave":true,
+                "language":{ url:'/assets/ar.json'},
                 "ajax": {
                     "url": '/api/Api/GetContact',
                     "type": "POST",

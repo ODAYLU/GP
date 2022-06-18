@@ -1,5 +1,5 @@
 ﻿@model GP.Models.AppUser
-@{ ViewData["Title"] = "Home Page"; }
+@{ ViewData["Title"] = "المستخدمين"; }
 
 <button hidden id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
         class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">
@@ -29,11 +29,9 @@
         </div>
     </div>
 </div>
-<h1 class="text-center"  style="color: #0f4f54">المستخدمين</h1>
-<hr />
 
 
-<table id="AllUsers" class="table table-striped table-bordered w-100 flex-nowrap" style="direction:rtl;">
+<table id="AllUsers" class="table responsive cell-border hover text-center" style="width: 100%">
     <thead>
         <tr>
             <th>الرقم</th>
@@ -56,15 +54,12 @@
     <script type="text/javascript">
         $(document).ready(function ()  {
             $("#AllUsers").DataTable({
+                "filter": true,
                 "processing": true,
                 "serverSide": true,
-                "filter": true,
                 "responsive": true,
                 "lengthMenu": [10, 20, 30, 40, 50],
-                "language": {
-                    "search": "ابحث",
-                    "lengthMenu": "عرض _MENU_ صفوف"
-                },
+                "language":{ url:'/assets/ar.json'},
                 "ajax": {
                     "url": '/api/Api/GetUser',
                     "type": "POST",
@@ -76,20 +71,20 @@
                     "searchable": false
                 } ],
                 "columns": [
-                    { "data": "id", "name": "Id", "autowidth": true },
-                    { "data": "firstName", "name": "FirstName", "autowidth": true },
-                    { "data": "lastName", "name": "LastName", "autowidth": true },
-                    { "data": "userName", "name": "UserName", "autowidth": true },
-                    { "data": "is_active", "name": "is_active", "autowidth": true },
-                    { "data": "memory", "name": "memory", "autowidth": true },
-                   //  { "data": "imagePath", "name": "ImagePath", "autowidth": true },
+                    { "data": "id", "name": "Id"},
+                    { "data": "firstName", "name": "FirstName"},
+                    { "data": "lastName", "name": "LastName"},
+                    { "data": "userName", "name": "UserName"},
+                    { "data": "is_active", "name": "is_active"},
+                    { "data": "memory", "name": "memory"},
+                   //  { "data": "imagePath", "name": "ImagePath"},
                     {
                         "render": function (data, type, row) { return '<img hidden src="' + row.imagePath + '" class=" w-25 h-25" asp-append-version="true" />' },
-                        "orderable": false
+ 
                     },
                     {
                         "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCategory("' + row.id + '"); > تفاصيل </a>' },
-                        "orderable": false
+ 
                     },
                     {
                         "render": function (data, type, row)
@@ -104,15 +99,15 @@
                             }
                            
                         },
-                        "orderable": false
+ 
                     },
                     {
                         "render": function (data, type, row) { return '<a href="#" id= "AddMemory" class="btn btn-outline-danger" onclick=AddToMemory("' + row.id + '"); > إضافة للحافظة  </a>' },
-                        "orderable": false
+ 
                     },
                     {
                         "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCategory("' + row.id + '"); > حذف </a>' },
-                        "orderable": false
+ 
                     },
                 ]
             });

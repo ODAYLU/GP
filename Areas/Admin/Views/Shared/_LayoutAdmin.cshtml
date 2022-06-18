@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم</title>
+    <title>@ViewData["Title"]</title>
     <link rel="shortcut icon" href="~/assets/img/logo/logo.png">
    <link href="~/assets/css/chart/mobiscroll.javascript.min.css" rel="stylesheet" />
-    @*<script src="~/assets/js/Chartmobiscroll.javascript.min.js"></script>*@
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
     <link href="~/assets/bootstrap/bootstrap4.min.css" rel="stylesheet">
     <link href="~/assets/bootstrap/bootstrap5.min.css" rel="stylesheet">
     <link href="~/assets/bootstrap/font-awesome.min.css" rel="stylesheet">
@@ -18,10 +18,8 @@
     <link href="~/css/login.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
     <link href="~/css/Login/login.css" rel="stylesheet" />
-    <link href="~/assets/css/style.css" rel="stylesheet">
      <link href="~/assets/css/newcss.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
-
+    <link href="~/assets/css/style.css" rel="stylesheet">
     <style>
     
     .dropdown-item.active, .dropdown-item:active {
@@ -41,7 +39,7 @@
     </div>
     <main id="main" style="display: block;">
         <header class="bgcolors">
-            <div class="sidebar h-100 end-0 " id="myDIV" >
+            <div class="sidebar end-0 " id="myDIV" >
 
                 <div class="sidebar-header d-flex justify-content-center pb-3 " >
                     <a href="dashbord.html" class="sidebar-logo">
@@ -194,29 +192,42 @@
                         </li>
                     </ul>
                 </div>
-
-                
             </div>
 
             <div class="container-fluid p-0">
                 <div class="content">
+
                     <ul class="nav p-0 align-items-center">
+
+                        
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#">
-                                <p class="text-white fs-2">
-                                    <span class="show d-none px-1" style="font-size:30px;cursor:pointer;"
-                                        onclick="myFunction()">&#9776;</span>
-                                    <span id="btnss" class="text-white d-lg-inline-block d-none">
-                                        <i class="bi bi-chevron-right"></i>
-                                    </span>
-                                    لوحة التحكم
-                                </p>
-                            </a>
+
+                            <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb align-items-center">
+                                <li class="breadcrumb-item  text-white fs-2">
+                                  
+                                   <p class="nav-link text-white fs-2">
+                                            <span class="show d-none px-1" style="font-size:30px;cursor:pointer;"
+                                                onclick="myFunction()">&#9776;</span>
+                                            <span id="btnss" class="text-white d-lg-inline-block d-none">
+                                                <i class="bi bi-chevron-right"></i>
+                                            </span>
+                                             <a class="nav-link text-white d-inline" aria-current="page" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">
+                                   
+                                                 لوحة التحكم
+                                                  </a>
+                                    </p>
+                                   
+                                </li>
+                                <li class="breadcrumb-item text-white fs-4 active" aria-current="page">
+                                      @ViewData["Title"]
+                                </li>
+                              </ol>
+                            </nav>
                         </li>
+                        
 
-
-                          <li class="nav-item  me-auto ps-2" >
-                                                    
+                        <li class="nav-item  me-auto ps-2" >                        
                             <div class="dropdown">
                                     <button id="btnNotification" type="button" class="btn text-white  dropdown-toggle " data-bs-toggle="dropdown" style="box-shadow: none;">
                                     <i class="bi bi-bell-fill fs-2"></i>
@@ -225,6 +236,18 @@
                                     <ul id="NotificationAdmin" class="dropdown-menu" >
                                         <li>sxdcfvgbhnjmk</li>
                                     </ul>
+                            </div>
+                        </li>
+
+                        <li class="nav-item ps-2 ">
+                            <div class="toggle-container">
+                                <button class="theme-btn text-white light" onclick="setTheme('light')"
+                                    title="Light mode">
+                                    <i class="bi bi-brightness-high-fill"></i>
+                                </button>
+                                <button class="theme-btn text-white dark" onclick="setTheme('dark')" title="Dark mode">
+                                    <i class="bi bi-moon-stars-fill"></i>
+                                </button>
                             </div>
                         </li>
 
@@ -284,8 +307,7 @@
     <script src="~/assets/bootstrap/Chart.min.js"></script>
     <script src="~/assets/js/animate.js"></script>
     <script src="~/assets/js/loding.js"></script>
-    <script src="~/assets/js/Calendar.js" type="text/javascript"></script>
-   <<script src="~/assets/js/Chart.js" type="text/javascript"></script>
+   <script src="~/assets/js/Chart.js" type="text/javascript"></script>
     <script src="~/SweetAlert/sweetalert2@11.js"></script>
     <script src="~/lib/aspnet/signalr/dist/browser/signalr.js"></script>
     <script src="~/js/Chat.js"></script>

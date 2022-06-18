@@ -1,10 +1,8 @@
 ﻿@model GP.Models.ViewModels.CategoeyVM
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "التصنيفات";
 }
 
-<h1 class="text-center"  style="color: #0f4f54">التصنيفات</h1>
-<hr />
 
 <button id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
         class="btn btn-sm  btn-outline-green ms-2 mb-5 mt-2 px-5 fw-bold fs-5" data-toggle="modal">
@@ -66,7 +64,7 @@
 
 
     
-<table id="Categories" class="table hover display stripe order-column  cell-border text-center nowrap compact w-100 flex-nowrap" style="direction:rtl;">
+<table id="Categories" class="table responsive cell-border hover text-center" style="width: 100%">
     <thead class="">
         <tr>
             <th>الرقم</th>
@@ -89,10 +87,8 @@
                 "filter": true,
                 "responsive": true,
                 "lengthMenu": [10, 20, 30, 40, 50],
-                "language": {
-                    "search": "ابحث",
-                    "lengthMenu": "عرض _MENU_ صفوف"
-                },
+                  "stateSave":true,
+                "language":{ url:'/assets/ar.json'},
                 dom: 'Bfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
