@@ -44,6 +44,7 @@
         --litegreen: var(--litegreen);
         --bgdark: #0a1a17d4 !important;
         --grernwith: #fff !important;
+
     }
 
 
@@ -916,10 +917,12 @@ table.dataTable.cell-border tbody th, table.dataTable.cell-border tbody td {
 .tbody, td, tfoot, th, thead, tr {
     background: #9ba8896e;
     color: var(--txtactive);
+    vertical-align: middle;
 }
 table.dataTable tbody tr {
     background: var(--bgwhite) !important;
     color: var(--txtactive) !important;
+    vertical-align: middle;
 }
 
 
@@ -930,11 +933,12 @@ table.dataTable tbody tr {
     border: 1px solid #0f4f54;
 }
 
-.table > tbody >tr >td{
+.table > tbody > tr > td {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 10px;
+    vertical-align: middle;
 }
 
 
@@ -1039,3 +1043,21 @@ input:focus-visible {
 .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
     color: var(--txtactive);
 }
+
+
+.modal-content {
+    background-color: var(--bgwhite);
+    color: var(--txtactive);
+}
+
+.form-control {
+    background-color: var(--bgwhite);
+    color: var(--txtactive);
+}
+
+    .form-control:focus {
+        color: var(--txtactive);
+        background-color: var(--bgwhite);
+        border-color: #005C4B;
+        outline: none;
+    }

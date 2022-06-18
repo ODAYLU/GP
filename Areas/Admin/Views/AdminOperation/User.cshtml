@@ -41,10 +41,10 @@
             <th> الحالة</th>
             <th> الحافظة</th>
             <th>الصورة</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>تفاصيل</th>
+            <th>تقييد</th>
+            <th>الحافظة</th>
+            <th>حذف</th>
         </tr>
     </thead>
 </table>
@@ -83,7 +83,7 @@
  
                     },
                     {
-                        "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCategory("' + row.id + '"); > تفاصيل </a>' },
+                        "render": function (data, type, row) { return '<a href="#" class="btn btn-info" onclick=DeleteCategory("' + row.id + '"); > تفاصيل </a>' },
  
                     },
                     {
@@ -91,22 +91,22 @@
                         {
                             if (row.is_active)
                             {
-                                return '<a href="#" id="btnStates" class="btn btn-outline-danger" onclick=BlockUser("' + row.id + '"); > تقييد </a>'
+                                return '<a href="#" id="btnStates" class="btn btn-danger" onclick=BlockUser("' + row.id + '"); > تقييد </a>'
                             }
                             else
                             {
-                                return '<a href="#" id="btnStates" class="btn btn-outline-danger" onclick=UnBlockUser("' + row.id + '"); > تفعيل </a>'
+                                return '<a href="#" id="btnStates" class="btn btn-success" onclick=UnBlockUser("' + row.id + '"); > تفعيل </a>'
                             }
                            
                         },
  
                     },
                     {
-                        "render": function (data, type, row) { return '<a href="#" id= "AddMemory" class="btn btn-outline-danger" onclick=AddToMemory("' + row.id + '"); > إضافة للحافظة  </a>' },
+                        "render": function (data, type, row) { return '<a href="#" id= "AddMemory" class="btn btn-secondary" onclick=AddToMemory("' + row.id + '"); > إضافة للحافظة  </a>' },
  
                     },
                     {
-                        "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCategory("' + row.id + '"); > حذف </a>' },
+                        "render": function (data, type, row) { return '<a href="#" class="btn btn-danger" onclick=DeleteCategory("' + row.id + '"); > حذف </a>' },
  
                     },
                 ]

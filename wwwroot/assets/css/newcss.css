@@ -1,15 +1,12 @@
-﻿
-.formFile::before {
+﻿.formFile::before {
     content: "اختر ملف";
     position: absolute;
     z-index: 2;
     display: block;
     background-color: #e9ecef;
     width: 80px;
-    
+    color: #111;
 }
-
-
 .btn-outline-green {
     color: #0f4f54 !important;
     border-color: #0f4f54 !important;
