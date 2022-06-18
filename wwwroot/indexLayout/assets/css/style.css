@@ -1421,7 +1421,7 @@ span.round-tab {
 .ulborder .nav-item {
     border-bottom: 0.2px solid #9ba88931;
     width: 100%;
-    padding-right: 80px;
+    padding-right: 0px;
 }
 
     .ulborder .nav-item:last-child {
@@ -1437,6 +1437,11 @@ span.round-tab {
         background-color: #ffdead4d;
         border-right: 4px solid var(--orange);
     }
+
+        .ulborder .nav-item.active .nav-link {
+            padding: 8px 12px;
+        }
+
 
 .profile-stat {
     padding-bottom: 20px;
