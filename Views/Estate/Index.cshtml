@@ -1,6 +1,9 @@
 ﻿
 @using X.PagedList.Mvc.Core; <!--import to get HTML Helper-->
 @using X.PagedList;
+@inject GP.Models.IType tYP  
+@inject GP.Models.ICategory cate  
+
 
 @model IEnumerable<GP.Models.Estate>
 
@@ -58,7 +61,7 @@ body{
     <div id="mymessage" class=" postion toast align-items-center text-white bg-primary border-0" role="alert"   aria-live="assertive" aria-atomic="true">
         <div class="d-flex">
             <div class="toast-body">
-                @GP.Models.Toast.Message
+               <h4 >  @GP.Models.Toast.Message </h4>
             </div>
             <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
@@ -69,8 +72,62 @@ body{
 <div class="text-start position-absolute left-0" style="border-bottom: 2px solid var(--orange);left: 20px;top: 20px;">
     <a asp-action="CreateTemp"  style="text-decoration:none; color:var(--orange);">اضافة عقار <i class="bi bi-plus"></i></a>
 </div>
+<div class="my-4">
+    <form method="post" asp-action="filterPost">
+    <div class="row">
+     <div class="col-12 col-md-6">
+
+            <div class="form-group">
+
+        <label  class="control-label">   كود العقار  </label>
+        <input type="number" name="Estatecode"  class="form-control rounded-pill"placeholder="كود العقار" />                         
+    </div>
+     </div>
+          <div class="col-12 col-md-6">
+
+     <div class="form-group">
 
 
+        <label  class="control-label">   اختر حالة العقار  </label>
+            <select  class ="form-control rounded-pill" name="status">
+                <option value="-1">-- حالة العقار --   </option>
+                 <option value="1">منشور  </option>
+                  <option value="0"> غير منشور</option>
+            </select>
+
+
+                                     
+    </div>
+                    </div>
+                      <div class="col-12 col-md-6">
+             <div class="form-group">
+                        <label  class="control-label"> نوع العقار</label>
+                        <select name="tYP" class ="form-control rounded-pill"  asp-items="new SelectList(tYP.GetAllSelected(),nameof( GP.Models.Type.Id),nameof( GP.Models.Type.type))">
+                                                
+                            <option value="-1" selected disabled>اختر واحدة</option>
+                        </select>
+                    </div>
+
+    </div>
+
+                  <div class="col-12 col-md-6">
+             <div class="form-group">
+                        <label  class="control-label"> تصنيف العقار</label>
+                        <select name="cate" class ="form-control rounded-pill" asp-items="new SelectList(cate.GetAllSelected(),nameof(Category.Id),nameof(Category.category))">
+                                                
+                            <option value="-1" selected disabled>اختر واحدة</option>
+                        </select>
+                    </div>
+
+    </div>
+     </div>
+
+    <input type="submit" value="ابحث"  class="btn btn-success rounded-pill co1-1"/>
+</form>
+
+
+
+</div>
 
 @* class="rounded " height="50" width="50" style="border-radius: 50%"*@
 @{
@@ -82,7 +139,7 @@ body{
     if(Model.Count() == 0)
     {
     <div class="text-center" style="margin-top:150px">
-                        <h3>لايوجد عقارات مضافة </h3>
+                            <h3>لايوجد عقارات مضافة </h3>
     </div>
     }
 
@@ -92,46 +149,52 @@ body{
         foreach (var item in Model) { 
 
     <div class=" mb-3" style="background-color:var(--bgwhite)">
-              <div class="row g-0">
-                <div class="col-md-4">
-                  <img src="~/images/Estate/@item.Main_photo" class="img-fluid rounded-start h-75 w-100" >
-                </div>
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title fs-4 mb-3"><strong>- @Html.DisplayFor(modelItem => item.name)</strong><sub><span>@Html.DisplayFor(modelItem => item.Type.type)</span>  <span>@Html.DisplayFor(modelItem => item.Category.category)</span></sub></h5>
-                    <p class="card-text a mb-3">@Html.DisplayFor(modelItem => item.description)</p>
-                    <p class="card-text my-4"><strong>مساحة العقار:@Html.DisplayFor(modelItem => item.space)</strong></p>
-                    <div class=" card-text d-flex mt-5">
-                        <p class="card-text "><strong><i class="bi bi-geo-alt-fill"></i> @Html.DisplayFor(modelItem => item.State.name) - @Html.DisplayFor(modelItem => item.City.name)</strong></p>
-                        <p class="card-text pe-5"><strong><i class="bi bi-cash-coin"></i> <span>@Html.DisplayNameFor(modelItem => item.price): </span>@Html.DisplayFor(modelItem => item.price)@Html.DisplayFor(modelItem => item.Currency.currency)</strong></p>
+                  <div class="row g-0">
+                    <div class="col-md-4">
+                      <img src="~/images/Estate/@item.Main_photo" class="img-fluid rounded-start h-75 w-100" >
                     </div>
-                    <div class=" card-text d-flex my-3">
-                        <p>الحالة: @{@if (@item.publish)
+                    <div class="col-md-8">
+                      <div class="card-body">
+
+                      <div class="card-title d-flex justify-content-between">
+                      
+                         <h5 class=" fs-4 mb-3"><strong>- @Html.DisplayFor(modelItem => item.name)</strong><sub><span>@Html.DisplayFor(modelItem => item.Type.type)</span>  <span>@Html.DisplayFor(modelItem => item.Category.category)</span></sub></h5>
+                                              <h2 class="text-danger "> #<strong> @Html.DisplayFor(modelItem => item.Id)</strong> </h2>           
+
+                      </div>
+                        <p class="card-text a mb-3">@Html.DisplayFor(modelItem => item.description)</p>
+                        <p class="card-text my-4"><strong>مساحة العقار:@Html.DisplayFor(modelItem => item.space)</strong></p>
+                        <div class=" card-text d-flex mt-5">
+                            <p class="card-text "><strong><i class="bi bi-geo-alt-fill"></i> @Html.DisplayFor(modelItem => item.State.name) - @Html.DisplayFor(modelItem => item.City.name)</strong></p>
+                            <p class="card-text pe-5"><strong><i class="bi bi-cash-coin"></i> <span>@Html.DisplayNameFor(modelItem => item.price): </span>@Html.DisplayFor(modelItem => item.price)@Html.DisplayFor(modelItem => item.Currency.currency)</strong></p>
+                        </div>
+                        <div class=" card-text d-flex my-3">
+                            <p>الحالة: @{@if (@item.publish)
                         {
-                                                    <div class="form-check form-switch">
-                                                      <label class="form-check-label form-check-label-@c ms-5" for="mySwitch">منشور</label>
-                                                      <input onclick="fw(@item.Id,@c)" class="form-check-input form-check-input-@c" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
-                                                    </div>
+                                                            <div class="form-check form-switch">
+                                                              <label class="form-check-label form-check-label-@c ms-5" for="mySwitch">منشور</label>
+                                                              <input onclick="fw(@item.Id,@c)" class="form-check-input form-check-input-@c" type="checkbox" id="mySwitch" name="darkmode" value="yes" checked>
+                                                            </div>
                         }
                         else
                         {
-                                                    <div class="form-check form-switch">
-                                                      <label class="form-check-label form-check-label-@c ms-5" for="mySwitch"> غير منشور</label>
-                                                      <input onclick="fww(@item.Id,@c)" class="form-check-input form-check-input-@c" type="checkbox" id="mySwitch" name="darkmode" value="NO" >
-                                                    </div>
+                                                            <div class="form-check form-switch">
+                                                              <label class="form-check-label form-check-label-@c ms-5" for="mySwitch"> غير منشور</label>
+                                                              <input onclick="fww(@item.Id,@c)" class="form-check-input form-check-input-@c" type="checkbox" id="mySwitch" name="darkmode" value="NO" >
+                                                            </div>
                         }
-                                }</p>
+                                    }</p>
+                        </div>
+                        <div class="d-flex">
+                                <a href="Estate/Detalis/@item.Id" class="btn btn-outline-success ms-3" >عرض العقار</a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary ms-3" >تعديل</a> 
+                                <a asp-action="ImageList" asp-route-id="@item.Id" class="btn btn-outline-secondary ms-3" >الصور</a> 
+                                <a asp-controller="Contract"  asp-action="CreateContract" asp-route-id="@item.Id" class="btn btn-outline-success ms-3" > العقد</a>
+                             
+                        </div>
                     </div>
-                    <div class="d-flex">
-                            <a href="Estate/Detalis/@item.Id" class="btn btn-outline-success ms-3" >عرض العقار</a>
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-secondary ms-3" >تعديل</a> 
-                            <a asp-action="ImageList" asp-route-id="@item.Id" class="btn btn-outline-secondary ms-3" >الصور</a> 
-                            <a asp-controller="Contract"  asp-action="CreateContract" asp-route-id="@item.Id" class="btn btn-outline-success ms-3" > العقد</a>
-                         
                     </div>
-                </div>
-                </div>
-              </div>
+                  </div>
     </div>
     c++;
 
@@ -140,15 +203,22 @@ body{
 }
 
 <!-- paging control for navigation to the previous page, next page, etc -->
-@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }),
+@{
+    if(Model.Count() != 0)
+    {
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }),
     new X.PagedList.Mvc.Common.PagedListRenderOptions
     {
         DisplayItemSliceAndTotal = true,
         ContainerDivClasses = new[] { "navigation" },
         LiElementClasses = new[] { "page-item" },
         PageClasses = new[] { "page-link" },
-    })
+      })
+    }
+}
+    
 
+    
     <style>
 
         .page-item.active .page-link{
