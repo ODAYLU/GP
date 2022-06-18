@@ -22,6 +22,7 @@ namespace GP.Models
         public bool IsReaded { get; set; }
         public DateTime Time { get; set; }
         public string Type { get; set; }
+        public string IdAction { get; set; }
     }
      public interface INotification
     {
