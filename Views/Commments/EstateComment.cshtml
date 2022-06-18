@@ -6,16 +6,11 @@ Layout = "/Views/Shared/_Layout.cshtml";
 @inject IPhotoEstate _photoEstate
 @inject IService_Estate _service_Estate
 
-  
 // select Comments From DataBase where Model.EstateId equals Id
 IList<Comments>  Models=  _context.GetAll().Where(x=>x.EstateId==Model.Id).ToList();
-
 // select Services From DataBase where Model.EstateId equals Id
-
 IList<Services> listServices=  _service_Estate.GetALl(Model.Id).ToList();
-
 // select PhotoEstate From DataBase where Model.EstateId equals Id
-
 IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
 }
@@ -319,8 +314,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
             }
 
         </style>
-
-        }
+}
 
 
 
@@ -339,15 +333,18 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                 <div class="col-12 col-md-3 d-flex d-none d-md-block gallery">
                 @{
                     var sewar = 0;
-                    for (int e=0;e <2;e++)
+                    if (@photosPaths.Count>=2)
+                    {
+                         for (int e=0;e <2;e++)
                     {
                         
                          <a id="EPic" class="image-thumbnail" href="#@sewar">
-                            <img src="~/images/Estate/@photosPaths[e].ImagePath" class=" img-fluid w-100 h-100"></a>
-
-                            
+                            <img src="~/images/Estate/@photosPaths[e].ImagePath" class=" img-fluid w-100 h-100">
+                         </a>
                         sewar++;
                     }
+                    }
+                   
                 }
 
             </div>
@@ -404,16 +401,23 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
         }
 
 
-
-
-
+     
 
 
         <div class="row py-4 text-end ">
             <div class="col-12 col-md-9 ">
                 <div class="pe-xl-5">
-                  
-                    
+           <section>
+               
+                       @{
+            if(@photosPaths.Count>2){
+                for (int k= 0;k < @photosPaths.Count;k++)
+                {
+                    <img src="~/images/Estate/@photosPaths[k].ImagePath" />
+                }
+            }
+        }
+           </section>
                         <p class="fs-2 ">عنوان العقار</p>
                         <p><i class="bi bi-geo-alt-fill"></i>@Model.State.name _ @Model.City.name</p>
                         <div class="d-flex justify-content-between align-items-center fs-5">
@@ -667,9 +671,6 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
         </div>
 
-        <a class="position-fixed py-2 px-3 rounded-circle WOW heartBeat incaht" data-wow-iteration="infinite" data-wow-duration="800ms" data-bs-toggle="tooltip" data-bs-placement="top" title="تواصل مع صاحب العقار" >
-            <i class="bi bi-chat fs-1 wow pulse"  data-wow-iteration="infinite" data-wow-duration="500ms" ></i>
-        </a>
     </section>
 
      @*التعليقات*@

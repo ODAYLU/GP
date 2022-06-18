@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GP.Migrations
 {
-    public partial class nwefdf : Migration
+    public partial class nweDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

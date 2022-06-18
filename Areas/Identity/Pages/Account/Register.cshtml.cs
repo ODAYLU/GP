@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
@@ -108,7 +109,7 @@ namespace GP.Areas.Identity.Pages.Account
                 }
                 var user = new AppUser
                 {
-                    UserName = (Input.Email).Split('@')[0],
+                    UserName = new MailAddress(Input.Email).User,
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,

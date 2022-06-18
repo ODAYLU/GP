@@ -1,12 +1,6 @@
-﻿
-
-@{
-    ViewData["Title"] = "Index";
+﻿@{
+    ViewData["Title"] = "العقارات";
 }
-
-<h1 class="text-center"  style="color: #0f4f54">العقارات</h1>
-<hr />
-
 
 @if (GP.Models.Toast.ShowTost)
 {
@@ -23,84 +17,160 @@
     </div>
 }
 
-<p>
+@*<p>
     <a asp-action="Create">أضف جديد </a>
-</p>
-<table id="Estates" class="table hover display stripe order-column  cell-border text-center nowrap compact w-100 flex-nowrap">
-    <thead>
-        <tr>
-            <th>الرقم</th>
-            <th> اسم العقار </th>
-            <th> الوصف </th>
-            <th> صاحب العقار</th>
-            <th>الصورة</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-</table>
+</p>*@
+
+
+        <div class="row overflow-auto">
+            <table id="Estates" class="table responsive cell-border hover text-center" style="width: 100%"></table>
+        </div>
+
+
+
+
+
 
 @section Scripts{
     @(await Html.PartialAsync("_ValidationScriptsPartial"));
     <script type="text/javascript">
+
+        
+
+
         $(document).ready(function () {
+            initialData();
+        });
+
+        function initialData() {
             $("#Estates").DataTable({
-                "processing": true,
-                "serverSide": true,
-                "filter": true,
-                "responsive": true,
-                "lengthMenu": [10, 20, 30, 40, 50],
-                "language": {
-                    "search": "ابحث",
-                    "lengthMenu": "عرض _MENU_ صفوف"
-                },
+                processing: true,
+                serverSide: true,
+                filter: true,
+                lengthMenu:true,
+                stateSave:true,
+                language:{ url:'/assets/ar.json'},
+                
                 dom: 'Bfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
                 ],
-                "ajax": {
+                ajax: {
                     "url": '/api/Api/GetEstate',
                     "type": "POST",
                     "datatype": "json"
                 },
-                "columnDefs": [{
+                columnDefs: [{
                     "targets": 0,
                     "visible": false,
                     "searchable": false
                 }],
-                "columns": [
-                    { "data": "id", "name": "Id", "autowidth": true },
-                    { "data": "name", "name": "name", "autowidth": true },
-                    { "data": "description", "name": "description", "autowidth": true },
+
+                destroy: true,
+                columns:[
+                    {title: "رقم العقار", data: "id", name: "Id"},
+                    {title: "اسم العقار", data: "name", name: "name"},
+                    {title: "وصف العقار", data: "description", name: "description"},
                     {
-                        "render": function (data, type, row) { return '<span>'+ row.users.userName+'</span>' },
-                        "orderable": false
+                        title: "صاحب العقار",
+                        render: function (data, type, row) { return '<span>'+ row.users.userName+'</span>' },
+                        orderable: false
                     },
                     {
-                        "render": function (data, type, row) { return '<img src="' + row.main_photo + '" class=" w-25 h-25" asp-append-version="true" />' },
-                        "orderable": false
+                        title:"الصورة الرئيسية",
+                        render: function (data, type, row) { return '<img src="' + row.main_photo + '" class=" w-25 h-25" asp-append-version="true" />' },
+                      
                     },
                     {
-                        "render": function (data, type, row) { return '<a href="/" class="btn btn-outline-danger"  > تفاصيل </a>' },
-                        "orderable": false
+                        title:"التفاصيل",
+                        render: function (data, type, row) { return '<a href="/" class="btn btn-info"  > تفاصيل </a>' },
                     },
                     {
-                        "render": function (data, type, row, meta) {
+                        title: "نفعيل او تقييد",
+                        render: function (data, type, row, meta) {
                             if (row.isBlock) {
-                                return '<a href="#" class="btn btn-sm btn-outline-primary ms-2" onclick=IsActive(' + row.id + '); > تفعيل </a>'
+                                return '<a href="#" class="btn btn-sm btn-success ms-2" onclick=IsActive(' + row.id + '); > تفعيل </a>'
                             }
                             else {
-                                return '<a href="#" class="btn btn-sm btn-outline-danger ms-2" onclick=IsActive(' + row.id + '); > تقييد </a>'
+                                return '<a href="#" class="btn btn-sm btn-danger ms-2" onclick=IsActive(' + row.id + '); > تقييد </a>'
                             }
-                         
                         
                         },
-                        "orderable": false
                     },
 
-                ]
+                ],
+                autoWidth: false,
+                columnDefs: [{
+                    targets: [0],
+                    visible: false,
+                    searchable: false
+                }],
+                Responsive: true,
             });
-        });
+        }
+
+
+
+
+
+        //$(document).ready(function () {
+        //    $("#Estates").DataTable({
+        //        "processing": true,
+        //        "serverSide": true,
+        //        "filter": true,
+        //        "responsive": true,
+        //        "lengthMenu": [10, 20, 30, 40, 50],
+        //        "language": {
+        //            "search": "ابحث",
+        //            "lengthMenu": "عرض _MENU_ صفوف"
+        //        },
+        //        dom: 'Bfrtip',
+        //        buttons: [
+        //            'copy', 'csv', 'excel', 'pdf', 'print'
+        //        ],
+        //        "ajax": {
+        //            "url": '/api/Api/GetEstate',
+        //            "type": "POST",
+        //            "datatype": "json"
+        //        },
+        //        "columnDefs": [{
+        //            "targets": 0,
+        //            "visible": false,
+        //            "searchable": false
+        //        }],
+        //        "columns": [
+        //            { "data": "id", "name": "Id", "autowidth": true },
+        //            { "data": "name", "name": "name", "autowidth": true },
+        //            { "data": "description", "name": "description", "autowidth": true },
+        //            {
+        //                "render": function (data, type, row) { return '<span>'+ row.users.userName+'</span>' },
+        //                "orderable": false
+        //            },
+        //            {
+        //                "render": function (data, type, row) { return '<img src="' + row.main_photo + '" class=" w-25 h-25" asp-append-version="true" />' },
+        //                "orderable": false
+        //            },
+        //            {
+        //                "render": function (data, type, row) { return '<a href="/" class="btn btn-outline-danger"  > تفاصيل </a>' },
+        //                "orderable": false
+        //            },
+        //            {
+        //                "render": function (data, type, row, meta) {
+        //                    if (row.isBlock) {
+        //                        return '<a href="#" class="btn btn-sm btn-outline-primary ms-2" onclick=IsActive(' + row.id + '); > تفعيل </a>'
+        //                    }
+        //                    else {
+        //                        return '<a href="#" class="btn btn-sm btn-outline-danger ms-2" onclick=IsActive(' + row.id + '); > تقييد </a>'
+        //                    }
+                         
+                        
+        //                },
+        //                "orderable": false
+        //            },
+
+        //        ]
+        //    });
+        //});
 
         function EditItem(data) {
             $(".span").text("");
@@ -256,4 +326,5 @@
         })
     </script>
 }
+
 

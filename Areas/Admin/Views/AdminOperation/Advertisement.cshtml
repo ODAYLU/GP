@@ -1,10 +1,7 @@
 ﻿@model GP.Models.ViewModels.VMAdvertisement
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "الاعلانات";
 }
-
-<h1 class="text-center"  style=" color :#0f4f54 ">الاعلانات</h1>
-<hr />
 
 <button id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
         class="btn btn-sm  btn-outline-green ms-2 mb-5 mt-2 px-5 fw-bold fs-5" data-toggle="modal">
@@ -106,7 +103,7 @@
     </div>
 </div>
 
-<table id="Advertisement" class="table table-striped table-bordered w-100 flex-nowrap" style="direction:rtl;">
+<table id="Advertisement" class="table responsive cell-border hover text-center" style="width: 100%">
     <thead>
         <tr>
             <th>الرقم</th>
@@ -137,10 +134,8 @@
                 "filter": true,
                 "responsive": true,
                 "lengthMenu": [10, 20, 30, 40, 50],
-                "language": {
-                    "search": "ابحث",
-                    "lengthMenu": "عرض _MENU_ صفوف"
-                },
+                  "stateSave":true,
+                "language":{ url:'/assets/ar.json'},
                 "ajax": {
                     "url": '/api/Api/GetAdvertisement',
                     "type": "POST",
