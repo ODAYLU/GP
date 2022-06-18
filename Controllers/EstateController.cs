@@ -61,6 +61,63 @@ namespace GP
             this._replaies = _replaies;
         }
 
+        //public bool publish { get; set; }
+
+        [HttpPost]
+
+        public IActionResult filterPost(int Estatecode, int status, int tYP, int cate, int? page)
+        {
+            var pageNumber = page ?? 1;
+            int pageSize = 3;
+            SeedData.IsPserosalPhoto = false;
+            string UserId1 = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+
+
+            List<Estate> list2 = new();
+
+
+            if (Estatecode != 0 || status != -1 || tYP != 0 || cate != 0)
+            {
+                if (Estatecode != 0)
+                {
+                    list2.AddRange(services.GetAll().Where(x => x.UserId == UserId1 && x.is_active == true && x.Id == Convert.ToInt64(Estatecode)).ToList());
+
+
+                }
+                if (status != -1)
+                {
+                    list2.AddRange(services.GetAll().Where(x => x.UserId == UserId1 && x.is_active == true && x.publish == Convert.ToBoolean(status)).ToList());
+
+
+                }
+                if (tYP != 0)
+                {
+                    list2.AddRange(services.GetAll().Where(x => x.UserId == UserId1 && x.is_active == true && x.TypeID == tYP).ToList());
+
+
+                }
+                if (cate != 0)
+                {
+                    list2.AddRange(services.GetAll().Where(x => x.UserId == UserId1 && x.is_active == true && x.categoryID == cate).ToList());
+                }
+
+                pageSize = list2.Count();
+            }
+            else
+            {
+                list2.AddRange(services.GetAll().Where(x => x.UserId == UserId1 && x.is_active == true).ToList());
+
+                pageSize = 3;
+            }
+
+
+            IEnumerable<Estate> list;
+
+            list = list2.ToPagedList(pageNumber, pageSize);
+            return View(nameof(Index), list);
+        }
+
         [HttpGet]
         public IActionResult Index(int? page)
         {
@@ -154,7 +211,8 @@ namespace GP
                 }
 
             }
-
+            GP.Models.Toast.Message = $@" تم اضافة بنجاح  ( # {estate.Id} كود العقار ) ";
+            GP.Models.Toast.ShowTost = true;
 
             return RedirectToAction("Index");
         }

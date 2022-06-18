@@ -86,7 +86,7 @@ ViewData["Title"] = "إضافة عقار جديد";
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label asp-for="categoryID" class="control-label"> نوع العقار  </label>
+                                                    <label asp-for="categoryID" class="control-label"> تصنيف العقار  </label>
                                                     <select asp-for="categoryID" class ="form-control rounded-pill" asp-items="new SelectList(cate.GetAllSelected(),nameof(Category.Id),nameof(Category.category))">
                                                                 <option  selected disabled > نوع العقار --</option>
                                                     </select>
@@ -96,7 +96,7 @@ ViewData["Title"] = "إضافة عقار جديد";
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
-                                                    <label asp-for="TypeID" class="control-label"> تصنيف العقار</label>
+                                                    <label asp-for="TypeID" class="control-label"> نوع العقار</label>
                                                     <select asp-for="TypeID" class ="form-control rounded-pill"  asp-items="new SelectList(tYP.GetAllSelected(),nameof( GP.Models.Type.Id),nameof( GP.Models.Type.type))">
                                                 
                                                         <option  selected disabled>Please select one</option>
