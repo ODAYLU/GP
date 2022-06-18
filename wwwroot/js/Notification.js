@@ -24,18 +24,24 @@ $(document).ready(function () {
            
             var text = "";
             if (data.length > 0) {
+                $("#NotificationUser").html("");
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].type == "action") {
                         text += `<li><a class="dropdown-item" href="/Estate/Index">${data[i].text}</a></li>`;
-                    } else {
+                    } else if (data[i].type == "comment") {
                         text += `<li>
-                                    <a class="dropdown-item" href="/Estate">${data[i].text}</a>
+                                    <a class="dropdown-item" href="/commments/EstateComment/">${data[i].text}</a>
+                                    <small>${getLastSeen(data[i].time)}</small>
+                                </li>`;
+                    } else if (data[i].type == "comment") {
+                        text += `<li>
+                                    <a class="dropdown-item" href="/commments/EstateComment/">${data[i].text}</a>
                                     <small>${getLastSeen(data[i].time)}</small>
                                 </li>`;
                     }
                 }
             } else {
-                text += `<li><a class="dropdown-item disabled" href="#">لا يوجد اشعارات جديدة</a></li>`;
+                text = `<li><a class="dropdown-item disabled" href="#">لا يوجد اشعارات جديدة</a></li>`;
             }
            
             $("#btnNotification").children("span").text(`${data.length}`);
