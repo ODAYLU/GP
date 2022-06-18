@@ -583,9 +583,6 @@ namespace GP
         [HttpGet]
         public async Task<IActionResult> AddComment(long id, string body)
         {
-            //Estate estate =   await  services.GetOne(id);
-
-            // if(estate == null) return View("/Views/NotAccess.cshtml");
             string status = "Insert";
             string name = "";
             string photo = "";
@@ -617,7 +614,19 @@ namespace GP
 
                 };
                 await _context.InsertComment(comments);
+                var estate = await services.GetOne(Id);
+                Notification msg = new Notification
+                {
+                    Text = $"{User.Identity.Name}تم التعليق  على عقارك بواسطة ",
+                    Time = DateTime.Now,
+                    ReciverId = estate.UserId,
+                    SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    Type = "comment",
+                    IsReaded = (ConnectedUser.IDs.Contains(estate.UserId) ? true : false)
+                };
+                await _notification.InsertNot(msg);
 
+                await _hub.Clients.User(estate.UserId).SendAsync("receiveNotification", msg);
                 Id = comments.Id;
 
 
@@ -671,11 +680,34 @@ namespace GP
                     UserId = user.Id,
 
                 };
+                
                 await _replaies.InsertReply(replaies);
+                var comment = await _context.GetOne(id);
+                Notification msg = new Notification
+                {
+                    Text = $"{User.Identity.Name}تم  الرد  على تعليقك بواسطة ",
+                    Time = DateTime.Now,
+                    ReciverId = comment.UserId,
+                    SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    Type = "comment",
+                    IsReaded = (ConnectedUser.IDs.Contains(comment.UserId) ? true : false)
+                };
+                await _notification.InsertNot(msg);
 
+                await _hub.Clients.User(comment.UserId).SendAsync("receiveNotification", msg);
 
+                Notification msg2 = new Notification
+                {
+                    Text = $"{User.Identity.Name}تم  التعليق  على عقارك بواسطة ",
+                    Time = DateTime.Now,
+                    ReciverId = comment.Estate.UserId,
+                    SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    Type = "comment",
+                    IsReaded = (ConnectedUser.IDs.Contains(comment.Estate.UserId) ? true : false)
+                };
+                await _notification.InsertNot(msg);
 
-
+                await _hub.Clients.User(comment.Estate.UserId).SendAsync("receiveNotification", msg2);
             }
 
             else
