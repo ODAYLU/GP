@@ -92,9 +92,7 @@
                               
                             </div>
                 </div>
-                         <a id="btnChat" type="button" class="btn start-0 text-white fs-2 px-3 " asp-action="Chat" asp-controller="ContactUser"  style="box-shadow: none">
-                                <i class="bi bi-chat-fill"></i>
-                        </a>
+                       
                         
             }
                       
@@ -150,7 +148,7 @@
     @RenderBody()
     @if (User.Identity.IsAuthenticated)
     {
-         <a id="Chat" asp-action="Chat" asp-controller="ContactUser" class="position-fixed py-2 px-3 rounded-circle WOW heartBeat incaht" data-wow-iteration="infinite" data-wow-duration="800ms" data-bs-toggle="tooltip" data-bs-placement="top" title="تواصل مع صاحب العقار" >
+         <a id="btnChat" asp-action="Chat" asp-controller="ContactUser" class="position-fixed py-2 px-3 rounded-circle WOW heartBeat incaht" data-wow-iteration="infinite" data-wow-duration="800ms" data-bs-toggle="tooltip" data-bs-placement="top" title="تواصل مع صاحب العقار" >
             <i class="bi bi-chat fs-1 wow pulse"  data-wow-iteration="infinite" data-wow-duration="500ms" ></i>
         </a>
     }
@@ -266,7 +264,7 @@
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="~/indexLayout/assets/bootstrap/bootstrap5.bundle.min.js"></script>
   <script src="~/indexLayout/assets/bootstrap/ajax_query.min.js"></script>
   <script src="~/indexLayout/assets/bootstrap/wow.min.js"></script>

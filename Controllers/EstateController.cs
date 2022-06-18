@@ -689,7 +689,8 @@ namespace GP
                     Time = DateTime.Now,
                     ReciverId = comment.UserId,
                     SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                    Type = "comment",
+                    Type = "Reply",
+                    IdAction = $"{comment.EstateId}",
                     IsReaded = (ConnectedUser.IDs.Contains(comment.UserId) ? true : false)
                 };
                 await _notification.InsertNot(msg);
