@@ -31,7 +31,9 @@
     --bg-color: #fff;
     --text-color: #123;
     --grernwith: #0f4f54 !important;
-
+    --orange: #d46300;
+    --orange2: navajowhite;
+    --darform: #fff;
 }
 
     :root.dark {
@@ -44,7 +46,9 @@
         --litegreen: var(--litegreen);
         --bgdark: #0a1a17d4 !important;
         --grernwith: #fff !important;
-
+        --orange: #d46300;
+        --orange2: navajowhite;
+        --darform:#15202b;
     }
 
 
@@ -67,6 +71,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--txtactive);
 }
 
 #loading {
@@ -76,6 +81,7 @@ body {
     border-radius: 50%;
     border-top: 10px solid var(--green);
     animation: animate 2s linear infinite;
+    color: var(--txtactive);
 }
 
 @keyframes animate {
@@ -85,24 +91,27 @@ body {
 }
 
 #loading::after {
-  transform: rotate(120deg);
-  border-top: 10px solid var(--green);
+    transform: rotate(120deg);
+    border-top: 10px solid var(--green);
+    color: var(--txtactive);
 }
 
 #loading::before {
-  transform: rotate(120deg);
-  border-right: 10px solid #e2d784;
+    transform: rotate(120deg);
+    border-right: 10px solid #e2d784;
+    color: var(--txtactive);
 }
 
 #loading::after,
 #loading::before {
-  content: "";
-  top: -10px;
-  left: 0;
-  width: 200px;
-  height: 200px;
-  position: absolute;
-  border-radius: 50%;
+    content: "";
+    top: -10px;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    border-radius: 50%;
+    color: var(--txtactive);
 }
 
 #loading span {
@@ -237,10 +246,9 @@ body {
 
 
 .sidebar-body {
-  height: calc(100% - 180px);
-  position: relative;
-  overflow: hidden;
-
+    height: calc(100% - 100px);
+    position: relative;
+    overflow: hidden;
 }
 
 .sidebar-body ul {
@@ -333,7 +341,7 @@ ul {
 
 .btn:focus {
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgb(54 115 87 / 51%);
+  box-shadow: 0 0 0 0.25rem rgb(54 115 87 / 0%);
 }
 
 .form-control:focus {
@@ -1020,18 +1028,18 @@ table.dataTable tbody tr {
     color: var(--txtactive);
 }
     .dataTables_wrapper .dataTables_filter input:focus {
-        width: 100%;
+        width: 80%;
     }
 
 .dataTables_filter{
     display:flex;
-    width:100%;
+    width:80%;
 }
     .dataTables_filter > label {
         display: flex;
         display: flex;
         align-items: center;
-        width: 100%;
+        width: 80%;
         color:var(--txtactive);
     }
 input:focus-visible {
@@ -1060,4 +1068,90 @@ input:focus-visible {
         background-color: var(--bgwhite);
         border-color: #005C4B;
         outline: none;
+    }
+
+.dataTables_wrapper .dataTables_length select {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: #f6f6f6;
+    padding: 4px;
+}
+
+.dataTables_wrapper .dataTables_length {
+    float: left;
+}
+.dataTables_wrapper .dataTables_length {
+    float: left;
+    position: absolute;
+    left: 0;
+}
+.modebutton{
+    background:var(--orange2);
+    border:1px solid var(--orange);
+}
+
+.modebuttonass {
+    border: 1px solid var(--orange);
+    color: var(--orange);
+}
+    .modebuttonass:hover {
+        border: 1px solid var(--orange);
+        background: var(--orange2);
+    }
+
+
+
+.soichlmedea {
+    border: 1px solid !important;
+    border-radius: 50% !important;
+    padding: 6px 10px;
+    margin-left: 10px;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: unset;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: inherit !important;
+    opacity: 1;
+}
+#basic-addon1 {
+    background-color: #d93025;
+    color:rgb(255, 255, 255);
+}
+    #basic-addon1:hover {
+        background-color: inherit;
+        color: #d93025;
+    }
+#basic-addon2 {
+    background-color: #00ddb3;
+    color: rgb(255, 255, 255);
+}
+    #basic-addon2:hover {
+        background-color: inherit;
+        color: #00ddb3;
+    }
+#basic-addon3 {
+    background-color: #1877f2;
+    color: rgb(255, 255, 255);
+}
+    #basic-addon3:hover {
+        background-color: inherit;
+        color: #1877f2;
+    }
+#basic-addon4 {
+    background-color: #1da1f2;
+    color: rgb(255, 255, 255);
+}
+    #basic-addon4:hover {
+        background-color: inherit;
+        color: #1da1f2;
+    }
+#basic-addon5 {
+    background-color: #F5C33B;
+    color: rgb(255, 255, 255);
+}
+    #basic-addon5:hover {
+        background-color: inherit;
+        color: #F5C33B;
     }

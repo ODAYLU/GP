@@ -2,7 +2,7 @@
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
 
-<ul class="navbar-nav">
+@*
     @if (SignInManager.IsSignedIn(User))
     {
         @*<li >
@@ -20,21 +20,19 @@
                     }
                 }
             </div>
-        </li>*@
+        </li>
+        
+   
 
         <li >
-            <form class="form-inline " asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+            <form class="form-inline "  asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <div class="fs-3">
-                    
-                    <button type="submit" class="dropdown-item d-flex justify-content-center align-items-center">تسجيل خروج <ion-icon name="log-out"></ion-icon></button>
+                    <button type="submit" class="dropdown-item d-flex justify-content-center align-items-center ">تسجيل خروج</button>
                 </div>
-
             </form>
         </li>
 
-        }
-
- </ul>
+        }*@
 
     
      @if (!SignInManager.IsSignedIn(User))
