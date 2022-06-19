@@ -8,7 +8,7 @@
 
 
 <button id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-        class="btn btn-sm  btn-outline-green ms-2 mb-5 mt-2 px-5 fw-bold fs-5" data-toggle="modal">
+        class="btn mb-5 mt-2 fw-bold  modebutton float-left rounded-pill" data-toggle="modal">
     اضافة
 </button>
 
@@ -40,10 +40,13 @@
                         </div>
                     </div>
 
-                     <button id="btnAdd" type="submit" class="btn " style=" color: #fff;background-color: #0f4f54;border-color: #198754;">اضافة</button>
-                    <button id="btnEdit" type="submit" class="btn" style=" color: #fff;background-color: #0f4f54;border-color: #198754;">تعديل</button>
-                    <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
+                    <div class="text-center">
+     <button id="btnAdd" type="submit" class="btn rounded-pill" style=" color: #fff;background-color: #0f4f54;border-color: #198754;">اضافة</button>
+                    <button id="btnEdit" type="submit" class="btn rounded-pill" style=" color: #fff;background-color: #0f4f54;border-color: #198754;">تعديل</button>
+                    <button id="btnClose" type="button" class="btn rounded-pill btn-secondary" data-bs-dismiss="modal">اغلاق</button>
               
+                    </div>
+                
                 </form>
             </div>
 
@@ -56,8 +59,8 @@
         <tr>
             <th>الرقم</th>
             <th> اسم المدينة </th>
-            <th></th>
-            <th></th>
+            <th>تعديل</th>
+            <th>حذف</th>
         </tr>
     </thead>
 </table>
@@ -88,15 +91,16 @@
                 "columns": [
                     { "data": "id", "name": "Id", "autowidth": true },
                     { "data": "name", "name": "name", "autowidth": true },
-                    {
-                        "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCustomer("' + row.id + '"); > حذف </a>' },
-                        "orderable": false
-                    },
-                    {
+                                       {
                         "render": function (data, type, row, meta) { return '<a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal" onclick=EditItem(' + JSON.stringify(row) + '); > تعديل </a>' },
                         "orderable": false
                     },
 
+                    {
+                        "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCustomer("' + row.id + '"); > حذف </a>' },
+                        "orderable": false
+                    },
+ 
                 ]
             });
         });
@@ -112,8 +116,8 @@
         function DeleteCustomer(Id) 
         {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: 'هل انت متأكد من الحذف؟',
+                text: "سيتم حذف المدينة!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',

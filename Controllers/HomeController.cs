@@ -171,7 +171,7 @@ namespace GP.Controllers
 
                     Notification msg = new Notification
                     {
-                        Text = $"{estate.Users.UserName}تم تسجيل الاعجاب على عقارك بواسطة ",
+                        Text = $"{User.Identity.Name}تم تسجيل الاعجاب على عقارك بواسطة ",
                         Time = DateTime.Now,
                         ReciverId = estate.UserId,
                         SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),

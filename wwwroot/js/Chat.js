@@ -31,7 +31,7 @@ Connection.on("connectedUsers", function (users) {
                 }
                 if (data[i].flag == false) {
                     UnRead = `<img class="Notification" src="/images/Notification.gif" style="width:50px;" />`
-                    NewMessages = `<span  style="position: absolute;height: 25px;width:25px;  top: 0px;right:5px; border-radius: 50%;background: red;color: white; padding:5px">+1</span>`
+                    NewMessages =` <span style="position: absolute;height: 25px;width:25px;  top: 0px;right:5px; border-radius: 50%;background: red; padding:5px"></span>`;
                 }
                 else {
                     UnRead = "";

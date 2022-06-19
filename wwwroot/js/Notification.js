@@ -4,11 +4,23 @@ Connection.start()
     .catch(error =>
         console.log(error));
 Connection.on("receiveNotification", function (Not) {
+
     var text = "";
-    if (Not.type == "action") {
-         text = `<li><a class="dropdown-item" href="/Home/Index">${Not.text}</a></li>`;
-    } else {
-        text = `<li><a class="dropdown-item" href="/Estate">${Not.text}</a></li>`;
+    
+    for (var i = 0; i < data.length; i++) {
+        if (data[i].type == "action") {
+            text += `<li><a class="dropdown-item" href="/Estate/Index">${Not.text}</a></li>`;
+        } else if (Not.type == "comment") {
+            text += `<li>
+                                    <a class="dropdown-item" href="/Commments/Commments">${Not.text}</a>
+                                    <small>${getLastSeen(Not.time)}</small>
+                                </li>`;
+        } else if (Not.type == "Reply") {
+            text += `<li>
+                                    <a class="dropdown-item" href="/commments/EstateComment/${Not.idAction}">${Not.text}</a>
+                                    <small>${getLastSeen(Not.time)}</small>
+                                </li>`;
+        }
     }
     var count = parseInt($("#btnNotification").children("span").text().trim());
     $("#btnNotification").children("span").text(`${++count}`);
@@ -24,18 +36,24 @@ $(document).ready(function () {
            
             var text = "";
             if (data.length > 0) {
+                $("#NotificationUser").html("");
                 for (var i = 0; i < data.length; i++) {
                     if (data[i].type == "action") {
                         text += `<li><a class="dropdown-item" href="/Estate/Index">${data[i].text}</a></li>`;
-                    } else {
+                    } else if (data[i].type == "comment") {
                         text += `<li>
-                                    <a class="dropdown-item" href="/Estate">${data[i].text}</a>
+                                    <a class="dropdown-item" href="/Commments/Commments">${data[i].text}</a>
+                                    <small>${getLastSeen(data[i].time)}</small>
+                                </li>`;
+                    } else if (data[i].type == "Reply") {
+                        text += `<li>
+                                    <a class="dropdown-item" href="/commments/EstateComment/${data[i].idAction}">${data[i].text}</a>
                                     <small>${getLastSeen(data[i].time)}</small>
                                 </li>`;
                     }
                 }
             } else {
-                text += `<li><a class="dropdown-item disabled" href="#">لا يوجد اشعارات جديدة</a></li>`;
+                text = `<li><a class="dropdown-item disabled" href="#">لا يوجد اشعارات جديدة</a></li>`;
             }
            
             $("#btnNotification").children("span").text(`${data.length}`);

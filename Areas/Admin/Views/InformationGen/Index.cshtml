@@ -1,73 +1,85 @@
 ﻿@model GP.Models.InformationGen
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "المعلومات العامة";
 }
-
-<h1 class="text-center"  style="color: #0f4f54">المعلومات العامة</h1>
-<hr />
+<style>
+.form-control {
+    background-color: var(--darform);
+    color: var(--txtactive);
+}
+</style>
 
 <div class="row">
-    <div class="">
-         <a class="btn btn-outline-green  mb-5  mt-2 px-5 fw-bold fs-5" onclick="OpenForm()">تعديل</a>
+    <div class="col-12 col-md-8">
+         
 
-        <form asp-action="Index" class="w-50 mx-auto border-3 shadow-lg p-5">
+        <form asp-action="Index" class="mx-auto border-3  p-5">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 
            
+            <div class="d-flex justify-content-between align-items-center" style="color: var(--litegreen)">
+                    <h3 class="text-center fw-bold"  > بيانات التواصل </h3>
+                    <a class="btn" onclick="OpenForm()"><i class="bi bi-pencil-square"></i> تعديل</a>
+            </div>
             
-        <h5 class="text-center"  style="color: #0f4f54"> بيانات التواصل </h5>
-        <hr />
-            <div class="form-group input-group  mt-5 ">
+    
+        <hr class="text-secondary"  />
+            <div class="form-group align-items-center input-group  mt-5 ">
                 
-                    <span class="input-group-text  " id="basic-addon1">
+                    <span class="soichlmedea" id="basic-addon1">
                        <i class="bi bi-envelope"></i>
                     </span>
               
-                <input asp-for="Email" class="form-control input  border-right-0 " aria-describedby = "basic-addon1" placeholder="الإيميل" />
+                <input asp-for="Email" class="form-control input  rounded-pill" aria-describedby = "basic-addon1" placeholder="الإيميل" />
              
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
             <div class="form-group input-group">
-                     <span class="input-group-text  " id="basic-addon2">
+                     <span class="soichlmedea" id="basic-addon2">
                        <i class="bi bi-telephone"></i>
                     </span>
-                <input asp-for="Phone" class="form-control input border-right-0" aria-describedby = "basic-addon2" placeholder="رقم الهاتف" />
+                <input asp-for="Phone" class="form-control input rounded-pill" aria-describedby = "basic-addon2" placeholder="رقم الهاتف" />
                 <span asp-validation-for="Phone" class="text-danger w-100"></span>
             </div>
             <div class="form-group input-group">
-                     <span class="input-group-text  " id="basic-addon3">
+                     <span class="soichlmedea" id="basic-addon3">
                        <i class="bi bi-facebook"></i>
                     </span>
-                <input asp-for="UrlFacebook" class="form-control input border-right-0" aria-describedby = "basic-addon3" placeholder="رابط فيسبوك" />
+                <input asp-for="UrlFacebook" class="form-control input rounded-pill" aria-describedby = "basic-addon3" placeholder="رابط فيسبوك" />
                 <span asp-validation-for="UrlFacebook" class="text-danger w-100"></span>
             </div>
             <div class="form-group input-group">
-                     <span class="input-group-text  " id="basic-addon4">
+                     <span class="soichlmedea" id="basic-addon4">
                        <i class="bi bi-twitter"></i>
                     </span>
-                <input asp-for="UrlTwitter" class="form-control input border-right-0" aria-describedby = "basic-addon4" placeholder="رابط تويتر" />
+                <input asp-for="UrlTwitter" class="form-control input rounded-pill" aria-describedby = "basic-addon4" placeholder="رابط تويتر" />
                 <span asp-validation-for="UrlTwitter" class="text-danger  w-100"></span>
             </div>
             <div class="form-group input-group">
-                     <span class="input-group-text  " id="basic-addon5">
+                     <span class="soichlmedea" id="basic-addon5">
                        <i class="bi bi-instagram"></i>
                     </span>
-                <input asp-for="UrlInstegrame" class="form-control input border-right-0" aria-describedby = "basic-addon5" placeholder="رابط انستقرام" />
+                <input asp-for="UrlInstegrame" class="form-control input rounded-pill" aria-describedby = "basic-addon5" placeholder="رابط انستقرام" />
                 <span asp-validation-for="UrlInstegrame" class="text-danger  w-100"></span>
             </div>
             <br />
-            <div class="form-group ">
-                <input type="submit" value="حفظ" class="btn btn-outline-green" />
+            <div class="form-group text-center ">
+                <input type="submit" value="حفظ" class="btn rounded-pill px-3 modebutton" />
             </div>
             <br />
         </form>
     </div>
+
+    <div class="col-12 col-md-4">
+        <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_osdxlbqq.json" mode="bounce" background="transparent"  speed="1"  hover loop  autoplay></lottie-player>
+
+    </div>
 </div>
 
-
+<script src="~/js/Login/lottie-player.js"></script>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

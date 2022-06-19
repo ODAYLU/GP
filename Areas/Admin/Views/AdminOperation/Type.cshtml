@@ -6,8 +6,8 @@
 
 
 <button id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-        class="btn btn-sm  btn-outline-green ms-2 mb-5 mt-2 px-5 fw-bold fs-5" data-toggle="modal">
-    اضافة
+        class="btn mb-4 mt-1 fw-bold fs-5 modebutton float-left rounded-pill" data-toggle="modal">
+    اضافة نوع
 </button>
 
 
@@ -47,10 +47,13 @@
                         </div>
                     </div>
 
-                   <button id="btnAdd" type="submit" class="btn " style=" color: #fff;background-color: #0f4f54;border-color: #198754;">اضافة</button>
-                    <button id="btnEdit" type="submit" class="btn" style=" color: #fff;background-color: #0f4f54;border-color: #198754;">تعديل</button>
-                    <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
+                    <div class="text-center">
+                           <button id="btnAdd" type="submit" class="btn rounded-pill" style=" color: #fff;background-color: #0f4f54;border-color: #198754;">اضافة</button>
+                    <button id="btnEdit" type="submit" class="btn rounded-pill" style=" color: #fff;background-color: #0f4f54;border-color: #198754;">تعديل</button>
+                    <button id="btnClose" type="button" class="btn rounded-pill btn-secondary" data-bs-dismiss="modal">اغلاق</button>
               
+                    </div>
+                
 
                 
                 </form>
@@ -66,8 +69,8 @@
             <th>الرقم</th>
             <th> النوع </th>
             <th> الصورة </th>
-            <th></th>
-            <th></th>
+            <th>نعديل</th>
+            <th>حذف</th>
         </tr>
     </thead>
 </table>
@@ -97,15 +100,16 @@
                     { "data": "id", "name": "Id", "autowidth": true },
                     { "data": "type", "name": "type", "autowidth": true },
                     {
-                        "render": function (data, type, row) { return '<img src="' + row.imagePath + '" class=" w-25 h-25" asp-append-version="true" />' },
+                        "render": function (data, type, row) { return '<img style="width: 110px; height: 70px;" src="' + row.imagePath + '"  asp-append-version="true" />' },
+                        "orderable": false
+                    },
+                    
+                    {
+                        "render": function (data, type, row, meta) { return '<a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal" onclick=EditItem(' + JSON.stringify(row) + '); > تعديل </a>' },
                         "orderable": false
                     },
                     {
                         "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCustomer("' + row.id + '"); > حذف </a>' },
-                        "orderable": false
-                    },
-                    {
-                        "render": function (data, type, row, meta) { return '<a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal" onclick=EditItem(' + JSON.stringify(row) + '); > تعديل </a>' },
                         "orderable": false
                     },
 

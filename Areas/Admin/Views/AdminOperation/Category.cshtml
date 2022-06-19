@@ -5,8 +5,8 @@
 
 
 <button id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-        class="btn btn-sm  btn btn-success ms-2 mb-5 mt-2 px-5 fw-bold fs-5 float-left" data-toggle="modal">
-    اضافة
+        class="btn mb-5 mt-2 fw-bold fs-5 float-left modebutton rounded-pill"  data-toggle="modal">
+    اضافة فئة <i class="bi bi-plus"></i>
 </button>
 
 
@@ -49,11 +49,13 @@
                         </div>
                     </div>
 
-                    
-                    <button id="btnAdd" type="submit" class="btn " style=" color: #fff;background-color: #0f4f54;border-color: #198754;">اضافة</button>
-                    <button id="btnEdit" type="submit" class="btn" style=" color: #fff;background-color: #0f4f54;border-color: #198754;">تعديل</button>
-                    <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">اغلاق</button>
+                    <div class="text-center">
+                           <button id="btnAdd" type="submit" class="btn rounded-pill" style=" color: #fff;background-color: #0f4f54;border-color: #198754;">اضافة</button>
+                    <button id="btnEdit" type="submit" class="btn rounded-pill" style=" color: #fff;background-color: #0f4f54;border-color: #198754;">تعديل</button>
+                    <button id="btnClose" type="button" class="btn rounded-pill btn-secondary" data-bs-dismiss="modal">اغلاق</button>
               
+                    </div>
+                 
                 </form>
             </div>
 
@@ -63,18 +65,18 @@
 
 
 
-    
-<table id="Categories" class="table responsive cell-border hover text-center" style="width: 100%">
-    <thead class="">
-        <tr>
-            <th>الرقم</th>
-            <th> اسم الفئة </th>
-            <th> الصورة </th>
-            <th>حذف</th>
-            <th>تعديل</th>
-        </tr>
-    </thead>
-</table>
+      <table id="Categories" class="table responsive cell-border hover text-center" style="width: 100%">
+        <thead class="">
+            <tr>
+                <th>الرقم</th>
+                <th> اسم الفئة </th>
+                <th> الصورة </th>
+                <th>حذف</th>
+                <th>تعديل</th>
+            </tr>
+        </thead>
+    </table>
+
 
 @section Scripts{
    
