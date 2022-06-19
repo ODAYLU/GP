@@ -6,7 +6,7 @@ namespace GP.Models.ViewModels
     {
         [Required]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         public string name { get; set; }
        
     }

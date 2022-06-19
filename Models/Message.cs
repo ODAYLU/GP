@@ -12,7 +12,7 @@ namespace GP.Models
         public long Id { get; set; }
         [Required]
         public string UserName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         public string Text { get; set; }
        
         public DateTime Time { get; set; }

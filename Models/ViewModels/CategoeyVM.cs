@@ -10,7 +10,7 @@ namespace GP.Models.ViewModels
     public class CategoeyVM
     {
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         public string category { get; set; }
 
         public string ImagePath { set; get; }

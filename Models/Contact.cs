@@ -14,16 +14,16 @@ namespace GP.Models
     {
         [Key]
         public long Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         [EmailAddress]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         public string Phone  { get; set; }
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         public string Object  { get; set; }
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         public string Description  { get; set; }
 
         public bool IsReply { get; set; }
