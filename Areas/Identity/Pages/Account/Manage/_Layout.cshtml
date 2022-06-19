@@ -13,10 +13,18 @@
   }
   }
   @inject UserManager<AppUser> _userManager;
-    @{
+  @inject IEstate _es
+  @inject IContract _Con
+  @inject IlikedEstates _LIK
+@{
     var user = await _userManager.GetUserAsync(User);
-    
-    }
+
+
+    long counEstate=_es.GetAll().Where(x=>x.UserId==user.Id && x.is_active).Count();
+
+    long counContract=_Con.GetAll().Where(x=>x.UserId==user.Id).Count();
+    long like = _LIK.GetAll().Where(x => x.Estate.UserId == user.Id).Count();
+}
 
 
 
@@ -120,20 +128,20 @@
               <div class="py-4">
                 <div class="row my-2 profile-stat">
                   <div class="col-4">
-                    <div class="uppercase profile-stat-title"> 37 </div>
+                    <div class="uppercase profile-stat-title"> @counEstate </div>
                     <div class="uppercase profile-stat-text"> العقارات </div>
                   </div>
                   <div class="col-4">
-                    <div class="uppercase profile-stat-title"> 51 </div>
+                    <div class="uppercase profile-stat-title"> @counContract </div>
                     <div class="uppercase profile-stat-text"> العقود </div>
                   </div>
                   <div class="col-4">
-                    <div class="uppercase profile-stat-title"> 61 </div>
+                    <div class="uppercase profile-stat-title"> @like </div>
                     <div class="uppercase profile-stat-text"> الإعجاب </div>
                   </div>
                 </div>
 
-                                <p class="fs-6 pb-2 px-1">@user.decription </p>
+                  <p class="fs-6 pb-2 px-1">@user.decription </p>
 
 
                 <div class="d-flex justify-content-around my-3">

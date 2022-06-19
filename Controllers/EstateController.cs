@@ -1,4 +1,20 @@
-﻿namespace GP
+﻿using GP.Hubs;
+using GP.Models;
+//using Microsoft.AspNet.SignalR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using X.PagedList;
+
+namespace GP
 {
 
 	[Authorize(Roles = "Owner")]
@@ -13,7 +29,7 @@
 		private readonly IService_Estate _service_Estate;
 		private readonly IlikedEstates _like;
 		private readonly IWebHostEnvironment webHostEnvironment;
-		private readonly IHubContext<NotificationHub> _hub;
+		//private readonly IHubContext<NotificationHub> _hub;
 		private readonly INotification _notification;
 
 
@@ -26,7 +42,7 @@
 					IService_Estate service_Estate,
 					IService servicesList,
 					IlikedEstates like,
-					IHubContext<NotificationHub> hub,
+					//IHubContext<NotificationHub> hub,
 					INotification notification,
 					ICommments _context,
 					IReplaies _replaies
@@ -39,7 +55,7 @@
 			_service_Estate = service_Estate;
 			this.servicesList = servicesList;
 			_like = like;
-			_hub = hub;
+			//_hub = hub;
 			_notification = notification;
 			this._context = _context;
 			this._replaies = _replaies;
@@ -610,7 +626,7 @@
 				};
 				await _notification.InsertNot(msg);
 
-				await _hub.Clients.User(estate.UserId).SendAsync("receiveNotification", msg);
+				//await _hub.Clients.User(estate.UserId).SendAsync("receiveNotification", msg);
 				Id = comments.Id;
 
 
