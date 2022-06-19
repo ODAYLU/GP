@@ -14,7 +14,7 @@ namespace GP.Models
     {
         [Key]
         public int Id { set; get; }
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         public string currency { get; set;}
 
     }

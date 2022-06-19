@@ -615,18 +615,18 @@ namespace GP
                 };
                 await _context.InsertComment(comments);
                 var estate = await services.GetOne(Id);
-                Notification msg = new Notification
-                {
-                    Text = $"{User.Identity.Name}تم التعليق  على عقارك بواسطة ",
-                    Time = DateTime.Now,
-                    ReciverId = estate.UserId,
-                    SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                    Type = "comment",
-                    IsReaded = (ConnectedUser.IDs.Contains(estate.UserId) ? true : false)
-                };
-                await _notification.InsertNot(msg);
+                //Notification msg = new Notification
+                //{
+                //    Text = $"{User.Identity.Name}تم التعليق  على عقارك بواسطة ",
+                //    Time = DateTime.Now,
+                //    ReciverId = estate.UserId,
+                //    SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                //    Type = "comment",
+                //    IsReaded = (ConnectedUser.IDs.Contains(estate.UserId) ? true : false)
+                //};
+              //  await _notification.InsertNot(msg);
 
-                await _hub.Clients.User(estate.UserId).SendAsync("receiveNotification", msg);
+              //  await _hub.Clients.User(estate.UserId).SendAsync("receiveNotification", msg);
                 Id = comments.Id;
 
 

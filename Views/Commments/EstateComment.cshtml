@@ -520,25 +520,6 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                         </div>
                     </div>
 
-
-                    <div class="swiper mySwiper5">
-                         <div class="swiper-wrapper w-75">
-                       @{
-                      
-                            if(@photosPaths.Count>2){
-                                for (int k= 0;k < @photosPaths.Count;k++)
-                                {
-                                    <div class="swiper-slide bg-secondary"><img src="~/images/Estate/@photosPaths[k].ImagePath" class="img-fluid" /></div>
-                                }
-                            }
-     
-
-                        }
-                    </div>
-
-                            </div>
-                          <div class="swiper-button-next" style="top:75%;color: var(--orange);"></div>
-                          <div class="swiper-button-prev"style="top:75%;color: var(--orange);"></div>
         
 
 
@@ -750,12 +731,9 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
     </section>
 
-     @*التعليقات*@
 
-     
-        <!-- partial:index.partial.html -->
-        <!-- Contenedor Principal -->
-     
+
+
 
 
 
@@ -841,41 +819,20 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
 
 
-
-
             function hicreateElement(name, photo, txt,Id) {
-
-
-
                 console.log('hicreateElement');
 
                 var li = document.createElement('li');
 
-
-
-
-
                 var div1 = document.createElement('div');
                 div1.classList.add('comment-main-level');
-
-
-
 
                 var divAvatar = document.createElement('div');
                 divAvatar.classList.add('comment-avatar');
 
                 var image = document.createElement('img');
 
-
                 image.src = photo;
-
-
-
-
-
-
-
-
 
                 var div2 = document.createElement('div');
                 div2.classList.add("comment-box");
@@ -894,11 +851,6 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                 Ah6.href = "";
 
                 Ah6.innerHTML = name;
-
-
-
-
-
                 var replay1 = document.createElement('i');
                 replay1.classList.add('fa');
                 replay1.classList.add('fa-reply');
@@ -920,15 +872,8 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
                 div2.appendChild(div3);
                 div2.appendChild(div4);
-
-
-
-
                 var ul = document.getElementById('comments-list');
                 ul.appendChild(li);
-
-
-
             }
 
 
@@ -937,9 +882,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                 var txt = document.getElementById('bodytextarea').value;
                 var errorEmpty = document.getElementById('errorEmpty');
                 var loginPlease = document.getElementById('loginPlease');
-
                 var added = document.getElementsByClassName('added')[0];
-
                 var insertdata = document.getElementsByClassName('insertdata')[0];
 
                 if (txt == "") {
@@ -1022,7 +965,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
         <script>
             function createRepaliy(id) {
-
+              
                 console.log('hiEveryOne')
 
                 var txt = document.getElementById(`bodytextarea-${id}`).value;

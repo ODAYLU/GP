@@ -5,9 +5,9 @@ namespace GP.Models.ViewModels
 {
     public class VMType
     {
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         public string type { get; set; }
         public string ImagePath { get; set; }
 
