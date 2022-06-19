@@ -14,7 +14,7 @@ namespace GP.Models
     {
         [Key]
         public long Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         public string name { get; set; }
       
         public string ImagePath { get; set; }

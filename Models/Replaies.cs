@@ -16,7 +16,7 @@ namespace GP.Models
         [Key]
         public long Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         public string body { get; set; }
          public long CommentId { get; set; }
         [ForeignKey("CommentId")]
