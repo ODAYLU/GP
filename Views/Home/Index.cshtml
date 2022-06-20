@@ -220,12 +220,14 @@
          <div class="swiper-slide">
             <div class="card">
               <img class="card-img-top img-fluid" src="/images/Estate/@item.Main_photo" alt="Card image">
+                
               <div class="card-body">
-                <h4 class="card-title">@item.name</h4>
-                <b> السعر: @item.price @item.Currency.currency </b> <br /> <b> المدينة @item.City.name </b><br />
-                      <b>الدولة @item.State.name </b>
-                 <div class="d-flex align-items-center">
-                    <a href="/commments/EstateComment/@item.Id"   class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                        <h4 class="card-title">@item.name <a href="/commments/EstateComment/@item.Id"  class="rounded-5 p-2 bg-b mx-3 position-absolute" style="z-index:100;">انقر التفاصيل </a></h4>
+                        <p class="m-0 dd"><i class="bi bi-geo-alt"></i>: @item.State.name - @item.City.name </p>
+                        <p class="block-ellipsisdes">@item.description</p>
+                       <p class="m-0 pt-2 dd"><i class="bi bi-cash-stack"></i>: @item.price @item.Currency.currency </p>
+                 <div class="d-flex align-items-center justify-content-between">
+                  
                     @if (likes.Contains(item.Id))
                     {
                     <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i
@@ -732,6 +734,9 @@ function AddLike(Id,el) {
             var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
               return new bootstrap.Tooltip(tooltipTriggerEl)
             })
+
+
+
 
     </script>
     
