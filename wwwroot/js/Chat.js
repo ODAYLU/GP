@@ -197,6 +197,7 @@ Connection.on("receiveMessage", function (msg, users) {
     var Id = $("#txtIdUserCurrent").val();
     var text = JSON.stringify(users);
     var txtMessage = "";
+    
     var img = "";
 
     if (msg.userId == Id) {
@@ -272,6 +273,60 @@ Connection.on("receiveMessage", function (msg, users) {
         }
     });
 
+    $.ajax({
+        method: 'Get',
+        url: `/ContactUser/GetUsers`,
+        data: { text: text },
+        processData: false,
+        contentType: false,
+        success: function (data) {
+
+            var text = "";
+            var img = "";
+            var UnRead = "";
+
+            var NewMessages = "";
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].user.profilePicture != null) {
+
+                    img = "data:image/jpeg;base64," + btoa(atob(`${data[i].user.profilePicture}`));
+
+                } else {
+                    img = "https://bootdey.com/img/Content/avatar/avatar1.png";
+                }
+                if (data[i].flag == false) {
+                    UnRead = `<img class="Notification" src="/images/Notification.gif" style="width:50px;" />`
+                    NewMessages = ` <span style="position: absolute;height: 25px;width:25px;  top: 0px;right:5px; border-radius: 50%;background: red; padding:5px"></span>`;
+                }
+                else {
+                    UnRead = "";
+                }
+
+
+
+                text += `<li class="messaging-member messaging-member--new messaging-member--online">
+                        <input type="text" value="${data[i].user.id}" hidden />
+                    <div class="messaging-member__wrapper">
+                        <div class="messaging-member__avatar">
+                            <img src="${img}" alt="Bessie Cooper" loading="lazy" />
+                         <div class="user-status"></div>
+                         
+                        </div>
+
+                        <span class="messaging-member__name  textstart"> ${data[i].user.userName} ${UnRead} </span>
+
+                    </div>
+
+
+                </li>`;
+
+            }
+            $("#btnChat").append(NewMessages);
+            $("#UsersOnline").html(text).addClass("");
+
+        }
+    });
+
 });
 //-----------------------------------------------------------
 $("body").on("mouseenter", "#Messages li",function () {
@@ -301,7 +356,7 @@ $("body").on("click", "#Users li", function (e) {
     $("#Header").removeClass("d-none");
     $("#Image").addClass("d-none");
     $("#Messages").attr("hidden", false);
-    $(this).children(".Notification").addClass("d-none");
+    $(this).children("span").children(".Notification").addClass("d-none");
     $("#btnSend").attr("disabled", false);
     $("#txtId").val($(this).children("input").val());
     $("#CurrentUserHeader").html($(this).html());
@@ -368,13 +423,13 @@ $("body").on("click", "#UsersOnline li", function (e) {
     $("#Header").removeClass("d-none");
     $("#Image").addClass("d-none");
     $("#Messages").attr("hidden", false);
-    $(this).children(".Notification").addClass("d-none");
+    $(this).children("img").addClass("d-none");
     $("#btnSend").attr("disabled", false);
     $("#txtId").val($(this).children("input").val());
     $("#CurrentUserHeader").html($(this).html());
     var IdR = $("#txtId").val();
     $("#Header").html($(this).html());
-    sessionStorage.setItem("IdUserChating", IdR);
+    localStorage.setItem("IdUserChating", IdR);
 
     $.ajax({
         method: 'Post',
@@ -437,7 +492,7 @@ $("#btnSend").click(function () {
         var IdSender = $("#txtId").val().trim();
         var thisUser = $("#txtIdUserCurrent").val().trim();
         var message = $("#txtInput").val();
-
+        $("#txtInput").val("");
         if (thisUser != IdSender) {
 
             var text = ` <li>
