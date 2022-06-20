@@ -40,15 +40,23 @@ namespace GP.Controllers
 
         public async Task<IActionResult> SendEmail(Contact contact)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View();
+                if (!ModelState.IsValid)
+                {
+                    return View();
+                }
+                await _contact.InsertContact(contact);
+
+
+                await _emailService.SendEmailAsync(contact.Email.Trim(), "موقع أملاك", "وصلتنا رسالتك سوف نتواصل معك في أقرب وقت");
+
+
             }
-            await _contact.InsertContact(contact);
-
-
-            await _emailService.SendEmailAsync(contact.Email.Trim(), "موقع أملاك", "وصلتنا رسالتك سوف نتواصل معك في أقرب وقت");
-
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
             return RedirectToAction(nameof(Index));
         }
@@ -74,7 +82,7 @@ namespace GP.Controllers
                 message.IsReaded = true;
             }
             _context.Messages.UpdateRange(msg);
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
             if (SenderId == ReciverId)
             {
                 data = await _context.Messages.Where(x => x.ReceiverId == ReciverId && x.ReceiverId == x.UserId).ToListAsync();
@@ -107,12 +115,12 @@ namespace GP.Controllers
 
                     if (msgs.Select(z => z.UserId).Contains(user.Id))
                     {
-                         flag = false;
+                        flag = false;
                         lstUser.Add(new { user, flag });
                     }
                     else
                     {
-                         flag = true;
+                        flag = true;
                         lstUser.Add(new { user, flag });
                     }
 
@@ -148,12 +156,12 @@ namespace GP.Controllers
                     userlst.Add(user);
 
 
-                   
 
 
-                    
-                    lstUser.Add(new { user, flag,IsActive });
-                   
+
+
+                    lstUser.Add(new { user, flag, IsActive });
+
 
                 }
                 else
@@ -165,7 +173,7 @@ namespace GP.Controllers
                         bool flag = true;
                         if (ConnectedUser.IDs.Contains(user.Id)) IsActive = true;
                         else IsActive = false;
-                        lstUser.Add(new { user, flag , IsActive });
+                        lstUser.Add(new { user, flag, IsActive });
 
                         userlst.Add(user);
                     }

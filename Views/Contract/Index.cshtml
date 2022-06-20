@@ -1,224 +1,254 @@
-﻿@model IEnumerable<GP.Models.Contract>
+﻿@using X.PagedList.Mvc.Core;
+<!--import to get HTML Helper-->
+@using X.PagedList;
 
-@{
+@model IEnumerable<GP.Models.Contract>
 
-        ViewData["ActivePage"] = ManageNavPages.IndexContract; 
+    @{
+
+    ViewData["ActivePage"] = ManageNavPages.IndexContract;
 
     ViewData["Title"] = "العقود";
-          //  Layout = "~/Views/Shared/_LayoutOwner.cshtml";
+    // Layout = "~/Views/Shared/_LayoutOwner.cshtml";
 
-             if (User.IsInRole("Owner"))
+    if (User.IsInRole("Owner"))
     {
-        Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
-      
+    Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
+
     }
 
-}
+    }
+    <style>
+        .card-p {
+            width: 290px;
+            overflow: hidden;
+            height: 28px
+        }
+
+        .page-item.active .page-link {
+            background-color: #0f4f54;
+            border-color: #0d6efd;
+        }
+        .card-div{
+                position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: var(--bgdark);
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 0.25rem;
+        }
+    </style>
+
+
+    <p class="text-center py-3 fs-4"><span class="txtborder"> العقود </span></p>
 
 
 
-<p class="text-center py-3 fs-4"><span class="txtborder"> العقود   </span></p>
+
+    <div class="my-4">
+    <form method="post" asp-action="filterPost">
+    <div class="row">
+   
+          <div class="col-12 col-md-6">
+
+     <div class="form-group">
 
 
-<form method="post">
-    @foreach (var item in Model) {
-    <div class="card my-3">
-      <div class="card-header">
-        <div class="d-flex justify-content-between align-items-center">
-            <p class="m-0"> عقد مع   @Html.DisplayFor(modelItem => item.BuyerName)</p>
-            <p class="m-0">تاريخ نهاية العقد</p>
-        </div>
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">عقد مع</h5>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
+        <label  class="control-label">   اختر حالة العقد  </label>
+            <select  class ="form-control rounded-pill" name="status">
+                <option value="-1" selected >-- حالة العقار --   </option>
+                 <option value="1">بيع  </option>
+                  <option value="0"> إيجار </option>
+            </select>
+
+
+                                     
     </div>
-     }
-
-
-
-<table class=" pt-5 table table-bordered table-md text-center ">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.SallerName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sallerphone_num)
-            </th>
-          
-            <th>
-                @Html.DisplayNameFor(model => model.BuyerName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Buyerphone_num)
-            </th>
-           
-           
-            <th>
-                @Html.DisplayNameFor(model => model.up_to_date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.category)
-            </th>
-           
-            <th>
-                الحالة
-                
-            </th>
-             <th>
-                التفاصيل
-                
-            </th>
-
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.SallerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sallerphone_num)
-            </td>
-           
-            <td>
-                @Html.DisplayFor(modelItem => item.BuyerName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Buyerphone_num)
-            </td>
-          
-            
-             @if(item.Type == "إيجار"){
-                   <td>
-                    @Html.DisplayFor(modelItem => item.up_to_date)
-                    </td>
-                }
-
-                else
-                {
-                    <td></td>
-                }
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.category)
-            </td>
-
-                   <td>
-                @{
-
-             
-                    if(item.Type == "إيجار" )
-                    {
-
-                        if (item.isDone == 1)
-                        {
-                           
-                                   <a href="#" class="btn btn-danger" >   تم تفعيل العقار</a>
+                    </div>
                      
-                        }
-                        else if(item.up_to_date < DateTime.Today)
-                        {
-                              
-                     <button  asp-area="" asp-action="EeEstate" asp-controller="Contract" asp-route-id="@item.Id" type="submit" onclick="ff(event)" class="m  btn bg-success" >تفعيل العقار</button>
-                          
+               
+     </div>
 
-                        }
-
-                        else
-                        {
-                          
-                                   <a href="#" class="btn btn-secondary" >   العقار محجوز  </a>
-                        
-                        }
-
-                        }
-
-
-                        
-                    }
-                   
-
-                  </td>
-                  <td>
-
-                       <a href="Contract/Details/@item.Id" class="btn btn-secondary" >عرض</a>
-                  </td>
-                   
-                     
-
-                
-                
-        </tr>
-}
-    </tbody>
-</table>
-
+    <input type="submit" value="ابحث"  class="btn btn-success rounded-pill co1-1"/>
 </form>
 
 
-
-@section Scripts{
-         
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </div>
 
 
+    @if(Model.Count() == 0)
+    {
+    <div class="text-center" style="margin-top:150px">
+        <h3>لايوجد عقود مضافة </h3>
+    </div>
+    }
 
-    
-         <script>
+    else
+    {
+    <form method="post">
+        @{foreach (var item in Model) {
+
+                        <div class="card-div my-3">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p class="m-0"> عقد مع : @Html.DisplayFor(modelItem => item.BuyerName)</p>
+                                    <p class="m-0"> @item.OnDate.ToString("MM/dd/yyyy") </p>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                             <div class="d-flex justify-content-between">
+
+
+                                <h5 class="card-title fw-bold" style="color:#2a5555;">عقد @item.Type @item.category</h5>
+                                            @{
+                                if (item.Type == "بيع")
+                                {
+                                                                       <p><img  style="height:70px;width:70px;"  src="/images/Constant/بيع.png"/></p>
+
+                                }
+                                else
+                                {
+                                                                      <p><img style="height:70px;width:70px;" src="/images/Constant/ايجار.png"/></p>
+
+                                }
+                                            }
+
+                                </div>
+                                <p class="card-text card-p">تم بيع شقة بسعر 500 دينار في منطقة الفلاش </p>
+
+                                <div class="d-flex justify-content-between">
+
+
+                                @{
+                                            <div>
+                                                <a href="/Contract/Details/@item.Id" class="btn btn-secondary">عرض</a>
+                                            </div>
+                                    }
+                                    <div>
+
+                                        @{
+
+
+                                    if (item.Type == "إيجار")
+                                    {
+
+                                        if (item.isDone == 1)
+                                        {
+
+                                                            <a href="#" class="btn btn-danger"> تم تفعيل العقار</a>
+
+                                        }
+                                        else if (item.up_to_date < DateTime.Today)
+                                        {
+                                                            <button asp-area="" asp-action="EeEstate"
+                            asp-controller="Contract" asp-route-id="@item.Id" type="submit" onclick="ff(event)"
+                            class="m  btn bg-success">تفعيل العقار</button>
+
+
+                                        }
+
+                                        else
+                                        {
+
+                                            <a href="#" class="btn btn-secondary"> العقار محجوز </a>
+
+                                        }
+
+                                    }
+
+                                    else
+                                    {
+                                        <a href="#" class="btn btn-secondary">العقار مُباع  </a>
+                                    }
+
+
+
+                                    
+                                            }
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+        }
+        }
+
+
+
+
+    </form>
+    }
+    <!-- paging control for navigation to the previous page, next page, etc -->
+    @{
+    if(Model.Count() != 0)
+    {
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }),
+    new X.PagedList.Mvc.Common.PagedListRenderOptions
+    {
+    DisplayItemSliceAndTotal = true,
+    ContainerDivClasses = new[] { "navigation" },
+    LiElementClasses = new[] { "page-item" },
+    PageClasses = new[] { "page-link" },
+    })
+    }
+    }
+
+
+
+    @section Scripts{
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+
+
+    <script>
         var lots_of_stuff_already_done = true;
 
-        function ff(e){
-            if(lots_of_stuff_already_done){
+        function ff(e) {
+            if (lots_of_stuff_already_done) {
 
                 e.preventDefault()
 
             }
-const swalWithBootstrapButtons = Swal.mixin({
-  customClass: {
-    confirmButton: 'btn btn-success',
-    cancelButton: 'btn btn-danger'
-  },
-  buttonsStyling: false
-})
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
 
-swalWithBootstrapButtons.fire({
-  
-  title: ' هل انت متأكد من اعادة نشر العقار  ؟ ',
-  text: "سيترتب على ذلك ظهور العقار للمستخدمين ، للتعديل عليه اذهب لقائمة عقاراتك ومت ثم التعديل   ",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonText: 'نعم ، موافق',
-  cancelButtonText: 'لا',
-  reverseButtons: true
-}).then((result) => {
-  if (result.isConfirmed) {
-       lots_of_stuff_already_done = false;
-       if(!lots_of_stuff_already_done){
-       
-           $('.m').trigger('click')
-       }
-    
-      swalWithBootstrapButtons.fire(
-      'تم اعادة النشر بنجاح ',
-      '',
-      'success'
-    )
-     
-  } 
-})
+            swalWithBootstrapButtons.fire({
 
+                title: ' هل انت متأكد من اعادة نشر العقار  ؟ ',
+                text: "سيترتب على ذلك ظهور العقار للمستخدمين ، للتعديل عليه اذهب لقائمة عقاراتك ومت ثم التعديل   ",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'نعم ، موافق',
+                cancelButtonText: 'لا',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    lots_of_stuff_already_done = false;
+                    if (!lots_of_stuff_already_done) {
 
+                        $('.m').trigger('click')
+                    }
+
+                    swalWithBootstrapButtons.fire(
+                        'تم اعادة النشر بنجاح ',
+                        '',
+                        'success'
+                    )
+
+                }
+            })
 
 
 
@@ -230,9 +260,11 @@ swalWithBootstrapButtons.fire({
 
 
 
-};
-    
+
+
+        };
+
     </script>
-    
 
-}
+
+    }

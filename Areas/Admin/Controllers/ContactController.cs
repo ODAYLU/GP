@@ -2,11 +2,8 @@
 using GP.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Threading.Tasks;
 
 namespace GP.Areas.Admin.Controllers
 {
@@ -45,14 +42,21 @@ namespace GP.Areas.Admin.Controllers
             message.Body = contact.Msg;
             SmtpClient client = new SmtpClient("smtp.gmail.com", 465)
             {
-                Credentials = new NetworkCredential("aqaramlack123@gmail.com","a@1234567"),
+                Credentials = new NetworkCredential("aqaramlack123@gmail.com", "a@1234567"),
                 Port = 587,
                 UseDefaultCredentials = false,
                 EnableSsl = true
             };
+            try
+            {
+                client.Send(message);
 
-            client.Send(message);
-            
+            }
+            catch (Exception er)
+            {
+                return null;
+            }
+
             return Ok("");
         }
     }
