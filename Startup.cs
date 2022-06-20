@@ -58,7 +58,7 @@ namespace GP
             services.AddScoped<IState, StateManage>();
             services.AddScoped<IType, TypeManage>();
             services.AddScoped<IContract, ContractManage>();
-            services.AddScoped<InformationGen>();
+            services.AddScoped<IInformationGen, InformationGenManage>();
             services.AddScoped<IlikedEstates, likedEstatesManage>();
             services.AddScoped<INotification, NotificationManagement>();
             services.AddTransient<IContact, ContactManagments>();
