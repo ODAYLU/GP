@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220619193324_f5")]
-    partial class f5
+    [Migration("20220620124336_DBContext")]
+    partial class DBContext
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -222,13 +222,13 @@ namespace GP.Migrations
                     b.Property<long>("EstateId")
                         .HasColumnType("bigint");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("OnDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("Getdate()");
-
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
