@@ -59,25 +59,27 @@ namespace GP.Areas.Identity.Pages.Account
         public List<IdentityRole> Roles { get; set; }
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage ="هذا الحقل مطلوب ")]
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
-            [Required]
+            [Required(ErrorMessage = "هذا الحقل مطلوب ")]
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
-            [Required]
+            [Required(ErrorMessage = "هذا الحقل مطلوب ")]
+            [DataType(DataType.EmailAddress)]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "هذا الحقل مطلوب ")]
             
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
+           
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
+            [Display(Name = "تأكيد كلمة السر")]
             [Compare("Password", ErrorMessage = "كلمتا السر غير متطابقتين")]
             public string ConfirmPassword { get; set; }
 
@@ -169,11 +171,7 @@ namespace GP.Areas.Identity.Pages.Account
                     }
                 }
                 
-                foreach (var error in result.Errors)
-                {
-                    ViewData["Error"] = error.Description;
-                    ModelState.AddModelError("Input", error.Description);
-                }
+               
             }
             
          

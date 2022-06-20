@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220617193821_nweDBs")]
-    partial class nweDBs
+    [Migration("20220619050453_ass")]
+    partial class ass
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -537,6 +537,9 @@ namespace GP.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("IdAction")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsReaded")
                         .HasColumnType("bit");

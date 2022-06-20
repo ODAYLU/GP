@@ -74,7 +74,7 @@ namespace GP
                 UserId = user.Id,
                 EstateId = 7,
                 Body = comments.Body,
-                Rating = comments.Rating,
+IsActive= true
             };
 
 
@@ -89,20 +89,24 @@ namespace GP
             {
                 return NotFound();
             }
-            //  Comments com = await _context.GetOne(id);
-            await _context.DeleteComment(long.Parse(id));
-            
+              Comments com = await _context.GetOne(long.Parse(id));
+              com.IsActive = !com.IsActive;
+              await _context.UpdateComment(com);
+            //  await _context.DeleteComment(long.Parse(id));
+
             return Ok();
 
         }
         [HttpPost]
         public async Task<IActionResult> Details(long id)
         {
-            if (id != 0)
+            if (id != null)
             {
                 Comments com = await _context.GetOne(id);
+                Estate estate= com.Estate;
                 var replaies = await _replaies.GetCommentReplies(id);
-                return Ok(replaies);
+                var data = (new { reply = replaies, estate = estate,com=com });
+                return Ok(data);
             }
             else
                 return NotFound();

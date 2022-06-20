@@ -220,6 +220,9 @@ namespace GP.Migrations
                     b.Property<long>("EstateId")
                         .HasColumnType("bigint");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("OnDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")

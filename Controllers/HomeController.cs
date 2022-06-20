@@ -29,6 +29,7 @@ namespace GP.Controllers
         private readonly IHubContext<NotificationHub> _hub;
         private readonly SignInManager<AppUser> signInManager;
         private readonly INotification _notification;
+        private readonly IInformationGen _information;
         public HomeController(ILogger<HomeController> logger,
             ICategory category,
             IType type,
@@ -37,9 +38,9 @@ namespace GP.Controllers
             IEstate estate,
             IlikedEstates likedEstates,
             SignInManager<AppUser> signInManager,
-           IHubContext<NotificationHub> hub,
-            INotification notification
-
+            IHubContext<NotificationHub> hub,
+            INotification notification,
+            IInformationGen information
         )
         {
             _logger = logger;
@@ -52,6 +53,7 @@ namespace GP.Controllers
             this.signInManager = signInManager;
             _hub = hub;
             _notification = notification;
+            _information = information;
         }
 
         public IActionResult Index()
@@ -67,6 +69,7 @@ namespace GP.Controllers
             ViewBag.ModernEstateLand = _estate.GetAll().Where(z => z.is_active && z.publish && z.Category.category.Trim() == "أرض" && !z.IsBlock).OrderByDescending(x => x.OnDate).Take(4).ToList();
             ViewBag.ModernEstateChalet = _estate.GetAll().Where(z => z.is_active && z.publish && z.Category.category.Trim() == "شاليه" && !z.IsBlock).OrderByDescending(x => x.OnDate).Take(4).ToList();
             ViewBag.Likes = _likedEstates.GetAll().Where(x => x.IdUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(z => z.IdEstate).ToList();
+            ViewBag.ContactUrl = _information.GetOne();
             return View();
         }
 
@@ -167,20 +170,21 @@ namespace GP.Controllers
                     await _estate.UpdateEstate(estate);
                     int count = estate.Likes;
                     string status = "like";
-                    //  await _notification.SendNotification($"{estate.Users.UserName}تم تسجيل الاعجاب على عقارك بواسطة ",estate.UserId,"action");
+                                       
+                        Notification msg = new Notification
+                        {
+                            Text = $"{User.Identity.Name}تم تسجيل الاعجاب على عقارك بواسطة ",
+                            Time = DateTime.Now,
+                            ReciverId = estate.UserId,
+                            SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                            Type = "action",
+                            IsReaded = (ConnectedUser.IDs.Contains(estate.UserId) ? true : false)
+                        };
+                        await _notification.InsertNot(msg);
 
-                    Notification msg = new Notification
-                    {
-                        Text = $"{User.Identity.Name}تم تسجيل الاعجاب على عقارك بواسطة ",
-                        Time = DateTime.Now,
-                        ReciverId = estate.UserId,
-                        SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                        Type = "action",
-                        IsReaded = (ConnectedUser.IDs.Contains(estate.UserId) ? true : false)
-                    };
-                    await _notification.InsertNot(msg);
-
-                    await _hub.Clients.User(estate.UserId).SendAsync("receiveNotification", msg);
+                        await _hub.Clients.User(estate.UserId).SendAsync("receiveNotification", msg);
+                    
+                
                     var JsonData = new { status, count };
                     return Ok(JsonData);
                 }

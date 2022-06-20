@@ -33,14 +33,12 @@ namespace GP.Controllers.DataApi
             _configuration = configuration;
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetFav()
         {
             var data = await _estate.GetAllQuiers().Where(z => z.is_active && z.publish && !z.IsBlock).OrderByDescending(x => x.Likes).Take(4).ToListAsync();
             var JsonData = new { data};
             return Ok(JsonData);
         }
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetModern()
         {
             var data = await _estate.GetAllQuiers().Where(z => z.is_active && z.publish && !z.IsBlock).OrderByDescending(x => x.OnDate).Take(4).ToListAsync();
@@ -48,7 +46,6 @@ namespace GP.Controllers.DataApi
             return Ok(JsonData);
         }
 
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public async Task<IActionResult> GetBySearch(string search)
         {
             bool status = false;

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220618151718_add")]
-    partial class add
+    [Migration("20220619193753_we")]
+    partial class we
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,6 +221,9 @@ namespace GP.Migrations
 
                     b.Property<long>("EstateId")
                         .HasColumnType("bigint");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("OnDate")
                         .ValueGeneratedOnAdd()

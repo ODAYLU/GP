@@ -127,8 +127,8 @@ namespace GP.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "عملية تسجيل الدخول غير صحيحة");
-                    ViewData["Error"] = "عملية تسجيل الدخول غير صحيحة";
+                    ModelState.AddModelError(Input.Email, "المستخدم غير موجود");
+                    ViewData["Error"] = "المستخدم غير موجود";
                     return Page();
                 }
 

@@ -92,6 +92,7 @@ namespace GP.Controllers
                 data = await _context.Messages.Where(x =>
                         (x.ReceiverId == ReciverId || x.ReceiverId == SenderId)
                         && (x.UserId == ReciverId || x.UserId == SenderId)
+                        &&(x.ReceiverId != x.UserId)
                         ).ToListAsync();
 
             }
@@ -99,13 +100,13 @@ namespace GP.Controllers
         }
 
         [Authorize]
-        [HttpPost]
+        
         public async Task<IActionResult> GetUsers(string text)
         {
             List<object> lstUser = new List<object>();
             bool flag = false;
             text ??= "";
-            var Ids = text.Split(',');
+            var Ids = ConnectedUser.IDs;
             var msgs = _context.Messages.Where(x => !x.IsReaded).ToList();
             foreach (var item in Ids)
             {
@@ -124,9 +125,7 @@ namespace GP.Controllers
                         lstUser.Add(new { user, flag });
                     }
 
-                    flag = false;
-
-                    lstUser.Add(new { user, flag });
+                     
 
                 }
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,49 +18,49 @@ using X.PagedList;
 namespace GP
 {
 
-    [Authorize(Roles = "Owner")]
-    public class EstateController : Controller
-    {
-        private readonly ICommments _context;
-        private readonly IReplaies _replaies;
-        private readonly UserManager<AppUser> _userManager;
-        private readonly IEstate services;
-        private readonly IService servicesList;
-        private readonly IPhotoEstate _photoservices;
-        private readonly IService_Estate _service_Estate;
-        private readonly IlikedEstates _like;
-        private readonly IWebHostEnvironment webHostEnvironment;
-        //private readonly IHubContext<NotificationHub> _hub;
-        private readonly INotification _notification;
+	[Authorize(Roles = "Owner")]
+	public class EstateController : Controller
+	{
+		private readonly ICommments _context;
+		private readonly IReplaies _replaies;
+		private readonly UserManager<AppUser> _userManager;
+		private readonly IEstate services;
+		private readonly IService servicesList;
+		private readonly IPhotoEstate _photoservices;
+		private readonly IService_Estate _service_Estate;
+		private readonly IlikedEstates _like;
+		private readonly IWebHostEnvironment webHostEnvironment;
+		private readonly IHubContext<NotificationHub> _hub;
+		private readonly INotification _notification;
 
 
 
 
-        public EstateController(UserManager<AppUser> userManager,
-                    GP.Models.IEstate Services,
-                    IWebHostEnvironment webHostEnvironment,
-                    IPhotoEstate photoservices,
-                    IService_Estate service_Estate,
-                    IService servicesList,
-                    IlikedEstates like,
-                    //IHubContext<NotificationHub> hub,
-                    INotification notification,
-                    ICommments _context,
-                    IReplaies _replaies
-         )
-        {
-            this._userManager = userManager;
-            services = Services;
-            this.webHostEnvironment = webHostEnvironment;
-            _photoservices = photoservices;
-            _service_Estate = service_Estate;
-            this.servicesList = servicesList;
-            _like = like;
-            //_hub = hub;
-            _notification = notification;
-            this._context = _context;
-            this._replaies = _replaies;
-        }
+		public EstateController(UserManager<AppUser> userManager,
+					GP.Models.IEstate Services,
+					IWebHostEnvironment webHostEnvironment,
+					IPhotoEstate photoservices,
+					IService_Estate service_Estate,
+					IService servicesList,
+					IlikedEstates like,
+					IHubContext<NotificationHub> hub,
+					INotification notification,
+					ICommments _context,
+					IReplaies _replaies
+		 )
+		{
+			this._userManager = userManager;
+			services = Services;
+			this.webHostEnvironment = webHostEnvironment;
+			_photoservices = photoservices;
+			_service_Estate = service_Estate;
+			this.servicesList = servicesList;
+			_like = like;
+			_hub = hub;
+			_notification = notification;
+			this._context = _context;
+			this._replaies = _replaies;
+		}
 
         //public bool publish { get; set; }
 
@@ -610,24 +611,25 @@ namespace GP
                     EstateId = id,
                     Body = body,
                     UserId = user.Id,
-                    Rating = 0
+                    IsActive = true
 
-                };
-                await _context.InsertComment(comments);
-                var estate = await services.GetOne(comments.EstateId);
-                Notification msg = new Notification
-                {
-                    Text = $"{User.Identity.Name}تم التعليق  على عقارك بواسطة ",
-                    Time = DateTime.Now,
-                    ReciverId = estate.UserId,
-                    SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                    Type = "comment",
-                    IsReaded = (ConnectedUser.IDs.Contains(estate.UserId) ? true : false)
-                };
-                await _notification.InsertNot(msg);
 
-                //await _hub.Clients.User(estate.UserId).SendAsync("receiveNotification", msg);
-                Id = comments.Id;
+				};
+				await _context.InsertComment(comments);
+				var estate = await services.GetOne(id);
+				Notification msg = new Notification
+				{
+					Text = $"{User.Identity.Name}تم التعليق  على عقارك بواسطة ",
+					Time = DateTime.Now,
+					ReciverId = estate.UserId,
+					SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+					Type = "comment",
+					IsReaded = (ConnectedUser.IDs.Contains(estate.UserId) ? true : false)
+				};
+				await _notification.InsertNot(msg);
+
+				await _hub.Clients.User(estate.UserId).SendAsync("receiveNotification", msg);
+				Id = comments.Id;
 
 
                 GP.Models.Toast.Message = "تم إضافة التعليق بنجاح";
@@ -681,34 +683,34 @@ namespace GP
 
                 };
 
-                await _replaies.InsertReply(replaies);
-                var comment = await _context.GetOne(id);
-                //Notification msg = new Notification
-                //{
-                //    Text = $"{User.Identity.Name}تم  الرد  على تعليقك بواسطة ",
-                //    Time = DateTime.Now,
-                //    ReciverId = comment.UserId,
-                //    SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                //    Type = "Reply",
-                //    IdAction = $"{comment.EstateId}",
-                //    IsReaded = (ConnectedUser.IDs.Contains(comment.UserId) ? true : false)
-                //};
-                //await _notification.InsertNot(msg);
+				await _replaies.InsertReply(replaies);
+				var comment = await _context.GetOne(id);
+                Notification msg = new Notification
+                {
+                    Text = $"{User.Identity.Name}تم  الرد  على تعليقك بواسطة ",
+                    Time = DateTime.Now,
+                    ReciverId = comment.UserId,
+                    SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    Type = "Reply",
+                    IdAction = $"{comment.EstateId}",
+                    IsReaded = (ConnectedUser.IDs.Contains(comment.UserId) ? true : false)
+                };
+                await _notification.InsertNot(msg);
 
-                //await _hub.Clients.User(comment.UserId).SendAsync("receiveNotification", msg);
+                await _hub.Clients.User(comment.UserId).SendAsync("receiveNotification", msg);
 
-                //Notification msg2 = new Notification
-                //{
-                //    Text = $"{User.Identity.Name}تم  التعليق  على عقارك بواسطة ",
-                //    Time = DateTime.Now,
-                //    ReciverId = comment.Estate.UserId,
-                //    SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                //    Type = "comment",
-                //    IsReaded = (ConnectedUser.IDs.Contains(comment.Estate.UserId) ? true : false)
-                //};
-                //await _notification.InsertNot(msg);
+                Notification msg2 = new Notification
+                {
+                    Text = $"{User.Identity.Name}تم  التعليق  على عقارك بواسطة ",
+                    Time = DateTime.Now,
+                    ReciverId = comment.Estate.UserId,
+                    SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                    Type = "comment",
+                    IsReaded = (ConnectedUser.IDs.Contains(comment.Estate.UserId) ? true : false)
+                };
+                await _notification.InsertNot(msg);
 
-                //await _hub.Clients.User(comment.Estate.UserId).SendAsync("receiveNotification", msg2);
+                await _hub.Clients.User(comment.Estate.UserId).SendAsync("receiveNotification", msg2);
             }
 
             else

@@ -5,6 +5,7 @@
     var cities = new SelectList(@ViewBag.Cities,"Id","name"); 
     var states = new SelectList(@ViewBag.States,"Id","name");
     var likes = (List<long>)ViewBag.Likes;
+    var information = (InformationGen)ViewBag.ContactUrl;
 }
 
   <style>
@@ -33,8 +34,7 @@
      <video class="overflow-hidden " playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop" >
       <source src="~/indexLayout/assets/img/pages/bg.mp4" type="video/mp4" />
     </video>
-
-  </div>
+    </div>
 
 
 
@@ -137,12 +137,12 @@
 
   <div class="social-icons ">
     <div class="d-flex flex-row flex-lg-column justify-content-center align-items-center h-100 mt-3 mt-lg-0">
-      <a class="btn btn-dark text-white m-3 " data-aos="fade-down" data-aos-delay="100"
-        data-aos-easing="ease-in-sine" href="#!"><i class="bi bi-twitter"></i></a>
+      <a  class="btn btn-dark text-white m-3" data-aos="fade-down" data-aos-delay="100"
+        data-aos-easing="ease-in-sine" href="@information.UrlTwitter"><i class="bi bi-twitter"></i></a>
       <a class="btn btn-dark text-white m-3 " data-aos="fade-down" data-aos-delay="250"
-        data-aos-easing="ease-in-sine" href="#!"><i class="bi bi-facebook"></i></a>
+        data-aos-easing="ease-in-sine" href="@information.UrlFacebook"><i class="bi bi-facebook"></i></a>
       <a  class="btn btn-dark text-white m-3 " data-aos="fade-down" data-aos-delay="350"
-        data-aos-easing="ease-in-sine" href="#!"><i class="bi bi-instagram"></i></a>
+        data-aos-easing="ease-in-sine" href="@information.UrlInstegrame"><i class="bi bi-instagram"></i></a>
     </div>
   </div>
 
@@ -165,7 +165,7 @@
               <div class="game px-2">
                 <div class="rank"><span class="bi bi-star-fill checked"></span></div>
                 <div class="front">
-                  <img src="~/indexLayout/assets/img/pages/home1.jpg" class="img-fluid" alt="game">
+                  <img src="/images/Estate/"+ @item.Main_photo class="img-fluid" alt="game">
                   <div>
                     <h3 class="text-center py-3">@item.name</h3>
                   </div>
@@ -176,11 +176,14 @@
                 </div>
                 <div class="back">
                   <div class="streaming-info">
-                    <div class="game-stat  text-center">
-                      <b> السعر: @item.price @item.Currency.currency </b> <br /> <b> المدينة @item.City.name </b><br />
-                      <b>الدولة @item.State.name </b>
-
+                    <div class="game-stat  text-center"> 
+                       <p class="block-ellipsisdes">@item.description</p>
+                       <p class="m-0"><i class="bi bi-cash-stack"></i>: @item.price @item.Currency.currency </p>
+                       <p class="m-0"><i class="bi bi-geo-alt"></i>: @item.State.name - @item.City.name </p>
                     </div>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom">
+                        Tooltip on bottom
+                    </button>
                   </div>
                   <div class="d-flex align-items-center">
                     <a href="/commments/EstateComment/@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
@@ -222,9 +225,9 @@
         @if(@ViewBag.ModernEstate is not null)
           @foreach (var item in (List<Estate>)@ViewBag.ModernEstate)
          {
-             <div class="swiper-slide">
+         <div class="swiper-slide">
             <div class="card">
-              <img class="card-img-top img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHZDXGsLPahHg7Ib5aISArJBURuTOuRdlvUQ&usqp=CAU" alt="Card image">
+              <img class="card-img-top img-fluid" src="/images/Estate/"+@item.Main_photo alt="Card image">
               <div class="card-body">
                 <h4 class="card-title">@item.name</h4>
                 <b> السعر: @item.price @item.Currency.currency </b> <br /> <b> المدينة @item.City.name </b><br />
@@ -315,7 +318,7 @@
                     <a href="">
                         <div class="text-box">
                         <div class="image-box">
-                          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHZDXGsLPahHg7Ib5aISArJBURuTOuRdlvUQ&usqp=CAU" alt="" />
+                          <img src="/images/Estate/" @item.Main_photo alt="" />
                         </div>
                           <div class="text-container">
                           <div class="">
@@ -390,7 +393,7 @@
                     <a href="">
                       <div class="text-box">
                         <div class="image-box">
-                          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHZDXGsLPahHg7Ib5aISArJBURuTOuRdlvUQ&usqp=CAU" alt="" />
+                          <img src="/images/Estate/" @item.Main_photo alt="" />
                         </div>
                         <div class="text-container">
                           <div class="">
@@ -713,7 +716,8 @@
         
 
 
-
+        var exampleEl = document.getElementById('example')
+        var tooltip = new bootstrap.Tooltip(exampleEl, options)
 
 function AddLike(Id,el) {
    
