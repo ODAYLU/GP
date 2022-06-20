@@ -168,19 +168,22 @@ namespace GP.Controllers
                     int count = estate.Likes;
                     string status = "like";
                     //  await _notification.SendNotification($"{estate.Users.UserName}تم تسجيل الاعجاب على عقارك بواسطة ",estate.UserId,"action");
-
-                    Notification msg = new Notification
+                    if(estate.UserId!= User.FindFirstValue(ClaimTypes.NameIdentifier))
                     {
-                        Text = $"{User.Identity.Name}تم تسجيل الاعجاب على عقارك بواسطة ",
-                        Time = DateTime.Now,
-                        ReciverId = estate.UserId,
-                        SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                        Type = "action",
-                        IsReaded = (ConnectedUser.IDs.Contains(estate.UserId) ? true : false)
-                    };
-                    await _notification.InsertNot(msg);
+                        Notification msg = new Notification
+                        {
+                            Text = $"{User.Identity.Name}تم تسجيل الاعجاب على عقارك بواسطة ",
+                            Time = DateTime.Now,
+                            ReciverId = estate.UserId,
+                            SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                            Type = "action",
+                            IsReaded = (ConnectedUser.IDs.Contains(estate.UserId) ? true : false)
+                        };
+                        await _notification.InsertNot(msg);
 
-                    await _hub.Clients.User(estate.UserId).SendAsync("receiveNotification", msg);
+                        await _hub.Clients.User(estate.UserId).SendAsync("receiveNotification", msg);
+                    }
+                
                     var JsonData = new { status, count };
                     return Ok(JsonData);
                 }

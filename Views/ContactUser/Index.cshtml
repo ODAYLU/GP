@@ -168,6 +168,10 @@
     @section Scripts{
       
         <script>
+            $(document).ready(function() {
+            localStorage.setItem("ChatUserId","");
+    
+            });
             $('.ccard2').on('mouseover', function(e) {
             $('.ic2').not($(this)).addClass('ico2')     
 });

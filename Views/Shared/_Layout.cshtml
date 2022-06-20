@@ -79,7 +79,7 @@
               </button>
             </div>
 
-            @if(User.IsInRole("Owner")||User.IsInRole("User")){
+            @if(User.Identity.IsAuthenticated){
                   <div class=" ps-2">
                             <div class="dropdown">
                               <button id="btnNotification" type="button" class="btn start-0 text-white  dropdown-toggle " data-bs-toggle="dropdown" style="box-shadow: none;postion:relative;display: inline-block;">
@@ -111,11 +111,11 @@
                 @{
                     if (User.IsInRole("Owner"))
                     {
-                        <li><a class="dropdown-item d-flex justify-content-center align-items-center"asp-area="Identity" asp-page="/Account/Manage/Index" >الصفحة الشخصية</a></li>
+                                                <li><a class="dropdown-item d-flex justify-content-center align-items-center"asp-area="Identity" asp-page="/Account/Manage/Index" >الصفحة الشخصية</a></li>
                     }
                     else if (User.IsInRole("User"))
                     {
-                         <li><a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Manage/PersonalUser">الصفحة الشخصية</a></li>
+                                                 <li><a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Manage/PersonalUser">الصفحة الشخصية</a></li>
                     }
                 }
               @if (User.IsInRole("Owner") )
@@ -292,9 +292,7 @@
             
           //    x.classList.add("w-100");
           //}
-
-          
-                         
+               
 
 
 

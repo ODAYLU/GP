@@ -73,7 +73,7 @@
 
 
          <ul  id="pagination" class="pagination ">
-  
+            
         </ul>
 
      
@@ -111,7 +111,9 @@ var downloadGrid = (function () {
               </script>
 <script type="text/javascript">
 $(document).ready(function() {
-    localStorage.setItem("pageNumberHouse","1");
+    localStorage.setItem("pageNumberHouse","1"); 
+    localStorage.setItem("ChatUserId","");
+ 
     $.ajax({
             method: 'Get',
             url: `/api/ApiEstate/GetLands`,

@@ -1101,6 +1101,9 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
 </script>
 <script>
+$(document).ready(function() {
+    localStorage.setItem("ChatUserId",@Model.UserId);
+});
     //the map
        var x = document.getElementById('Long');
        var xx= x.innerHTML;
