@@ -175,11 +175,14 @@
                 </div>
                 <div class="back">
                   <div class="streaming-info">
-                    <div class="game-stat  text-center">
+                    <div class="game-stat  text-center"> 
                        <p class="block-ellipsisdes">@item.description</p>
-                      <b> السعر: @item.price @item.Currency.currency </b>
-                      <b>الدولة @item.State.name </b>-<b> المدينة @item.City.name </b><br />
+                       <p class="m-0"><i class="bi bi-cash-stack"></i>: @item.price @item.Currency.currency </p>
+                       <p class="m-0"><i class="bi bi-geo-alt"></i>: @item.State.name - @item.City.name </p>
                     </div>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom">
+                        Tooltip on bottom
+                    </button>
                   </div>
                   <div class="d-flex align-items-center">
                     <a href="/commments/EstateComment/@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
@@ -712,7 +715,8 @@
         
 
 
-
+        var exampleEl = document.getElementById('example')
+        var tooltip = new bootstrap.Tooltip(exampleEl, options)
 
 function AddLike(Id,el) {
    
