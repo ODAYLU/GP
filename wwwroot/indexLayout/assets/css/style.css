@@ -259,14 +259,7 @@ nav {
     font-weight: 400;
     color: var(--textnav);
 }
-.dropdown {
-    display: inline-flex !important;
-    position: relative !important;
-    vertical-align: top !important;
-    justify-content: center !important;
-    flex-direction: column !important;
-    align-items: center !important;
-}
+
 
     .dropdown-item:focus,
     .dropdown-item:hover {
@@ -313,17 +306,7 @@ nav.black {
     opacity: 1;
 }
 
-@media only screen and (max-width: 1116px) {
-    .navbar #mynavbar .navbar-nav .nav-item{
-        font-size: 14px;
-    }
-}
-@media only screen and (max-width: 1047px) {
-    .navbar #mynavbar .navbar-nav .nav-item {
-        font-size: 12.3px;
-        font-weight:bold;
-    }
-}
+
 /*********** dark icons *******************/
 
 .toggle-container {
