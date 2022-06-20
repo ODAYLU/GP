@@ -167,9 +167,7 @@ namespace GP.Controllers
                     await _estate.UpdateEstate(estate);
                     int count = estate.Likes;
                     string status = "like";
-                    //  await _notification.SendNotification($"{estate.Users.UserName}تم تسجيل الاعجاب على عقارك بواسطة ",estate.UserId,"action");
-                    if(estate.UserId!= User.FindFirstValue(ClaimTypes.NameIdentifier))
-                    {
+                                       
                         Notification msg = new Notification
                         {
                             Text = $"{User.Identity.Name}تم تسجيل الاعجاب على عقارك بواسطة ",
@@ -182,7 +180,7 @@ namespace GP.Controllers
                         await _notification.InsertNot(msg);
 
                         await _hub.Clients.User(estate.UserId).SendAsync("receiveNotification", msg);
-                    }
+                    
                 
                     var JsonData = new { status, count };
                     return Ok(JsonData);
