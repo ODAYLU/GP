@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GP.Migrations
 {
-    public partial class DBContext : Migration
+    public partial class ConDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
