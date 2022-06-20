@@ -17,7 +17,7 @@
 :root,
 :root.light {
     --green: #2a5555 !important;
-    /* --green: #0f4f54 !important; */
+    /* --green: #389da4 !important; */
     --bgwhite: #f6f6f6 !important;
     --txtwhite: #f1f1f1 !important;
     --txtactive: #111;
@@ -394,11 +394,11 @@ select:focus-visible {
 /*********************************المميزة*********************************/
 
 .game {
-  background: var(--bgsec);
-  backdrop-filter: blur(0.5rem);
-  z-index: -1;
-  padding-bottom: 20px;
-  border-radius: 1rem;
+    background: var(--bgsec);
+    backdrop-filter: blur(0.5rem);
+    z-index: -1;
+    padding-bottom: 10px;
+    border-radius: 1rem;
 }
 
 .bg-b {
@@ -422,7 +422,7 @@ select:focus-visible {
 }
 
 .front {
-  transition: 200ms;
+  transition: 300ms;
 }
 
     .front > img {
@@ -456,7 +456,6 @@ select:focus-visible {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1em;
   text-align: center;
 }
 
@@ -528,15 +527,19 @@ select:focus-visible {
 .bgdaeke {
   background-color: var(--bgwhite);
 }
+.titelId {
+    color: #389da4;
+    text-decoration: none;
+}
 .block-ellipsisdes {
     padding: 0 20px;
     display: -webkit-box;
     max-width: 100%;
-    height: 56px;
+    height: 60px;
     margin: 0 auto;
     font-size: 14px;
-    line-height: 1;
-    -webkit-line-clamp: 4;
+    line-height: inherit;
+    -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -553,6 +556,9 @@ select:focus-visible {
 }
 
 
+.game .back .streaming-info .game-stat .dd {
+    color: #8f8f8f;
+}
 
 
 
