@@ -611,7 +611,8 @@ namespace GP
                     EstateId = id,
                     Body = body,
                     UserId = user.Id,
-                    Rating = 0
+                    IsActive = true
+
 
 				};
 				await _context.InsertComment(comments);
