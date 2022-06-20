@@ -368,9 +368,9 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                          for (int e=0;e <2;e++)
                     {
                         
-                         <a id="EPic" class="image-thumbnail" href="#@sewar">
-                            <img src="~/images/Estate/@photosPaths[e].ImagePath" class=" img-fluid w-100 h-100">
-                         </a>
+                             <a id="EPic" class="image-thumbnail" href="#@sewar">
+                                <img src="~/images/Estate/@photosPaths[e].ImagePath" class=" img-fluid w-100 h-100">
+                             </a>
                         sewar++;
                     }
                     }
@@ -435,26 +435,29 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
             foreach (var pic in @photosPaths)
             {
-              
+                <div class="light-box modal-content" id="@sear">
+                    <div class="row edges align-items-baseline">
+                        <span class="close-btn d-inline"><a href="#"><i class="bi bi-x-lg fs-1 position-absolute"></i></a></span>
 
-    <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff; width: 100%;  height: 300px; margin-left: auto; margin-right: auto;" class="swiper mySwiper2" >
-      <div class="swiper-wrapper">
-        <div class="swiper-slide " style="background-size: cover; background-position: center;">
-           <img src="~/images/Estate/@pic.ImagePath" class="img-fluid" />
-        </div>
-      </div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-    </div>
-    <div thumbsSlider="" class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">
-          <img src="~/images/Estate/@pic.ImagePath" class="img-fluid" />
-        </div>
-      </div>
-    </div>
+                        <div class="col p-0">
+                            <span class="previous-btn "><a href="#@sear"><i class="bi bi-arrow-right fs-1"></i></a></span>
+                        </div>
+
+
+                        <div class="col-10 p-0">
+                            <img src="~/images/Estate/@pic.ImagePath"
+                                    class="img-fluid position-relative" />
+                        </div>
      
- 
+                        <div class="col p-0">
+                            <span class=" next-btn"><a href="#@sear"><i
+                                            class="bi bi-arrow-left fs-1"></i></a></span>
+                        </div>
+                    </div>
+                </div>
+
+                sear++;
+
               }
         }*@
 
@@ -473,8 +476,17 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
         <div class="row py-4 text-end ">
             <div class="col-12 col-md-9 ">
                 <div class="pe-xl-5">
-
-
+           <section>
+               
+                       @{
+            if(@photosPaths.Count>2){
+                for (int k= 0;k < @photosPaths.Count;k++)
+                {
+                    <img src="~/images/Estate/@photosPaths[k].ImagePath" />
+                }
+            }
+        }
+           </section>
                         <p class="fs-2 ">عنوان العقار</p>
                         <p><i class="bi bi-geo-alt-fill"></i>@Model.State.name _ @Model.City.name</p>
                         <div class="d-flex justify-content-between align-items-center fs-5">
@@ -489,10 +501,10 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                                
                                 foreach (var ser in listServices)
                                 {
-                                    <li class="px-3 imgsernamehover text-center"> 
-                                        @ser.Name 
-                                        <img class="imgsername" src="@ser.ImagePath" />    
-                                    </li>
+                                        <li class="px-3 imgsernamehover text-center"> 
+                                            @ser.Name 
+                                            <img class="imgsername" src="@ser.ImagePath" />    
+                                        </li>
                                 }
                             }
                                 
@@ -546,125 +558,125 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
             <ul id="comments-list" class="comments-list ">
                 @{
-                            @if(Models.Count()==0)
+                                @if(Models.Count()==0)
                 {
-                            <li class="text-center text-warning insertdata"> لا يوجد تعليقات </li>
+                                <li class="text-center text-warning insertdata"> لا يوجد تعليقات </li>
                 }
                 for (int i = 0; i < Models.Count(); i++) { <li class="@((i!=0 && i!=1) ?" closed":"") @i">
-                                <div class="comment-main-level">
+                                    <div class="comment-main-level">
 
-                                    <div class="comment-avatar">
-              @{
+                                        <div class="comment-avatar">
+                  @{
 
                             if(Models[i].AppUser.ProfilePicture != null)
                             {
-                                <img src="data:image/*;base64,@(Convert.ToBase64String(Models[i].AppUser.ProfilePicture))"  alt="">
+                                        <img src="data:image/*;base64,@(Convert.ToBase64String(Models[i].AppUser.ProfilePicture))"  alt="">
                             }
                             else
                             { 
-                                <img src="/indexLayout/assets/img/pages/user.jpg" />
+                                        <img src="/indexLayout/assets/img/pages/user.jpg" />
                             }
-              }
+                  }
 
-
-                                    </div>
-
-                                    <div class="comment-box">
-                                        <div class="comment-head">
-                                            <h6 class="comment-name"><a>@Models[i].AppUser.FirstName
-                                                    @Models[i].AppUser.LastName </a></h6>
-
-                                            <i class="bi bi-reply-all-fill"  onclick="ShowFormReplay(@i)"></i>
 
                                         </div>
-                                        <div class="comment-content">
-                                            <p>@Models[i].Body</p>
+
+                                        <div class="comment-box">
+                                            <div class="comment-head">
+                                                <h6 class="comment-name"><a>@Models[i].AppUser.FirstName
+                                                        @Models[i].AppUser.LastName </a></h6>
+
+                                                <i class="bi bi-reply-all-fill"  onclick="ShowFormReplay(@i)"></i>
+
+                                            </div>
+                                            <div class="comment-content">
+                                                <p>@Models[i].Body</p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Respuestas de los comentarios -->
-                                @{
+                                    <!-- Respuestas de los comentarios -->
+                                    @{
                     List<Replaies> lst=await rep.GetCommentReplies(Models[i].Id);
 
                         if(lst != null)
                         {
                         long q= -1;
-                                                <ul class="comments-list reply-list ul-@Models[i].Id">
+                                                        <ul class="comments-list reply-list ul-@Models[i].Id">
 
-                                                    @{
+                                                            @{
                             for (int x = 0; x < lst.Count(); x++) { q=lst[x].Id; <li
-                                                                    class=" closedReplaies-@Models[i].Id closedReplaies ">
-                                                                    <div class="comment-main-level">
+                                                                                class=" closedReplaies-@Models[i].Id closedReplaies ">
+                                                                                <div class="comment-main-level">
 
-                                                                        <div class="comment-avatar">
-                                                                            @{
+                                                                                    <div class="comment-avatar">
+                                                                                        @{
                                         if(lst[x].AppUser.ProfilePicture != null)
                                         {
-                                                                                        <img src="data:image/*;base64,@(Convert.ToBase64String(lst[x].AppUser.ProfilePicture))"
-                                                                                            alt="">
+                                                                                                        <img src="data:image/*;base64,@(Convert.ToBase64String(lst[x].AppUser.ProfilePicture))"
+                                                                                                            alt="">
                                         }
 
                                         else
                                         {
-                                                                                        <img src="/indexLayout/assets/img/pages/user.jpg" />
+                                                                                                        <img src="/indexLayout/assets/img/pages/user.jpg" />
                                         }
-                                                                            }
+                                                                                        }
 
 
 
-                                                                        </div>
+                                                                                    </div>
 
-                                                                        <div class="comment-box">
-                                                                            <div class="comment-head">
-                                                                                <h6 class="comment-name"><a>@lst[x].AppUser.FirstName
-                                                                                        @lst[x].AppUser.LastName </a></h6>
+                                                                                    <div class="comment-box">
+                                                                                        <div class="comment-head">
+                                                                                            <h6 class="comment-name"><a>@lst[x].AppUser.FirstName
+                                                                                                    @lst[x].AppUser.LastName </a></h6>
 
-                                                                            </div>
-                                                                            <div class="comment-content">
-                                                                                <p style="width:0px">@lst[x].body</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                                                        </div>
+                                                                                        <div class="comment-content">
+                                                                                            <p style="width:0px">@lst[x].body</p>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
 
-                                                                    </li>
+                                                                                </li>
 
 
                                 }
-                                                        }
+                                                                }
 
 
-                                                </ul>
+                                                        </ul>
 
-                                                <div class="d-flex justify-content-end" style="display: @((q==-1 ) ?" none":"") "  ><a class="
-                                                    x-@Models[i].Id" onclick="showReplaies(@Models[i].Id)">عرض الردود</a></div>
+                                                        <div class="d-flex justify-content-end" style="display: @((q==-1 ) ?" none":"") "  ><a class="
+                                                            x-@Models[i].Id" onclick="showReplaies(@Models[i].Id)">عرض الردود</a></div>
 
                         }
 
-                                    }
-                                    </li>
+                                        }
+                                        </li>
 
-                                    <form method="" id="form-@i" class="closedForm closeafterwirte">
-                                        <span class="loginPlac" id="loginPlease-@Models[i].Id" style="display:none !important;"> عليك
-                                            تسجيل
-                                            الدخول اولا <a href="/Identity/Account/Login"> تسجيل الدخول</a></span>
-                                        <div class=" d-flex justify-content-center align-items-center">
-                                            <textarea id="bodytextarea-@Models[i].Id" style="background: var(--bgwhite);color: var(--txtactive);border-radius:20px; padding:8px" class="" rows="3"
-                                                placeholder="اكتب هنا الرد...."></textarea>
+                                        <form method="" id="form-@i" class="closedForm closeafterwirte">
+                                            <span class="loginPlac" id="loginPlease-@Models[i].Id" style="display:none !important;"> عليك
+                                                تسجيل
+                                                الدخول اولا <a href="/Identity/Account/Login"> تسجيل الدخول</a></span>
+                                            <div class=" d-flex justify-content-center align-items-center">
+                                                <textarea id="bodytextarea-@Models[i].Id" style="background: var(--bgwhite);color: var(--txtactive);border-radius:20px; padding:8px" class="" rows="3"
+                                                    placeholder="اكتب هنا الرد...."></textarea>
 
-                                            <div class="">
+                                                <div class="">
 
-                                                <a class="showx" onclick="createRepaliy(@Models[i].Id)">
-                                                     <i class="bi bi-send-fill iconsend px-2  fs-3 w-100 h-100"></i>
-                                                </a>
+                                                    <a class="showx" onclick="createRepaliy(@Models[i].Id)">
+                                                         <i class="bi bi-send-fill iconsend px-2  fs-3 w-100 h-100"></i>
+                                                    </a>
 
-                                                <span class="errorrep" id="errorEmpty-@Models[i].Id"></span>
+                                                    <span class="errorrep" id="errorEmpty-@Models[i].Id"></span>
+
+                                                </div>
+
 
                                             </div>
 
-
-                                        </div>
-
-                                    </form>
+                                        </form>
 
 
 
@@ -676,7 +688,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
             @{
             if(Models.Count() > 2)
             {
-                        <div class="show showx"><a>عرض المزيد</a></div>
+                            <div class="show showx"><a>عرض المزيد</a></div>
             }
             }
 
@@ -698,11 +710,11 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                     @{
                         if(@Model.Users.ProfilePicture==null)
                         {
-                                        <img src="~/indexLayout/assets/img/pages/user.jpg" class="userimgs" />
+                                            <img src="~/indexLayout/assets/img/pages/user.jpg" class="userimgs" />
                         }
                         else
                         {
-                                    <img class="userimgs" src="data:image/*;base64,@(Convert.ToBase64String(Model.Users.ProfilePicture)) " />
+                                        <img class="userimgs" src="data:image/*;base64,@(Convert.ToBase64String(Model.Users.ProfilePicture)) " />
                          }
                     }
                         
@@ -848,12 +860,12 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
 
                 var Ah6 = document.createElement('a');
-                Ah6.href = "";
+
 
                 Ah6.innerHTML = name;
                 var replay1 = document.createElement('i');
-                replay1.classList.add('fa');
-                replay1.classList.add('fa-reply');
+                replay1.classList.add('bi');
+                replay1.classList.add('bi-reply-all-fill');
 
                 replay1.setAttribute('onclick',`ShowFormReplay(${Id})`)
 
@@ -903,7 +915,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
                     success: function (data) {
                         if (data.status == "Insert") {
-                            hicreateElement(data.name, data.photo, txt,data.Id);
+                            hicreateElement(data.name, data.photo, txt,data.id);
                             document.getElementById('bodytextarea').value = "";
 
                             errorEmpty.innerHTML = "";
@@ -950,10 +962,10 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
 
 
-                let formRep = document.getElementById(`form-${i}`);
+                var formRep = document.getElementById(`form-${i}`);
 
 
-
+                console.log(formRep);
                 formRep.classList.toggle("closedForm");
 
 
@@ -1040,6 +1052,8 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
 
             function hicreateElementRep(name, photo, id, txt) {
+
+                console.log(name, photo, id, txt)
                 var li = document.createElement('li');
                 li.classList.add(`closedReplaies-${id}`);
 
@@ -1067,7 +1081,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                 var h6 = document.createElement('h6');
                 h6.classList.add('comment-name');
 
-                var a = document.createElement('a');
+              var a = document.createElement('a');
 
 
                 h6.textContent = name;
