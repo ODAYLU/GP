@@ -43,7 +43,7 @@ namespace GP.Models
 
     public interface IAdvertisement
     {
-        public Task<IQueryable<Advertisement>> GetAll(string search="");
+        public IQueryable<Advertisement> GetAll(string search="");
         public Task<Advertisement> GetOne(long id);
         public Task<DbCRUD> InsertAdvertisement(Advertisement Advertisement);
         public Task<DbCRUD> UpdateAdvertisement(Advertisement Advertisement);
@@ -84,7 +84,7 @@ namespace GP.Models
             return DbCRUD.fail;
         }
 
-        public async Task<IQueryable<Advertisement>> GetAll(string search = "") => _context
+        public IQueryable<Advertisement> GetAll(string search = "") => _context
             .TAdvertisement
             .AsNoTracking()
             .Where(x => string.IsNullOrEmpty(search) ? true :(x.FirstName.Contains(search)))
