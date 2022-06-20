@@ -117,7 +117,7 @@ namespace GP.Controllers
 
 			var jsonData = new { recordsFiltered = recordsTotal, recordsTotal, data };
 
-			return Ok(users);
+			return Ok(jsonData);
 		}
 		[HttpGet]
 		public async Task<IActionResult> GetOwnersCards(string? search)
