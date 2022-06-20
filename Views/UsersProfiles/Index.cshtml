@@ -112,7 +112,7 @@
                                                 ${data[i].decription}
                                             </div>
                                           </div>
-                                          <a class="mc-btn-action">
+                                          <a class="mc-btn-action" id='btn${i}' onclick="showDetails('btn${i}')">
                                             <i class="fa fa-bars"></i>
                                           </a>
                                           <div class="mc-footer d-flex align-items-center justify-content-center">
@@ -136,43 +136,42 @@
 
 
   
-    <script>
-    
-    
-    
+    <script>   
+        //$(function () 
+        //{
+            function showDetails(id) {
+                let that = document.getElementById(id)
+                console.log(that);
+                var card = that.parentNode;
+                console.log(card);
+                var icon = that.childNodes[1];
+                console.log(icon);
+                //icon.classList.add('fa-spin-fast');
+                //icon.addClass('fa-spin-fast');
 
-                
-                   $(function () 
-                            {
-                      $('.material-card > .mc-btn-action').click(function () {
-                        
-                        var card = $(this).parent('.material-card');
-                        var icon = $(this).children('i');
-                        icon.addClass('fa-spin-fast');
+                //if (card.hasClass('mc-active')) {
+                //  card.removeClass('mc-active');
 
-                        if (card.hasClass('mc-active')) {
-                          card.removeClass('mc-active');
+                //  window.setTimeout(function () {
+                //    icon
+                //      .removeClass('fa-arrow-left')
+                //      .removeClass('fa-spin-fast')
+                //      .addClass('fa-bars');
 
-                          window.setTimeout(function () {
-                            icon
-                              .removeClass('fa-arrow-left')
-                              .removeClass('fa-spin-fast')
-                              .addClass('fa-bars');
+                //  }, 800);
+                //} else {
+                //  card.addClass('mc-active');
 
-                          }, 800);
-                        } else {
-                          card.addClass('mc-active');
+                //  window.setTimeout(function () {
+                //    icon
+                //      .removeClass('fa-bars')
+                //      .removeClass('fa-spin-fast')
+                //      .addClass('fa-arrow-left');
 
-                          window.setTimeout(function () {
-                            icon
-                              .removeClass('fa-bars')
-                              .removeClass('fa-spin-fast')
-                              .addClass('fa-arrow-left');
-
-                          }, 800);
-                        }
-                      });
-                    })
+                //  }, 800);
+                //}
+            };
+        //});
 
     </script>
 }
