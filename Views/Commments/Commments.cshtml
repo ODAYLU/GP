@@ -1,7 +1,7 @@
 ﻿@model GP.Models.Comments;
-@{
-       ViewData["ActivePage"] = ManageNavPages.IndexComment; 
-
+ @{
+  
+    ViewData["ActivePage"] = ManageNavPages.IndexComment; 
     ViewData["Title"] = "التعليقات";
 }
 
@@ -19,7 +19,7 @@
         <div class="modal-content">
             <div style="margin:10px!important;">
                 <form id="formadd" method="post">
-                    <div class="row">
+                    <div id="main" class="row">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="col-12">
                             <div class="form-group" hidden>
@@ -30,20 +30,28 @@
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-
+                                <div>
                                 <img style="max-width:200px;max-height:200px;" id="image" src="" alt="Estate" />
-                                <input id="fname" asp-for="@Model.Body" class="form-control" required name="name" />
-                                <span asp-validation-for="@Model.Body" class="text-danger span"></span>
+                                </div>
+                                <div>
+                                    <img id="commenter"  />
+                                <p id="fname"></p>
+                                    
+                                </div>
+@*                                <input id="fname" asp-for="@Model.Body" class="form-control" required name="name" />
+                                <span asp-validation-for="@Model.Body" class="text-danger span"></span>*@
                             </div>
                         </div>
+                        <a id="ref" href="#">الردود</a>
                         <div id="reps">
+                           
                         </div>
 
 
                     </div>
 
                     <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button id="btnAdd" type="submit" class="btn btn-outline-primary">Add</button>
+                    @*<button id="btnAdd" type="submit" class="btn btn-outline-primary">Add</button>*@
                     @*<button id="btnEdit" type="submit" class="btn btn-outline-primary">Edit</button> *@
                 </form>
             </div>
@@ -57,7 +65,7 @@
         <tr>
             <th>الرقم</th>
             <th> التعليق </th>
-            <th> التقييم </th>
+            <th> الحالة </th>
             <th></th>
 
         </tr>
@@ -72,6 +80,9 @@
 <script src="~/SweetAlert/sweetalert2@11.js"> </script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
+    var ref=document.getElementById("ref");
+    var reps=document.getElementById("reps");
+    var main=document.getElementById("main");
     $(document).ready(function () {
 
         $("#Comments").DataTable({
@@ -103,9 +114,9 @@
                     return `<a id="d" href="#" style="color:black; text-decoration: none;display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap;" onclick=Details(${row.id})>${data}</a>`
                     },
                  },
-                 {"data":"rating","name":"Rating","autowidth": true},
+                 {"data":"isActive","name":"IsActive","autowidth": true},
                 {
-                   "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCustomer(' + row.id + '); > Delete </a>' },
+                   "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCustomer(' + row.id + '); > تعديل الحالة </a>' },
                    "orderable": false
                 },
             ],
@@ -116,7 +127,7 @@
     {
           var table = $("#Comments").DataTable();
           var data = table.data().filter(function(elm) {return elm.id == Id});
-           // console.log(data[0]);
+           console.log(data[0].id);
            var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'),{
            keyboard: false});
            myModal.show();
@@ -124,64 +135,81 @@
            type:"POST",
            url: `/Commments/Details/${Id}`,
            dataType: "json",
-               success: function (data)
+               success: function (datab)
                {
-                   console.log(data[0]);
-                      console.log(data.length);
-                   // console.log(data[0].comments);
-                    var image=data[0].comments.estate.main_photo;
-                    document.getElementById("image").src=`/images/Estate/${image}`;
-                    var dat=data.length;
-                    console.log(data.length);
-                  //  console.log(data[0].body);
-                    for(let i=0;i<dat;i++)
-                    {
-                       const node = document.createElement("p");
-                       const textnode = document.createTextNode(data[i].body);
-                       node.appendChild(textnode);
-                       document.getElementById("reps").appendChild(node);
-
+                   var text="";
+                   var gg="";
+                   var com="";
+                   var es="";
+                   if(datab.com.appUser.profilePicture==null){
+                       es="/indexLayout/assets/img/pages/user.jpg";
+                   }
+                   else{
+                       es="data:image/jpeg;base64," + btoa(atob(`${datab.com.appUser.profilePicture}`));
+                   }
+                   com+=`<div class="row">
+                   <img class="w-100"src="/images/Estate/${datab.estate.main_photo}"/>
+                       </div>
+        <div class="row">
+            <div class="col-1">
+                <img src="${es}"  class=" rounded-circle mt-6 me-2" width="70" height="70" />
+            </div>
+            <div class="col-4" >
+                <div class=" bg-secondary round p-4 mb-5">
+                    <h2>${data[0].body}</h2>
+            </div>
+               
+            <div class="row">
+                <div class="d-flex flex-row justify-content-around">
+                    <div class="d-inline">
+                        <a href="#" id="lnk" style="font-size: 22;">الردود </a>
+                    </div>
+                </div>
+            </div>
+            <div id="rowling"class="row">
+            </div>
+            </div>
+        </div>
+</div>`;
+$("#main").html(com);
+               
+                    var replys=datab.reply.length;
+                    console.log(replys);
+                    $('#lnk').on("click",function(){
+                        if(replys>0){
+                      for(var i=0;i<replys;i++){
+                          if(datab.reply[i].appUser.profilePicture==null){
+                              gg= "/indexLayout/assets/img/pages/user.jpg";
+                          }
+                          else{
+                          gg="data:image/jpeg;base64," + btoa(atob(`${datab.reply[i].appUser.profilePicture}`));
+                          }
+                          text+=` <div>
+                                <img class="rounded-circle mt-6 me-2" width="70" height="70" src="${gg}"/>
+                                <p>${datab.reply[i].body}</p>
+                            </div>`;
+                          $("#rowling").html(text);
+                      }
                     }
-                    
-
+                    else{
+                    console.log("no");
+                    }
+                    });
                }
         ,
-       error: function (xhr, exception) {
-           console.log(exception);
-           console.log(xhr);
-            var msg = "";
-            if (xhr.status === 0) {
-                msg = "Not connect.\n Verify Network." + xhr.responseText;
-            } else if (xhr.status == 404) {
-                msg = "Requested page not found. [404]" + xhr.responseText;
-            } else if (xhr.status == 500) {
-                msg = "Internal Server Error [500]." +  xhr.responseText;
-            } else if (exception === "parsererror") {
-                msg = "Requested JSON parse failed.";
-            } else if (exception === "timeout") {
-                msg = "Time out error." + xhr.responseText;
-            } else if (exception === "abort") {
-                msg = "Ajax request aborted.";
-            } else {
-                msg = "Error:" + xhr.status + " " + xhr.responseText;
-            }
-            }
-         });
-          document.getElementById("fname").value=data[0].body;
+        error:function(){
+            alert("Wrong");
+        }});
+         
     }
-
-
-
      $('#btnClose').on("click",function(){
          console.log("Clear");
+
            var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'),{
            keyboard: false});
            myModal.hide();
-       var div=document.getElementById("reps");
-       div.innerHTML=" ";
-
-
-     })
+           $("#rowling").html="";
+      })
     function EditItem(data) {
         $(".span").text("");
         $("#btnAdd").hide();
@@ -198,7 +226,7 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33 ',
-                confirmButtonText: 'نعم ، احذفها!',
+                confirmButtonText: 'نعم ، تفعيل!',
                 cancelButtonText: "الغاء",    
 
             }).then((result) => {
@@ -210,16 +238,11 @@
                         success: function () {
                            
                              Swal.fire({
-                                 title:   'تم الحذف!',
+                                 title:   'تم التغيير!',
                                   position: 'top-end',
                                  icon: 'success',
                                  showConfirmButton: false,
                                  timer: 1500,
-                              
-                                                        
-                                 
-                            
-
                                 })
                             var Table = $("#Comments").DataTable();
                             Table.draw(false);
@@ -228,7 +251,6 @@
 
                 }
             })
-
         }
     $("#Add").on("click", function () {
         $("#btnAdd").show();
@@ -236,9 +258,6 @@
         $("input").val("");
         $(".span").text("");
     });
-    function img_pathUrl(input) {
-        $('#image')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
-    }
     $("#btnAdd").on("click", function () {
 
 

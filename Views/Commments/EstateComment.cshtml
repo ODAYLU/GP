@@ -730,17 +730,6 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
         </div>
 
     </section>
-
-
-
-
-
-
-
-      
-
-
-
 @section Scripts{
 
 
@@ -900,7 +889,6 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                     method: 'Get',
                     url: `/Estate/AddComment`,
                     data: { id: idestate, body: txt },
-
                     success: function (data) {
                         if (data.status == "Insert") {
                             hicreateElement(data.name, data.photo, txt,data.Id);
@@ -940,29 +928,13 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
             }
         </script>
-
         <script>
-
             function ShowFormReplay(i) {
-
                 console.log('createRepalys');
-
-
-
-
                 let formRep = document.getElementById(`form-${i}`);
-
-
-
                 formRep.classList.toggle("closedForm");
-
-
             }
-
-
-
         </script>
-
         <script>
             function createRepaliy(id) {
               

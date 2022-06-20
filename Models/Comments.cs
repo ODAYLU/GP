@@ -19,12 +19,11 @@ namespace GP.Models
         public long Id { get; set; }
         [Required,MaxLength(200,ErrorMessage ="لحد 200 حرف ")]
         public string Body { get; set; }
-        public double Rating { get; set; }
-
+      //  public double Rating { get; set; }
+        public bool IsActive { get; set; }
         public DateTime OnDate { get; set; }
         public long EstateId { get; set; }
         [ForeignKey("EstateId")]
-
         public Estate Estate { get; set; }
         public string UserId { get; set; }
         [ForeignKey("UserId")]
@@ -82,17 +81,11 @@ namespace GP.Models
                     )
                     .AsQueryable();
        
-
-
-
-
-
         public async Task<Comments> GetOne(long id) => await _context
                 .TComments
                 .AsNoTracking()
                 .Include(c => c.AppUser).Include(x=>x.Estate)
                 .SingleOrDefaultAsync(c => c.Id == id);
-
         public async Task<DbCRUD> InsertComment(Comments comment)
         {
             try
