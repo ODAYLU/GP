@@ -61,6 +61,10 @@
 
     <Folder Include="wwwroot\images\Advertisement\" />
 
+    <Folder Include="wwwroot\images\State\" />
+
+    <Folder Include="wwwroot\images\Types\" />
+
     <Folder Include="wwwroot\images\Services\" />
   </ItemGroup>
 

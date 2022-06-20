@@ -92,6 +92,7 @@ namespace GP.Controllers
                 data = await _context.Messages.Where(x =>
                         (x.ReceiverId == ReciverId || x.ReceiverId == SenderId)
                         && (x.UserId == ReciverId || x.UserId == SenderId)
+                        &&(x.ReceiverId != x.UserId)
                         ).ToListAsync();
 
             }

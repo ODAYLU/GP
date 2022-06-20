@@ -80,7 +80,7 @@ namespace GP.Controllers
 			var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
 			var sortDirecion = Request.Form["order[0][dir]"];
 
-			IQueryable<AppUser> users = _user.Users.AsQueryable();
+			IQueryable<AppUser> users = _user.Users.Where(x => x.NameRole == "User").AsQueryable();
 			if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
 			{
 				users = users.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
@@ -359,7 +359,7 @@ namespace GP.Controllers
 			var sortColumn = Request.Form[string.Concat("columns[", Request.Form["order[0][column]"], "][name]")];
 			var sortDirecion = Request.Form["order[0][dir]"];
 
-			IQueryable<Advertisement> Advertisement = await _advertisement.GetAll(search);
+			IQueryable<Advertisement> Advertisement =  _advertisement.GetAll(search);
 			if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortDirecion)))
 			{
 				Advertisement = Advertisement.OrderBy(string.Concat(sortColumn, " ", sortDirecion));
