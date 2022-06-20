@@ -29,10 +29,55 @@
             background-color: #0f4f54;
             border-color: #0d6efd;
         }
+        .card-div{
+                position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: var(--bgdark);
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, .125);
+    border-radius: 0.25rem;
+        }
     </style>
 
 
     <p class="text-center py-3 fs-4"><span class="txtborder"> العقود </span></p>
+
+
+
+
+    <div class="my-4">
+    <form method="post" asp-action="filterPost">
+    <div class="row">
+   
+          <div class="col-12 col-md-6">
+
+     <div class="form-group">
+
+
+        <label  class="control-label">   اختر حالة العقد  </label>
+            <select  class ="form-control rounded-pill" name="status">
+                <option value="-1" selected >-- حالة العقار --   </option>
+                 <option value="1">بيع  </option>
+                  <option value="0"> إيجار </option>
+            </select>
+
+
+                                     
+    </div>
+                    </div>
+                     
+               
+     </div>
+
+    <input type="submit" value="ابحث"  class="btn btn-success rounded-pill co1-1"/>
+</form>
+
+
+  </div>
+
 
     @if(Model.Count() == 0)
     {
@@ -44,83 +89,92 @@
     else
     {
     <form method="post">
-        @{foreach (var item in @Model) {
-                <div class="card my-3">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <p class="m-0"> عقد مع : @Html.DisplayFor(modelItem => item.BuyerName)</p>
-                            <p class="m-0"> @item.OnDate.ToString("MM/dd/yyyy") </p>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                     <div class="d-flex justify-content-between">
+        @{foreach (var item in Model) {
+
+                        <div class="card-div my-3">
+                            <div class="card-header">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <p class="m-0"> عقد مع : @Html.DisplayFor(modelItem => item.BuyerName)</p>
+                                    <p class="m-0"> @item.OnDate.ToString("MM/dd/yyyy") </p>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                             <div class="d-flex justify-content-between">
 
 
-                        <h5 class="card-title fw-bold" style="color:#2a5555;">عقد @item.Type @item.category</h5>
-                                    @{
+                                <h5 class="card-title fw-bold" style="color:#2a5555;">عقد @item.Type @item.category</h5>
+                                            @{
                                 if (item.Type == "بيع")
                                 {
-                                                       <p><img  style="height:70px;width:70px;"  src="/images/Constant/بيع.png"/></p>
+                                                                       <p><img  style="height:70px;width:70px;"  src="/images/Constant/بيع.png"/></p>
 
                                 }
                                 else
                                 {
-                                                      <p><img style="height:70px;width:70px;" src="/images/Constant/ايجار.png"/></p>
+                                                                      <p><img style="height:70px;width:70px;" src="/images/Constant/ايجار.png"/></p>
 
                                 }
-                                    }
+                                            }
 
-                        </div>
-                        <p class="card-text card-p">تم بيع شقة بسعر 500 دينار في منطقة الفلاش </p>
+                                </div>
+                                <p class="card-text card-p">تم بيع شقة بسعر 500 دينار في منطقة الفلاش </p>
 
-                        <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-between">
 
-
-                        @{
-                            <div>
-                                <a href="~/Contract/Details/@item.Id" class="btn btn-secondary">عرض</a>
-                            </div>
-                        }
-                            <div>
 
                                 @{
+                                            <div>
+                                                <a href="/Contract/Details/@item.Id" class="btn btn-secondary">عرض</a>
+                                            </div>
+                                    }
+                                    <div>
+
+                                        @{
 
 
-                        if(item.Type == "إيجار" )
-                        {
+                                    if (item.Type == "إيجار")
+                                    {
 
-                        if (item.isDone == 1)
-                        {
+                                        if (item.isDone == 1)
+                                        {
 
-                                        <a href="#" class="btn btn-danger"> تم تفعيل العقار</a>
+                                                            <a href="#" class="btn btn-danger"> تم تفعيل العقار</a>
 
-                        }
-                        else if(item.up_to_date < DateTime.Today) { <button asp-area="" asp-action="EeEstate"
+                                        }
+                                        else if (item.up_to_date < DateTime.Today)
+                                        {
+                                                            <button asp-area="" asp-action="EeEstate"
                             asp-controller="Contract" asp-route-id="@item.Id" type="submit" onclick="ff(event)"
                             class="m  btn bg-success">تفعيل العقار</button>
 
 
-                            }
+                                        }
 
-                            else
-                            {
+                                        else
+                                        {
 
                                             <a href="#" class="btn btn-secondary"> العقار محجوز </a>
 
-                            }
-
-                            }
-
-
+                                        }
 
                                     }
+
+                                    else
+                                    {
+                                        <a href="#" class="btn btn-secondary">العقار مُباع  </a>
+                                    }
+
+
+
+                                    
+                                            }
+                                    </div>
+
+                                </div>
+
+
                             </div>
-
                         </div>
-
-
-                    </div>
-                </div>
         }
         }
 

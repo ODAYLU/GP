@@ -90,7 +90,7 @@ body{
 
         <label  class="control-label">   اختر حالة العقار  </label>
             <select  class ="form-control rounded-pill" name="status">
-                <option value="-1">-- حالة العقار --   </option>
+                <option value="-1" selected >-- حالة العقار --   </option>
                  <option value="1">منشور  </option>
                   <option value="0"> غير منشور</option>
             </select>
@@ -104,7 +104,7 @@ body{
                         <label  class="control-label"> نوع العقار</label>
                         <select name="tYP" class ="form-control rounded-pill"  asp-items="new SelectList(tYP.GetAllSelected(),nameof( GP.Models.Type.Id),nameof( GP.Models.Type.type))">
                                                 
-                            <option value="-1" selected disabled>اختر واحدة</option>
+                            <option value="-1" selected >اختر واحدة</option>
                         </select>
                     </div>
 
@@ -115,7 +115,7 @@ body{
                         <label  class="control-label"> تصنيف العقار</label>
                         <select name="cate" class ="form-control rounded-pill" asp-items="new SelectList(cate.GetAllSelected(),nameof(Category.Id),nameof(Category.category))">
                                                 
-                            <option value="-1" selected disabled>اختر واحدة</option>
+                            <option value="-1" selected >اختر واحدة</option>
                         </select>
                     </div>
 

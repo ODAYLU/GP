@@ -14,7 +14,7 @@
     <div class="col-12 col-md-8">
          
 
-        <form asp-action="Index" class="mx-auto border-3  p-5">
+        <form asp-action="SaveInformation" method="post" class="mx-auto border-3  p-5">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 
@@ -23,7 +23,8 @@
                     <h3 class="text-center fw-bold"  > بيانات التواصل </h3>
                     <a class="btn" onclick="OpenForm()"><i class="bi bi-pencil-square"></i> تعديل</a>
             </div>
-            
+             <input asp-for="Id"hidden class="form-control input  rounded-pill" aria-describedby = "basic-addon1" />
+
     
         <hr class="text-secondary"  />
             <div class="form-group align-items-center input-group  mt-5 ">
