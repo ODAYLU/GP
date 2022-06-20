@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace GP.Controllers
 {
@@ -17,31 +18,40 @@ namespace GP.Controllers
 		private readonly ILogger<AdminOperationController> _logger;
 		private readonly UserManager<AppUser> _userManager;
 		private readonly IEstate _estate;
-
+		private readonly IAdvertisement _advertisement;
+		private readonly IContract _contract;
 
 		public AdminOperationController(ILogger<AdminOperationController> logger,
-			UserManager<AppUser> userManager,
-			IEstate estate
-			)
-		{
-			_logger = logger;
-			_userManager = userManager;
-			_estate = estate;
-		}
+            UserManager<AppUser> userManager,
+            IEstate estate,
+              IAdvertisement advertisement,
+              IContract contract)
+        {
+            _logger = logger;
+            _userManager = userManager;
+            _estate = estate;
+            _advertisement = advertisement;
+            _contract = contract;
+        }
 
-		public IActionResult Index()
+        public IActionResult Index()
 		{
 			ViewBag.Active = ConnectedUser.IDs.Count();
-			ViewBag.Users = _userManager.Users.Count();
-
-			ViewBag.Estate = _estate.GetAll().Count();
-
+			ViewBag.Users = _userManager.Users.Where(x => x.NameRole == "User").Count();
+			ViewBag.Owner = _userManager.Users.Where(x => x.NameRole == "Owner").Count();
+			ViewBag.Advertisement =  _advertisement.GetAll().ToList().Count();
+			ViewBag.Estate = _estate.GetAll().Where(x => x.is_active).Count();
+			ViewBag.Contract = _contract.GetAll().Count();
 			return View();
 		}
 		public IActionResult User()
 		{
 			return View();
 		}
+		public IActionResult Owner()
+        {
+			return View();
+        }
 		public IActionResult Estate()
 		{
 			return View();
