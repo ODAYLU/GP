@@ -40,10 +40,10 @@
     <header style="padding-bottom: 100px;">
 
             <style>
-     .btn:focus {
-            box-shadow: none;
-        }
-    </style>
+             .btn:focus {
+                    box-shadow: none;
+                }
+            </style>
         <nav class="navbar align-items-center p-0 navbar-expand-lg navbar-dark fixed-top" id="navbar">
             <div class="container-fluid ps-3 px-lg-0">
                 <a class="navbar-brand navbar-logo" asp-area="" asp-controller="Home" asp-action="Index">
@@ -112,7 +112,7 @@
                   }
 
                     <div class="dropdown">
-                        <button type="button" class="nav-link btn dropdown-toggle text-white" data-bs-toggle="dropdown">
+                        <button type="button" class="nav-link btn dropdown-toggle p-1 text-white" data-bs-toggle="dropdown">
                             <!-- <i class="bi bi-person-circle fs-1"></i> -->
                             @{
 
@@ -216,11 +216,11 @@
             </div>
         </div>
             @if (User.Identity.IsAuthenticated)
-    {
-         <a id="btnChat" asp-action="Chat" asp-controller="ContactUser" class="position-fixed py-2 px-3 rounded-circle WOW heartBeat incaht" data-wow-iteration="infinite" data-wow-duration="800ms" data-bs-toggle="tooltip" data-bs-placement="top" title="تواصل مع صاحب العقار">
-            <i class="bi bi-chat fs-1 wow pulse"  data-wow-iteration="infinite" data-wow-duration="500ms" ></i>
-        </a>
-    }
+                {
+                     <a id="btnChat" asp-action="Chat" asp-controller="ContactUser" class="position-fixed py-2 px-3 rounded-circle WOW heartBeat incaht" data-wow-iteration="infinite" data-wow-duration="800ms" data-bs-toggle="tooltip" data-bs-placement="top" title="تواصل مع صاحب العقار">
+                        <i class="bi bi-chat fs-1 wow pulse"  data-wow-iteration="infinite" data-wow-duration="500ms" ></i>
+                    </a>
+                }
 
     </header>
 
