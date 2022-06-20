@@ -327,10 +327,6 @@ nav.black {
 }
 
 
-
-
-
-
 /***************************** section 1 *******************/
 .bgacground {
   background: var(--bgwhite);
@@ -1816,16 +1812,16 @@ main .sales-form {
         color: var(--hover);
     }
 
-.sect {
-    /*height: 450px;   
+/*.sect {*/
+   /* height: 450px;   
     overflow: hidden;*/
-    background-image: url(../img/pages/land1.jpg);
+    /*background-image: url(../img/pages/land1.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
     height: 500px;
     padding: 200px 0 30px 0;
-}
+}*/
 
 section .land1 {
     position: absolute;
