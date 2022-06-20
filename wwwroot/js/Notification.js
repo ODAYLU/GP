@@ -4,11 +4,11 @@ Connection.start()
     .catch(error =>
         console.log(error));
 Connection.on("receiveNotification", function (Not) {
-
+    
     var text = "";
     
-    for (var i = 0; i < data.length; i++) {
-        if (data[i].type == "action") {
+  
+        if (Not.type == "action") {
             text += `<li><a class="dropdown-item" href="/Estate/Index">${Not.text}</a></li>`;
         } else if (Not.type == "comment") {
             text += `<li>
@@ -21,7 +21,7 @@ Connection.on("receiveNotification", function (Not) {
                                     <small>${getLastSeen(Not.time)}</small>
                                 </li>`;
         }
-    }
+    
     var count = parseInt($("#btnNotification").children("span").text().trim());
     $("#btnNotification").children("span").text(`${++count}`);
     $("#NotificationUser").prepend(text);

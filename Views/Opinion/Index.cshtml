@@ -1,0 +1,311 @@
+﻿
+@model Opinion
+
+@{
+	ViewData["Title"]="من نحن";
+}
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.1/awesome-bootstrap-checkbox.min.css'>
+<style>
+  .card-form {
+	 width: 500px;
+	 border-radius: 10px;
+
+	
+}
+ .card-form .form-title {
+	 width: 100%;
+	 display: flex;
+	 align-items: center;
+	 justify-content: center;
+	 height: 80px;
+	 font-size: 20px;
+	 font-weight: bold;
+ 
+	 border-radius: 10px 10px 0 0;
+}
+ .card-form .form-body {
+	 padding: 10px;
+}
+ .card-form .form-body .ro {
+	 display: flex;
+	 justify-content: space-around;
+	 padding: 10px;
+}
+ .card-form .form-body .ro input[type="text"] , .card-form .form-body .ro textarea[type="text"] {
+	 appearance: none;
+	 width: 100%;
+	 margin: 0 15px;
+	 height: 35px;
+	 padding: 5px 15px;
+	 border-radius: 5px;
+	 outline: none;
+	 border: none;
+	 background: #e8ebed;
+	 color: #576366;
+	 font-size: 14px;
+}
+ 
+
+ .card-form .form-footer {
+	 margin: 0 25px 15px 25px;
+	 padding: 10px 10px;
+   text-align: center;
+   align-items: center;
+  
+}
+ .card-form .form-footer a {
+	 display: inline-block;
+	 height: 40px;
+   text-align: center;
+   border-radius: 20px;
+	 border: none;
+	
+	 padding: 10px 40px;
+   background:#42ADB6;
+	 margin-right: 10px;
+	 font-size: 14px;
+}
+ .card-form .form-footer span {
+	 margin-left: 8px;
+}
+/* /////////////////////////// */
+.rate-us {
+	cursor: pointer;
+	margin-top: 40px;
+	margin-right: -15px;
+
+	padding: 0px 10px 20px 10px;
+	border-radius: 10px;
+}
+.stars {
+	width: fit-content;
+	margin: 0 auto;
+	margin-top: -10px;
+	height: 30px;
+}
+.star {
+	color: #FDCC0D !important;
+}
+.rate {
+	height: 50px;
+	margin-left: -5px;
+	padding: 5px;
+	font-size: 35px;
+	position: relative;
+	cursor: pointer;
+}
+.rate input[type="radio"] {
+	opacity: 0;
+	position: absolute;
+	top: 20px;
+	left: 13px;
+	pointer-events: none;
+}
+.star-over::after {
+	font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+	font-size: 35px;
+	content: "\f005";
+	display: inline-block;
+	color: #FDCC0D;
+	z-index: 1;
+	position: absolute;
+	top: 17px;
+	left: 10px;
+}
+
+.rate:nth-child(1) .face::after {
+	content: "\f119"; /* ☹ */
+}
+.rate:nth-child(2) .face::after {
+	content: "\f11a"; /* 😐 */
+}
+.rate:nth-child(3) .face::after {
+	content: "\f118"; /* 🙂 */
+}
+.rate:nth-child(4) .face::after {
+	content: "\f580"; /* 😊 */
+}
+.rate:nth-child(5) .face::after {
+	content: "\f59a"; /* 😄 */
+}
+.face {
+	opacity: 0;
+	position: absolute;
+	width: 35px;
+	height: 35px;
+	background: white ;
+	border-radius: 5px;
+	top: -50px;
+	left: 2px;
+	transition: 0.2s;
+	pointer-events: none;
+}
+
+.face::after {
+	font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+	display: inline-block;
+	color: #FDCC0D;
+	z-index: 1;
+	position: absolute;
+	left: 5px;
+	top: -1px;
+}
+.rate:hover .face {
+	opacity: 1;
+}
+.wrap {
+	height: fit-content;
+	width: fit-content;
+	margin: 0 auto;
+	margin-bottom: 15px;
+}
+.form-check {
+	display: inline-block;
+}
+
+ 
+</style>
+
+
+
+ 
+
+  <div id="about" style="margin-top: 5rem ; margin-bottom: 5rem;">
+    <h1  class="text-center ">  <span class="  pe-2 " style="border-right: 3px solid #42ADB6 "> عن أملاك </span></h1>
+    <div  class="container " >
+   
+        <div class="row  align-items-center">
+    
+            <div class="col-xxl-7  ">
+              
+                <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_1ixgi8rs.json"
+                background="transparent" speed="2" style="width: 800px; height: 800px;" loop  class="img-fluid "
+                autoplay></lottie-player>
+    
+            </div>
+            <div class="col-xxl-5" >
+                
+    <p style="font-size: 30px;   text-indent: 50px ;text-align: justify; letter-spacing: 3px;">
+        <span class="fs-1 fst-italic" style="color: #42ADB6;">أملاك</span> يوفر معلومات حديثة وموثوقة تجعل العثور على العقار الذى تحلم به بسهولة وسرعة. يقدم معلومات عن العقارات السكنية والتجارية وتأجير العقارات في جميع أنحاء فلسطين أولاً..
+    
+    اذا كنت قد بدأت للتو في البحث أو على استعداد لإجراء عملية شراء فإنه يتم تحديث أملاك يومياً لضمان إمكانية الوصول إلى أحدث قوائم العقارات وأكثرها دقة.
+    
+    </p>
+    
+    
+    
+            </div>
+         
+        </div>
+    
+    </div>
+</div>
+<h1  class="text-center ">  <span class="   pe-2 " style="border-right: 3px solid #42ADB6 "> آراء العملاء </span></h1>
+<div class="container" style=" margin-bottom:10rem !important ; margin-top: 5rem !important;">
+  <div class="row align-items-center justify-content-center  mx-auto ">
+    <div class="col-lg-6 col-12 ">
+      <div class="card-form mx-auto">
+        <form class="signup" method="post" asp-action="Create">
+          <div class="form-title " style="border-style: ridge ;"> استبيان العملاء</div>
+          <div class="form-body mt-4">
+            <div class="ro">
+              <textarea  type="text" asp-for="Body" class="rounded-3 p-4" placeholder=" اكتب تعليقك هنا... "  style="height: 200px;"></textarea>
+	<span asp-validation-for="Body"></span>
+		  
+		  </div>
+            <div class="ro">
+              
+<div class="wrap">
+  <div class="rate-us">
+      <div class="stars">
+          <label class="rate">
+              <input type="radio" name="radio1" id="star1" value="1">
+              <div class="face"></div>
+              <i class="far fa-star star one-star"></i>
+          </label>
+          <label class="rate">
+              <input type="radio" name="radio1" id="star2" value="2">
+              <div class="face"></div>
+              <i class="far fa-star star two-star"></i>
+          </label>
+          <label class="rate">
+              <input type="radio" name="radio1" id="star3" value="3">
+              <div class="face"></div>
+              <i class="far fa-star star three-star"></i>
+          </label>
+          <label class="rate">
+              <input type="radio" name="radio1" id="star4" value="4">
+              <div class="face"></div>
+              <i class="far fa-star star four-star"></i>
+          </label>
+          <label class="rate">
+              <input type="radio" name="radio1" id="star5" value="5">
+              <div class="face"></div>
+              <i class="far fa-star star five-star"></i>
+          </label>
+      </div>
+  </div>
+</div>
+
+            </div>
+          </div>
+      
+          <div class=" d-flex flex-row justify-content-center form-footer">
+         <input type="submit"value="ارسال" class=""/>
+         
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-lg-6 col-12">
+      <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_05bmkwnh.json"
+      background="transparent" speed="2" style="width: 800px; height: 800px;" loop  class="img-fluid "
+      autoplay></lottie-player>
+
+    </div>
+  </div>
+</div>
+
+
+
+@section Scripts{
+  <script>
+    $(document).on({
+	mouseover: function(event) {
+		var star = $(this).find('.star');
+		$(this).find('.far').addClass('star-over');
+		$(this).prevAll().find('.far').addClass('star-over');
+	},
+	mouseleave: function(event) {
+		var star = $(this).find('.star');
+		$(this).find('.far').removeClass('star-over');
+		$(this).prevAll().find('.far').removeClass('star-over');
+	}
+}, '.rate');
+
+$(document).on('click', '.rate', function() {
+	var star = $(this).find('.star');
+	if ( !$(this).hasClass('rate-active') ) {
+		$(this).siblings().find('.star').addClass('far').removeClass('fas rate-active').css('color','#91a6ff');
+		star.addClass('rate-active fas').removeClass('far star-over');
+		$(this).prevAll().find('.star').addClass('fas').removeClass('far star-over').css('color','#91a6ff');
+	}
+});
+
+$(document).on('click', '.text-input label', function() {
+	$(this).parent().children('input[type=text]').val('');
+});
+
+// idk why this is being glitchy 😕
+$(document).on('click', '.dropdown', function() {
+	$(this).closest('.dropdown-wrap').find('.drop').slideToggle();
+	$(this).find('label').toggleClass('drop-active');
+});
+
+  </script>
+          <script src="~/js/Login/lottie-player.js"></script>
+
+		}

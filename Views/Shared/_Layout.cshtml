@@ -21,65 +21,84 @@
  @* <link href="~/css/Chat.css" rel="stylesheet" />*@
    
 
-    <style>
-    
-    </style>
+
 
 </head>
 
 
 <body dir="rtl" style="overflow-x: hidden;">
 
-  <header style="padding-bottom: 100px;">
-    <nav class="navbar align-items-center p-0 navbar-expand-md navbar-dark fixed-top" id="navbar">
-      <div class="container-fluid">
-        <a class="navbar-brand navbar-logo" asp-area="" asp-controller="Home" asp-action="Index">
-          <img src="~/indexLayout/assets/img/logo/logowit.png" class="img-fluid logo">
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mynavbar">
-          <ul class="navbar-nav ">
-            <li class="nav-item">
-              <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">الرئيسية </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" asp-controller="Home" asp-action="House" >منازل</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" asp-controller="Home" asp-action="Chalet" >شاليه</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" asp-controller="Home" asp-action="Land" >أرض</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" asp-controller="Home" asp-action="Apartment" >شقق</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link"asp-area="" asp-controller="UsersProfiles" asp-action="Index" >أصحاب العقارات </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" asp-area="" asp-controller="ContactUser" asp-action="Index">تواصل معنا</a>
-            </li>
-             @if (User.IsInRole("Admin"))
-             {
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">لوحة التحكم</a>
-                </li>
-             }
-          </ul>
-          <div class="d-flex me-auto align-items-center">
-            <div class="toggle-container">
-              <button class="theme-btn text-white light" onclick="setTheme('light')" title="Light mode">
-                <i class="bi bi-brightness-high-fill"></i>
-              </button>
-              <button class="theme-btn text-white dark" onclick="setTheme('dark')" title="Dark mode">
-                <i class="bi bi-moon-stars-fill"></i>
-              </button>
-            </div>
 
-            @if(User.IsInRole("Owner")||User.IsInRole("User")){
+@{
+    
+    if (User.Identity.IsAuthenticated)
+    {
+        @inject UserManager<AppUser> _maneger
+    }
+}
+
+    <header style="padding-bottom: 100px;">
+
+            <style>
+             .btn:focus {
+                    box-shadow: none;
+                }
+            </style>
+        <nav class="navbar align-items-center p-0 navbar-expand-lg navbar-dark fixed-top" id="navbar">
+            <div class="container-fluid ps-3 px-lg-0">
+                <a class="navbar-brand navbar-logo" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/indexLayout/assets/img/logo/logowit.png" class="img-fluid logo">
+                </a>
+
+                <div class="collapse navbar-collapse" id="mynavbar">
+                    <ul class="navbar-nav pe-2">
+                        <li class="nav-item active">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">الرئيسة</a>
+                        </li>
+                     
+                          <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">الرئيسية </a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="House" >منازل</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Chalet" >شاليه</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Land" >أرض</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Apartment" >شقق</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link"asp-area="" asp-controller="UsersProfiles" asp-action="Index" >أصحاب العقارات </a>
+                          </li>
+                           <li class="nav-item">
+                            <a class="nav-link"asp-area="" asp-controller="Opinion" asp-action="Index" >من نحن </a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="ContactUser" asp-action="Index">تواصل معنا</a>
+                          </li>
+                          @if (User.IsInRole("Admin"))
+                          {
+                             <li class="nav-item">
+                                 <a class="nav-link" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">لوحة التحكم</a>
+                             </li>
+                          }
+                    </ul>
+                </div>
+                <div class="d-flex me-auto align-items-center">
+                    <div class="toggle-container">
+                        <button class="theme-btn text-white light" onclick="setTheme('light')" title="Light mode">
+                            <i class="bi bi-brightness-high-fill"></i>
+                        </button>
+                        <button class="theme-btn text-white dark" onclick="setTheme('dark')" title="Dark mode">
+                            <i class="bi bi-moon-stars-fill"></i>
+                        </button>
+                    </div>
+
+            @if(User.Identity.IsAuthenticated){
                   <div class=" ps-2">
                             <div class="dropdown">
                               <button id="btnNotification" type="button" class="btn start-0 text-white  dropdown-toggle " data-bs-toggle="dropdown" style="box-shadow: none;postion:relative;display: inline-block;">
@@ -111,11 +130,11 @@
                 @{
                     if (User.IsInRole("Owner"))
                     {
-                        <li><a class="dropdown-item d-flex justify-content-center align-items-center"asp-area="Identity" asp-page="/Account/Manage/Index" >الصفحة الشخصية</a></li>
+                                                <li><a class="dropdown-item d-flex justify-content-center align-items-center"asp-area="Identity" asp-page="/Account/Manage/Index" >الصفحة الشخصية</a></li>
                     }
                     else if (User.IsInRole("User"))
                     {
-                         <li><a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Manage/PersonalUser">الصفحة الشخصية</a></li>
+                                                 <li><a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Manage/PersonalUser">الصفحة الشخصية</a></li>
                     }
                 }
               @if (User.IsInRole("Owner") )
@@ -128,30 +147,72 @@
               </li>
                }
 
-              
+                          
+                          <partial name="_LoginPartial" />
+                        </ul>
+                      </div>
 
-              <li>
-                <hr class="dropdown-divider">
-              </li> 
-               <partial name="_LoginPartial" />
-            </ul>
-          </div>
+                </div> 
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#demo">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </nav>
+   
+
+        <div class="offcanvas offcanvas-start" id="demo">
+          
+              <button type="button" class="btn-close text-end" data-bs-dismiss="offcanvas">
+                <i class="bi bi-x-lg fs-1"></i>
+              </button>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav p-0 text-center">
+                    <li class="nav-item">
+                        <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">الرئيسية </a>
+                      </li>
+                          <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="House" >منازل</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Chalet" >شاليه</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Land" >أرض</a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Apartment" >شقق</a>
+                          </li>
+                          <li class="nav-item" style="font-size:14px;">
+                            <a class="nav-link"asp-area="" asp-controller="UsersProfiles" asp-action="Index" >أصحاب العقارات </a>
+                          </li>
+                           <li class="nav-item"style="font-size:14px;">
+                            <a class="nav-link"asp-area="" asp-controller="Opinion" asp-action="Index" >من نحن </a>
+                          </li>
+                          <li class="nav-item"style="font-size:14px;">
+                            <a class="nav-link" asp-area="" asp-controller="ContactUser" asp-action="Index">تواصل معنا</a>
+                          </li>
+                          @if (User.IsInRole("Admin"))
+                          {
+                             <li class="nav-item">
+                                 <a class="nav-link" asp-area="Admin" asp-controller="AdminOperation" asp-action="Index">لوحة التحكم</a>
+                             </li>
+                          }
+                    </ul>
+            </div>
         </div>
-      </div>
-    </nav>
-  </header>
+            @if (User.Identity.IsAuthenticated)
+                {
+                     <a id="btnChat" asp-action="Chat" asp-controller="ContactUser" class="position-fixed py-2 px-3 rounded-circle WOW heartBeat incaht" data-wow-iteration="infinite" data-wow-duration="800ms" data-bs-toggle="tooltip" data-bs-placement="top" title="تواصل مع صاحب العقار">
+                        <i class="bi bi-chat fs-1 wow pulse"  data-wow-iteration="infinite" data-wow-duration="500ms" ></i>
+                    </a>
+                }
 
-
-
+    </header>
 
    
     @RenderBody()
-    @if (User.Identity.IsAuthenticated)
-    {
-         <a id="btnChat" asp-action="Chat" asp-controller="ContactUser" class="position-fixed py-2 px-3 rounded-circle WOW heartBeat incaht" data-wow-iteration="infinite" data-wow-duration="800ms" data-bs-toggle="tooltip" data-bs-placement="top" title="تواصل مع صاحب العقار" >
-            <i class="bi bi-chat fs-1 wow pulse"  data-wow-iteration="infinite" data-wow-duration="500ms" ></i>
-        </a>
-    }
+
    
 
     <footer>
@@ -292,15 +353,13 @@
             
           //    x.classList.add("w-100");
           //}
-
-          
-                         
+               
 
 
 
   </script>
   <script src="~/indexLayout/assets/js/index.js"></script>     
-    @await RenderSectionAsync("Scripts", required: false)
+          @await RenderSectionAsync("Scripts", required: false)
 
       @*<script src="~/indexLayout/assets/js/index.js"></script>     *@
        

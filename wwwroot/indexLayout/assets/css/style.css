@@ -91,12 +91,6 @@ body {
 /***************************************** start header **************************/
 /*****************land*******************************************/
 
-.bg-video {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
 
 .masthead {
     position: relative;
@@ -182,78 +176,130 @@ body {
 
 /********************navbar************************/
 nav {
-  background-color: var(--green);
+    background-color: var(--green);
 }
 
 .bgcolors {
-  background-color: var(--green);
-  color: white;
-  transition: all 0.2s ease-in-out;
+    background-color: var(--green);
+    color: white;
+    transition: all 0.2s ease-in-out;
 }
 
 .navbar-dark .navbar-toggler {
-  color: rgba(255, 255, 255);
-  border-color: rgba(255, 255, 255);
+    color: rgba(255, 255, 255);
+    border-color: rgba(255, 255, 255);
 }
 
 .logo {
-  width: 120px;
+    width: 100px;
 }
 
 .nav .nav-item .nav-link {
-  color: var(--textnav);
+    color: var(--textnav);
+}
+
+.offcanvas-start {
+    top: 0;
+    left: 0;
+    width: 250px;
+    border-right: 1px solidrgba(0,0,0,.2);
+    transform: translateX(-100%);
+    background-color: #28686dbb !important;
+    backdrop-filter: blur(1.5rem);
+    transition: 0.3s cubic-bezier(0.55, 0.09, 0.68, 0.53);
 }
 
 .navbar-dark .navbar-nav .nav-link {
-  color: var(--textnav);
-  padding-bottom: 1px !important;
-  margin: 0 2px;
+    color: var(--textnav);
+    padding-bottom: 1px !important;
+    margin: 0 2px;
 }
 
-.navbar-dark .navbar-nav .nav-link>span:hover {
-  border-bottom: 1px solid var(--textnav);
-  padding-bottom: 5px;
-  transition: 0.3s ease-in-out;
-}
+    .navbar-dark .navbar-nav .nav-link > span:hover {
+        border-bottom: 1px solid var(--textnav);
+        padding-bottom: 5px;
+        transition: 0.3s ease-in-out;
+    }
 
-.navbar-dark .navbar-nav .nav-link .active {
-  border-bottom: 1px solid var(--textnav);
-  padding-bottom: 5px;
-}
+    .navbar-dark .navbar-nav .nav-link .active {
+        border-bottom: 1px solid var(--textnav);
+        padding-bottom: 5px;
+    }
 
 .col .nav .nav-item .nav-link .bi-person-bounding-box {
-  color: var(--litegreen);
+    color: var(--litegreen);
 }
 
 .nav .dropdown .dropdown-toggle::after {
-  color: var(--litegreen);
+    color: var(--litegreen);
 }
 
 .dropdown-menu {
-  background: var(--green);
+    background: var(--green);
+}
+
+.dropdown-divider {
+    height: 0;
+    margin: 0.5rem 0;
+    overflow: hidden;
+    border-top: 1px solid rgb(225 225 225 / 53%);
 }
 
 .dropdown-item {
-  display: block;
-  width: 100%;
-  padding: 0.25rem 1rem;
-  clear: both;
-  font-weight: 400;
-  color: var(--textnav);
+    display: block;
+    width: 100%;
+    padding: 0.25rem 1rem;
+    clear: both;
+    font-weight: 400;
+    color: var(--textnav);
 }
 
-.dropdown-item:focus,
-.dropdown-item:hover {
-  background-color: var(--bgwhite);
-  color: var(--txtactive)
-}
+
+    .dropdown-item:focus,
+    .dropdown-item:hover {
+        background-color: var(--bgwhite);
+        color: var(--txtactive)
+    }
 
 nav.black {
-  background: #28686dbb !important;
-  padding: 0 50px;
-  backdrop-filter: blur(1.5rem);
-  transition: 0.3s cubic-bezier(0.55, 0.09, 0.68, 0.53);
+    background: #28686dbb !important;
+    padding: 0 50px;
+    backdrop-filter: blur(1.5rem);
+    transition: 0.3s cubic-bezier(0.55, 0.09, 0.68, 0.53);
 }
+
+
+
+.offcanvas-body .nav-item {
+    border-bottom: 1px solid rgba(209, 209, 209, 0.671);
+}
+
+    .offcanvas-body .nav-item .nav-link {
+        color: var(--textnav);
+    }
+
+.offcanvas-body .dropdown-toggle::after {
+    margin-right: 0.35em;
+}
+
+#demo1 .nav-link {
+    background: rgba(255, 222, 173, 0.15);
+}
+
+
+.offcanvas .btn-close {
+    width: 35px;
+    height: 35px;
+    color: #fff;
+    background: transparent;
+}
+
+.btn-close:focus {
+    outline: 0;
+    box-shadow: none;
+    opacity: 1;
+}
+
 
 /*********** dark icons *******************/
 
@@ -346,6 +392,7 @@ select:focus-visible {
 
 
 /*********************************المميزة*********************************/
+
 .game {
   background: var(--bgsec);
   backdrop-filter: blur(0.5rem);
@@ -481,7 +528,19 @@ select:focus-visible {
 .bgdaeke {
   background-color: var(--bgwhite);
 }
-
+.block-ellipsisdes {
+    padding: 0 20px;
+    display: -webkit-box;
+    max-width: 100%;
+    height: 56px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 /***like**/
 .heart {
   font-size: 25px;

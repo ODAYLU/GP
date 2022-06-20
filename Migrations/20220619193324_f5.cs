@@ -2,7 +2,7 @@
 
 namespace GP.Migrations
 {
-    public partial class nweDBs : Migration
+    public partial class f5 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace GP
 {
@@ -15,27 +17,69 @@ namespace GP
         private readonly IContract _services;
         private readonly IEstate _estate;
 
-        public ContractController(UserManager<AppUser> userManager, IContract contract,IEstate estate)
+        public ContractController(UserManager<AppUser> userManager, IContract contract, IEstate estate)
         {
             this._userManager = userManager;
             this._services = contract;
             this._estate = estate;
         }
 
+        [HttpPost]
+
+        public IActionResult filterPost(int status, int? page)
+        {
+            var pageNumber = page ?? 1;
+            int pageSize = 3;
+            string UserId1 = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            SeedData.IsPserosalPhoto = false;
+
+
+            List<Contract> list2 = new();
+
+            if (status == 1)
+            {
+                list2.AddRange(_services.GetAll().Where(x => x.UserId == UserId1 && x.Type == "بيع").ToList());
+            }
+
+            if (status == 0)
+            {
+                list2.AddRange(_services.GetAll().Where(x => x.UserId == UserId1 && x.Type == "إيجار").ToList());
+
+            }
+
+            if (status == -1)
+            {
+                list2.AddRange(_services.GetAll().Where(x => x.UserId == UserId1).ToList());
+
+            }
+
+            IEnumerable<Contract> list;
+
+            list = list2.ToPagedList(pageNumber, pageSize);
+            return View(nameof(Index), list);
+
+        }
+
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
+
+
+            var pageNumber = page ?? 1;
+            int pageSize = 3;
+            string UserId1 = User.FindFirstValue(ClaimTypes.NameIdentifier);
             SeedData.IsPserosalPhoto = false;
-            IEnumerable<Contract> list = _services.GetAll();
+            IEnumerable<Contract> list = _services.GetAll().Where(x => x.UserId == UserId1).ToPagedList(pageNumber, pageSize);
             return View(list);
         }
 
         [HttpGet]
         public async Task<IActionResult> CreateContract(long id)
         {
-            Estate estate = await  _estate.GetOne(id);
-            if (estate == null) {
+            Estate estate = await _estate.GetOne(id);
+            if (estate == null)
+            {
 
                 return View("/Views/NotAccess.cshtml");
             }
@@ -59,7 +103,7 @@ namespace GP
                 ViewBag.TypeOfContract = "عقد إيجار ";
             }
             IdEstate.Id = id;
-            
+
             return View();
         }
 
@@ -90,27 +134,27 @@ namespace GP
             }
 
 
-            if(estate.TypeID != 1)
+            if (estate.TypeID != 1)
             {
-                if(contract.up_to_date < estate.OnDate)
+                if (contract.up_to_date < estate.OnDate)
                 {
                     ModelState.AddModelError("up_to_date", "التاريخ غير صالح ");
                 }
             }
             contract.isDone = (int)Enum.SatateContract.nonactive;
             contract.SallerName = estate.name_owner;
-            contract.Sallerphone_num= estate.phone_num;
+            contract.Sallerphone_num = estate.phone_num;
             contract.Latitude = estate.Latitude;
             contract.Longitude = estate.Longitude;
             contract.category = estate.Category.category;
             contract.Type = estate.Type.type;
-            contract.UserId= User.FindFirstValue(ClaimTypes.NameIdentifier);
+            contract.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             contract.IDEstet = estate.Id;
 
 
             estate.is_active = false;
             estate.publish = false;
-            await  _estate.UpdateEstate(estate);
+            await _estate.UpdateEstate(estate);
 
             await _services.InsertContract(contract);
 
@@ -118,7 +162,7 @@ namespace GP
 
             return RedirectToAction(nameof(Index));
         }
-        [HttpPost]        
+        [HttpPost]
         public async Task<IActionResult> EeEstate(long id)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -126,7 +170,7 @@ namespace GP
             //id = 60;
             if (user == null) return NoContent();
 
-          
+
             if (user.memory > 0)
             {
                 user.memory--;
@@ -140,14 +184,14 @@ namespace GP
 
 
             }
-           
+
             Contract contract = await _services.GetOne(id);
 
-            if(contract == null) return NoContent();
+            if (contract == null) return NoContent();
             long IdEstate = contract.IDEstet;
             Estate estate = await _estate.GetOne(IdEstate);
 
-            if(estate == null) return NoContent();
+            if (estate == null) return NoContent();
 
             estate.is_active = true;
             estate.publish = true;
@@ -156,12 +200,12 @@ namespace GP
             // تم التفعيل 
             contract.isDone = (int)Enum.SatateContract.active;
 
-           await _services.UpdateContract(contract);
+            await _services.UpdateContract(contract);
 
             //string IdUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
 
-             // return RedirectToRoute($"Estate/Details/{IdEstate}");
+            // return RedirectToRoute($"Estate/Details/{IdEstate}");
 
             return RedirectToAction("Detalis", "Estate", new { id = IdEstate });
 
@@ -176,7 +220,7 @@ namespace GP
         {
             Contract obj = await _services.GetOne(id);
 
-            if(obj == null)   return View("/Views/NotAccess.cshtml");
+            if (obj == null) return View("/Views/NotAccess.cshtml");
 
 
             string UserIdLogin = @User.FindFirstValue(ClaimTypes.NameIdentifier);

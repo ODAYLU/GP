@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220618151718_add")]
-    partial class add
+    [Migration("20220619193324_f5")]
+    partial class f5
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -568,6 +568,38 @@ namespace GP.Migrations
                     b.ToTable("Notifications");
                 });
 
+            modelBuilder.Entity("GP.Models.Opinion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("is_active")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("0");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TOpinion");
+                });
+
             modelBuilder.Entity("GP.Models.PhotoEstate", b =>
                 {
                     b.Property<long>("Id")
@@ -956,6 +988,15 @@ namespace GP.Migrations
                     b.Navigation("Reciver");
 
                     b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("GP.Models.Opinion", b =>
+                {
+                    b.HasOne("GP.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("GP.Models.PhotoEstate", b =>

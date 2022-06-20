@@ -1,10 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using MailKit.Net.Smtp;
 using Microsoft.Extensions.Options;
-using MailKit.Net.Smtp;
-using MailKit;
-using System;
 using MimeKit;
-using GP.Service;
+using System;
+using System.Threading.Tasks;
 
 namespace GP.Service
 {
@@ -56,7 +54,9 @@ namespace GP.Service
             }
             catch (Exception er)
             {
-                throw er;
+                return;
+
+
             }
         }
 

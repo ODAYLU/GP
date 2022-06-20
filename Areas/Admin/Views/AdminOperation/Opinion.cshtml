@@ -1,0 +1,199 @@
+﻿@model GP.Models.Opinion
+@{
+    ViewData["Title"] = "أراء العملاء";
+}
+
+
+
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div style="margin:10px!important;">
+                <form id="form" style ="background : var(--bgwhite) ; color : var(--txtactive)">
+                    <div class="row">
+                       
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">الرأي</label>
+                                <textarea id="body" class="form-control " placeholder="Id" readonly rows="3"></textarea>
+                               
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">حالة الرأي</label>
+                                <input id="status" readonly class="form-control rounded-pill "  />
+                            </div>
+                        </div>
+                         <div class="col-12">
+                            <div class="form-group">
+                                <label for="edit_name_en" class="my-3">التقييم</label>
+                                <input id="rating" readonly class="form-control rounded-pill "  />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+
+                    <button id="btnClose" type="button" class="btn rounded-pill btn-secondary" data-bs-dismiss="modal">اغلاق</button>
+              
+                    </div>
+                
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<table id="Cities" class="table responsive cell-border hover text-center" style="width: 100%">
+    <thead>
+        <tr>
+            <th>الرقم</th>
+            <th> الرأي </th>
+            <th> حالة الرأي </th>
+             <th> التقييم</th>
+            <th>تعديل</th>
+            <th>تفاصيل</th>
+
+        </tr>
+    </thead>
+</table>
+
+@section Scripts{
+
+
+    @(await Html.PartialAsync("_ValidationScriptsPartial"));
+    <script type="text/javascript">
+
+        var myModal = new bootstrap.Modal(document.getElementById('staticBackdrop'), {
+		keyboard: true,
+
+	});
+        $(document).ready(function () {
+            
+            $("#Cities").DataTable({
+                "processing": true,
+                "serverSide": true,
+                "filter": true,
+                "responsive": true,
+                "lengthMenu": [10, 20, 30, 40, 50],
+                  "stateSave":true,
+                "language":{ url:'/assets/ar.json'},
+                "ajax": {
+                    "url": '/api/Api/GetOpinion',
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs": [{
+                    "targets": 0,
+                    "visible": false,
+                    "searchable": false
+                }],
+                "columns": [
+                    { "data": "id", "name": "Id", "autowidth": true },
+
+                    {
+                    "data":"body","name":"Body",
+                    "render":function (data,type,row){
+                    return `<a id="d" href="#" style="color:black; text-decoration: none;display:block;text-overflow: ellipsis;width: 200px;overflow: hidden; white-space: nowrap;" onclick=Details(${row.id})>${data}</a>`
+                    } ,},
+                 
+
+
+                   {
+                         "render": function (data, type, row)
+                        {
+                            if (row.is_active)
+                            {
+                                return '<p>منشور</p>'
+                            }
+                            else
+                            {
+                                return '<p>غير منشور</p>'
+                            }
+                           
+                        },
+                    },
+                     { "data": "rating", "name": "Rating", "autowidth": true },
+                    {
+                         "render": function (data, type, row)
+                        {
+                            if (row.is_active)
+                            {
+                                return '<a href="#" id="btnStates" class="btn btn-outline-danger" onclick=EditItem("' + row.id + '"); > إخفاء </a>'
+                            }
+                            else
+                            {
+                                return '<a href="#" id="btnStates" class="btn btn-outline-success" onclick=EditItem("' + row.id + '"); > إظهار </a>'
+                            }
+                           
+                        },
+                    },
+                             {
+                         "render": function (data, type, row)
+                        {
+                       
+                            
+                                return '<button  class="btn btn-outline-danger" onclick=Detalis(' + JSON.stringify(row) + '); > تفاصيل </button>'
+                            
+
+                           
+                        },
+                    }
+                   
+                  
+ 
+                ]
+            });
+        });
+
+function Detalis(data) {
+    
+           myModal.show();
+           
+            $("#body").val(data.body);
+            $("#rating").val(data.rating);
+
+
+    if (data.is_active) {
+        $("#status").val("منشور");
+    }
+
+    else {
+        $("#status").val("غير منشور");
+    }
+
+}
+
+          function EditItem(id) {
+         
+                $.ajax({
+                    method: 'Post',
+                    url: `/Admin/Opinion/Edit/${id}`,
+
+                    processData: false,
+                    contentType: false,
+                    success: function () {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'تم التعديل بنجاح',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        var Table = $("#Cities").DataTable();
+                        Table.draw();
+                    }
+                });
+            
+
+        }
+
+    </script>
+
+
+
+}
+

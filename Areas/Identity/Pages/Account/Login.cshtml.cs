@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using GP.Data;
+using GP.Models;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-
-
-using GP.Models;
-using GP.Data;
-using GP.Hubs;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace GP.Areas.Identity.Pages.Account
 {
@@ -27,7 +22,7 @@ namespace GP.Areas.Identity.Pages.Account
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(SignInManager<AppUser> signInManager, 
+        public LoginModel(SignInManager<AppUser> signInManager,
             ILogger<LoginModel> logger,
             UserManager<AppUser> userManager,
             ApplicationDbContext db)
@@ -92,7 +87,7 @@ namespace GP.Areas.Identity.Pages.Account
                 Microsoft.AspNetCore.Identity.SignInResult result;
                 if (Input.Email.Contains('@'))
                 {
-                     user = await _userManager.FindByEmailAsync(Input.Email);
+                    user = await _userManager.FindByEmailAsync(Input.Email);
                 }
                 else
                 {
@@ -132,14 +127,14 @@ namespace GP.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "عملية تسجيل الدخول غير صحيحة");
-                    ViewData["Error"] = "عملية تسجيل الدخول غير صحيحة";
+                    ModelState.AddModelError(Input.Email, "المستخدم غير موجود");
+                    ViewData["Error"] = "المستخدم غير موجود";
                     return Page();
                 }
 
 
 
-             
+
             }
 
             // If we got this far, something failed, redisplay form

@@ -151,7 +151,7 @@ a:hover {
                                     <div class="field">
                                         <div class="control has-icons-left has-icons-right">
                                             <input asp-for="Input.FirstName" class="input is-medium form-control rounded-pill fs-5" type="text" placeholder="الاسم الاول" />
-                                            <span asp-validation-for="Input.FirstName"></span>
+                                            <span class="text-danger" asp-validation-for="Input.FirstName"></span>
                                             <span  class="icon is-small is-right">
                                                 <i class="bi bi-person-fill"></i>
                                             </span>
@@ -164,7 +164,7 @@ a:hover {
                                     <div class="field">
                                         <div class="control has-icons-left has-icons-right">
                                             <input asp-for="Input.LastName" class="input is-medium form-control rounded-pill fs-5"  placeholder="اسم الثاني" />
-                                            <span asp-validation-for="Input.LastName"></span>
+                                            <span class="text-danger" asp-validation-for="Input.LastName"></span>
                                             <span class="icon is-small is-right">
                                                 <i class="bi bi-person-fill"></i>
                                             </span>
@@ -177,10 +177,8 @@ a:hover {
                                 <div class="control has-icons-left has-icons-right">
 
                                     <input asp-for="Input.Email" class="input is-medium form-control rounded-pill fs-5" placeholder="البريد الالكتروني"  />
-                                    <span  asp-validation-for="Input.Email"></span>
-                                    <span class="icon is-small is-right">
-                                        <i class="bi bi-envelope-fill"></i>
-                                    </span>
+                                    <span class="text-danger" asp-validation-for="Input.Email"></span>
+                                   
                                 </div>
                                 <p class="text-danger"></p>
                             </div>
@@ -200,8 +198,6 @@ a:hover {
                             <div class="field">
                                 <div class="control has-icons-left has-icons-right">
                                     <input asp-for="Input.ConfirmPassword" class="input is-medium form-control rounded-pill  fs-5" placeholder="تاكيد كلمة المرور" value="" required>
-                                    <span class="text-danger" asp-validation-for="Input.ConfirmPassword"></span>
-                                    <span asp-validation-for="Input.ConfirmPassword" ></span>
                                     <span asp-validation-for="Input.ConfirmPassword" class="text-danger">
                                        
                                     </span>

@@ -1,9 +1,5 @@
-﻿using GP.Data;
-using GP.Models;
+﻿using GP.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GP.Areas.Admin.Controllers
@@ -11,33 +7,30 @@ namespace GP.Areas.Admin.Controllers
     [Area("Admin")]
     public class InformationGenController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IInformationGen information;
 
-        public InformationGenController(ApplicationDbContext context)
+        public InformationGenController(IInformationGen information)
         {
-            _context = context;
+            this.information = information;
         }
 
         public IActionResult Index()
         {
-            var data = _context.TInformatiomGensT.SingleOrDefault();
+            var data = information.GetOne();
             return View(data);
         }
 
         public IActionResult GetInformation()
         {
-           var data  = _context.TInformatiomGensT.SingleOrDefault();
+            var data = information.GetOne();
             return Ok(data);
         }
-
-        public IActionResult SaveInformation(InformationGen informatiom)
+        [HttpPost]
+        public async Task<IActionResult> SaveInformation(InformationGen informatiom)
         {
             if (!ModelState.IsValid) return BadRequest();
-           var data  = _context.TInformatiomGensT.ToList();
-            _context.TInformatiomGensT.RemoveRange(data);
-            _context.TInformatiomGensT.Add(informatiom);
-            _context.SaveChanges();
-            return Ok();
+            await information.UpdateInformationGen(informatiom);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
