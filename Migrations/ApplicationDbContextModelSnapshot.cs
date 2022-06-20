@@ -228,9 +228,6 @@ namespace GP.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("Getdate()");
 
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
