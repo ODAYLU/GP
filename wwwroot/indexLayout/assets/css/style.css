@@ -392,6 +392,7 @@ select:focus-visible {
 
 
 /*********************************المميزة*********************************/
+
 .game {
   background: var(--bgsec);
   backdrop-filter: blur(0.5rem);
@@ -527,7 +528,19 @@ select:focus-visible {
 .bgdaeke {
   background-color: var(--bgwhite);
 }
-
+.block-ellipsisdes {
+    padding: 0 20px;
+    display: -webkit-box;
+    max-width: 100%;
+    height: 56px;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 /***like**/
 .heart {
   font-size: 25px;
