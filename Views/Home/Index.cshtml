@@ -218,16 +218,15 @@
           @foreach (var item in (List<Estate>)@ViewBag.ModernEstate)
          {
          <div class="swiper-slide">
-            <div class="card">
+            <div class="card1">
               <img class="card-img-top img-fluid" src="/images/Estate/@item.Main_photo" alt="Card image">
-                
               <div class="card-body">
-                        <h4 class="card-title">@item.name <a href="/commments/EstateComment/@item.Id"  class="rounded-5 p-2 bg-b mx-3 position-absolute" style="z-index:100;">انقر التفاصيل </a></h4>
-                        <p class="m-0 dd"><i class="bi bi-geo-alt"></i>: @item.State.name - @item.City.name </p>
+                        <h4 class="card-title fs-3">@item.name</h4>
+                         <small class="m-0 dd"><i class="bi bi-geo-alt"></i>: @item.State.name - @item.City.name </small>
                         <p class="block-ellipsisdes">@item.description</p>
                        <p class="m-0 pt-2 dd"><i class="bi bi-cash-stack"></i>: @item.price @item.Currency.currency </p>
                  <div class="d-flex align-items-center justify-content-between">
-                  
+                    <a href="/commments/EstateComment/@item.Id" class="rounded-5 p-2  bg-b mx-3">انقر التفاصيل </a>
                     @if (likes.Contains(item.Id))
                     {
                     <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i
@@ -242,10 +241,8 @@
               </div>
             </div>
           </div>
-
          }
         </div>
-        <div class="swiper-pagination p-2"></div>
         <div class="swiper-button-next"></div>
         <div class="swiper-button-prev"></div>
       </div>
@@ -277,7 +274,7 @@
               </p>
             </div>
             <div class="col-12 col-lg-6" data-aos="fade-top" data-aos-easing="linear" data-aos-duration="1500">
-              <img src="~/indexLayout/assets/img/pages/about.png" class="img-fluid">
+                <lottie-player class="img-fluid" src="https://assets1.lottiefiles.com/packages/lf20_hgbosl8c.json"  background="transparent"  speed="1" hover autoplay></lottie-player>
             </div>
           </div>
         </div>
@@ -458,7 +455,7 @@
        <!--Start sales-->
       <div class="container-fluid sales-form">
         <div class="container mt-5 border border-0 rounded sales">
-          <div class="row gx-3 flex-column flex-lg-row px-3">
+          <div class="row gx-3 flex-column align-items-center flex-lg-row px-3">
             <div class="col-12 col-lg-5 text-center text-lg-end py-5 lh-lg">
               <h3 class="fw-bold txtborder border-0">
                 عندك عقار للبيع أو للإيجار؟
@@ -469,11 +466,9 @@
               </p>
               <div class="row gx-3 p-3 p-lg-0">
                 <div class="col-6">
-                  <a href=""
-                    ><img
+                  <a href=""><img
                       src="~/indexLayout/assets/img/pages/download-google.png"
-                      class="img-fluid w-100 p-2"
-                    />
+                      class="img-fluid w-100 p-2"/>
                   </a>
                 </div>
                 <div class="col-6">
@@ -487,16 +482,11 @@
               </div>
             </div>
             <div class="col-12 col-lg-7 text-center text-lg-start d-flex">
-              <img
-                src="~/indexLayout/assets/img/pages/Icons.png"
-                class="img-fluid w-auto img-Home"
-                style=""
-              />
+                <lottie-player src="https://assets5.lottiefiles.com/packages/lf20_fy4kklg8.json"  background="transparent"  speed="1" loop  autoplay></lottie-player>
             </div>
           </div>
         </div>
       </div>
-
 
 
 
@@ -734,9 +724,6 @@ function AddLike(Id,el) {
             var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
               return new bootstrap.Tooltip(tooltipTriggerEl)
             })
-
-
-
 
     </script>
     
