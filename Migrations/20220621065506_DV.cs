@@ -3,15 +3,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GP.Migrations
 {
-<<<<<<< HEAD:Migrations/20220621072620_Add.cs
-    public partial class Add : Migration
-=======
 <<<<<<<< HEAD:Migrations/20220621065506_DV.cs
     public partial class DV : Migration
 ========
     public partial class Addtable : Migration
 >>>>>>>> a82d45dad4c300e6c79dd6bac94f1aa97efece95:Migrations/20220621053547_Addtable.cs
->>>>>>> c738ded5498266f109ca88d7696dea84f1645c9b:Migrations/20220621053547_Addtable.cs
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -153,8 +149,8 @@ namespace GP.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UrlFacebook = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UrlTwitter = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UrlInstegrame = table.Column<string>(type: "nvarchar(max)", nullable: true)

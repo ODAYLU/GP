@@ -21,7 +21,7 @@
                     </div>
 
 
-                    <button id="btnAdd" type="submit" class="btn btn-outline-primary">حسنا</button>
+                    <button id="btnAdd" type="submit" class="btn btn-outline-primary ">حسنا</button>
                     <button id="btnAddMemory" type="submit" class="btn btn-outline-success">اضافة</button>
                     <button id="btnClose" type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">الغاء</button>
                 </form>
@@ -93,7 +93,7 @@
  
                     },
                     {
-                        "render": function (data, type, row) { return `<a href="/UsersProfiles/GetProfile/${row.id}" class="btn btn-outline-info" ; > تفاصيل </a>` },
+                        "render": function (data, type, row) { return `<a href="/UsersProfiles/GetProfile/${row.id}" class="btn btn-secondary" ; > تفاصيل </a>` },
  
                     },
                     {
@@ -101,11 +101,11 @@
                         {
                             if (row.is_active)
                             {
-                                return '<a href="#" id="btnStates" class="btn btn-outline-danger" onclick=BlockUser("' + row.id + '"); > تقييد </a>'
+                                return '<a href="#" id="btnStates" class="btn btn-danger" onclick=BlockUser("' + row.id + '"); > تقييد </a>'
                             }
                             else
                             {
-                                return '<a href="#" id="btnStates" class="btn btn-outline-success" onclick=UnBlockUser("' + row.id + '"); > تفعيل </a>'
+                                return '<a href="#" id="btnStates" class="btn btn-success" onclick=UnBlockUser("' + row.id + '"); > تفعيل </a>'
                             }
                            
                         },

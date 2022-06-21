@@ -122,11 +122,11 @@
                         {
                             if (row.is_active)
                             {
-                                return '<a href="#" id="btnStates" class="btn btn-outline-danger" onclick=EditItem("' + row.id + '"); > إخفاء </a>'
+                                return '<a href="#" id="btnStates" class="btn btn-danger" onclick=EditItem("' + row.id + '"); > إخفاء </a>'
                             }
                             else
                             {
-                                return '<a href="#" id="btnStates" class="btn btn-outline-success" onclick=EditItem("' + row.id + '"); > إظهار </a>'
+                                return '<a href="#" id="btnStates" class="btn btn-success" onclick=EditItem("' + row.id + '"); > إظهار </a>'
                             }
                            
                         },
@@ -136,7 +136,7 @@
                         {
                        
                             
-                                return '<button  class="btn btn-outline-danger" onclick=Detalis("' + row.id + '"); > تفاصيل </button>'
+                                return '<button  class="btn btn-secondary" onclick=Detalis(' + JSON.stringify(row) + '); > تفاصيل </button>'
                             
 
                            

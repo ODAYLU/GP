@@ -155,16 +155,16 @@
                     },
                     {
                         "title":"التفاصيل",
-                        "render": function (data, type, row) { return `<a href="/Commments/EstateComment/${row.id}" class="btn btn-info"  > تفاصيل </a>` },
+                        "render": function (data, type, row) { return `<a href="/Commments/EstateComment/${row.id}" class="btn btn-secondary"  > تفاصيل </a>` },
                     },
                     {
                         "title": "نفعيل او تقييد",
                         "render": function (data, type, row, meta) {
                             if (row.isBlock) {
-                                return '<a href="#" class="btn btn-sm btn-success ms-2" onclick=IsActive(' + row.id + '); > تفعيل </a>'
+                                return '<a href="#" class="btn  btn-success ms-2" onclick=IsActive(' + row.id + '); > تفعيل </a>'
                             }
                             else {
-                                 return '<a href="#" class="btn btn-sm btn-danger ms-2" onclick=IsActive(' + row.id + '); > تقييد </a>'
+                                 return '<a href="#" class="btn btn-danger ms-2" onclick=IsActive(' + row.id + '); > تقييد </a>'
                             }
                          
                         
