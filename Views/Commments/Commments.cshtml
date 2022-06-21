@@ -121,6 +121,7 @@
            dataType: "json",
                success: function (datab)
                {
+                   
                    var text="";
                    var gg="";
                    var com="";
@@ -133,7 +134,7 @@
                    }
                    com+=`
                    <img class="img-fluid  "  src="/images/Estate/${datab.estate.main_photo}" >
-                 <div class="container mt-5">
+                 <div class="container mt-5 m-auto">
                 <h3 class="text-center mb-5">التعليقات</h3>
                 <div class="row">
                   <div class="col-2">
@@ -143,18 +144,31 @@
                        ${data[0].body}
                   </div>
 
-                  <div class="col-4 text-center text-success mt-5">
-                <a>  <p class="fw-bold" id="lnk">   الردود  <i id="ico" class="bi bi-arrow-90deg-down"></i></p></a>   
+                  <div id="togl"class="col-4 text-center text-success mt-5">
+                <a>  <p class="fw-bold" id="lnk">عرض الردود<i id="ico" class="bi bi-arrow-90deg-down"></i></p></a>   
+                  </div>
+                  <div id="lo"class="col-4 text-center text-success mt-5  ">
+                <a>  <p class="fw-bold" id="hiderep">اخفاء الردود<i id="ico" class="bi bi-arrow-90deg-down"></i></p></a>   
                   </div>
                 </div>
               </div>
               <div  id="rowling"></div>
  `;
+ 
 $("#main").html(com);
+ var btnshow=document.getElementById("togl");
+                        btnshow.classList.toggle("d-block");
+                        var btnhide=document.getElementById("hiderep");
+                        btnhide.classList.toggle("d-none");
                
                     var replys=datab.reply.length;
                     console.log(replys);
                     $('#lnk').on("click",function(){
+                        var btnshow=document.getElementById("togl");
+                        btnshow.classList.toggle("d-none");
+                        var btnhide=document.getElementById("hiderep");
+                        btnhide.classList.toggle("d-block");
+
                         if(replys>0){
                       for(var i=0;i<replys;i++){
                           if(datab.reply[i].appUser.profilePicture==null){
