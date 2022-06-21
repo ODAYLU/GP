@@ -128,12 +128,15 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
 
     <div class="modal fade" id="staticBackdropp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
+        <div class="modal-dialog ">
             <form method="post" enctype="multipart/form-data" asp-controller="Estate">
                 <div class="modal-content">
-                    <div class="modal-header">
+                    <div class="modal-header ">
                         <h5 class="modal-title" id="staticBackdropLabel">اضافة صورة</h5>
-                        <button type="button" class="btn-close text-start" data-bs-dismiss="modal" aria-label="Close"></button>
+                       
+                              <button type="button" class="btn-close text-start m-0" data-bs-dismiss="modal" aria-label="Close"></button>
+                      
+                      
                     </div>
                     <div class="modal-body">
                         <div class="row align-items-center pb-5">
@@ -149,22 +152,22 @@ List<PhotoEstate> lst= list.GetAllByEstate(ViewBag.id);
 
                             <div class="form-group">
                                 <label asp-for="ImagePath" class="control-label">الصورة</label>
-                                <input type="file" name="file" asp-for="ImagePath" class="form-control"
+                                <input type="file" name="file" asp-for="ImagePath" class="form-control rounded-pill"
                                     onchange="document.getElementById('ProfilePicture').src=window.URL.createObjectURL(this.files[0])" />
                                 <span asp-validation-for="ImagePath" class="text-danger"></span>
 
                                 <div>
-                                    <img class="w-25 h-25" id="ProfilePicture" />
+                                    <img class="w-25 h-25" id="ProfilePicture" alt="..." />
                                 </div>
                             </div>
 
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button id="btnSave" type="submit" value="Save" class="btn btn-primary" asp-action="AddImage"
-                            asp-route-q="@x">Create</button>
-                        <button id="btnUpdate" type="submit" value="Update" class="btn btn-success"
-                            asp-action="EditImage" asp-route-id="@idupp">Update</button>
+                    <div class="modal-footer ">
+                        <button id="btnSave" type="submit" value="Save" class="btn btn-success rounded-pill  px-5 mx-auto " asp-action="AddImage"
+                            asp-route-q="@x"> اضف</button>
+                        <button id="btnUpdate" type="submit" value="Update" class="btn btn-success px-5  mx-auto rounded-pill "
+                            asp-action="EditImage" asp-route-id="@idupp">تحديث</button>
                     </div>
                 </div>
             </form>
