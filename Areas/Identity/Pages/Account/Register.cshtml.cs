@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using GP.Models;
+﻿using GP.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -16,9 +7,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Net.Mail;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace GP.Areas.Identity.Pages.Account
 {
@@ -59,7 +56,7 @@ namespace GP.Areas.Identity.Pages.Account
         public List<IdentityRole> Roles { get; set; }
         public class InputModel
         {
-            [Required(ErrorMessage ="هذا الحقل مطلوب ")]
+            [Required(ErrorMessage = "هذا الحقل مطلوب ")]
             [Display(Name = "First Name")]
             public string FirstName { get; set; }
             [Required(ErrorMessage = "هذا الحقل مطلوب ")]
@@ -72,15 +69,16 @@ namespace GP.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required(ErrorMessage = "هذا الحقل مطلوب ")]
-            
+
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
-           
+
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "تأكيد كلمة السر")]
             [Compare("Password", ErrorMessage = "كلمتا السر غير متطابقتين")]
+            [Required(ErrorMessage = "هذا الحقل مطلوب")]
             public string ConfirmPassword { get; set; }
 
             public IFormFile Image { get; set; }
@@ -96,42 +94,73 @@ namespace GP.Areas.Identity.Pages.Account
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
-          {
+        {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+
+
+
+
             if (ModelState.IsValid)
             {
+                AppUser user = new AppUser();
+
                 if (Input.IsQwner)
                 {
                     Input.Role = "Owner";
+
+
+                    user = new AppUser
+                    {
+                        UserName = new MailAddress(Input.Email).User,
+                        Email = Input.Email,
+                        FirstName = Input.FirstName,
+                        LastName = Input.LastName,
+                        memory = 10,
+                        NameRole = Input.Role,
+                        is_active = true,
+
+                        decription = "صاحب عقارات اقوم بتقديم خدمات البيع والايجار للعقارات من انواع مختلفة مع العديد من الخدمات  وبأسعار مناسبة للاشخاص المعنيين"
+
+
+
+                    };
+
                 }
                 else
                 {
                     Input.Role = "User";
+
+
+
+                    user = new AppUser
+                    {
+                        UserName = new MailAddress(Input.Email).User,
+                        Email = Input.Email,
+                        FirstName = Input.FirstName,
+                        LastName = Input.LastName,
+                        NameRole = Input.Role,
+                        is_active = true,
+
+
+
+                    };
                 }
-                var user = new AppUser
+
+                var usernew = await _userManager.FindByNameAsync(user.UserName);
+
+                if (usernew != null)
                 {
-                    UserName = new MailAddress(Input.Email).User,
-                    Email = Input.Email,
-                    FirstName = Input.FirstName,
-                    LastName = Input.LastName,
-                    memory = 10,
-                    NameRole = Input.Role,
-                    is_active = true
-                };
-                //if (Input.Image != null)
-                //{
-                //    string webRootPath = _webHostEnvironment.WebRootPath;
-                //    string upload = webRootPath + "/images/User/";
-                //    string fileName = Guid.NewGuid().ToString();
-                //    string extension = Path.GetExtension(Input.Image.FileName);
-                //    using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
-                //    {
-                //        await Input.Image.CopyToAsync(fileStream);
-                //    }
-                //    user.ImagePath = "/images/User/" + fileName + extension;
-                //}
-                
+
+                    ModelState.AddModelError(Input.Email, "المستخدم  موجود");
+                    ViewData["Error"] = "المستخدم موجود";
+                    return Page();
+
+                }
+
+
+
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
@@ -139,8 +168,9 @@ namespace GP.Areas.Identity.Pages.Account
                     {
                         await _userManager.AddToRoleAsync(user, "User");
                     }
-                    else if(Input.Role == "Owner")
+                    else if (Input.Role == "Owner")
                     {
+
                         await _userManager.AddToRoleAsync(user, "Owner");
                     }
                     else
@@ -170,11 +200,12 @@ namespace GP.Areas.Identity.Pages.Account
                         return LocalRedirect(returnUrl);
                     }
                 }
-                
-               
+
+
             }
-            
-         
+
+
+
             return Page();
         }
     }

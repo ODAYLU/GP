@@ -49,9 +49,13 @@
         </p>
 
         <p class="fs-4"><strong>- @Html.DisplayFor(model => model.name)   </strong><sub><span>@Html.DisplayFor(model => model.Type.type)</span>  <span>@Html.DisplayFor(model => model.Category.category)</span></sub></p>
+    
+        <div> 
 
-        
-        <p class="fs-5"><span> @Html.DisplayFor(model => model.description)</span></p>
+
+        <p class="fs-5"> @Html.DisplayFor(model => model.description)</p>
+
+        </div>
         <p class="fs-5 text-secondary"><strong><i class="bi bi-geo-alt-fill"></i> @Html.DisplayFor(model => model.State.name) - @Html.DisplayFor(model => model.City.name)</strong></p>
 
         <p>
@@ -74,8 +78,7 @@
       <div class="col-12 col-md-4 text-center pt-5 mt-3">
         <img class="img-fluid" src="~/images/Estate/@Html.DisplayFor(model => model.Main_photo)" />
         <p class="text-secondary py-3">@Html.DisplayFor(model => model.OnDate) <i class="bi bi-calendar-event"></i></p>
-        <p>@Html.DisplayNameFor(model => model.is_active) @Html.DisplayFor(model => model.is_active)</p>
-        <p>@Html.DisplayNameFor(model => model.is_spacial) @Html.DisplayFor(model => model.is_spacial)</p>
+        
       </div>
     </div>
 </div>

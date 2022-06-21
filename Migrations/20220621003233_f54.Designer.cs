@@ -4,14 +4,16 @@ using GP.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220621003233_f54")]
+    partial class f54
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -312,8 +314,8 @@ namespace GP.Migrations
                     b.Property<string>("SallerName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Sallerphone_num")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double?>("Sallerphone_num")
+                        .HasColumnType("float");
 
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
@@ -433,9 +435,9 @@ namespace GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("phone_num")
+                    b.Property<double?>("phone_num")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("float");
 
                     b.Property<double?>("price")
                         .IsRequired()
@@ -578,6 +580,9 @@ namespace GP.Migrations
 
                     b.Property<string>("Body")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdUser")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Rating")
@@ -990,11 +995,11 @@ namespace GP.Migrations
 
             modelBuilder.Entity("GP.Models.Opinion", b =>
                 {
-                    b.HasOne("GP.Models.AppUser", "Users")
+                    b.HasOne("GP.Models.AppUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("Users");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("GP.Models.PhotoEstate", b =>

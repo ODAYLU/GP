@@ -38,14 +38,14 @@ namespace GP.Areas.Identity.Pages.Account.Manage
             public string OldPassword { get; set; }
 
             [Required(ErrorMessage = "الحقل مطلوب")]
-            [StringLength(8, ErrorMessage = "يجب أن تحتوي على 8 أحرف", MinimumLength = 8)]
+            [StringLength(100, ErrorMessage = "يجب أن تحتوي على 8 رمز الى 100 رمز", MinimumLength = 8)]
             [DataType(DataType.Password)]
             [Display(Name = "كلمة المرور الجديدة")]
             public string NewPassword { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "تأكيد كلمة المرور")]
-            [StringLength(8)]
+            [StringLength(100, MinimumLength = 8)]
             [Compare("NewPassword", ErrorMessage = "كلمتان المرور غير متطابقتان ")]
             public string ConfirmPassword { get; set; }
         }

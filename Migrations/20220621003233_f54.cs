@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace GP.Migrations
 {
-    public partial class ConDB : Migration
+    public partial class f54 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -396,8 +396,8 @@ namespace GP.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Longitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Latitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    description = table.Column<string>(type: "nvarchar(max)", maxLength: 50000, nullable: false),
                     name_owner = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     space = table.Column<double>(type: "float", nullable: false),
                     Likes = table.Column<int>(type: "int", nullable: false),
@@ -495,9 +495,9 @@ namespace GP.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SallerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Sallerphone_num = table.Column<double>(type: "float", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", maxLength: 50000, nullable: false),
                     BuyerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Buyerphone_num = table.Column<double>(type: "float", nullable: false),
+                    Buyerphone_num = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Longitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Latitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OnDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "Getdate()"),
