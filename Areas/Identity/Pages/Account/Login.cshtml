@@ -8,16 +8,7 @@
     ViewData["Title"] = "تسجيل الدخول";
 
 }
-  <link rel="shortcut icon" href="~/indexLayout/assets/img/logo/logo.png">
-  <link href="~/indexLayout/assets/bootstrap/bootstrap4.min.css" rel="stylesheet">
-  <link href="~/indexLayout/assets/bootstrap/bootstrap5.min.css" rel="stylesheet">
-  <link href="~/indexLayout/assets/bootstrap/font-awesome.min.css" rel="stylesheet">
-  <link href="~/indexLayout/assets/bootstrap/bootstrap-icons.css" rel="stylesheet">
-  <link href="~/indexLayout/assets/bootstrap/animate.min.css" rel="stylesheet">
-  <link href="~/indexLayout/assets/bootstrap/aos.css" rel="stylesheet">
-  <link href="~/indexLayout/assets/css/swiper.css" rel="stylesheet" />
-  <link href="~/indexLayout/assets/css/profile.css" rel="stylesheet">
-  <link href="~/indexLayout/assets/css/style.css" rel="stylesheet">
+
   <link rel="stylesheet" href="~/login/bulma.min.css" />
 
     <style>
@@ -72,34 +63,6 @@
     left: -27em;
     border: 8px solid rgba(255,255,255,0.8);
 }
-.circle-main {
-    border-radius: 50%;
-    width: 600px;
-    height: 600px;
-    background-color: #005c4b;
-    position: absolute;
-    bottom: -20em;
-    right: -20em;
-}
-.circle-main-m {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    bottom: 1.2em;
-    right: 14em;
-    background-color: #005c4b;
-    background-image: linear-gradient(315deg, #005c4b 0%, #8fa177 100%);
-}
-.circle-main-s {
-    border-radius: 20%;
-    width: 60px;
-    height: 60px;
-    position: absolute;
-    bottom: 15em;
-    background-color: #005c4b;
-    background-image: linear-gradient(315deg, #005c4b 0%, #ffffff 100%);
-}
 .input:active, .input:focus, .is-active.input, .is-active.textarea, .is-focused.input, .is-focused.textarea, .select select.is-active, .select select.is-focused, .select select:active, .select select:focus, .textarea:active, .textarea:focus {
   border-color: #005c4b;
   box-shadow: 0 0 0 0.125em #005c4b9b;
@@ -127,26 +90,24 @@ a:hover {
 .form-control::placeholder {
   color: #dbdbdb;
 }
+.xx{
+    margin-bottom:120px !important;
+}
+
 </style>
 
 
 
-    <section class="my-5">
-@*        <div class="circle-main"></div>
-*@        <div class="circle-main-m"></div>
-        <div class="circle-main-s"></div>
+    <section class="xx my-5">
 
         <div class="container white-bg">
-            <div class="columns background component-row">
+            <div class="row background component-row">
 
-                <div class="column">
+                <div class="col">
                     <div class="padable text-end">
                         <h1>
                             تسجيل دخول
                             <span class="line"></span>
-                            <span>
-                                <!--الايقونات -->
-                            </span>
 
                         </h1>
                         <span class="text-danger">@ViewData["Error"]</span>
@@ -155,7 +116,7 @@ a:hover {
                             <div class="field">
                                 
                                 <div class="control has-icons-left has-icons-right">
-                                    <input asp-for="Input.Email" class="input is-medium form-control rounded-pill"  placeholder="البريد الالكتروني"/>
+                                    <input asp-for="Input.Email" class="input is-medium form-control rounded-pill"  placeholder="البريد الالكتروني "/>
                                     <span class="icon is-small is-right " >
                                        <i class="bi bi-envelope"></i>
                                     </span>
@@ -169,11 +130,12 @@ a:hover {
                                 <div class="control has-icons-left has-icons-right">
                                     <input asp-for="Input.Password" class="input is-medium form-control rounded-pill"   id="password" placeholder="كلمة المرور">
                                      <span class="icon is-small is-right " >
-                                <i class="bi bi-lock"></i>   
+                                        <i class="bi bi-lock "></i>   
                                     </span>
-                                    <span class="text-danger d-flex text-align-start" asp-validation-for="Input.Password">
-                                        
+                                    <span class="is-small is-left position-absolute justify-content-center fs-5" style="color: #dbdbdb; left: 20px; top:10px;"> 
+                                        <i class="bi bi-eye-slash"  id="togglePassword"></i>
                                     </span>
+                                    <span class="text-danger d-flex text-align-start" asp-validation-for="Input.Password"></span>
                                   
                                 </div>
 
@@ -202,7 +164,7 @@ a:hover {
                     </div>
                 </div>
 
-                <div class="column d-md-none d-lg-block">
+                <div class="col d-md-none d-lg-block">
                     <div class="illustrator ">
                         <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_4u33kbls.json" background="transparent" speed="2" style="width: 550px; height: 500px;left:10px; position: absolute;z-index: 100;" autoplay></lottie-player>
                         <div class="circle"></div>
@@ -213,19 +175,23 @@ a:hover {
             </div>
         </div>
 
-
+         @*src="~/js/Login/all.js"*@
     </section>
 
 
     @section Scripts{
     
-       <script src="~/js/Login/all.js"></script>
-    <script src="~/js/Login/lottie-player.js"></script>
+       <script>
+         const togglePassword = document.querySelector("#togglePassword");
+          const password = document.getElementById("password");
 
-
-
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+          togglePassword.addEventListener("click", function () {
+              const type = password.getAttribute("type") === "password" ? "text" : "password";
+              password.setAttribute("type", type);
+              this.classList.toggle("bi-eye");
+          });
+       </script>
+       
+        @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 
     }
