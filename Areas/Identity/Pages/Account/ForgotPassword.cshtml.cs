@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text.Encodings.Web;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using GP.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
-using GP.Models;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Text.Encodings.Web;
+using System.Threading.Tasks;
 
 namespace GP.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
     public class ForgotPasswordModel : PageModel
     {
         private readonly UserManager<AppUser> _userManager;
@@ -34,6 +30,10 @@ namespace GP.Areas.Identity.Pages.Account
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+        }
+        public IActionResult OnGetAsync()
+        {
+            return RedirectToPage("./AccessDenied");
         }
 
         public async Task<IActionResult> OnPostAsync()

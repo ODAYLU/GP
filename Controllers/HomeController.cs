@@ -1,7 +1,5 @@
 ﻿using GP.Hubs;
 using GP.Models;
-using Microsoft.AspNet.SignalR.Hubs;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -9,8 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -55,7 +51,10 @@ namespace GP.Controllers
             _notification = notification;
             _information = information;
         }
-
+        public IActionResult Error()
+        {
+            return View("/Views/NotAccess.cshtml");
+        }
         public IActionResult Index()
         {
             ViewBag.Categories = _category.GetAll().ToList();
@@ -141,11 +140,11 @@ namespace GP.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        //public IActionResult Error()
+        //{
+        //    return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        //}
 
         [HttpGet]
         public async Task<IActionResult> AddLikes(long id)
@@ -170,21 +169,21 @@ namespace GP.Controllers
                     await _estate.UpdateEstate(estate);
                     int count = estate.Likes;
                     string status = "like";
-                                       
-                        Notification msg = new Notification
-                        {
-                            Text = $"{User.Identity.Name}تم تسجيل الاعجاب على عقارك بواسطة ",
-                            Time = DateTime.Now,
-                            ReciverId = estate.UserId,
-                            SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                            Type = "action",
-                            IsReaded = (ConnectedUser.IDs.Contains(estate.UserId) ? true : false)
-                        };
-                        await _notification.InsertNot(msg);
 
-                        await _hub.Clients.User(estate.UserId).SendAsync("receiveNotification", msg);
-                    
-                
+                    Notification msg = new Notification
+                    {
+                        Text = $"{User.Identity.Name}تم تسجيل الاعجاب على عقارك بواسطة ",
+                        Time = DateTime.Now,
+                        ReciverId = estate.UserId,
+                        SenderId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                        Type = "action",
+                        IsReaded = (ConnectedUser.IDs.Contains(estate.UserId) ? true : false)
+                    };
+                    await _notification.InsertNot(msg);
+
+                    await _hub.Clients.User(estate.UserId).SendAsync("receiveNotification", msg);
+
+
                     var JsonData = new { status, count };
                     return Ok(JsonData);
                 }
@@ -224,7 +223,7 @@ namespace GP.Controllers
             {
                 item.IsReaded = true;
             }
-           await _notification.UpdateNot(data);
+            await _notification.UpdateNot(data);
             return Ok();
         }
 

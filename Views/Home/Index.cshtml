@@ -142,11 +142,11 @@
   <div class="social-icons ">
     <div class="d-flex flex-row flex-lg-column justify-content-center align-items-center h-100 mt-3 mt-lg-0">
       <a  class="btn btn-dark text-white m-3" data-aos="fade-down" data-aos-delay="100"
-        data-aos-easing="ease-in-sine" href="@information.UrlTwitter"><i class="bi bi-twitter"></i></a>
+        data-aos-easing="ease-in-sine" href="@information.UrlTwitter ??= "#" "><i class="bi bi-twitter"></i></a>
       <a class="btn btn-dark text-white m-3 " data-aos="fade-down" data-aos-delay="250"
-        data-aos-easing="ease-in-sine" href="@information.UrlFacebook"><i class="bi bi-facebook"></i></a>
+        data-aos-easing="ease-in-sine" href="@information.UrlFacebook ??= "#" "><i class="bi bi-facebook"></i></a>
       <a  class="btn btn-dark text-white m-3 " data-aos="fade-down" data-aos-delay="350"
-        data-aos-easing="ease-in-sine" href="@information.UrlInstegrame"><i class="bi bi-instagram"></i></a>
+        data-aos-easing="ease-in-sine" href="@information.UrlInstegrame ??= "#" "><i class="bi bi-instagram"></i></a>
     </div>
   </div>
 
@@ -220,7 +220,7 @@
         @if(@ViewBag.ModernEstate is not null)
           @foreach (var item in (List<Estate>)@ViewBag.ModernEstate)
          {
-         <div class="swiper-slide" data-aos="fade-up" data-aos-anchor-placement="center-bottom" data-aos-delay="350">
+         <div class="swiper-slide" data-aos="fade-up" data-aos-anchor-placement="center-bottom">
             <div class="card1">
               <img class="card-img-top img-fluid" src="/images/Estate/@item.Main_photo" alt="Card image">
               <div class="card-body">
@@ -522,7 +522,7 @@
                                                 {
                                                                     <img src="/assets/img/pages/profille.png" class="mr-3" alt="">
                                                 }
-                                                    }
+                                              }
                                         <div class="media-body ">
                                           <div class="overview px-2">
                                             <div class="name"><b>@string.Concat(@opinions[i].Users.FirstName+" "+ @opinions[i].Users.LastName)</b></div>
