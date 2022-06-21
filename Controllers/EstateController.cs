@@ -122,7 +122,6 @@ namespace GP
         [HttpGet]
         public IActionResult Index(int? page)
         {
-
             var pageNumber = page ?? 1;
             int pageSize = 3;
             SeedData.IsPserosalPhoto = false;
@@ -591,6 +590,8 @@ namespace GP
             string photo = "";
             long Id = -1;
 
+            string Iduser = "";
+
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -637,7 +638,7 @@ namespace GP
                 }
 
                 Id = comments.Id;
-
+                Iduser = user.Id;
 
                 GP.Models.Toast.Message = "تم إضافة التعليق بنجاح";
                 GP.Models.Toast.ShowTost = true;
@@ -651,7 +652,7 @@ namespace GP
 
 
 
-            var JsonData = new { status, name, photo, Id };
+            var JsonData = new { status, name, photo, Id, Iduser };
             return Ok(JsonData);
 
 
@@ -665,6 +666,8 @@ namespace GP
             string name = "";
 
             string photo = "";
+
+            string iduser = "";
             if (User.Identity.IsAuthenticated)
             {
                 var user = await _userManager.FindByIdAsync(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -689,7 +692,7 @@ namespace GP
                     UserId = user.Id,
 
                 };
-
+                iduser = user.Id;
                 await _replaies.InsertReply(replaies);
                 var comment = await _context.GetOne(id);
                 if (User.FindFirstValue(ClaimTypes.NameIdentifier) != comment.UserId)
@@ -731,7 +734,7 @@ namespace GP
             }
 
 
-            var JsonData = new { status, name, photo };
+            var JsonData = new { status, name, photo, iduser };
             return Ok(JsonData);
 
 
