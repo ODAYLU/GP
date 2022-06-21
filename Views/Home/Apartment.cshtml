@@ -298,7 +298,8 @@ function Next() {
     var value = localStorage.getItem("pageNumberHouse");
     var num = parseInt(value);
     num += 1;
-    
+
+   
     localStorage.setItem("pageNumberHouse",`${num}`);
     $.ajax({
         method: 'Get',
@@ -306,7 +307,7 @@ function Next() {
         data: { pageNumber: num },
         success: function(estate) {
 
-
+            console.log(estate.pages);
             var pages = "";
             pages += `<li  class="page-item"><span onclick="Previous()" class="page-link">Previous</span></li>`;
             if (estate.pages >= 7) {

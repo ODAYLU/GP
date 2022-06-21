@@ -1,5 +1,7 @@
 ﻿@model AppUser;
- 
+ @{
+     var likes = (List<long>)ViewBag.LikesEstate;
+ }
 
   <section class="py-5">
 
@@ -113,24 +115,24 @@
                                                                                                                 @{
                                             foreach(var estate in ViewBag.lstEstates as IEnumerable<Estate>)
                                             {
-                                                                                                                                                                                                  <article class="download-card">
+                                                                            <article class="download-card">
 
-                                                                                                                                                                                            <div class="download-card__icon-box">
-                                                                                                                                                                                                <img src="~/images/Estate/@estate.Main_photo" class="img-fluid" />
-                                                                                                                                                                                                <div class="bottomright">@estate.Type.type</div>
-                                                                                                                                                                                            </div>
-                                                                                                                                                                                            <div class="content">
-                                                                                                                                                                                                <a class="titleral" href="/Commments/EstateComment/@estate.Id">
-                                                                                                                                                                                                    <h3> عنوان العقار </h3>
-                                                                                                                                                                                                </a>
-                                                                                                                                                                                                <p class="pt-2"><i class="bi bi-geo-alt"></i>@estate.State.name _@estate.City.name</p>
+                                                                    <div class="download-card__icon-box">
+                                                                        <img src="~/images/Estate/@estate.Main_photo" class="img-fluid" />
+                                                                        <div class="bottomright">@estate.Type.type</div>
+                                                                    </div>
+                                                                    <div class="content">
+                                                                        <a class="titleral" href="/Commments/EstateComment/@estate.Id">
+                                                                            <h3> عنوان العقار </h3>
+                                                                        </a>
+                                                                        <p class="pt-2"><i class="bi bi-geo-alt"></i>@estate.State.name _@estate.City.name</p>
 
 
-                                                                                                                                                                                                <p class="p"> @estate.description</p>
+                                                                        <p class="p"> @estate.description</p>
 
-                                                                                                                                                                                                <div class="d-flex justify-content-between align-items-center pt-3">
-                                                                                                                                                                                                    <div class=" d-flex align-items-center">
-                                                                                                                                                                                                                @{
+                                                                        <div class="d-flex justify-content-between align-items-center pt-3">
+                                                                            <div class=" d-flex align-items-center">
+                                                                                        @{
                                                                     if(@estate.Users.ProfilePicture!=null)
                                                                     {
                                                                                                                                                                                                                                                                                                 <img class="img-fluid text-right rounded-circle" style="width: 50px;height: 50px;"
@@ -142,17 +144,26 @@
                                                               src="~/indexLayout/assets/img/pages/user.jpg">
                                                                     }
 
-                                                                                                                                                                                                    }
+                                                                }
                                                                                                                                                                                              
-                                                                                                                                                                                                        <div class="pe-3">
-                                                                                                                                                                                                            <a href="" class="mb-0 titleral">
-                                                                                                                                                                                                                مالك العقار: @estate.Users.FirstName @estate.Users.LastName
-                                                                                                                                                                                                            </a>
-                                                                                                                                                                                                            <p class="mb-0 text-secondary">تاريخ الاضاقة : @estate.OnDate</p>
+                                                                    <div class="pe-3">
+                                                                        <a href="" class="mb-0 titleral">
+                                                                            مالك العقار: @estate.Users.FirstName @estate.Users.LastName
+                                                                        </a>
+                                                                        <p class="mb-0 text-secondary">تاريخ الاضاقة : @estate.OnDate</p>
 
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                    <p class="m-0"><i class="heart bi bi-heart-fill ms-5"></i></p>
+                                                                    </div>
+                                                                </div>
+                                                @if (likes.Contains(estate.Id))
+                            {
+                                                                 <a onclick="AddLike(@estate.Id,this)"><span>@estate.Likes</span><i
+                                            class="heart-des bi bi-heart-fill mx-3"></i></a>
+                    }
+                    else
+                    {
+                                        <a onclick="AddLike(@estate.Id,this)"><span>@estate.Likes</span><i
+                                            class="heart bi bi-heart-fill mx-3"></i></a>
+                    }
                                                                                                                                                                                                 </div>
                                                                                                                                                                                             </div>
                                                                                                                                                                                         </article>
@@ -185,6 +196,7 @@
 @section Scripts{
      @(await Html.PartialAsync("_ValidationScriptsPartial"));
     <script type="text/javascript">
+
         $(document).ready(function() {
          
             var x = $("#txtId").val();
@@ -192,6 +204,25 @@
             localStorage.setItem("ChatUserId",x);
             localStorage.setItem("ChatUserName",$("#txtName").val());
         });
+        function AddLike(Id,el) {
+   
+      $.ajax({
+            method: 'Get',
+            url: `/Home/AddLikes/${Id}`,
+
+            success: function (data) {
+                if (data == "false") window.location = "/Identity/Account/Login";
+            $(el).children("span").text(data.count);
+             
+                if (data.status == "like") {
+                    $(el).children("i").removeClass("heart").addClass("heart-des");
+                } else {
+                     $(el).children("i").removeClass("heart-des").addClass("heart");
+                }
+               
+            }
+ });
+}   
     </script>
 }
 
