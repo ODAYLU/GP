@@ -10,13 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:Migrations/20220620210044_AddTables.Designer.cs
-    [Migration("20220620210044_AddTables")]
-    partial class AddTables
-========
-    [Migration("20220621003233_f54")]
-    partial class f54
->>>>>>>> e828b401cc063601f35f7fb925eb6c3a5d21389a:Migrations/20220621003233_f54.Designer.cs
+    [Migration("20220621032437_f9")]
+    partial class f9
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -319,8 +314,8 @@ namespace GP.Migrations
                     b.Property<string>("SallerName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Sallerphone_num")
-                        .HasColumnType("float");
+                    b.Property<string>("Sallerphone_num")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
@@ -440,9 +435,9 @@ namespace GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("phone_num")
+                    b.Property<string>("phone_num")
                         .IsRequired()
-                        .HasColumnType("float");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("price")
                         .IsRequired()
@@ -585,9 +580,6 @@ namespace GP.Migrations
 
                     b.Property<string>("Body")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IdUser")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Rating")
@@ -1000,11 +992,11 @@ namespace GP.Migrations
 
             modelBuilder.Entity("GP.Models.Opinion", b =>
                 {
-                    b.HasOne("GP.Models.AppUser", "User")
+                    b.HasOne("GP.Models.AppUser", "Users")
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("User");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("GP.Models.PhotoEstate", b =>

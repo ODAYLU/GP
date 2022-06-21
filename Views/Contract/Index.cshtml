@@ -117,7 +117,7 @@
                                             }
 
                                 </div>
-                                <p class="card-text card-p">تم بيع شقة بسعر 500 دينار في منطقة الفلاش </p>
+                                <p class="card-text card-p">@item.Description</p>
 
                                 <div class="d-flex justify-content-between">
 
@@ -238,14 +238,16 @@
                     lots_of_stuff_already_done = false;
                     if (!lots_of_stuff_already_done) {
 
-                        $('.m').trigger('click')
+                       setTimeout($('.m').trigger('click'), 4000);
                     }
 
-                    swalWithBootstrapButtons.fire(
-                        'تم اعادة النشر بنجاح ',
-                        '',
-                        'success'
-                    )
+                    Swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      title: 'تم إعادة النشر بنجاح ',
+                      showConfirmButton: false,
+                      timer: 1500
+                    })
 
                 }
             })

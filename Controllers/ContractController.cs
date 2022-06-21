@@ -89,7 +89,7 @@ namespace GP
             {
                 return View("/Views/NotAccess.cshtml");
             }
-            if (estate.TypeID == 1)
+            if (estate.Type.type == "بيع")
             {
                 // 1 =>بيع
 
@@ -116,7 +116,7 @@ namespace GP
 
             if (!ModelState.IsValid)
             {
-                if (estate.TypeID == 1)
+                if (estate.Type.type == "بيع")
                 {
                     // 1 =>بيع
 
@@ -134,7 +134,7 @@ namespace GP
             }
 
 
-            if (estate.TypeID != 1)
+            if (estate.Type.type != "بيع")
             {
                 if (contract.up_to_date < estate.OnDate)
                 {
