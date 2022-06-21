@@ -68,9 +68,12 @@
             
               <div class="i-@item.Id rounded-5 mt-3 mb-3  position-relative">
                   <div class="row g-0">
+
+                   
                     <div class="col-md-4"  style="height:216px;">
-                      <img src="~/images/Estate/@item.Estate.Main_photo" class="img-fluid h-100 w-100 rounded-5 rounded-end" alt="...">
+                      <a href="/Commments/EstateComment/@item.IdEstate" > <img src="~/images/Estate/@item.Estate.Main_photo" class="img-fluid h-100 w-100 rounded-5 rounded-end" alt="..."></a>
                     </div>
+                  
                     <div class="col-md-8">
                       <div class="card-body">
                         <h5 class="card-title fs-4 mb-3"><strong>- @Html.DisplayFor(modelItem => item.Estate.name)</strong><sub><span>@Html.DisplayFor(modelItem => item.Estate.Type.type)</span>  <span>@Html.DisplayFor(modelItem => item.Estate.Category.category)</span></sub></h5>
@@ -85,7 +88,7 @@
                       </div>
                     </div>
                </div>
-                   <a href="/Commments/EstateComment/@item.IdEstate" class="stretched-link"></a>
+                 
 
                 </div>
             
