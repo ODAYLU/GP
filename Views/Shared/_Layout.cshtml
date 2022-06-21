@@ -32,13 +32,13 @@
 
 
 @{
-        @inject IInformationGen info;
+            @inject IInformationGen info;
 
         var infoGetone = info.GetOne();
 
     if (User.Identity.IsAuthenticated)
     {
-        @inject UserManager<AppUser> _maneger
+            @inject UserManager<AppUser> _maneger
     }
 }
 
@@ -124,18 +124,18 @@
 
                                     if(user.ProfilePicture != null)
                                     {
-                                       <img class="rounded rounded-5" src="data:image/*;base64,@(Convert.ToBase64String(user.ProfilePicture))" style="width:40px;height:40px;" />
+                                           <img class="rounded rounded-5" src="data:image/*;base64,@(Convert.ToBase64String(user.ProfilePicture))" style="width:40px;height:40px;" />
                                     }
                                     else
                                     {
-                                         <img class="rounded rounded-5" src="/indexLayout/assets/img/pages/user.jpg" style="width:40px;height:40px;">
+                                             <img class="rounded rounded-5" src="/indexLayout/assets/img/pages/user.jpg" style="width:40px;height:40px;">
 
                                     }
 
                                 }
                                 else
                                 {
-                                            <i class="bi bi-person-circle fs-1"></i> 
+                                                <i class="bi bi-person-circle fs-1"></i> 
                                       //  <img class="rounded rounded-5" src="/assets/img/pages/profille.png" style="width:40px;height:40px;">
                                 }
                             }
@@ -144,11 +144,11 @@
                              @{
                                 if (User.IsInRole("Owner"))
                                 {
-                                    <li><a class="dropdown-item d-flex justify-content-center align-items-center"asp-area="Identity" asp-page="/Account/Manage/Index" >الصفحة الشخصية</a></li>
+                                        <li><a class="dropdown-item d-flex justify-content-center align-items-center"asp-area="Identity" asp-page="/Account/Manage/Index" >الصفحة الشخصية</a></li>
                                 }
                                 else if (User.IsInRole("User"))
                                 {
-                                     <li><a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Manage/PersonalUser">الصفحة الشخصية</a></li>
+                                         <li><a class="dropdown-item d-flex justify-content-center align-items-center" asp-area="Identity" asp-page="/Account/Manage/PersonalUser">الصفحة الشخصية</a></li>
                                 }
                             }
                           @if (User.IsInRole("Owner") )
@@ -243,10 +243,10 @@
               <a class="text-white hoveremali text-decoration-none" href="Mailto:https://www.aqaramlack123.com"><i class="bi bi-envelope-fill"></i>: Amlake@gmail.com</a>
               <div>
                 <div class="d-flex justify-content-center align-items-center socialiconsfooter">
-                  <a class="w" href="https://wa.me/+972598112693?text=Hi%27,%20like%20to%20chat%20with%20you"><i class="bi bi-whatsapp"></i></a>
-                  <a class="g" href=""><i class="bi bi-instagram "></i></a>
-                  <a class="f" href=""><i class="bi bi-facebook "></i></a>
-                  <a class="t" href=""><i class="bi bi-twitter "></i></a>
+                  <a class="w" href="https://wa.me/@infoGetone.Phone"><i class="bi bi-whatsapp"></i></a>
+                  <a class="g" href="@infoGetone.UrlInstegrame"><i class="bi bi-instagram "></i></a>
+                  <a class="f" href="@infoGetone.UrlFacebook"><i class="bi bi-facebook "></i></a>
+                  <a class="t" href="@infoGetone.UrlTwitter"><i class="bi bi-twitter "></i></a>
                 </div>
               </div>
             </div>
