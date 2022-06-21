@@ -24,7 +24,7 @@ ViewData["Title"] = "تعديل العقار";
         <div class="row">
                 <div class="wizard">
 
-                    <form role="form" asp-action="Edit"  class="login-box text-end">
+                    <form role="form" asp-action="Edit" method="post" class="login-box text-end">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="tab-content" id="main_form">
                             <div class="tab-pane active" role="tabpanel" id="step1">
@@ -132,14 +132,14 @@ ViewData["Title"] = "تعديل العقار";
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label asp-for="Longitude" class="control-label"> نقطة x </label>
-                                                    <input type="text" asp-for="Longitude" class ="form-control rounded-pill" placeholder="x" />
+                                                    <input type="text" asp-for="Longitude" class ="form-control rounded-pill" placeholder="x"readonly />
                                                         <span asp-validation-for="Longitude" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label asp-for="Latitude" class="control-label"> نقطة y </label>
-                                                    <input type="text" asp-for="Latitude" class ="form-control rounded-pill"  placeholder="y" />
+                                                    <input type="text" asp-for="Latitude" class ="form-control rounded-pill"  placeholder="y" readonly/>
                                                         <span asp-validation-for="Latitude" class="text-danger"></span>
                                                 
                                                 </div>
@@ -204,7 +204,6 @@ ViewData["Title"] = "تعديل العقار";
                                 <ul class="list-inline d-flex justify-content-center align-items-end">
                                     <li class=" px-2 "><input type="submit" value="تحديث العقار" class="btn btn-success rounded-pill "/></li>
 
-                                    <li class=" px-2 "><button type="button" class="btn btn-secondary rounded-pill prev-step">رجوع</button></li>
 
                                 </ul>
                                          
