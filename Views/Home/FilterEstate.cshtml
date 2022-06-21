@@ -42,14 +42,14 @@
 
 
 
-  <section class="mb-5">
-    <div class="container">
+  <section class="my-5">
+    <div class="container pt-5">
       <div data-view="list-view" class="download-cards">
 
             @if (Model is not null)
                 @foreach (var item in Model)
                 { 
-                    <article class="download-card" data-aos="fade-down">
+                    <article class="download-card " data-aos="fade-down">
 
                   <div class="download-card__icon-box">
                     <img src="/images/Estate/@item.Main_photo" class="img-fluid" />
@@ -79,6 +79,7 @@
                     </div>
                   </div>
                 </article>
+
         }
 
 
