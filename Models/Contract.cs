@@ -22,6 +22,8 @@ namespace GP.Models
 
         [Display(Name = "رقم  الهاتف ")]
         public double? Sallerphone_num { get; set; }
+
+        [StringLength(50000, ErrorMessage = "يحتوي على الاقل 200 حرف", MinimumLength = 200)]
         [Required(ErrorMessage = "الحقل مطلوب")]
         [DisplayName("  العقد ")]
         public string Description { get; set; }
@@ -29,10 +31,11 @@ namespace GP.Models
         [Required(ErrorMessage = "الحقل مطلوب")]
         [Display(Name = "اسم المشتري ")]
         public string BuyerName { get; set; }
+        [RegularExpression(@"^([0-9]{3}[0-9]{3}[0-9]{4})$", ErrorMessage = "  رقم الهاتف غير صالح على الأقل 10 أرقام")]
 
         [Required(ErrorMessage = "الحقل مطلوب")]
         [DisplayName("رقم هاتف المشتري ")]
-        public double? Buyerphone_num { get; set; }
+        public string Buyerphone_num { get; set; }
 
         [Display(Name = "الاحداثي السيني  ")]
         public string Longitude { get; set; }
@@ -40,7 +43,7 @@ namespace GP.Models
         public string Latitude { get; set; }
         [Display(Name = "تاريخ كتابة العقد  ")]
         public DateTime OnDate { get; set; }
-
+        [Required(ErrorMessage = "الحقل مطلوب")]
         [Display(Name = " تاريخ نهاية العقد ")]
         public DateTime up_to_date { get; set; }
         [Display(Name = "نوع العقار  ")]
@@ -67,7 +70,7 @@ namespace GP.Models
         public IEnumerable<Contract> GetAll();
         public Task<DbCRUD> InsertContract(Contract contract);
         public Task<DbCRUD> UpdateContract(Contract contract);
-        
+
     }
 
     public class ContractManage : IContract
@@ -131,6 +134,6 @@ namespace GP.Models
             }
         }
 
-       
+
     }
 }

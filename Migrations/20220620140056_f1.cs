@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace GP.Migrations
 {
-    public partial class ass : Migration
+    public partial class f1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -366,6 +366,29 @@ namespace GP.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TOpinion",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    is_active = table.Column<bool>(type: "bit", nullable: false, defaultValueSql: "0"),
+                    Rating = table.Column<int>(type: "int", nullable: false),
+                    IdUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TOpinion", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TOpinion_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TEstates",
                 columns: table => new
                 {
@@ -442,7 +465,7 @@ namespace GP.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Body = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Rating = table.Column<double>(type: "float", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     OnDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "Getdate()"),
                     EstateId = table.Column<long>(type: "bigint", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
@@ -472,7 +495,7 @@ namespace GP.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SallerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Sallerphone_num = table.Column<double>(type: "float", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", maxLength: 50000, nullable: false),
                     BuyerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Buyerphone_num = table.Column<double>(type: "float", nullable: false),
                     Longitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -721,6 +744,11 @@ namespace GP.Migrations
                 column: "IdUser");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TOpinion_UserId",
+                table: "TOpinion",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TPhotoEstate_IdEstate",
                 table: "TPhotoEstate",
                 column: "IdEstate");
@@ -783,6 +811,9 @@ namespace GP.Migrations
 
             migrationBuilder.DropTable(
                 name: "TlikedEstates");
+
+            migrationBuilder.DropTable(
+                name: "TOpinion");
 
             migrationBuilder.DropTable(
                 name: "TPhotoEstate");

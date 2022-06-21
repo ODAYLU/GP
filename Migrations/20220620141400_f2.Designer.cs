@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220613074423_m")]
-    partial class m
+    [Migration("20220620141400_f2")]
+    partial class f2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -222,13 +222,13 @@ namespace GP.Migrations
                     b.Property<long>("EstateId")
                         .HasColumnType("bigint");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("OnDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("Getdate()");
-
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -294,6 +294,7 @@ namespace GP.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(50000)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("IDEstet")
@@ -414,6 +415,7 @@ namespace GP.Migrations
 
                     b.Property<string>("description")
                         .IsRequired()
+                        .HasMaxLength(50000)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("is_active")
@@ -538,6 +540,9 @@ namespace GP.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("IdAction")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsReaded")
                         .HasColumnType("bit");
 
@@ -563,6 +568,38 @@ namespace GP.Migrations
                     b.HasIndex("SenderId");
 
                     b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("GP.Models.Opinion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("is_active")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("0");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TOpinion");
                 });
 
             modelBuilder.Entity("GP.Models.PhotoEstate", b =>
@@ -953,6 +990,15 @@ namespace GP.Migrations
                     b.Navigation("Reciver");
 
                     b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("GP.Models.Opinion", b =>
+                {
+                    b.HasOne("GP.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("GP.Models.PhotoEstate", b =>

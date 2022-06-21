@@ -46,10 +46,10 @@ namespace GP.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "  الحقل مطلوب ")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "الرجاء ادخال كلمة المرور")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 

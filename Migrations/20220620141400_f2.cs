@@ -2,7 +2,7 @@
 
 namespace GP.Migrations
 {
-    public partial class f5 : Migration
+    public partial class f2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

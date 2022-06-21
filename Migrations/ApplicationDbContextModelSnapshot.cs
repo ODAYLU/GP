@@ -228,9 +228,6 @@ namespace GP.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("Getdate()");
 
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -289,12 +286,13 @@ namespace GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Buyerphone_num")
+                    b.Property<string>("Buyerphone_num")
                         .IsRequired()
-                        .HasColumnType("float");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(50000)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("IDEstet")
@@ -415,6 +413,7 @@ namespace GP.Migrations
 
                     b.Property<string>("description")
                         .IsRequired()
+                        .HasMaxLength(50000)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("is_active")
@@ -427,7 +426,8 @@ namespace GP.Migrations
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("name_owner")
                         .IsRequired()

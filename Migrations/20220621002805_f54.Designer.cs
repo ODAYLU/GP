@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220619193753_we")]
-    partial class we
+    [Migration("20220621002805_f54")]
+    partial class f54
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -230,9 +230,6 @@ namespace GP.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("Getdate()");
 
-                    b.Property<double>("Rating")
-                        .HasColumnType("float");
-
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -291,12 +288,13 @@ namespace GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Buyerphone_num")
+                    b.Property<string>("Buyerphone_num")
                         .IsRequired()
-                        .HasColumnType("float");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(50000)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("IDEstet")
@@ -417,6 +415,7 @@ namespace GP.Migrations
 
                     b.Property<string>("description")
                         .IsRequired()
+                        .HasMaxLength(50000)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("is_active")
@@ -429,7 +428,8 @@ namespace GP.Migrations
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("name_owner")
                         .IsRequired()
@@ -569,6 +569,38 @@ namespace GP.Migrations
                     b.HasIndex("SenderId");
 
                     b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("GP.Models.Opinion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("IdUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("is_active")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValueSql("0");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TOpinion");
                 });
 
             modelBuilder.Entity("GP.Models.PhotoEstate", b =>
@@ -959,6 +991,15 @@ namespace GP.Migrations
                     b.Navigation("Reciver");
 
                     b.Navigation("Sender");
+                });
+
+            modelBuilder.Entity("GP.Models.Opinion", b =>
+                {
+                    b.HasOne("GP.Models.AppUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("GP.Models.PhotoEstate", b =>
