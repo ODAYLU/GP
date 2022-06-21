@@ -4,29 +4,21 @@
     ViewData["Title"] = "Register";
     Layout = "/Views/Shared/_Layout.cshtml"; 
 }
-
-  <link rel="shortcut icon" href="~/indexLayout/assets/img/logo/logo.png">
-  <link href="~/indexLayout/assets/bootstrap/bootstrap4.min.css" rel="stylesheet">
-  <link href="~/indexLayout/assets/bootstrap/bootstrap5.min.css" rel="stylesheet">
-  <link href="~/indexLayout/assets/bootstrap/font-awesome.min.css" rel="stylesheet">
-  <link href="~/indexLayout/assets/bootstrap/bootstrap-icons.css" rel="stylesheet">
-  <link href="~/indexLayout/assets/bootstrap/animate.min.css" rel="stylesheet">
-  <link href="~/indexLayout/assets/bootstrap/aos.css" rel="stylesheet">
-  <link href="~/indexLayout/assets/css/swiper.css" rel="stylesheet" />
-  <link href="~/indexLayout/assets/css/profile.css" rel="stylesheet">
-  <link href="~/indexLayout/assets/css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="~/login/bulma.min.css" />
+
     <style>
-                .header{
+        .header{
             padding:0 !important;
         }
         .navbar{
             background-color:var(--green);
         }
-
-        .dropdown-item {
+                .dropdown-item {
             color:#fff;
         }
+       /* body{
+            overflow:hidden;
+        }*/
 .padable{
     padding: 3em;
     color:var(--txtactive);
@@ -39,7 +31,7 @@
   justify-content: center;
 }
 .component-row{
-  overflow: hidden;
+    overflow:hidden;
   border-radius: 12px;
   box-shadow: 0px 0px 5px #858585;
 }
@@ -65,34 +57,6 @@
     top: -12px !important;
     left: -27em;
     border: 8px solid rgba(255,255,255,0.8);
-}
-.circle-main {
-    border-radius: 50%;
-    width: 600px;
-    height: 600px;
-    background-color: #005c4b;
-    position: absolute;
-    bottom: -20em;
-    right: -20em;
-}
-.circle-main-m {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    position: absolute;
-    bottom: 1.2em;
-    right: 14em;
-    background-color: #005c4b;
-    background-image: linear-gradient(315deg, #005c4b 0%, #8fa177 100%);
-}
-.circle-main-s {
-    border-radius: 20%;
-    width: 60px;
-    height: 60px;
-    position: absolute;
-    bottom: 15em;
-    background-color: #005c4b;
-    background-image: linear-gradient(315deg, #005c4b 0%, #ffffff 100%);
 }
 .input:active, .input:focus, .is-active.input, .is-active.textarea, .is-focused.input, .is-focused.textarea, .select select.is-active, .select select.is-focused, .select select:active, .select select:focus, .textarea:active, .textarea:focus {
   border-color: #005c4b;
@@ -121,25 +85,23 @@ a:hover {
 .form-control::placeholder {
   color: #dbdbdb;
 }
+.xx{
+    margin-bottom:120px !important;
+}
+
 </style>
 
 
-      <section class="my-5" >
-        <div class="circle-main"></div>
-        <div class="circle-main-m"></div>
-        <div class="circle-main-s"></div>
 
+      <section class="xx my-5" >
         <div class="container white-bg">
-            <div class="columns background component-row">
+            <div class="row background component-row">
 
-                <div class="column">
+                <div class="col">
                     <div class="padable text-end">
                         <h1>
                             تسجيل جديد
                             <span class="line"></span>
-                            <span>
-                                <!--الايقونات -->
-                            </span>
 
                         </h1>
 
@@ -237,7 +199,7 @@ a:hover {
                     </div>
                 </div>
 
-                <div class="column d-md-none d-lg-block">
+                <div class="col d-md-none d-lg-block">
                     <div class="illustrator ">
                         <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_4u33kbls.json" background="transparent" speed="2" style="width: 600px; height: 700px;left:0px; position: absolute;z-index: 100;" autoplay></lottie-player>
                         <div class="circle"></div>
@@ -251,10 +213,7 @@ a:hover {
     </section>
         @section Scripts{
 
-    <script src="~/js/Login/all.js"></script>
-    <script src="~/js/Login/lottie-player.js"></script>
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+
         }
