@@ -767,24 +767,24 @@ select:focus-visible {
 
 
 /***************عملاء************/
-.carousel {
+.mySwiper2 {
     margin: 50px auto;
 }
 
-    .carousel .carousel-item {
+    .mySwiper2 .swiper-wrapper .swiper-slide {
         color: #999;
         overflow: hidden;
         min-height: 120px;
         font-size: 13px;
     }
 
-    .carousel .media {
+    .mySwiper2 .media {
         position: relative;
         padding: 0 0 0 20px;
         margin-left: 20px;
     }
 
-        .carousel .media img {
+        .mySwiper2 .media img {
             width: 75px;
             height: 75px;
             display: block;
@@ -793,7 +793,7 @@ select:focus-visible {
             border: 2px solid #fff;
         }
 
-    .carousel .testimonial {
+    .mySwiper2 .testimonial {
         color: #fff;
         position: relative;
         background: #6c757d;
@@ -801,8 +801,8 @@ select:focus-visible {
         margin: 0 0 20px 20px;
     }
 
-        .carousel .testimonial::before,
-        .carousel .testimonial::after {
+        .mySwiper2 .testimonial::before,
+        .mySwiper2 .testimonial::after {
             content: "";
             display: inline-block;
             position: absolute;
@@ -810,14 +810,14 @@ select:focus-visible {
             bottom: -20px;
         }
 
-        .carousel .testimonial::before {
+        .mySwiper2 .testimonial::before {
             width: 20px;
             height: 20px;
             background: #9b9b9b;
             box-shadow: inset 12px 0 13px rgba(0, 0, 0, 0.5);
         }
 
-        .carousel .testimonial::after {
+        .mySwiper2 .testimonial::after {
             width: 0;
             height: 0;
             border: 10px solid transparent;
@@ -826,20 +826,20 @@ select:focus-visible {
         }
 
     /* .carousel .carousel-item .row > div:first-child .testimonial {
-	margin: 0 20px 20px 0;
+margin: 0 20px 20px 0;
 } */
-    .carousel .carousel-item .row > div:first-child .media {
+    .mySwiper2 .swiper-slide .row > div:first-child .media {
         margin-left: 0;
     }
 
-    .carousel .testimonial p {
+    .mySwiper2 .testimonial p {
         text-indent: 40px;
         line-height: 21px;
         margin: 0;
         text-align: right;
     }
 
-        .carousel .testimonial p::before {
+        .mySwiper2 .testimonial p::before {
             content: "\201D";
             font-family: Arial, sans-serif;
             color: #fff;
@@ -851,16 +851,16 @@ select:focus-visible {
             top: 0;
         }
 
-    .carousel .overview {
+    .mySwiper2 .overview {
         padding: 3px 0 0 15px;
         text-align: right;
     }
 
-        .carousel .overview .details {
+        .mySwiper2 .overview .details {
             padding: 5px 0 8px;
         }
 
-        .carousel .overview b {
+        .mySwiper2 .overview b {
             text-transform: uppercase;
             color: #ff5555;
         }
@@ -922,6 +922,7 @@ select:focus-visible {
     font-size: 14px;
     color: #ffdc12;
 }
+
 
 /*****************************************/
 /*----  Main Style  ----*/
