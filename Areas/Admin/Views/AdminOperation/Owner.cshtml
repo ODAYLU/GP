@@ -84,8 +84,8 @@
                    
                     {
                         "render": function (data, type, row) {
-                            if (row.imagePath != null) {
-                                return '<img  src="data:image/jpeg;base64,' + btoa(atob(`${row.imagePath}`)) + '" class=" w-25 h-25" asp-append-version="true" />'
+                            if (row.profilePicture != null) {
+                                return '<img  src="data:image/jpeg;base64,' + btoa(atob(`${row.profilePicture}`)) + '" class=" w-25 h-25" asp-append-version="true" />'
 
                             } else {
                                   return '<img  src="/indexLayout/assets/img/pages/user.jpg" class=" w-25 h-25" asp-append-version="true" />'

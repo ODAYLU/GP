@@ -50,17 +50,16 @@ namespace GP.Controllers.DataApi
         public async Task<IActionResult> GetBySearch(string search)
         {
             bool status = false;
+            search =search?? "بيع";
             if (!string.IsNullOrEmpty(search))
             {
 
             var data = await _estate.GetAllQuiers()
-                .Where(z => ( z.is_active && z.publish && !z.IsBlock)&& 
-                (string.IsNullOrEmpty(search)?true:
-                   z.Type.type == search ||
-                   z.Category.category == search
-                ))
-                .OrderByDescending(x => x.OnDate)
-                .Take(4).ToListAsync();
+                .Where( z => ( z.is_active && z.publish && !z.IsBlock) &&
+                  (
+                   z.Type.type.Contains("بيع") 
+                    )
+              ).ToListAsync();
                 status = true;
             var JsonData = new { status, data };
             return Ok(JsonData);
