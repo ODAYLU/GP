@@ -83,7 +83,7 @@
 
 @section Scripts{
 
-        <partial name="_ValidationScriptsPartial" />
+                <partial name="_ValidationScriptsPartial" />
 
 
 
@@ -100,12 +100,13 @@
             var BuyerName = document.getElementById('BuyerName').value;
             var Buyerphone_num = document.getElementById('Buyerphone_num').value;
             var Description = document.getElementById('Description').value;
-                        var up_to_date = document.getElementById('up_to_date').value;
 
-            
-            
+                                var up_to_date = document.getElementById('up_to_date');
+                                console.log(up_to_date)
 
-            if (BuyerName == '' || Buyerphone_num == '' || Description == ''||up_to_date== '') {
+                                if(up_to_date==null){
+                                    
+                                  if (BuyerName == '' || Buyerphone_num == '' || Description == '') {
                  Swal.fire({
                   icon: 'error',
                   title: 'خطأ...',
@@ -116,7 +117,27 @@
                 return;
             }
 
+                                }
 
+                                else{
+
+                                    
+                                  if (BuyerName == '' || Buyerphone_num == '' || Description == ''||up_to_date.value== '') {
+                 Swal.fire({
+                  icon: 'error',
+                  title: 'خطأ...',
+                  text: 'بعض الحقول فارغة',
+                 
+                })
+
+                return;
+            }
+                                }
+
+
+
+                    
+            
             if(lots_of_stuff_already_done){
 
                 e.preventDefault()
@@ -157,24 +178,14 @@ swalWithBootstrapButtons.fire({
 
 
                      
-      
+  }
      
-  } 
-})
-
-
-
-
-
-
-
-
-
-
-
+  })
 
 
 };
     
     </script>
+
+
 }

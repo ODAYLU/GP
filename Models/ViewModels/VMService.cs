@@ -10,6 +10,7 @@ namespace GP.Models.ViewModels
         public int Id { get; set; }
 
         [Display(Name = "نوع الخدمة")]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         public string Name { get; set; }
 
         public string ImagePath { get; set; }

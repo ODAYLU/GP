@@ -1,6 +1,7 @@
 ﻿using GP.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,10 +13,10 @@ namespace GP.Models
     {
 
         public int Id { get; set; }
-        [Required(ErrorMessage = "هذا الحقل مطلوب ")]
+       
         [EmailAddress(ErrorMessage = "يرجى ادخال ايميل بشكل صحيح")]
         public string Email { get; set; }
-        [Required(ErrorMessage = "هذا الحقل مطلوب ")]
+    
         [RegularExpression("^(?!0+$)(\\+\\d{1,3}[- ]?)?(?!0+$)\\d{10,15}$", ErrorMessage = "يرجى ادخال الرقم بشكل صحيح")]
         public string Phone { get; set; }
         [Url(ErrorMessage = "يجب أن يكون رابط صحيح")]
@@ -31,6 +32,7 @@ namespace GP.Models
         public InformationGen GetOne();
 
         public Task<DbCRUD> UpdateInformationGen(InformationGen information);
+        public Task<DbCRUD> InsertInformationGen(InformationGen information);
 
         public Task<InformationGen> GetOneById(int id);
 
@@ -63,6 +65,23 @@ namespace GP.Models
                 .TInformatiomGensT
                 .AsNoTracking()
                 .SingleOrDefaultAsync(c => c.Id == id);
+
+        public async Task<DbCRUD> InsertInformationGen(InformationGen information)
+        {
+           if(information is not null)
+            {
+                try
+                {
+                   await _context.TInformatiomGensT.AddAsync(information);
+                    await _context.SaveChangesAsync();
+                }
+                catch(Exception ex)
+                {
+                    return DbCRUD.dbError;
+                }
+            }
+            return DbCRUD.success;
+        }
 
         public async Task<DbCRUD> UpdateInformationGen(InformationGen information)
         {

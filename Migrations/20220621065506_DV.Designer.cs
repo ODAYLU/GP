@@ -10,8 +10,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220621003233_f54")]
-    partial class f54
+<<<<<<<< HEAD:Migrations/20220621065506_DV.Designer.cs
+    [Migration("20220621065506_DV")]
+    partial class DV
+========
+    [Migration("20220621062830_Addtabl1")]
+    partial class Addtabl1
+>>>>>>>> a82d45dad4c300e6c79dd6bac94f1aa97efece95:Migrations/20220621062830_Addtabl1.Designer.cs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -314,8 +319,8 @@ namespace GP.Migrations
                     b.Property<string>("SallerName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Sallerphone_num")
-                        .HasColumnType("float");
+                    b.Property<string>("Sallerphone_num")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
@@ -435,9 +440,9 @@ namespace GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("phone_num")
+                    b.Property<string>("phone_num")
                         .IsRequired()
-                        .HasColumnType("float");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("price")
                         .IsRequired()
@@ -477,11 +482,9 @@ namespace GP.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UrlFacebook")
@@ -582,9 +585,6 @@ namespace GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdUser")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
@@ -682,6 +682,7 @@ namespace GP.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -995,11 +996,11 @@ namespace GP.Migrations
 
             modelBuilder.Entity("GP.Models.Opinion", b =>
                 {
-                    b.HasOne("GP.Models.AppUser", "User")
+                    b.HasOne("GP.Models.AppUser", "Users")
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("User");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("GP.Models.PhotoEstate", b =>

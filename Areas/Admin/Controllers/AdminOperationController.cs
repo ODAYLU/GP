@@ -91,10 +91,10 @@ namespace GP.Controllers
 		{
 			return View();
 		}
-		public IActionResult Comments()
-		{
-			return View();
-		}
+		//public IActionResult Comments()
+		//{
+		//	return View();
+		//}
 		public IActionResult Advertisement()
 		{
 			return View();

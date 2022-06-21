@@ -107,7 +107,14 @@ namespace GP
         public void Configure(IApplicationBuilder app,
             IWebHostEnvironment env,
             UserManager<AppUser> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            ICategory category,
+            IType type,
+            IState state,
+            ICity city,
+            IService service ,
+            IInformationGen information
+            )
         {
             if (env.IsDevelopment())
             {
@@ -129,7 +136,7 @@ namespace GP
 
             app.UseAuthorization();
 
-            SeedData.Seed(userManager, roleManager);
+            SeedData.Seed(userManager, roleManager,category,type,state,city,service,information);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<ChatHub>("/chat");

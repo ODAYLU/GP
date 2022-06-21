@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220621020044_f8")]
-    partial class f8
+    [Migration("20220621053547_Addtable")]
+    partial class Addtable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -679,6 +679,7 @@ namespace GP.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

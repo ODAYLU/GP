@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220621011034_f1")]
-    partial class f1
+    [Migration("20220620175716_saja")]
+    partial class saja
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -288,13 +288,12 @@ namespace GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Buyerphone_num")
+                    b.Property<double?>("Buyerphone_num")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("float");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasMaxLength(50000)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("IDEstet")
@@ -314,8 +313,8 @@ namespace GP.Migrations
                     b.Property<string>("SallerName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Sallerphone_num")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<double?>("Sallerphone_num")
+                        .HasColumnType("float");
 
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
@@ -415,7 +414,6 @@ namespace GP.Migrations
 
                     b.Property<string>("description")
                         .IsRequired()
-                        .HasMaxLength(50000)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("is_active")
@@ -428,16 +426,15 @@ namespace GP.Migrations
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("name_owner")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("phone_num")
+                    b.Property<double?>("phone_num")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("float");
 
                     b.Property<double?>("price")
                         .IsRequired()

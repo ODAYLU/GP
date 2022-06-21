@@ -13,10 +13,10 @@ namespace GP.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         public string Body { get; set; }
         public bool is_active { get; set; }
-
+        [Required(ErrorMessage = "الحقل مطلوب")]
         public int Rating { get; set; }
         public string UserId { get; set; }
         [ForeignKey("UserId")]
