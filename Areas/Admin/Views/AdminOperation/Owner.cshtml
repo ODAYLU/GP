@@ -1,0 +1,269 @@
+﻿@model GP.Models.AppUser
+@{ ViewData["Title"] = "المستخدمين"; }
+
+<button hidden id="Add" type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
+        class="btn btn-sm btn-outline-primary ms-2" data-toggle="modal">
+    إضافة إلى الحافظة
+</button>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content">
+            <div style="margin:10px!important;">
+                <form id="formadd" method="post">
+                    <input id="inputId" type="text" hidden />
+                    <div class="form-group">
+                        <label>
+                            الإضافة إلى الحافظة
+                        </label>
+                        <input id="numDays" type="number" maxlength="30" min="1" name="day" />
+                    </div>
+
+
+                    <button id="btnAdd" type="submit" class="btn btn-outline-primary">حسنا</button>
+                    <button id="btnAddMemory" type="submit" class="btn btn-outline-success">اضافة</button>
+                    <button id="btnClose" type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">الغاء</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+<div class="row overflow-auto pt-3">
+<table id="AllUsers" class="table responsive cell-border hover text-center" style="width: 100%">
+    <thead>
+        <tr>
+            <th>الرقم</th>
+            <th> اسم الأول  </th>
+            <th> الإسم الأخير</th>
+            <th> الإيميل</th>
+            <th> الحالة</th>
+            <th> الحافظة</th>
+            <th>الصورة</th>
+            <th>تفاصيل</th>
+            <th>تقييد</th>
+            <th>الحافظة</th>
+          
+        </tr>
+    </thead>
+</table>
+</div>
+</div>
+
+@section Scripts{
+    @(await Html.PartialAsync("_ValidationScriptsPartial"));
+    <script type="text/javascript">
+        $(document).ready(function ()  {
+            $("#AllUsers").DataTable({
+                "filter": true,
+                "processing": true,
+                "serverSide": true,
+                "responsive": true,
+                "lengthMenu": [10, 20, 30, 40, 50],
+                "language":{ url:'/assets/ar.json'},
+                "ajax": {
+                    "url": '/api/Api/GetOwners',
+                    "type": "POST",
+                    "datatype": "json"
+                },
+                "columnDefs": [{
+                    "targets": 0,
+                    "visible": false,
+                    "searchable": false
+                } ],
+                "columns": [
+                    { "data": "id", "name": "Id"},
+                    { "data": "firstName", "name": "FirstName"},
+                    { "data": "lastName", "name": "LastName"},
+                    { "data": "userName", "name": "UserName"},
+                    { "data": "is_active", "name": "is_active"},
+                    { "data": "memory", "name": "memory"},
+                   
+                    {
+                        "render": function (data, type, row) { return '<img hidden src="' + row.imagePath + '" class=" w-25 h-25" asp-append-version="true" />' },
+ 
+                    },
+                    {
+                        "render": function (data, type, row) { return `<a href="/UsersProfiles/GetProfile/${row.id}" class="btn btn-outline-info" ; > تفاصيل </a>` },
+ 
+                    },
+                    {
+                        "render": function (data, type, row)
+                        {
+                            if (row.is_active)
+                            {
+                                return '<a href="#" id="btnStates" class="btn btn-outline-danger" onclick=BlockUser("' + row.id + '"); > تقييد </a>'
+                            }
+                            else
+                            {
+                                return '<a href="#" id="btnStates" class="btn btn-outline-success" onclick=UnBlockUser("' + row.id + '"); > تفعيل </a>'
+                            }
+                           
+                        },
+ 
+                    },
+                    {
+                        "render": function (data, type, row) { return '<a href="#" id= "AddMemory" class="btn modebuttonass" onclick=AddToMemory("' + row.id + '"); > إضافة للحافظة  </a>' },
+ 
+                    }
+                ]
+            });
+        });
+
+        function AddToMemory(Id) {
+            $("#inputId").val(Id);
+            $("#Add").click();
+            $("#btnAdd").hide();
+            $("#btnAddMemory").show();
+        }
+
+        $("#btnAddMemory").click(function () {
+            $.ajax({
+                method: 'Get',
+                url: `/Admin/UserOperation/AddToMemory`,
+                data: { id: $("#inputId").val(), count: $("#numDays").val() },
+                success: function () {
+                    Swal.fire(
+                        'تمت بنجاح',
+                        'تم الاضافة للحافظة بنجاح',
+                        'success'
+                    );
+
+                    $("#btnClose").click();
+                    var Table = $("#AllUsers").DataTable();
+                    Table.draw();
+                }
+            });
+        });
+
+        function DeleteCategory(Id) {
+            Swal.fire({
+                title: 'هل انت متأكد?',
+                text: "سوف يتم حذف هذا المستخدم!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonText: "الغاء",
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'نعم , متأكد!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        method: 'Get',
+                        url: `/Admin/CategoryOperation/Delete/${Id}`,
+                        data: JSON.stringify({ id: Id }),
+                        success: function () {
+                            Swal.fire(
+                                'حذف!',
+                                'تم الحذف بنجاح.',
+                                'success'
+                            )
+                            var Table = $("#Categories").DataTable();
+                            Table.draw();
+                        }
+                    });
+
+                }
+            })  
+
+        }
+       
+        function img_pathUrl(input) {
+            $('#image')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
+        }
+        
+
+
+        $("#formadd").on("submit", function (e) {
+            e.preventDefault();
+        })
+        function UnBlockUser(Id) {
+            $.ajax({
+                method: 'Get',
+                url: `/Admin/UserOperation/UnBlockUser`,
+                data: { id: Id },
+                success: function () {
+                    Swal.fire(
+                        'التفعيل!',
+                        'تم فك القيد بنجاح.',
+                        'success'
+                    );
+                    var Table = $("#AllUsers").DataTable();
+                    Table.draw(false);
+                }
+            });
+        }
+        function BlockUser(Id) {
+            $("#inputId").val(Id);
+            $("#btnAdd").show();
+            $("#btnAddMemory").hide();
+            Swal.fire({
+                title: 'هل انت متأكد من قيد المستخدم ',
+                text: "أنت سوف تقوم تقييد المستخدم",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonText: "الغاء",
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'نعم , متأكد!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        method: 'Get',
+                        url: `/Admin/UserOperation/BlockUser`,
+                        data: { id: $("#inputId").val(), day: $("#numDays").val() },
+                        success: function () {
+                            Swal.fire(
+                                'بلوك!',
+                                'تم الحظر.',
+                                'success'
+                            );
+
+                            $("#btnClose").click();
+                            var Table = $("#AllUsers").DataTable();
+                            Table.draw();
+                        }
+                    });
+
+                }
+            })
+        }
+        $("#btnAdd").click(function () {
+            Swal.fire({
+                title: 'هل انت متأكد?',
+                text: "أنت سوف تقوم تقييد المستخدم",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'نعم متأكد!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    $.ajax({
+                        method: 'Get',
+                        url: `/Admin/UserOperation/BlockUser`,
+                        data: { id: $("#inputId").val(), day: $("#numDays").val() },
+                        success: function () {
+                            Swal.fire(
+                                'بلوك!',
+                                'تم الحظر.',
+                                'success'
+                            );
+                            
+                            $("#btnClose").click();
+                            var Table = $("#AllUsers").DataTable();
+                            Table.draw();
+                        }
+                    });
+
+                }
+            })
+        });
+
+       </script>
+}

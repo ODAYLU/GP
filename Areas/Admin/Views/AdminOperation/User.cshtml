@@ -45,8 +45,6 @@
             <th>الصورة</th>
             <th>تفاصيل</th>
             <th>تقييد</th>
-            <th>الحافظة</th>
-            <th>حذف</th>
         </tr>
     </thead>
 </table>
@@ -104,15 +102,7 @@
                            
                         },
  
-                    },
-                    {
-                        "render": function (data, type, row) { return '<a href="#" id= "AddMemory" class="btn modebuttonass" onclick=AddToMemory("' + row.id + '"); > إضافة للحافظة  </a>' },
- 
-                    },
-                    {
-                        "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCategory("' + row.id + '"); > حذف </a>' },
- 
-                    },
+                    }
                 ]
             });
         });
