@@ -2,6 +2,7 @@
 @inject UserManager<AppUser> UserManager;
 @{ 
     AppUser user = await UserManager.GetUserAsync(User);
+    ViewData["Title"] = "المحادثة";
 }
 
 

@@ -109,6 +109,7 @@ namespace GP.Controllers.DataApi
             return BadRequest("id can be null");
            
         }
+
         public async Task<IActionResult> GetEstateLike(string email)
         {
             var des = "";

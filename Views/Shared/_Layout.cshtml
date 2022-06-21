@@ -120,7 +120,7 @@
 
                                 if (User.Identity.IsAuthenticated)
                                 {
-                                    var user =await _maneger.GetUserAsync(User);
+                                    var user = await _maneger.GetUserAsync(User);
 
                                     if(user.ProfilePicture != null)
                                     {
@@ -234,7 +234,7 @@
     @RenderBody()
     @if (User.Identity.IsAuthenticated)
     {
-         <a id="btnChat" asp-action="Chat" asp-controller="ContactUser" class="position-fixed py-2 px-3 rounded-circle WOW heartBeat incaht" data-wow-iteration="infinite" data-wow-duration="800ms" data-bs-toggle="tooltip" data-bs-placement="top" title="تواصل مع صاحب العقار" style="z-index:10000;" >
+         <a id="btnChat" asp-area="" asp-action="Chat" asp-controller="ContactUser" class="position-fixed py-2 px-3 rounded-circle WOW heartBeat incaht" data-wow-iteration="infinite" data-wow-duration="800ms" data-bs-toggle="tooltip" data-bs-placement="top" title="تواصل مع صاحب العقار" style="z-index:10000;" >
             <i class="bi bi-chat fs-1 wow pulse"  data-wow-iteration="infinite" data-wow-duration="500ms" ></i>
         </a>
     }
