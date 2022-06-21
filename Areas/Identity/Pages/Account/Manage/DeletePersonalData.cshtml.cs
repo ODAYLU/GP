@@ -1,11 +1,11 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.Threading.Tasks;
-using GP.Models;
+﻿using GP.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace GP.Areas.Identity.Pages.Account.Manage
 {
@@ -37,16 +37,19 @@ namespace GP.Areas.Identity.Pages.Account.Manage
 
         public bool RequirePassword { get; set; }
 
-        public async Task<IActionResult> OnGet()
+        public IActionResult OnGet()
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
-            }
 
-            RequirePassword = await _userManager.HasPasswordAsync(user);
-            return Page();
+            return RedirectToPage("./AccessDenied");
+
+            //var user = await _userManager.GetUserAsync(User);
+            //if (user == null)
+            //{
+            //    return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            //}
+
+            //RequirePassword = await _userManager.HasPasswordAsync(user);
+            //return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()

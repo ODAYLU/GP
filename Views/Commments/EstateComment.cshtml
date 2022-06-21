@@ -1,13 +1,13 @@
 ﻿@model Estate;
 @{
 Layout = "/Views/Shared/_Layout.cshtml";
-    @inject ICommments _context
+@inject ICommments _context
 @inject IReplaies rep
 @inject IPhotoEstate _photoEstate
 @inject IService_Estate _service_Estate
 
 // select Comments From DataBase where Model.EstateId equals Id
-IList<Comments>  Models=  _context.GetAll().Where(x=>x.EstateId==Model.Id).ToList();
+IList<Comments>  Models=  _context.GetAll().Where(x=>x.EstateId==Model.Id&&x.IsActive).ToList();
 // select Services From DataBase where Model.EstateId equals Id
 IList<Services> listServices=  _service_Estate.GetALl(Model.Id).ToList();
 // select PhotoEstate From DataBase where Model.EstateId equals Id
@@ -18,290 +18,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
 
 @section Styles{
-        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"/>
         <style>
-
-       .swiper {
-        width: 100%;
-        height: 150px;
-      }
-
-      .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        background: #fff;
-        display: flex;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        -webkit-align-items: center;
-        align-items: center;
-      }
-
-      .swiper-slide img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-
-            /**
-    التعليقات
-    ----------------------------------*/
-
-            .closed {
-                display: none !important;
-
-            }
-
-            .closedReplaies {
-                display: none !important;
-            }
-
-            .closedForm {
-                display: none !important;
-            }
-
-          
-
-    
-
-
-            .comments-list {
-                margin-top: 30px;
-                position: relative;
-            }
-
-            /**
-    * Lineas / Detalles
-    -----------------------*/
-            .comments-list:before {
-                content: '';
-                width: 2px;
-                height: 100%;
-                background: #c7cacb;
-                position: absolute;
-                right: 32px;
-                top: 0;
-            }
-
-            .comments-list:after {
-                content: '';
-                position: absolute;
-                background: #c7cacb;
-                bottom: 0;
-                left: 27px;
-                width: 7px;
-                height: 7px;
-                border: 3px solid #dee1e3;
-                -webkit-border-radius: 50%;
-                -moz-border-radius: 50%;
-                border-radius: 50%;
-            }
-
-            .reply-list:before,
-            .reply-list:after {
-                display: none;
-            }
-
-            .reply-list li:before {
-                content: '';
-                width: 60px;
-                height: 2px;
-                background: #c7cacb;
-                position: absolute;
-                top: 25px;
-                right: -77px;
-            }
-
-
-            .comments-list li {
-                margin-bottom: 15px;
-                display: block;
-                position: relative;
-            }
-
-            .comments-list li:after {
-                content: '';
-                display: block;
-                clear: both;
-                height: 0;
-                width: 0;
-            }
-
-            .reply-list {
-
-                clear: both;
-                margin-top: 15px;
-                margin-right: 112px;
-            }
-
-            /**
-    * Avatar
-    ---------------------------*/
-            .comments-list .comment-avatar {
-                margin-left: 27px;
-                width: 65px;
-                height: 65px;
-                position: relative;
-                z-index: 99;
-                float: left;
-              
-                -webkit-border-radius: 4px;
-                -moz-border-radius: 4px;
-                border-radius: 4px;
-                -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-                -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-                box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-                overflow: hidden;
-            }
-
-            .comments-list .comment-avatar img {
-                width: 100%;
-                height: 100%;
-            }
-
-            .reply-list .comment-avatar {
-                width: 50px;
-                height: 50px;
-            }
-
-            .comment-main-level {
-                display: flex;
-            }
-
-            .comment-main-level:after {
-                content: '';
-                width: 0;
-                height: 0;
-                display: block;
-                clear: both;
-            }
-
-            /**
-    * Caja del Comentario
-    ---------------------------*/
-            .comments-list .comment-box {
-                background-color: var(--bgdark);
-                width: 680px;
-                float: right;
-                position: relative;
-                -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-                -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-                box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
-            }
-
-            .comments-list .comment-box:before,
-            .comments-list .comment-box:after {
-                content: '';
-                height: 0;
-                width: 0;
-                position: absolute;
-                display: block;
-               
-     
-  border-left: 20px solid var(--bgdark);
-  border-top: 20px solid transparent;
-  border-bottom: 20px solid transparent;
-  right: -20px;
-  bottom: 65px;
-
-            }
-
-
-            .comments-list .comment-box:before {
-                border-width: 11px 13px 11px 0;
-                border-color: transparent rgba(0, 0, 0, 0.05);
-                left: -12px;
-            }
-
-            .reply-list .comment-box {
-                width: 610px;
-            }
-
-            .comment-box .comment-head {
-
-                padding: 10px 12px;
-                border-bottom: 1px solid #E5E5E5;
-                overflow: hidden;
-                -webkit-border-radius: 4px 4px 0 0;
-                -moz-border-radius: 4px 4px 0 0;
-                border-radius: 4px 4px 0 0;
-                display: flex;
-                align-items: baseline;
-                justify-content: space-between;
-            }
-
-            .comment-box .comment-head i {
-                float: right;
-                margin-left: 14px;
-                position: relative;
-                top: 2px;
-                color: #A6A6A6;
-                cursor: pointer;
-                -webkit-transition: color 0.3s ease;
-                -o-transition: color 0.3s ease;
-                transition: color 0.3s ease;
-            }
-
-            .comment-box .comment-head i:hover {
-                color: #03658c;
-            }
-
-            .comment-box .comment-content {
-               
-                padding: 12px;
-                font-size: 15px;
-                
-                -webkit-border-radius: 0 0 4px 4px;
-                -moz-border-radius: 0 0 4px 4px;
-                border-radius: 0 0 4px 4px;
-            }
-
-            .comment-box .comment-name.by-author,
-            .comment-box .comment-name.by-author a {
-                color: #03658c;
-            }
-
-            .comment-box .comment-name.by-author:after {
-                content: 'autor';
-                background: #03658c;
-                color: #FFF;
-                font-size: 12px;
-                padding: 3px 5px;
-                font-weight: 700;
-                margin-left: 10px;
-                -webkit-border-radius: 3px;
-                -moz-border-radius: 3px;
-                border-radius: 3px;
-            }
-
-            .show {
-                display: flex;
-                justify-content: end;
-            }
-
-            .witeComment {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 16px;
-            }
-
-            .writeRep {
-                display: flex;
-                justify-content: space-evenly;
-                margin-bottom: 16px;
-                margin-top: 16px;
-
-
-            }
-
-         
-
-
 
             .loginPlac {
                 display: flex !important;
@@ -325,25 +42,87 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
 
 
-            
-
             .bottomimgright {
              position: absolute;
-            bottom: 8px;
+            bottom: 20px;
             right: 16px;
             background-color: #bacdce;
             border-radius: 20px;
             color: #000;
             font-weight: 800;
             box-shadow: -2px 2px 3px #111;
-}
-
-
             }
 
 
 
+
+
+
         </style>
+
+          <style>
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+
+    .swiper {
+      width: 100%;
+      height: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .mySwiper2 {
+      height: 80%;
+      width: 100%;
+    }
+
+    .mySwiper {
+      height: 20%;
+      box-sizing: border-box;
+      padding: 10px 0;
+    }
+
+    .mySwiper .swiper-slide {
+      width: 25%;
+      height: 100%;
+      opacity: 0.4;
+    }
+
+    .mySwiper .swiper-slide-thumb-active {
+      opacity: 1;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+    }
+
+    .swiper-free-mode>.swiper-wrapper img {
+      transition-timing-function: ease-out;
+      margin: 0 auto;
+      height: 100px;
+      object-fit: cover;
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
 }
 
 
@@ -351,113 +130,116 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
     <section class="pb-5">
 
 
+
         <div class="container-fluid container-md">
             <div class="row ">
-                <div  class="col-12 col-md-9 p-0">
+                <div  class="col-12 p-0">
                     <a id="EPic"  class="image-thumbnail home" href="#lightbox_1">
-                        
-                        <img src="~/images/Estate/@Model.Main_photo" class="img-fluid w-100 h-100">
+                        <img src="~/images/Estate/@Model.Main_photo" class="img-fluid" style=" height: 600px; width: 100%;">
                         <div class="bottomimgright p-3">اضغط لمشاهدة جميع الصور</div>
                     </a>
                 </div>
-                <div class="col-12 col-md-3 d-flex d-none d-md-block gallery">
+             @*   <div class="col-12 col-md-3 d-flex d-none d-md-block gallery">
                 @{
                     var sewar = 0;
                     if (@photosPaths.Count>=2)
                     {
                          for (int e=0;e <2;e++)
-                    {
-                        
+                        {
                              <a id="EPic" class="image-thumbnail" href="#@sewar">
                                 <img src="~/images/Estate/@photosPaths[e].ImagePath" class=" img-fluid w-100 h-100">
                              </a>
                         sewar++;
+                          }
                     }
-                    }
-                   
                 }
-
-            </div>
+                </div>*@
         </div>
 
         
-        <div class="light-box modal-content" id="lightbox_1">
+       <div class="light-box modal-content" id="lightbox_1">
             <div class="row edges align-items-baseline">
                 <span class="close-btn d-inline"><a href="#">
-                    <i class="bi bi-x-lg fs-1 position-absolute" style="z-index:10;z-index: 10;
-    background-color: #fff;
-    border: 1px solid #fff;
-    border-radius: 50%;
-    padding: 1px 10px 0px 10px;
-    color: var(--grendark);"></i></a></span>
+                    <i class="bi bi-x-lg fs-1 position-absolute" style="z-index:10;z-index: 10; background-color: #fff; border: 1px solid #fff; border-radius: 50%; padding: 1px 10px 0px 10px; color: var(--grendark);"></i></a>
+                </span>
  
-                <div class="">
-                    <img  src="~/images/Estate/@Model.Main_photo" class="img-fluid position-relative" width="1000"/>
+           <div class="">
+                    @*<img  src="~/images/Estate/@Model.Main_photo" class="img-fluid position-relative" width="1000"/>*@
+
+
+                     <div class="container">
+    <div class="row">
+
+      <div class="swiper mySwiper2">
+        <div class="swiper-wrapper">
+
+         @{
+            
+            if(@photosPaths.Count>2){
+
+                for (int k= 0;k < @photosPaths.Count;k++)
+                {
+                     <div class="swiper-slide">
+                        <img src="~/images/Estate/@photosPaths[k].ImagePath" />
+                     </div>
+                }
+            }
+           
+        }
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+      </div>
+      <div thumbsSlider="" class="swiper mySwiper">
+        <div class="swiper-wrapper">
+           @{
+            
+            if(@photosPaths.Count>2){
+
+                for (int k= 0;k < @photosPaths.Count;k++)
+                {
+                     <div class="swiper-slide">
+                        <img src="~/images/Estate/@photosPaths[k].ImagePath" />
+                     </div>
+                }
+            }
+           
+        }
+        </div>
+      </div>
+
+    </div>
+  </div>
+
                 </div>
+
+
+
             </div>
         </div>
 
 
 
-@*                   <style>
 
-     
-      .mySwiper2 {
-        height: 80%;
-        width: 100%;
-      }
-
-      .mySwiper2 {
-        height: 20%;
-        box-sizing: border-box;
-        padding: 10px 0;
-      }
-
-      .mySwiper2 .swiper-slide {
-        width: 25%;
-        height: 100%;
-        opacity: 0.4;
-      }
-
-      .mySwiper2 .swiper-slide-thumb-active {
-        opacity: 1;
-      }
-
-      .swiper-slide img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-    </style>
-    @{
+@*    @{
             var sear = 0;
-
             foreach (var pic in @photosPaths)
             {
                 <div class="light-box modal-content" id="@sear">
                     <div class="row edges align-items-baseline">
                         <span class="close-btn d-inline"><a href="#"><i class="bi bi-x-lg fs-1 position-absolute"></i></a></span>
-
                         <div class="col p-0">
                             <span class="previous-btn "><a href="#@sear"><i class="bi bi-arrow-right fs-1"></i></a></span>
                         </div>
-
-
                         <div class="col-10 p-0">
-                            <img src="~/images/Estate/@pic.ImagePath"
-                                    class="img-fluid position-relative" />
+                            <img src="~/images/Estate/@pic.ImagePath" class="img-fluid position-relative" />
                         </div>
-     
                         <div class="col p-0">
-                            <span class=" next-btn"><a href="#@sear"><i
-                                            class="bi bi-arrow-left fs-1"></i></a></span>
+                            <span class=" next-btn"><a href="#@sear"><i class="bi bi-arrow-left fs-1"></i></a></span>
                         </div>
                     </div>
                 </div>
-
                 sear++;
-
               }
         }*@
 
@@ -466,17 +248,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
 
 
-
-
-
-
-     
-
-
-        <div class="row py-4 text-end ">
-            <div class="col-12 col-md-9 ">
-                <div class="pe-xl-5">
-           <section>
+@*                   <section>
                
                        @{
             if(@photosPaths.Count>2){
@@ -486,7 +258,17 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                 }
             }
         }
-           </section>
+           </section>*@
+
+
+
+     
+
+
+        <div class="row py-4 text-end ">
+            <div class="col-12 col-md-9 ">
+                <div class="pe-xl-5">
+
                         <p class="fs-2 ">عنوان العقار</p>
                         <p><i class="bi bi-geo-alt-fill"></i>@Model.State.name _ @Model.City.name</p>
                         <div class="d-flex justify-content-between align-items-center fs-5">
@@ -1101,6 +883,10 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
         
 <script type="text/javascript">
+
+
+ <script>
+
     //التفاصيل
     new WOW().init();
     AOS.init({
@@ -1181,6 +967,24 @@ $(document).ready(function() {
         code.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyAXuizXxXdy3kjKyHQrjt7femrQR2QtZaE&callback=initMap";
         document.body.appendChild(code);
     }
+
+
+          var swiper = new Swiper(".mySwiper", {
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+      });
+      var swiper2 = new Swiper(".mySwiper2", {
+        spaceBetween: 10,
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+          swiper: swiper,
+        },
+      });
 </script>
 
         }

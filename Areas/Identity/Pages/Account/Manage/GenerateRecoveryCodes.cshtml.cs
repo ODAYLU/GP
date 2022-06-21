@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using GP.Models;
+﻿using GP.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace GP.Areas.Identity.Pages.Account.Manage
 {
+    [Authorize(Roles = "")]
+
     public class GenerateRecoveryCodesModel : PageModel
     {
         private readonly UserManager<AppUser> _userManager;

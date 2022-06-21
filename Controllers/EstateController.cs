@@ -616,10 +616,10 @@ namespace GP
                     IsActive = true
 
 
-				};
-				await _context.InsertComment(comments);
-				var estate = await services.GetOne(id);
-                if(User.FindFirstValue(ClaimTypes.NameIdentifier) != estate.UserId)
+                };
+                await _context.InsertComment(comments);
+                var estate = await services.GetOne(id);
+                if (User.FindFirstValue(ClaimTypes.NameIdentifier) != estate.UserId)
                 {
 
                     Notification msg = new Notification
@@ -635,8 +635,8 @@ namespace GP
 
                     await _hub.Clients.User(estate.UserId).SendAsync("receiveNotification", msg);
                 }
-				
-				Id = comments.Id;
+
+                Id = comments.Id;
 
 
                 GP.Models.Toast.Message = "تم إضافة التعليق بنجاح";
@@ -690,8 +690,8 @@ namespace GP
 
                 };
 
-				await _replaies.InsertReply(replaies);
-				var comment = await _context.GetOne(id);
+                await _replaies.InsertReply(replaies);
+                var comment = await _context.GetOne(id);
                 if (User.FindFirstValue(ClaimTypes.NameIdentifier) != comment.UserId)
                 {
                     Notification msg = new Notification
