@@ -1,13 +1,13 @@
 ﻿@model Estate;
 @{
 Layout = "/Views/Shared/_Layout.cshtml";
-    @inject ICommments _context
+@inject ICommments _context
 @inject IReplaies rep
 @inject IPhotoEstate _photoEstate
 @inject IService_Estate _service_Estate
 
 // select Comments From DataBase where Model.EstateId equals Id
-IList<Comments>  Models=  _context.GetAll().Where(x=>x.EstateId==Model.Id).ToList();
+IList<Comments>  Models=  _context.GetAll().Where(x=>x.EstateId==Model.Id&&x.IsActive).ToList();
 // select Services From DataBase where Model.EstateId equals Id
 IList<Services> listServices=  _service_Estate.GetALl(Model.Id).ToList();
 // select PhotoEstate From DataBase where Model.EstateId equals Id
