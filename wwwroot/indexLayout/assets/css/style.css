@@ -1004,7 +1004,7 @@ margin: 0 20px 20px 0;
     }
 
 /**********footer*******************************************************/
-.bgfooter {
+/*.bgfooter {
   background-image: url("../img/pages/foot.png");
   background-repeat: no-repeat;
   background-size: cover;
@@ -1026,17 +1026,28 @@ footer .nav .nav-item .text-dark {
   height: 100%;
   background-color: var(--footercolor);
   z-index: -1;
+}*/
+
+
+
+
+
+
+
+
+
+footer {
+    background: var(--green);
+    color: #fff;
 }
 
-
-
-
-
-
-
-
-
-
+.socialiconsfooter > i {
+    color: #fff;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    padding: 5px 10px;
+    margin: 5px;
+}
 
 
 
