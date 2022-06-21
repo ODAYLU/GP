@@ -1,4 +1,5 @@
 ﻿using GP.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace GP.Areas.Identity.Pages.Account.Manage
 {
+    [Authorize(Roles = "User")]
     public class PersonalUserModel : PageModel
     {
         private readonly UserManager<AppUser> _userManager;
