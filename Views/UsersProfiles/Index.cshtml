@@ -1,7 +1,7 @@
 ﻿@model IQueryable<GP.Models.AppUser>
-  @{
-
-  }
+@{
+    ViewData["Title"] = "أصحاب العقارات";
+}
 
   <style>
     header {
@@ -82,7 +82,7 @@
             text +=
               `     
                                             <div class="col-lg-4 col-sm-6 col-12 article">
-                                          <article data-aos="zoom-in-up" class="material-card Red">
+                                          <article class="material-card Red">
                                             <a href="/UsersProfiles/getprofile/${data[i].id}" class="">
                                               <h2>
                                                 <p class="m-0"><strong class="n">${data[i].firstName} ${data[i].lastName}</strong></p>
