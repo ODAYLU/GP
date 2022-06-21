@@ -8,7 +8,10 @@
 
 
 } 
-
+.bg-video{
+    width: 100%;
+    height: 300px;
+}
  .bg-video:before {
       content: "";
       position: absolute;
@@ -17,80 +20,107 @@
       overflow: hidden;
       background-color: #2a5555;
       opacity: 0.7;
-      z-index: 1;
+      z-index: 0;
     }
-
+    .padingtops{
+        padding-top:100px;
+        background-color:#000;
+    }
   </style> 
-    <div class="bg-video position-absolute overflow-hidden w-100 h-100"> 
+    <div class="bg-video position-absolute overflow-hidden"> 
      <video class="overflow-hidden " playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop" >
       <source src="~/indexLayout/assets/img/pages/bg.mp4" type="video/mp4" />
     </video>
 
   </div>
-<div class="container-fluid d-none d-lg-block pt-5 mb-5" >
-
-    <div class="row justify-content-center align-items-center text-center ">
-
-      <p class="fs-1 text-white animated wow fadeInDown">ابحث عن العقار الأنسب لك </p>
-      <p class="fs-4 text-white pb-5 animated wow fadeInDown">لديك الفرصة لوضع عقارك</p>
-      
-      <div class="bgacground rounded-5 w-50  p-3 py-4 animated wow fadeInUp">
-        <div class="row justify-content-between align-items-center ">
-            
-                <h1>
-                    عقارات
-                  -  @ViewBag.CategoryName
-                </h1>
-              
-        </div>
-      </div>
-        
+<div class="container-fluid pt-5 mb-5" >
+    <div class="row text-center padingtops">
+        <p class="fs-4 text-white animated wow fadeInDown">ابحث عن العقار الأنسب لك </p> 
+        <h1 class="fs-1 text-white animated wow fadeInDown">عقارات -  @ViewBag.CategoryName </h1>
     </div>
   </div>
-  
-    <div class="position-absolute w-100 bgdaeke" style="z-index: 5;">
-        <main class="">
-  <section class="mb-5 ">
-        <div class="container py-3">
-          <p class="text-center fs-2 py-5" data-aos="fade-down"><span class="txtborder"> عقارات أملاك @ViewBag.CategoryName </span></p>
-          <div class="row pt-3 g-3">
-       
-   @if(Model is not null)
-            @foreach (var item in Model)
-{
-    <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
-                <div class="game px-2">
-                <div class="rank"><span class="bi bi-star checked"></span></div>
-                <div class="front">
-                  <img src="/images/Estate/@item.Main_photo" class="img-fluid" alt="game">
-                  <div>
-                    <h3 class="text-center py-3">@item.name</h3>
+
+
+
+  <section class="mb-5">
+    <div class="container">
+      <div class="switcher">
+        <button data-trigger="grid-view" class="bi bi-grid-3x2-gap-fill"></button>
+        <button data-trigger="list-view" class="active bi bi-view-list"></button>
+      </div>
+      <div data-view="list-view" class="download-cards">
+
+            @if (Model is not null)
+                @foreach (var item in Model)
+                { 
+                    <article class="download-card" data-aos="fade-down">
+
+                  <div class="download-card__icon-box">
+                    <img src="/images/Estate/@item.Main_photo" class="img-fluid" />
+                    <div class="bottomright">بيع</div>
                   </div>
-                  <div class="status d-flex justify-content-between align-items-center">
-                    <span>@item.Likes</span>
-                    <span class="bi bi-star checked"></span>
-                  </div>
-                </div>
-                <div class="back">
-                  <div class="streaming-info">
-                    <div class="game-stat  text-center">
-                      <b>  السعر: @item.price @item.Currency.currency </b> <br/> <b> المدينة @item.City.name </b><br/> <b>الدولة @item.State.name  </b>
-                      
+                  <div class="content text-end">
+                    <div class="d-flex justify-content-between titleral">
+                      <h3> @item.name </h3>
+                      <a href="/commments/EstateComment/@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                    </div>
+                    <p class="pt-2"><i class="bi bi-geo-alt"></i>@item.State.name -@item.City.name</p>
+                    <p class="p"> @item.description </p>
+
+                    <div class="d-flex justify-content-between align-items-center pt-3">
+                      <div class=" d-flex align-items-center">
+                        <img class="img-fluid text-right rounded-circle" style="width: 50px;height: 50px;"
+                          src="assets/img/pages/bg-mobile-fallback.jpg">
+                        <div class="pe-3">
+                          <a href="" class="mb-0 titleral">
+                            مالك العقار: سوار صيام
+                          </a>
+                          <p class="mb-0 text-secondary">تاريخ الاضاقة : 24/7/2021</p>
+
+                        </div>
+                      </div>
+                      <p class="m-0"><i class="heart bi bi-heart-fill ms-5"></i></p>
                     </div>
                   </div>
-                  <div class="d-flex align-items-center">
-                    <a href="/commments/EstateComment/@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
-                    <i class="heart bi bi-heart-fill mx-3"></i>
-                  </div>
-                </div>
-                <div class="backgroundWrapper"></div>
-              </div>
-            </div>
-}
-            
-            
-          </div>
-        </div>
-      </section>
-      </main>
+                </article>
+        }
+
+
       </div>
+    </div>
+  </section>
+  
+
+
+        @section Scripts{
+
+          <script>
+              
+
+var downloadGrid = (function () {
+
+    "use strict";
+    var $cardContainer = $('.download-cards');
+    var $downloadCard = $('.download-card__content-box');
+    var $viewTrigger = $('button').attr('data', 'trigger');
+
+    function swapTriggerActiveClass(e) {
+        $viewTrigger.removeClass('active');
+        $(e.target).addClass('active');
+    }
+
+    function swapView(e) {
+        var $currentView = $(e.target).attr('data-trigger');
+        $cardContainer.attr('data-view', $currentView);
+    }
+
+    $(document).ready(function () {
+        // Event Listener
+        $viewTrigger.click(function (e) {
+            swapTriggerActiveClass(e);
+            swapView(e);
+        });
+    });
+
+})();
+              </script>}
