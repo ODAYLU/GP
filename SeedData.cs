@@ -51,6 +51,22 @@ namespace GP
                 await category.InsertCategory(cat3);
                 await category.InsertCategory(cat4);
             }
+            if (!type.GetAll().Any())
+            {
+                var type1 = new Models.Type
+                {
+                    type = "بيع",
+                    ImagePath = "/images/house.jpg"
+                };
+                var type2 = new Models.Type
+                {
+                    type = "إيجار",
+                    ImagePath = "/images/house.jpg"
+                };
+
+               await type.InsertType(type1);
+               await type.InsertType(type2);
+            }
 
         }
         public static List<long> VsLikedEstate { get; set; }
@@ -60,18 +76,18 @@ namespace GP
         public static async Task SeedUsers(
             UserManager<AppUser> userManager)
         {
-            if(userManager.FindByNameAsync("admin@website.com").Result == null)
+            if(userManager.FindByNameAsync("admin").Result == null)
             {
                 var user = new AppUser
                 {
-                    UserName = "admin@website.com",
+                    UserName = "admin",
                     Email = "admin@website.com",
                     is_active = true,
                 };
                 var result = userManager.CreateAsync(user ,"a@1234567").Result;
                 if (result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(user,"Admin").Wait();
+                   await userManager.AddToRoleAsync(user,"Admin");
                 }
             }
         }
@@ -92,7 +108,7 @@ namespace GP
                 {
                     Name = "Owner",
                 };
-                roleManager.CreateAsync(role);
+               await roleManager.CreateAsync(role);
             }
             if (!(await roleManager.RoleExistsAsync("User")))
             {
@@ -100,7 +116,7 @@ namespace GP
                 {
                     Name = "User",
                 };
-                roleManager.CreateAsync(role);
+               await roleManager.CreateAsync(role);
             }
         }
     }
