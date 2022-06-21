@@ -81,7 +81,15 @@
                     { "data": "memory", "name": "memory"},
                    //  { "data": "imagePath", "name": "ImagePath"},
                     {
-                        "render": function (data, type, row) { return '<img hidden src="' + row.imagePath + '" class=" w-25 h-25" asp-append-version="true" />' },
+                        "render": function (data, type, row) {
+                            if (row.imagePath != null) {
+                                return '<img hidden src="data:image/jpeg;base64,' + btoa(atob(`${row.imagePath}`)) + '" class=" w-25 h-25" asp-append-version="true" />'
+
+                            } else {
+                                  return '<img hidden src="/indexLayout/assets/img/pages/user.jpg" class=" w-25 h-25" asp-append-version="true" />'
+                            }
+                        
+                        },
  
                     },
                     {

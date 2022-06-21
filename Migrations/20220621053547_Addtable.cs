@@ -1,13 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using System;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GP.Migrations
 {
-<<<<<<<< HEAD:Migrations/20220620210044_AddTables.cs
-    public partial class AddTables : Migration
-========
-    public partial class f54 : Migration
->>>>>>>> e828b401cc063601f35f7fb925eb6c3a5d21389a:Migrations/20220621003233_f54.cs
+    public partial class Addtable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -166,7 +162,7 @@ namespace GP.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -378,7 +374,6 @@ namespace GP.Migrations
                     Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     is_active = table.Column<bool>(type: "bit", nullable: false, defaultValueSql: "0"),
                     Rating = table.Column<int>(type: "int", nullable: false),
-                    IdUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -406,7 +401,7 @@ namespace GP.Migrations
                     space = table.Column<double>(type: "float", nullable: false),
                     Likes = table.Column<int>(type: "int", nullable: false),
                     price = table.Column<double>(type: "float", nullable: false),
-                    phone_num = table.Column<double>(type: "float", nullable: false),
+                    phone_num = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Main_photo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OnDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "Getdate()"),
                     is_active = table.Column<bool>(type: "bit", nullable: false, defaultValueSql: "1"),
@@ -498,7 +493,7 @@ namespace GP.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SallerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Sallerphone_num = table.Column<double>(type: "float", nullable: true),
+                    Sallerphone_num = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", maxLength: 50000, nullable: false),
                     BuyerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Buyerphone_num = table.Column<string>(type: "nvarchar(max)", nullable: false),

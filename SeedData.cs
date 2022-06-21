@@ -67,6 +67,18 @@ namespace GP
                await type.InsertType(type1);
                await type.InsertType(type2);
             }
+            if(information.GetOne() is  null)
+            {
+                var info = new InformationGen
+                {
+                   Email = "aqaramlack123@gmail.com",
+                   Phone = "0598112693",
+                   UrlFacebook = "https://www.facebook.com/",
+                   UrlInstegrame = "http://instagram.com/",
+                   UrlTwitter= "https://twitter.com/"
+                };
+               await information.InsertInformationGen(info);
+            }
 
         }
         public static List<long> VsLikedEstate { get; set; }
