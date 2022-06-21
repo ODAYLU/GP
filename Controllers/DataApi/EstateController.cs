@@ -13,6 +13,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace GP.Controllers.DataApi
 {
@@ -107,6 +108,26 @@ namespace GP.Controllers.DataApi
             }
             return BadRequest("id can be null");
            
+        }
+        public async Task<IActionResult> GetEstateLike(string email)
+        {
+            var des = "";
+            var status = false;
+            if(email is not null)
+            {
+                var data = await _like.GetAll().Where(x => x.User.Email == email).Select(z => z.Estate).ToListAsync();
+                if (data is null)
+                {
+                    des = "لا يوجد عقار معجب بها";
+                    status = false;
+                    return BadRequest(new { des, status });
+                }
+                status = true;
+                return Ok(new { data, status });
+            }
+            des = "يرجى ادخال الإيميل";
+            status = false;
+            return BadRequest(new { des, status });
         }
         private string CreateJWT(AppUser user)
         {

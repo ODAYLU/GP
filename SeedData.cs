@@ -19,8 +19,8 @@ namespace GP
             IService service,
             IInformationGen information)
         {
-         await   SeedRoles(roleManager);
-          await  SeedUsers(userManager);
+          await  SeedRoles(roleManager);
+         await   SeedUsers(userManager);
 
             if (!category.GetAll().Any())
             {

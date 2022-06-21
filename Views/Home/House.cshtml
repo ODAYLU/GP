@@ -305,7 +305,7 @@ function Next() {
         url: `/api/ApiEstate/GetHouses`,
         data: { pageNumber: num },
         success: function(estate) {
-
+            
 
             var pages = "";
             pages += `<li  class="page-item"><span onclick="Previous()" class="page-link">Previous</span></li>`;
@@ -331,7 +331,7 @@ function Next() {
                 }
             }
             if (estate.pages == num) {
-                pages += ` <li  class="page-item disabled" ><span onclick="Next()" class="page-link">Next</span></li>`;
+                pages += ` <li  class="page-item" disabled><span onclick="Next()" class="page-link">Next</span></li>`;
             } else {
                 pages += ` <li  class="page-item" ><span onclick="Next()" class="page-link">Next</span></li>`;
             }
