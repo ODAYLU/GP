@@ -168,7 +168,7 @@ namespace GP
                 await image_main.CopyToAsync(fileStream);
             }
             estate.Main_photo = fileName + extension;
-            var user = _userManager.GetUserAsync(User);
+            //  var user = _userManager.GetUserAsync(User);
             estate.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             await services.InsertEstate(estate);
 
@@ -321,6 +321,8 @@ namespace GP
 
                 estate.Main_photo = old.Main_photo;
                 estate.is_active = old.is_active;
+                estate.publish = old.publish;
+
                 estate.is_spacial = old.is_spacial;
                 estate.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 await services.UpdateEstate(estate);

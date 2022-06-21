@@ -530,7 +530,7 @@ select:focus-visible {
 .block-ellipsisdes {
     padding: 0 20px;
     display: -webkit-box;
-    max-width: 100%;
+    max-width: 200px;
     height: 60px;
     margin: 0 auto;
     font-size: 14px;

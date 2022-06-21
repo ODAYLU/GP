@@ -6,6 +6,10 @@
     var states = new SelectList(@ViewBag.States,"Id","name");
     var likes = (List<long>)ViewBag.Likes;
     var information = (InformationGen)ViewBag.ContactUrl;
+
+    @inject IOpinion opinion
+
+    List<Opinion> opinions = opinion.GetAll().Where(x=>x.is_active).ToList();
 }
 
   <style>
@@ -156,46 +160,46 @@
 
           @{
 
-          @if(@ViewBag.FavEstate is not null)
+                  @if(@ViewBag.FavEstate is not null)
           foreach (var item in (List<Estate>)ViewBag.FavEstate)
             {
 
-            <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
-              <div class="game px-2">
-                <div class="rank"><span class="bi bi-star-fill checked"></span></div>
-                <div class="front">
-                  <img src="/images/Estate/@item.Main_photo" class="img-fluid" alt="game">
-                   <h3 class="text-center fs-2 py-3"><a class="titelId" href="/commments/EstateComment/@item.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="انقر للتفاصيل">@item.name</a></h3>
-                  <div class="status d-flex justify-content-between align-items-center">
-                    <span>@item.Likes</span>
-                    <span class="bi bi-star-fill checked"></span>
-                  </div>
-                </div>
-                <div class="back">
-                  <div class="streaming-info">
-                    <div class="game-stat text-center"> 
-                       <p class="block-ellipsisdes">@item.description</p>
-                       <p class="m-0 pt-2 dd"><i class="bi bi-cash-stack"></i>: @item.price @item.Currency.currency </p>
-                       <p class="m-0 dd"><i class="bi bi-geo-alt"></i>: @item.State.name - @item.City.name </p>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center">
-                  
-                    @if (likes.Contains(item.Id))
+                    <div class="col-12 col-md-6 col-lg-3 " data-aos="zoom-in-left">
+                      <div class="game px-2">
+                        <div class="rank"><span class="bi bi-star-fill checked"></span></div>
+                        <div class="front">
+                          <img src="/images/Estate/@item.Main_photo" class="img-fluid" alt="game">
+                           <h3 class="text-center fs-2 py-3"><a class="titelId" href="/commments/EstateComment/@item.Id" data-bs-toggle="tooltip" data-bs-placement="left" title="انقر للتفاصيل">@item.name</a></h3>
+                          <div class="status d-flex justify-content-between align-items-center">
+                            <span>@item.Likes</span>
+                            <span class="bi bi-star-fill checked"></span>
+                          </div>
+                        </div>
+                        <div class="back">
+                          <div class="streaming-info">
+                            <div class="game-stat text-center"> 
+                               <p class="block-ellipsisdes">@item.description</p>
+                               <p class="m-0 pt-2 dd"><i class="bi bi-cash-stack"></i>: @item.price @item.Currency.currency </p>
+                               <p class="m-0 dd"><i class="bi bi-geo-alt"></i>: @item.State.name - @item.City.name </p>
+                            </div>
+                          </div>
+                          <div class="d-flex align-items-center">
+                          
+                            @if (likes.Contains(item.Id))
                     {
-                    <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i
-                        class="heart-des bi bi-heart-fill mx-3"></i></a>
+                            <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i
+                                class="heart-des bi bi-heart-fill mx-3"></i></a>
                     }
                     else
                     {
-                    <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i
-                        class="heart bi bi-heart-fill mx-3"></i></a>
+                            <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i
+                                class="heart bi bi-heart-fill mx-3"></i></a>
                     }
-                  </div>
-                </div>
-                <div class="backgroundWrapper"></div>
-              </div>
-            </div>
+                          </div>
+                        </div>
+                        <div class="backgroundWrapper"></div>
+                      </div>
+                    </div>
 
             }
             }
@@ -494,7 +498,7 @@
 
 
 
-     <section class="py-5">
+     <section class="py-5 " style="background-color:#fff">
       <div class="container-lg">
         <div class="row">
           <div class="col-12 ">
@@ -502,68 +506,60 @@
 
             <div class="swiper mySwiper2">
               <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                   <div class="row">
-                    <div class="col-12 col-md-6 ">
-                      <div class="testimonial">
-                        <p>يتوفر هنا عدد ضخم من العقارات للبيع والشراء والإيجار. تجد هنا أيضًا عقارًا للعيش المشترك ،
-                          لذا عليك أن تختار هنا وتستمتع بخصم كبير.يتوفر هنا عدد ضخم من العقارات للبيع والشراء والإيجار.
-                          تجد هنا أيضًا عقارًا للعيش المشترك ، لذا عليك أن تختار هنا وتستمتع بخصم كبير.</p>
-                      </div>
-                      <div class="media">
-                        <img src="assets/img/pages/1.png" class="mr-3" alt="">
-                        <div class="media-body ">
-                          <div class="overview px-2">
-                            <div class="name"><b>عدي لبد</b></div>
-                            <div class="details">Media Analyst / SkyNet</div>
-                            <div class="star-rating">
-                              <ul class="list-inline p-0">
-                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
-                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
-                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
-                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
-                                <li class="list-inline-item"><i class="bi bi-star"></i></li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-12 col-md-6 ">
-                      <div class="testimonial">
-                        <p>يتوفر هنا عدد ضخم من العقارات للبيع والشراء والإيجار. تجد هنا أيضًا عقارًا للعيش المشترك ،
-                          لذا عليك أن تختار هنا وتستمتع بخصم كبير.يتوفر هنا عدد ضخم من العقارات للبيع والشراء والإيجار.
-                          تجد هنا أيضًا عقارًا للعيش المشترك ، لذا عليك أن تختار هنا وتستمتع بخصم كبير.</p>
-                      </div>
-                      <div class="media">
-                        <img src="assets/img/pages/1.png" class="mr-3" alt="">
-                        <div class="media-body">
-                          <div class="overview px-2">
-                            <div class="name"><b>محمد السيد</b></div>
-                            <div class="details">Media Analyst / SkyNet</div>
-                            <div class="star-rating">
-                              <ul class="list-inline p-0">
-                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
-                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
-                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
-                                <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
-                                <li class="list-inline-item"><i class="bi bi-star"></i></li>
-                              </ul>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="swiper-slide">Slide 2</div>
-                <div class="swiper-slide">Slide 3</div>
-                <div class="swiper-slide">Slide 4</div>
-                <div class="swiper-slide">Slide 5</div>
-                <div class="swiper-slide">Slide 6</div>
-                <div class="swiper-slide">Slide 7</div>
-                <div class="swiper-slide">Slide 8</div>
-                <div class="swiper-slide">Slide 9</div>
+               @{
+                  for (var i = 0; i < @opinions.Count(); i++)
+                  {
+                               <div class="swiper-slide">
+                                    <div class="col-6 ">
+                                      <div class="testimonial">
+                                       <p>@opinions[i].Body</p>
+                                      </div>
+                                      <div class="media">
+                                                    @{
+                                                if(opinions[i].Users.ProfilePicture != null){
+                                                                    <img  src="data:image/*;base64,@(Convert.ToBase64String(opinions[i].Users.ProfilePicture))"  class="mr-3" alt="">
+                                                }
+                                                else
+                                                {
+                                                                    <img src="/assets/img/pages/profille.png" class="mr-3" alt="">
+                                                }
+                                                    }
+                                        <div class="media-body ">
+                                          <div class="overview px-2">
+                                            <div class="name"><b>@string.Concat(@opinions[i].Users.FirstName+" "+ @opinions[i].Users.LastName)</b></div>
+                                            <div class="details">Media Analyst / SkyNet</div>
+                                            <div class="star-rating">
+                                              <ul class="list-inline p-0">
+                                                      
+                                                  @{
+                                                  int rat = @opinions[i].Rating;
+                                                  int cEmpty = 5 - rat;
+                                                  }
+                                                 @{
+                                                for (var x = 0; x < rat; x++)
+                                                    {
+                                                                  <li class="list-inline-item"><i class="bi bi-star-fill"></i></li>
+
+                                                    }
+                                                    }
+                                                    @{
+                                                    for (var q = 0; q < cEmpty; q++)
+                                                    {
+                                                                     <li class="list-inline-item"><i class="bi bi-star"></i></li>
+
+                                                    }
+                                                    }
+                                              
+                                              </ul>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                               </div>
+                  }
+               }
+              
               </div>
               <div class="swiper-pagination"></div>
             </div>
@@ -804,6 +800,17 @@ function AddLike(Id,el) {
                   el: ".swiper-pagination",
                 },
               });
+    </script>
+
+
+
+    <script>
+
+    if (sessionStorage.getItem("LiActivt") != null) {
+    
+        sessionStorage.setItem("LiActivt" , "1");
+    }
+
     </script>
     
 }

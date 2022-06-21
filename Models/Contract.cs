@@ -21,7 +21,7 @@ namespace GP.Models
         public string SallerName { get; set; }
 
         [Display(Name = "رقم  الهاتف ")]
-        public double? Sallerphone_num { get; set; }
+        public string Sallerphone_num { get; set; }
 
         [StringLength(50000, ErrorMessage = "يحتوي على الاقل 200 حرف", MinimumLength = 200)]
         [Required(ErrorMessage = "الحقل مطلوب")]

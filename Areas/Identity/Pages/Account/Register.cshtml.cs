@@ -78,6 +78,7 @@ namespace GP.Areas.Identity.Pages.Account
             [DataType(DataType.Password)]
             [Display(Name = "تأكيد كلمة السر")]
             [Compare("Password", ErrorMessage = "كلمتا السر غير متطابقتين")]
+            [Required(ErrorMessage = "هذا الحقل مطلوب")]
             public string ConfirmPassword { get; set; }
 
             public IFormFile Image { get; set; }
@@ -96,9 +97,15 @@ namespace GP.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+
+
+
+
             if (ModelState.IsValid)
             {
-                var user = new AppUser();
+                AppUser user = new AppUser();
+
                 if (Input.IsQwner)
                 {
                     Input.Role = "Owner";
@@ -141,19 +148,18 @@ namespace GP.Areas.Identity.Pages.Account
                     };
                 }
 
+                var usernew = await _userManager.FindByNameAsync(user.UserName);
 
-                //if (Input.Image != null)
-                //{
-                //    string webRootPath = _webHostEnvironment.WebRootPath;
-                //    string upload = webRootPath + "/images/User/";
-                //    string fileName = Guid.NewGuid().ToString();
-                //    string extension = Path.GetExtension(Input.Image.FileName);
-                //    using (var fileStream = new FileStream(Path.Combine(upload, fileName + extension), FileMode.Create))
-                //    {
-                //        await Input.Image.CopyToAsync(fileStream);
-                //    }
-                //    user.ImagePath = "/images/User/" + fileName + extension;
-                //}
+                if (usernew != null)
+                {
+
+                    ModelState.AddModelError(Input.Email, "المستخدم  موجود");
+                    ViewData["Error"] = "المستخدم موجود";
+                    return Page();
+
+                }
+
+
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
@@ -197,6 +203,7 @@ namespace GP.Areas.Identity.Pages.Account
 
 
             }
+
 
 
             return Page();

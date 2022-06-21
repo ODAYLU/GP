@@ -51,7 +51,7 @@ namespace GP.Models
 
         [Required(ErrorMessage = "الحقل مطلوب")]
         [DisplayName("رقم هاتف المالك")]
-        public double? phone_num { get; set; }
+        public string phone_num { get; set; }
         [Required(ErrorMessage = "الرجاء ادخال الصورة الرئيسية للعقار")]
         public string Main_photo { get; set; }
         public DateTime OnDate { get; set; }

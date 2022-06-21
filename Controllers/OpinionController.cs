@@ -40,7 +40,7 @@ namespace GP.Controllers
                     return View(nameof(Index));
                 }
                 opinion.Rating = Convert.ToInt32(radio1);
-                opinion.IdUser = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                opinion.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 await services.InsertOpinion(opinion);
 
             }
