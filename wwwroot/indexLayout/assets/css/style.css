@@ -1041,28 +1041,35 @@ footer {
     color: #fff;
 }
 
-.socialiconsfooter > i {
-    color: #fff;
+.socialiconsfooter > a {
+    color: #fff !important;
     border-radius: 50%;
     border: 1px solid #fff;
     padding: 5px 10px;
     margin: 5px;
 }
 
+.socialiconsfooter > a:hover{
+    background-color:transparent  !important;
+}
+.hobor{
+    padding: 7px;
+}
+    .hobor:hover {
+        background: #005c4b;
+        background-image: linear-gradient(315deg, #005c4b 0%, #8fa177 100%);
 
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
+.circle-main-m {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    left: 0;
+    position: absolute;
+    background-color: #005c4b;
+    background-image: linear-gradient(315deg, #005c4b 0%, #8fa177 100%);
+}
 
 
 /*---------signup-step-------------*/

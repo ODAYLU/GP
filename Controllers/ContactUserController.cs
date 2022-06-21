@@ -100,14 +100,13 @@ namespace GP.Controllers
         }
 
         [Authorize]
-        
         public async Task<IActionResult> GetUsers(string text)
         {
             List<object> lstUser = new List<object>();
             bool flag = false;
             text ??= "";
             var Ids = ConnectedUser.IDs;
-            var msgs = _context.Messages.Where(x => !x.IsReaded).ToList();
+            var msgs = _context.Messages.Where(x => !x.IsReaded && x.ReceiverId == User.FindFirstValue(ClaimTypes.NameIdentifier)).ToList();
             foreach (var item in Ids)
             {
                 var user = await _userManager.FindByIdAsync(item);
@@ -143,12 +142,12 @@ namespace GP.Controllers
                 .Where(z => z.UserId == User.FindFirstValue(ClaimTypes.NameIdentifier))
                 .Select(s => s.ReceiverId).Distinct()
                 .ToListAsync();
-            var msgs = _context.Messages.Where(x => !x.IsReaded).ToList();
+            var msgs = _context.Messages.Where(x => !x.IsReaded && x.ReceiverId == User.FindFirstValue(ClaimTypes.NameIdentifier)).ToList();
             foreach (var item in users)
             {
                 var user = await _userManager.FindByIdAsync(item);
 
-                if (msgs.Select(z => z.UserId).Distinct().Contains(user.Id) && !userlst.Contains(user))
+                if (msgs.Select( z => z.UserId).Distinct().Contains(user.Id) && !userlst.Contains(user))
                 {
                     bool flag = false;
                     if (ConnectedUser.IDs.Contains(user.Id)) IsActive = true;
