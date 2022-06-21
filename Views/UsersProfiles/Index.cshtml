@@ -1,29 +1,27 @@
 ﻿@model IQueryable<GP.Models.AppUser>
-@{
-    ViewData["Title"] = "أصحاب العقارات";
-}
+  @{
 
-  <style>
-    header {
-      padding-bottom: 80px !important;
+  }
+
+<style>
+    header{
+        padding-bottom:80px !important;
     }
-  </style>
+</style>
 
-  <link rel="stylesheet" href="~/indexLayout/assets/css/UsersProfiles.css" />
+<link rel="stylesheet" href="~/indexLayout/assets/css/UsersProfiles.css" />
 
 
   <div class="container-fluid pb-4">
     <div class="row justify-content-center align-items-center rowwws">
 
-      <img src="~/indexLayout/assets/img/pages/pepole.jpeg" class="img-fluid w-100 imgheder p-0 ">
-
+        <img src="~/indexLayout/assets/img/pages/pepole.jpeg"  class="img-fluid w-100 imgheder p-0 ">
+ 
       <div class="position-absolute w-100 text-center" style="top:25%; z-index: 1000;">
-        <div class="form-floating text-end rounded-pill  w-75 my-3 d-flex align-items-center px-2 mx-auto"
-          style="background-color:var(--form);">
-          <input type="text" class="form-control rounded-pill text-end border-0" id="mySearch" onkeyup="myFunction()"
-            placeholder="ابحث...">
+        <div class="form-floating text-end rounded-pill  w-75 my-3 d-flex align-items-center px-2 mx-auto" style="background-color:var(--form);">
+          <input type="text" class="form-control rounded-pill text-end border-0"  id="mySearch" onkeyup="myFunction()" placeholder="ابحث...">
           <label for="floatingInput" class="labalfloat">ابحث عن اسم صاحب العقار...</label>
-          <p class="m-0 fs-2 p-3" style="position: absolute; left: 0; "><i class="bi bi-search"></i></p>
+          <p class="m-0 fs-2 p-3"style="position: absolute; left: 0; "><i class="bi bi-search"></i></p>
         </div>
       </div>
     </div>
@@ -31,34 +29,34 @@
 
 
 
-  <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
+   <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
   <section class="container ">
     <div class="row active-with-click" id="myMenu">
-
+        
     </div>
   </section>
 
 
-  @section Scripts{
-  @(await Html.PartialAsync("_ValidationScriptsPartial"))
-  <script type="text/javascript">
+@section Scripts{
+    @(await Html.PartialAsync("_ValidationScriptsPartial"));
+    <script type="text/javascript">
 
-    function myFunction() {
-      var input, filter, ul, article, li, strong, a, i;
-      input = document.getElementById("mySearch");
-      filter = input.value.toUpperCase();
-      li = document.getElementsByClassName("article");
+                function myFunction() {
+                  var input, filter, ul,article, li,strong, a, i;
+                  input = document.getElementById("mySearch");
+                  filter = input.value.toUpperCase();
+                  li = document.getElementsByClassName("article");
 
-      const collection = document.getElementsByClassName("n");
-      for (let i = 0; i < collection.length; i++) {
-        if (collection[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-          li[i].style.display = "";
-        } else {
-          li[i].style.display = "none";
-
-        }
-      }
-    }
+                  const collection = document.getElementsByClassName("n");
+                    for (let i = 0; i < collection.length; i++) {
+                      if (collection[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        li[i].style.display = "";
+                      } else {
+                        li[i].style.display = "none";
+        
+                      }
+                    }
+                }
 
 
 
@@ -82,7 +80,7 @@
             text +=
               `     
                                             <div class="col-lg-4 col-sm-6 col-12 article">
-                                          <article class="material-card Red">
+                                          <article data-aos="zoom-in-up" class="material-card Red">
                                             <a href="/UsersProfiles/getprofile/${data[i].id}" class="">
                                               <h2>
                                                 <p class="m-0"><strong class="n">${data[i].firstName} ${data[i].lastName}</strong></p>
@@ -112,45 +110,46 @@
                                           </article>
                                         </div>`
 
-          }
-          $("#myMenu").html(text);
+                               }
+                             $("#myMenu").html(text);
 
+                      }
+               });
         }
-      });
-    }
 
 
-  </script>
+    </script>
 
 
+  
+    <script>   
+            function showDetails(id) {
+                let that = document.getElementById(id);
+                var card = that.parentNode;
+                var icon = that.childNodes[1];
+                icon.classList.add("fa-spin-fast");
+               
+                const material = document.getElementsByClassName("material-card")[0];
+                
+                if (card.classList.contains("mc-active")) {
+                  card.classList.remove("mc-active");
+                    console.log("remove");
+                     window.setTimeout(function () {
+                         icon.classList.remove("fa-arrow-left");
+                         icon.classList.remove("fa-spin-fast");
+                         icon.classList.add("fa-bars");
+                     },800);
+                } else {
+                 card.classList.add("mc-active");
+                 console.log("add");
+                    window.setTimeout(function () {
+                           icon.classList.remove("fa-bars");
+                           icon.classList.remove("fa-spin-fast");
+                           icon.classList.add("fa-arrow-left");
+                    }, 800);
+                }
+            };
+       
+    </script>
+}
 
-  <script>
-    function showDetails(id) {
-      let that = document.getElementById(id);
-      var card = that.parentNode;
-      var icon = that.childNodes[1];
-      icon.classList.add("fa-spin-fast");
-
-      const material = document.getElementsByClassName("material-card")[0];
-
-      if (card.classList.contains("mc-active")) {
-        card.classList.remove("mc-active");
-        console.log("remove");
-        window.setTimeout(function () {
-          icon.classList.remove("fa-arrow-left");
-          icon.classList.remove("fa-spin-fast");
-          icon.classList.add("fa-bars");
-        }, 800);
-      } else {
-        card.classList.add("mc-active");
-        console.log("add");
-        window.setTimeout(function () {
-          icon.classList.remove("fa-bars");
-          icon.classList.remove("fa-spin-fast");
-          icon.classList.add("fa-arrow-left");
-        }, 800);
-      }
-    }
-
-  </script>
-  }
