@@ -299,7 +299,7 @@ function Next() {
     var value = localStorage.getItem("pageNumberHouse");
     var num = parseInt(value);
     num += 1;
-    
+   
     localStorage.setItem("pageNumberHouse",`${num}`);
     $.ajax({
         method: 'Get',
@@ -331,7 +331,7 @@ function Next() {
 
                 }
             }
-            if (estate.pages == num) {
+            if (estate.pages >= num) {
                 pages += ` <li  class="page-item "disabled ><span onclick="Next()" class="page-link">Next</span></li>`;
             } else {
                 pages += ` <li  class="page-item" ><span onclick="Next()" class="page-link">Next</span></li>`;
