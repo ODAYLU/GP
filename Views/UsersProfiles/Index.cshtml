@@ -1,7 +1,7 @@
 ﻿@model IQueryable<GP.Models.AppUser>
-  @{
-
-  }
+@{
+    ViewData["Title"] = "أصحاب العقارات";
+}
 
 <style>
     header{
@@ -61,54 +61,68 @@
 
 
 
-    function FindbySearch(searchinput) {
-      $.ajax({
-        method: 'Get',
-        url: `/api/Api/GetOwnersCards?search=${searchinput}`,
-        success: function (data) {
-          console.log(data[1]);
-          var text = "";
-          var img = "";
-          for (var i = 0; i < data.length; i++) {
-            var src = "";
-            if (data[i].profilePicture != null) {
-              img = "data:image/jpeg;base64," + btoa(atob(`${data[i].profilePicture}`));
-            }
-            else {
-              img = "/indexLayout/assets/img/pages/user.jpg";
-            }
-            text +=
-              `     
-                                            <div class="col-lg-4 col-sm-6 col-12 article">
-                                          <article data-aos="zoom-in-up" class="material-card Red">
-                                            <a href="/UsersProfiles/getprofile/${data[i].id}" class="">
-                                              <h2>
-                                                <p class="m-0"><strong class="n">${data[i].firstName} ${data[i].lastName}</strong></p>
-                                                <span class="fs-6"> 
-                                                  صفحة صاحب العقار
-                                                  <i class="bi bi-arrow-left pt-3 px-1"></i>
-                                                </span>
-                                              </h2>
-                                            </a>
-                                            <div class="mc-content">
-                                              <div class="img-container">
-                                                <img class="img-fluid w-100 h-100" src="${img}">
-                                              </div>
-                                              <div class="mc-description">
-                                                  ${data[i].decription}
-                                              </div>
+
+
+           var search=document.getElementById("mySearch").value;
+                    $(document).ready(function() {
+                       FindbySearch("");
+                    });
+                    $("#searchy").on("click",
+                         function(){
+                            var se=document.getElementById("mySearch").value;
+                            FindbySearch(se);
+                         });
+
+
+               function FindbySearch(searchinput){
+                     $.ajax({
+                              method: 'Get',
+                              url: `/api/Api/GetOwnersCards?search=${searchinput}`,
+                              success: function (data)
+                              {
+                                  console.log(data[1]);
+                                  var text = "";
+                                  var img ="";
+                                  for(var i=0;i<data.length;i++){
+                                      var src = "";
+                                     if (data[i].profilePicture != null) {
+                                       img = "data:image/jpeg;base64," + btoa(atob(`${data[i].profilePicture}`));
+                                        } 
+                                    else{
+                                        img= "/indexLayout/assets/img/pages/user.jpg";
+                                    }
+                                      text+=
+                                           `     
+                                          <div class="col-lg-4 col-sm-6 col-12 article">
+                                        <article class="material-card Red">
+                                          <a href="/UsersProfiles/getprofile/${data[i].id}" class="">
+                                            <h2>
+                                              <p class="m-0"><strong class="n">${data[i].firstName} ${data[i].lastName}</strong></p>
+                                              <span class="fs-6"> 
+                                                صفحة صاحب العقار
+                                                <i class="bi bi-arrow-left pt-3 px-1"></i>
+                                              </span>
+                                            </h2>
+                                          </a>
+                                          <div class="mc-content">
+                                            <div class="img-container">
+                                              <img class="img-fluid w-100 h-100" src="${img}">
                                             </div>
-                                            <a class="mc-btn-action" id='btn${i}' onclick="showDetails('btn${i}')">
-                                              <i class="fa fa-bars"></i>
-                                            </a>
-                                            <div class="mc-footer d-flex align-items-center justify-content-center">
-                                              <a href="${data[i].facebook}" class="bi bi-facebook fa-fw "></a> 
-                                              <a href="${data[i].twitter}" class="bi bi-twitter fa-fw "></a>
-                                              <a href="${data[i].instigram}" class="bi bi-instagram fa-fw "></a>
-                                              <a class="bi bi-whatsapp fa-fw "></a>
+                                            <div class="mc-description">
+                                                ${data[i].decription}
                                             </div>
-                                          </article>
-                                        </div>`
+                                          </div>
+                                          <a class="mc-btn-action" id='btn${i}' onclick="showDetails('btn${i}')">
+                                            <i class="fa fa-bars"></i>
+                                          </a>
+                                          <div class="mc-footer d-flex align-items-center justify-content-center">
+                                            <a href="${data[i].facebook}" class="bi bi-facebook fa-fw "></a> 
+                                            <a href="${data[i].twitter}" class="bi bi-twitter fa-fw "></a>
+                                            <a href="${data[i].instigram}" class="bi bi-instagram fa-fw "></a>
+                                            <a class="bi bi-whatsapp fa-fw "></a>
+                                          </div>
+                                        </article>
+                                      </div>`  ;
 
                                }
                              $("#myMenu").html(text);
@@ -152,4 +166,3 @@
        
     </script>
 }
-
