@@ -9,6 +9,16 @@
         header{
             padding: 0 !important;
         }
+       .sect {
+    height: 450px;   
+    overflow: hidden;
+    background-image: url(../images/Apartment.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    height: 500px;
+    padding: 200px 0 30px 0;
+}
     </style>
     <section class="py-5 py-md-2">
         <div class="sect">
@@ -495,7 +505,7 @@ function Previous () {
     });
 }
 function AddLike(Id,el) {
-    alert("Id");
+   
       $.ajax({
             method: 'Get',
             url: `/Home/AddLikes/${Id}`,

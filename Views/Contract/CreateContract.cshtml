@@ -47,7 +47,7 @@
            <div class="col">
            <div class="form-group">
                 <label asp-for="Buyerphone_num" class="control-label mb-3"> رقم هاتف المشتري </label>
-                <input asp-for="Buyerphone_num" class="form-control rounded-pill" placeholder="000-0000-000 +"/>
+                <input asp-for="Buyerphone_num" class="form-control rounded-pill" placeholder="0590000000"/>
                 <span asp-validation-for="Buyerphone_num" class="text-danger"></span>
           </div>
           </div>
@@ -55,20 +55,20 @@
           <div class="row">
            <div class="form-group mt-5">
                 <label asp-for="Description" class="control-label mb-3"> العقد كامل <sub class="text-danger"> الرجاء كتابته بدقة </sub>   </label>
-                <textarea min="200" rows="5" asp-for="Description" class="form-control rounded-3" placeholder="مثال: شقة للبيع في منطقة  بسعر "></textarea>
+                <textarea  rows="5" asp-for="Description"required class="form-control rounded-3" placeholder="مثال: شقة للبيع في منطقة  بسعر "></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
           </div>
           </div>
                 @{
                     if (!isSales)
                     {
-                         <div class="row">
-                          <div class="form-group mt-5">
-                            <label asp-for="up_to_date" class="control-label mb-3">محجوز لتاريخ</label>
-                            <input asp-for="up_to_date" class="form-control rounded-pill"/>
-                            <span asp-validation-for="up_to_date" class="text-danger"></span>
-                         </div>
-                        </div>
+                                         <div class="row">
+                                          <div class="form-group mt-5">
+                                            <label asp-for="up_to_date" class="control-label mb-3">محجوز لتاريخ</label>
+                                            <input asp-for="up_to_date" class="form-control rounded-pill"/>
+                                            <span asp-validation-for="up_to_date" class="text-danger"></span>
+                                         </div>
+                                        </div>
                     }
                 }
          
@@ -83,6 +83,7 @@
 
 @section Scripts{
 
+        <partial name="_ValidationScriptsPartial" />
 
 
 
@@ -95,6 +96,27 @@
         var lots_of_stuff_already_done = true;
 
         function ff(e){
+
+            var BuyerName = document.getElementById('BuyerName').value;
+            var Buyerphone_num = document.getElementById('Buyerphone_num').value;
+            var Description = document.getElementById('Description').value;
+                        var up_to_date = document.getElementById('up_to_date').value;
+
+            
+            
+
+            if (BuyerName == '' || Buyerphone_num == '' || Description == ''||up_to_date== '') {
+                 Swal.fire({
+                  icon: 'error',
+                  title: 'خطأ...',
+                  text: 'بعض الحقول فارغة',
+                 
+                })
+
+                return;
+            }
+
+
             if(lots_of_stuff_already_done){
 
                 e.preventDefault()
@@ -120,17 +142,22 @@ swalWithBootstrapButtons.fire({
   reverseButtons: true
 }).then((result) => {
   if (result.isConfirmed) {
-       lots_of_stuff_already_done = false;
+      lots_of_stuff_already_done = false;
        if(!lots_of_stuff_already_done){
-       
-           $('.m').trigger('click')
+          setTimeout($('.m').trigger('click'), 3000);
+           
        }
-    
-      swalWithBootstrapButtons.fire(
-      'تم كتابة العقد بنجاح  ',
-      '',
-      'success'
-    )
+      Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'تم كتابة العقد بنجاح ',
+          showConfirmButton: false,
+          timer: 1500
+      });
+
+
+                     
+      
      
   } 
 })

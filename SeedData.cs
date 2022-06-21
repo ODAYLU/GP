@@ -9,12 +9,77 @@ namespace GP
 {
     public static class SeedData
     {
-        public static void Seed(
+        public static async Task Seed(
             UserManager<AppUser> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            ICategory category,
+            IType type,
+            IState state,
+            ICity city,
+            IService service,
+            IInformationGen information)
         {
-            SeedRoles(roleManager);
-            SeedUsers(userManager);
+         await   SeedRoles(roleManager);
+          await  SeedUsers(userManager);
+
+            if (!category.GetAll().Any())
+            {
+              
+                var cat1 = new Category
+                {
+                    category = "منزل",
+                    ImagePath = "/images/house.jpg",
+                };
+                var cat2 = new Category
+                {
+                    category = "شقة",
+                    ImagePath = "/images/house.jpg",
+                };
+                var cat3 = new Category
+                {
+                    category = "شاليه",
+                    ImagePath = "/images/house.jpg",
+                };
+                var cat4 = new Category
+                {
+                    category = "أرض",
+                    ImagePath = "/images/house.jpg",
+                };
+           
+                await  category.InsertCategory(cat1);
+                await category.InsertCategory(cat2);
+                await category.InsertCategory(cat3);
+                await category.InsertCategory(cat4);
+            }
+            if (!type.GetAll().Any())
+            {
+                var type1 = new Models.Type
+                {
+                    type = "بيع",
+                    ImagePath = "/images/house.jpg"
+                };
+                var type2 = new Models.Type
+                {
+                    type = "إيجار",
+                    ImagePath = "/images/house.jpg"
+                };
+
+               await type.InsertType(type1);
+               await type.InsertType(type2);
+            }
+            if(information.GetOne() is  null)
+            {
+                var info = new InformationGen
+                {
+                   Email = "aqaramlack123@gmail.com",
+                   Phone = "0598112693",
+                   UrlFacebook = "https://www.facebook.com/",
+                   UrlInstegrame = "http://instagram.com/",
+                   UrlTwitter= "https://twitter.com/"
+                };
+               await information.InsertInformationGen(info);
+            }
+
         }
         public static List<long> VsLikedEstate { get; set; }
         public static bool IsPserosalPhoto { get; set; }
@@ -23,18 +88,18 @@ namespace GP
         public static async Task SeedUsers(
             UserManager<AppUser> userManager)
         {
-            if(userManager.FindByNameAsync("admin@website.com").Result == null)
+            if(userManager.FindByNameAsync("admin").Result == null)
             {
                 var user = new AppUser
                 {
-                    UserName = "admin@website.com",
+                    UserName = "admin",
                     Email = "admin@website.com",
                     is_active = true,
                 };
                 var result = userManager.CreateAsync(user ,"a@1234567").Result;
                 if (result.Succeeded)
                 {
-                    userManager.AddToRoleAsync(user,"Admin").Wait();
+                   await userManager.AddToRoleAsync(user,"Admin");
                 }
             }
         }
@@ -55,7 +120,7 @@ namespace GP
                 {
                     Name = "Owner",
                 };
-                roleManager.CreateAsync(role);
+               await roleManager.CreateAsync(role);
             }
             if (!(await roleManager.RoleExistsAsync("User")))
             {
@@ -63,7 +128,7 @@ namespace GP
                 {
                     Name = "User",
                 };
-                roleManager.CreateAsync(role);
+               await roleManager.CreateAsync(role);
             }
         }
     }

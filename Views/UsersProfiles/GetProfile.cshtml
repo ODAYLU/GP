@@ -55,8 +55,19 @@
                 </div>
               </div>
               <p class="fs-3 m-0 mt-3">@Model.FirstName @Model.LastName</p>
-              <p class="text-secondary">صاحب عقار</p>
-              <p class="fs-5">@Model.decription </p>
+
+                        @if (Model.NameRole == "Owner")
+                        {
+                            <p class="text-secondary">صاحب عقار</p>
+                                                    <p class="fs-5">@Model.decription </p>
+
+
+                        }
+                        else if(Model.NameRole == "User")
+                        {
+                                          <p class="text-secondary"> مستخدم </p>
+
+                        }
               <div class="d-flex justify-content-center align-items-center" style="height: 50px;">
 
 
@@ -109,7 +120,7 @@
                                                                                                                                                                                                 <div class="bottomright">@estate.Type.type</div>
                                                                                                                                                                                             </div>
                                                                                                                                                                                             <div class="content">
-                                                                                                                                                                                                <a class="titleral" href="">
+                                                                                                                                                                                                <a class="titleral" href="/Commments/EstateComment/@estate.Id">
                                                                                                                                                                                                     <h3> عنوان العقار </h3>
                                                                                                                                                                                                 </a>
                                                                                                                                                                                                 <p class="pt-2"><i class="bi bi-geo-alt"></i>@estate.State.name _@estate.City.name</p>

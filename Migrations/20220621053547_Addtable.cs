@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GP.Migrations
 {
-    public partial class DBContext : Migration
+    public partial class Addtable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -162,7 +162,7 @@ namespace GP.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -374,7 +374,6 @@ namespace GP.Migrations
                     Body = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     is_active = table.Column<bool>(type: "bit", nullable: false, defaultValueSql: "0"),
                     Rating = table.Column<int>(type: "int", nullable: false),
-                    IdUser = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>
@@ -396,13 +395,13 @@ namespace GP.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Longitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Latitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    description = table.Column<string>(type: "nvarchar(max)", maxLength: 50000, nullable: false),
                     name_owner = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     space = table.Column<double>(type: "float", nullable: false),
                     Likes = table.Column<int>(type: "int", nullable: false),
                     price = table.Column<double>(type: "float", nullable: false),
-                    phone_num = table.Column<double>(type: "float", nullable: false),
+                    phone_num = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Main_photo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     OnDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "Getdate()"),
                     is_active = table.Column<bool>(type: "bit", nullable: false, defaultValueSql: "1"),
@@ -494,10 +493,10 @@ namespace GP.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SallerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Sallerphone_num = table.Column<double>(type: "float", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Sallerphone_num = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", maxLength: 50000, nullable: false),
                     BuyerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Buyerphone_num = table.Column<double>(type: "float", nullable: false),
+                    Buyerphone_num = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Longitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Latitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OnDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "Getdate()"),

@@ -149,15 +149,19 @@
             });
         });
 
-function Detalis(data) {
-    
+function Detalis(Id) {
+
+    console.log(Id)
+    var tan=$("#Cities").DataTable();
+    var data = tan.data().filter(function(x) {return x.id == Id });
+    console.log(data[0]);
            myModal.show();
            
-            $("#body").val(data.body);
-            $("#rating").val(data.rating);
+            $("#body").val(data[0].body);
+            $("#rating").val(data[0].rating);
 
 
-    if (data.is_active) {
+    if (data[0].is_active) {
         $("#status").val("منشور");
     }
 

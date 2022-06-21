@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220620124336_DBContext")]
-    partial class DBContext
+    [Migration("20220621053547_Addtable")]
+    partial class Addtable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -288,12 +288,13 @@ namespace GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Buyerphone_num")
+                    b.Property<string>("Buyerphone_num")
                         .IsRequired()
-                        .HasColumnType("float");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(50000)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("IDEstet")
@@ -313,8 +314,8 @@ namespace GP.Migrations
                     b.Property<string>("SallerName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("Sallerphone_num")
-                        .HasColumnType("float");
+                    b.Property<string>("Sallerphone_num")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
@@ -414,6 +415,7 @@ namespace GP.Migrations
 
                     b.Property<string>("description")
                         .IsRequired()
+                        .HasMaxLength(50000)
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("is_active")
@@ -426,15 +428,16 @@ namespace GP.Migrations
 
                     b.Property<string>("name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<string>("name_owner")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double?>("phone_num")
+                    b.Property<string>("phone_num")
                         .IsRequired()
-                        .HasColumnType("float");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("price")
                         .IsRequired()
@@ -579,9 +582,6 @@ namespace GP.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdUser")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
@@ -679,6 +679,7 @@ namespace GP.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -992,11 +993,11 @@ namespace GP.Migrations
 
             modelBuilder.Entity("GP.Models.Opinion", b =>
                 {
-                    b.HasOne("GP.Models.AppUser", "User")
+                    b.HasOne("GP.Models.AppUser", "Users")
                         .WithMany()
                         .HasForeignKey("UserId");
 
-                    b.Navigation("User");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("GP.Models.PhotoEstate", b =>

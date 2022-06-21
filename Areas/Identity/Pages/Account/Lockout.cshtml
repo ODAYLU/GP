@@ -4,7 +4,14 @@
     ViewData["Title"] = "الحظر";
 }
 
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">هذا الحساب تم حظره, يرجى التواصل مع الإدارة بخصوص ذلك</p>
-</header>
+<style>
+
+    .flex-direction{
+        flex-direction:column !important;
+    }
+</style>
+
+<div class="text-center h-75 d-flex flex-direction justify-content-center align-items-center">
+  <h1 class="text-danger">@ViewData["Title"]</h1>
+    <h3 class="text-danger">هذا الحساب تم حظره, يرجى التواصل مع الإدارة بخصوص ذلك</h3>
+</div>

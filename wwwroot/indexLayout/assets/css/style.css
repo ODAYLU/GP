@@ -327,10 +327,6 @@ nav.black {
 }
 
 
-
-
-
-
 /***************************** section 1 *******************/
 .bgacground {
   background: var(--bgwhite);
@@ -534,7 +530,7 @@ select:focus-visible {
 .block-ellipsisdes {
     padding: 0 20px;
     display: -webkit-box;
-    max-width: 100%;
+    max-width: 200px;
     height: 60px;
     margin: 0 auto;
     font-size: 14px;
@@ -629,6 +625,7 @@ select:focus-visible {
     background-clip: border-box;
     border: 1px solid rgba(0, 0, 0, .125);
     border-radius: 0.25rem;
+    width:100%;
 }
 
 
@@ -770,24 +767,24 @@ select:focus-visible {
 
 
 /***************عملاء************/
-.carousel {
+.mySwiper2 {
     margin: 50px auto;
 }
 
-    .carousel .carousel-item {
+    .mySwiper2 .swiper-wrapper .swiper-slide {
         color: #999;
         overflow: hidden;
         min-height: 120px;
         font-size: 13px;
     }
 
-    .carousel .media {
+    .mySwiper2 .media {
         position: relative;
         padding: 0 0 0 20px;
         margin-left: 20px;
     }
 
-        .carousel .media img {
+        .mySwiper2 .media img {
             width: 75px;
             height: 75px;
             display: block;
@@ -796,7 +793,7 @@ select:focus-visible {
             border: 2px solid #fff;
         }
 
-    .carousel .testimonial {
+    .mySwiper2 .testimonial {
         color: #fff;
         position: relative;
         background: #6c757d;
@@ -804,8 +801,8 @@ select:focus-visible {
         margin: 0 0 20px 20px;
     }
 
-        .carousel .testimonial::before,
-        .carousel .testimonial::after {
+        .mySwiper2 .testimonial::before,
+        .mySwiper2 .testimonial::after {
             content: "";
             display: inline-block;
             position: absolute;
@@ -813,14 +810,14 @@ select:focus-visible {
             bottom: -20px;
         }
 
-        .carousel .testimonial::before {
+        .mySwiper2 .testimonial::before {
             width: 20px;
             height: 20px;
             background: #9b9b9b;
             box-shadow: inset 12px 0 13px rgba(0, 0, 0, 0.5);
         }
 
-        .carousel .testimonial::after {
+        .mySwiper2 .testimonial::after {
             width: 0;
             height: 0;
             border: 10px solid transparent;
@@ -829,20 +826,20 @@ select:focus-visible {
         }
 
     /* .carousel .carousel-item .row > div:first-child .testimonial {
-	margin: 0 20px 20px 0;
+margin: 0 20px 20px 0;
 } */
-    .carousel .carousel-item .row > div:first-child .media {
+    .mySwiper2 .swiper-slide .row > div:first-child .media {
         margin-left: 0;
     }
 
-    .carousel .testimonial p {
+    .mySwiper2 .testimonial p {
         text-indent: 40px;
         line-height: 21px;
         margin: 0;
         text-align: right;
     }
 
-        .carousel .testimonial p::before {
+        .mySwiper2 .testimonial p::before {
             content: "\201D";
             font-family: Arial, sans-serif;
             color: #fff;
@@ -854,16 +851,16 @@ select:focus-visible {
             top: 0;
         }
 
-    .carousel .overview {
+    .mySwiper2 .overview {
         padding: 3px 0 0 15px;
         text-align: right;
     }
 
-        .carousel .overview .details {
+        .mySwiper2 .overview .details {
             padding: 5px 0 8px;
         }
 
-        .carousel .overview b {
+        .mySwiper2 .overview b {
             text-transform: uppercase;
             color: #ff5555;
         }
@@ -925,6 +922,7 @@ select:focus-visible {
     font-size: 14px;
     color: #ffdc12;
 }
+
 
 /*****************************************/
 /*----  Main Style  ----*/
@@ -1006,7 +1004,7 @@ select:focus-visible {
     }
 
 /**********footer*******************************************************/
-.bgfooter {
+/*.bgfooter {
   background-image: url("../img/pages/foot.png");
   background-repeat: no-repeat;
   background-size: cover;
@@ -1028,17 +1026,28 @@ footer .nav .nav-item .text-dark {
   height: 100%;
   background-color: var(--footercolor);
   z-index: -1;
+}*/
+
+
+
+
+
+
+
+
+
+footer {
+    background: var(--green);
+    color: #fff;
 }
 
-
-
-
-
-
-
-
-
-
+.socialiconsfooter > i {
+    color: #fff;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    padding: 5px 10px;
+    margin: 5px;
+}
 
 
 
@@ -1816,16 +1825,16 @@ main .sales-form {
         color: var(--hover);
     }
 
-.sect {
-    /*height: 450px;   
+/*.sect {*/
+   /* height: 450px;   
     overflow: hidden;*/
-    background-image: url(../img/pages/land1.jpg);
+    /*background-image: url(../img/pages/land1.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
     height: 500px;
     padding: 200px 0 30px 0;
-}
+}*/
 
 section .land1 {
     position: absolute;

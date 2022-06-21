@@ -2,10 +2,12 @@
 @model LoginModel
 
 @{
-      Layout = "/Views/Shared/_Layout.cshtml"; 
+    Layout = "/Views/Shared/_Layout.cshtml";
+    // Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+
+    ViewData["Title"] = "تسجيل الدخول";
+
 }
-
-
   <link rel="shortcut icon" href="~/indexLayout/assets/img/logo/logo.png">
   <link href="~/indexLayout/assets/bootstrap/bootstrap4.min.css" rel="stylesheet">
   <link href="~/indexLayout/assets/bootstrap/bootstrap5.min.css" rel="stylesheet">
@@ -17,6 +19,7 @@
   <link href="~/indexLayout/assets/css/profile.css" rel="stylesheet">
   <link href="~/indexLayout/assets/css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="~/login/bulma.min.css" />
+
     <style>
         .header{
             padding:0 !important;
@@ -27,9 +30,9 @@
                 .dropdown-item {
             color:#fff;
         }
-        body{
+       /* body{
             overflow:hidden;
-        }
+        }*/
 .padable{
     padding: 3em;
     color:var(--txtactive);
@@ -129,14 +132,14 @@ a:hover {
 
 
     <section class="my-5">
-        <div class="circle-main"></div>
-        <div class="circle-main-m"></div>
+@*        <div class="circle-main"></div>
+*@        <div class="circle-main-m"></div>
         <div class="circle-main-s"></div>
 
         <div class="container white-bg">
             <div class="columns background component-row">
 
-                <div class="column ">
+                <div class="column">
                     <div class="padable text-end">
                         <h1>
                             تسجيل دخول
@@ -152,10 +155,12 @@ a:hover {
                             <div class="field">
                                 
                                 <div class="control has-icons-left has-icons-right">
-                                    <input asp-for="Input.Email" class="input is-medium form-control rounded-pill"  placeholder="البريد الالكتروني">
-                                    <span class="icon is-small is-right" asp-validation-for="Input.Email">
-                                       
+                                    <input asp-for="Input.Email" class="input is-medium form-control rounded-pill"  placeholder="البريد الالكتروني"/>
+                                    <span class="icon is-small is-right " >
+                                       <i class="bi bi-envelope"></i>
                                     </span>
+
+                                    <span class="text-danger d-flex text-align-start" asp-validation-for="Input.Email"></span>
                                 </div>
                                 <p class="text-danger"></p>
                             </div>
@@ -163,12 +168,15 @@ a:hover {
                             <div class="field">
                                 <div class="control has-icons-left has-icons-right">
                                     <input asp-for="Input.Password" class="input is-medium form-control rounded-pill"   id="password" placeholder="كلمة المرور">
-                                    <span asp-validation-for="Input.Password">
+                                     <span class="icon is-small is-right " >
+                                <i class="bi bi-lock"></i>   
+                                    </span>
+                                    <span class="text-danger d-flex text-align-start" asp-validation-for="Input.Password">
                                         
                                     </span>
                                   
                                 </div>
-                                <p class="text-danger"></p>
+
                             </div>
 
                             <div class="form-group">
@@ -209,10 +217,15 @@ a:hover {
     </section>
 
 
+    @section Scripts{
+    
        <script src="~/js/Login/all.js"></script>
     <script src="~/js/Login/lottie-player.js"></script>
+
+
 
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 
+    }
