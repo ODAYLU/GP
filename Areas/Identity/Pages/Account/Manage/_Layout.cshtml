@@ -104,25 +104,27 @@
               <ul class="nav text-end py-4 p-0 flex-column ulborder">
                 <li class="nav-item  @ManageNavPages.IndexNavClass(ViewContext)">
                   <a class="nav-link  fs-5" href="/Identity/Account/Manage/Index"><i
-                      class="px-2 bi bi-person-fill"></i>بيانات شخصية
+                      class="px-2 bi bi-person"></i>بيانات شخصية
                   </a>
                 </li>
                 <li class="nav-item @ManageNavPages.IndexEstateNavClass(ViewContext) ">
                   <a class="nav-link fs-5" id="profile" asp-controller="Estate" asp-action="Index" asp-area=""><i
-                      class="px-2 bi bi-bookmark-fill"></i>العقارات </a>
+                      class="px-2 bi bi-building"></i>العقارات </a>
+                     
                 </li>
                 <li class="nav-item @ManageNavPages.IndexContractNavClass(ViewContext)">
                   <a class="nav-link fs-5" id="profile" asp-controller="Contract" asp-action="Index" asp-area=""><i
-                      class="px-2 bi bi-flag-fill"></i>العقود</a>
+                      class="px-2 bi bi-clipboard2"></i>العقود</a>
+                      
                 </li>
                 <li class="nav-item @ManageNavPages.IndexCommentNavClass(ViewContext)">
                   <a class="nav-link fs-5" id="profile" asp-controller="Commments" asp-action="Commments" asp-area=""><i
-                      class="px-2 bi bi-flag-fill"></i>التعليقات</a>
+                      class="px-2 bi bi-chat-left-dots"></i>التعليقات</a>
                 </li>
           
                 <li class="nav-item @ManageNavPages.IndexLikedNavClass(ViewContext)">
                   <a class="nav-link fs-5" id="profile" asp-controller="likedEstates" asp-action="Index" asp-area=""><i
-                      class="px-2 bi bi-flag-fill"></i>المُعجب به</a>
+                      class="px-2 bi bi-heart"></i>المُعجب به</a>
                 </li>            
               </ul>
               <div class="py-4">
