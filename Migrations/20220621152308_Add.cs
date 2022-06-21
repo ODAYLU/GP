@@ -3,11 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GP.Migrations
 {
-<<<<<<<< HEAD:Migrations/20220621103312_Add.cs
     public partial class Add : Migration
-========
-    public partial class f1 : Migration
->>>>>>>> 02d58dd8399e35a2bdfd5cc20f7af0c52e318fe1:Migrations/20220621122744_f1.cs
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
