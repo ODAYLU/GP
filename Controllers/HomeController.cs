@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace GP.Controllers
 {
@@ -72,8 +73,11 @@ namespace GP.Controllers
             return View();
         }
 
-        public IActionResult FilterEstate(int Type, int Category, int State, long City)
+        public IActionResult FilterEstate(int Type, int Category, int State, long City, int? page)
         {
+
+            var pageNumber = page ?? 1;
+            int pageSize = 3;
             ModelState.Remove("Type");
             ModelState.Remove("State");
             ModelState.Remove("City");
@@ -83,8 +87,8 @@ namespace GP.Controllers
                             (Category == 0 ? true : x.categoryID == Category) &&
                             (State == 0 ? true : x.StateID == State) &&
                             (City == 0 ? true : x.CityID == City) &&
-                            x.is_active
-                            ).ToList();
+                            x.is_active && x.publish
+                            ).ToPagedList(pageNumber, pageSize);
             var Categ = _category.GetOne(Category).Result;
             if (Categ is not null)
                 ViewBag.CategoryName = Categ.category;

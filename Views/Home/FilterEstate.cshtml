@@ -1,4 +1,9 @@
-﻿@model List<Estate>
+﻿
+@using X.PagedList.Mvc.Core; <!--import to get HTML Helper-->
+@using X.PagedList;
+
+
+@model IEnumerable<Estate>
 <style>
     header{
       position: absolute;z-index: 100000;
@@ -66,7 +71,7 @@
                     <div class="d-flex justify-content-between align-items-center pt-3">
                       <div class=" d-flex align-items-center">
                         <img class="img-fluid text-right rounded-circle" style="width: 50px;height: 50px;"
-                          src="assets/img/pages/bg-mobile-fallback.jpg">
+                          src="/assets/img/pages/bg-mobile-fallback.jpg">
                         <div class="pe-3">
                           <a href="" class="mb-0 titleral">
                             مالك العقار: سوار صيام
@@ -87,4 +92,27 @@
     </div>
   </section>
   
+<!-- paging control for navigation to the previous page, next page, etc -->
+@{
+    if(Model.Count() != 0)
+    {
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("FilterEstate", new { page = page }),
+    new X.PagedList.Mvc.Common.PagedListRenderOptions
+    {
+        DisplayItemSliceAndTotal = true,
+        ContainerDivClasses = new[] { "navigation" },
+        LiElementClasses = new[] { "page-item" },
+        PageClasses = new[] { "page-link" },
+      })
+    }
+}
+    
 
+    
+    <style>
+
+        .page-item.active .page-link{
+            background-color:#0f4f54;
+            border-color:#0d6efd;
+        }
+    </style>
