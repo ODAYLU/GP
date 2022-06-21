@@ -3,11 +3,7 @@ using System;
 
 namespace GP.Migrations
 {
-<<<<<<<< HEAD:Migrations/20220620140056_f1.cs
-    public partial class f1 : Migration
-========
-    public partial class ConDB : Migration
->>>>>>>> 722f1999fcf96ea2c5096f573cb648ab27344232:Migrations/20220620151536_ConDB.cs
+    public partial class f54 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -400,8 +396,8 @@ namespace GP.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Longitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Latitude = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false),
+                    description = table.Column<string>(type: "nvarchar(max)", maxLength: 50000, nullable: false),
                     name_owner = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     space = table.Column<double>(type: "float", nullable: false),
                     Likes = table.Column<int>(type: "int", nullable: false),
@@ -501,7 +497,7 @@ namespace GP.Migrations
                     Sallerphone_num = table.Column<double>(type: "float", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", maxLength: 50000, nullable: false),
                     BuyerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Buyerphone_num = table.Column<double>(type: "float", nullable: false),
+                    Buyerphone_num = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Longitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Latitude = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     OnDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "Getdate()"),
