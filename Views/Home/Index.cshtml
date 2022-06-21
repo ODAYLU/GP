@@ -180,7 +180,7 @@
                     </div>
                   </div>
                   <div class="d-flex align-items-center">
-                  
+                  <a href="/commments/EstateComment/@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
                     @if (likes.Contains(item.Id))
                     {
                     <a onclick="AddLike(@item.Id,this)"><span>@item.Likes</span><i
@@ -306,7 +306,7 @@
 
                 <div id="cards_landscape_wrap-2">
                   <div class="card  card-flyer">
-                    <a href="">
+                   
                         <div class="text-box">
                         <div class="image-box">
                           <img src="/images/Estate/@item.Main_photo" alt="" />
@@ -320,14 +320,14 @@
                             
                       <p class="text-secondary mb-0"> تاريخ الإضافة : @item.OnDate/</p>
                         <div class="d-flex align-items-center">
-                    <a href="/Commments/EstateComment/@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                    <a href="/commments/EstateComment/@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
                   
                   </div>
                           </div>
                         </div>
                          
                         </div>
-                    </a>
+              
                     <div class="card-footer d-flex align-items-center justify-content-between text-muted">
                       <div class="d-flex align-items-center ">
                         @if(item.Users.ProfilePicture is not null)
@@ -381,7 +381,7 @@
 
                 <div id="cards_landscape_wrap-2">
                   <div class="card  card-flyer">
-                    <a href="">
+                    
                       <div class="text-box">
                         <div class="image-box">
                           <img src="/images/Estate/@item.Main_photo"  alt="" />
@@ -395,13 +395,13 @@
                             
                       <p class="text-secondary mb-0"> تاريخ الإضافة : @item.OnDate/</p>
                         <div class="d-flex align-items-center">
-                    <a href="/Commments/EstateComment/@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
+                    <a href="/commments/EstateComment/@item.Id" class="rounded-5 p-2 bg-b mx-3">انقر التفاصيل </a>
                   
-                  </div>
+                        </div>
                           </div>
                         </div>
                       </div>
-                    </a>
+                   
                     <div class="card-footer d-flex align-items-center justify-content-between text-muted">
                       <div class="d-flex align-items-center ">
                         @if(item.Users.ProfilePicture is not null)

@@ -9,12 +9,49 @@ namespace GP
 {
     public static class SeedData
     {
-        public static void Seed(
+        public static async Task Seed(
             UserManager<AppUser> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<IdentityRole> roleManager,
+            ICategory category,
+            IType type,
+            IState state,
+            ICity city,
+            IService service,
+            IInformationGen information)
         {
-            SeedRoles(roleManager);
-            SeedUsers(userManager);
+         await   SeedRoles(roleManager);
+          await  SeedUsers(userManager);
+
+            if (!category.GetAll().Any())
+            {
+              
+                var cat1 = new Category
+                {
+                    category = "منزل",
+                    ImagePath = "/images/house.jpg",
+                };
+                var cat2 = new Category
+                {
+                    category = "شقة",
+                    ImagePath = "/images/house.jpg",
+                };
+                var cat3 = new Category
+                {
+                    category = "شاليه",
+                    ImagePath = "/images/house.jpg",
+                };
+                var cat4 = new Category
+                {
+                    category = "أرض",
+                    ImagePath = "/images/house.jpg",
+                };
+           
+                await  category.InsertCategory(cat1);
+                await category.InsertCategory(cat2);
+                await category.InsertCategory(cat3);
+                await category.InsertCategory(cat4);
+            }
+
         }
         public static List<long> VsLikedEstate { get; set; }
         public static bool IsPserosalPhoto { get; set; }
