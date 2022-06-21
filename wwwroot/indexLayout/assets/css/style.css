@@ -1041,30 +1041,23 @@ footer {
     color: #fff;
 }
 
-.socialiconsfooter > i {
-    color: #fff;
+.socialiconsfooter > a {
+    color: #fff !important;
     border-radius: 50%;
     border: 1px solid #fff;
     padding: 5px 10px;
     margin: 5px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.socialiconsfooter > a:hover{
+    background-color:transparent  !important;
+}
+.hobor{
+    padding-top: 5px;
+}
+.hobor:hover {
+    background-color:red;
+}
 /*---------signup-step-------------*/
 .bg-color {
     background-color: #333;
