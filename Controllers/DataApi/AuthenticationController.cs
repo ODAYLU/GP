@@ -1,4 +1,5 @@
 ﻿using GP.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -118,6 +119,30 @@ namespace GP.Controllers.DataApi
                 return BadRequest(new { status, des });
             }
         }
+
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> GetUserbyEmail(string email)
+        {
+            bool status = false;
+            string des = "";
+            if(email is not null)
+            {
+                var user = await _userManager.FindByEmailAsync(email);
+                if (user is null)
+                {
+                    des = "الايميل غير موجود";
+                    status = false;
+                    return BadRequest(new { status, des });
+                }
+                status = true;
+                var data = user;
+                return Ok(new { status, data });
+            }
+            des = "يرجى إدخال الايميل";
+            status = false;
+            return BadRequest(new { des, status });
+        }
+       
         private string CreateJWT(AppUser user)
         {
             List<Claim> claims = new List<Claim>

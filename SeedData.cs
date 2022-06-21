@@ -9,7 +9,7 @@ namespace GP
 {
     public static class SeedData
     {
-        public static async Task Seed(
+        public static void Seed(
             UserManager<AppUser> userManager,
             RoleManager<IdentityRole> roleManager,
             ICategory category,
@@ -19,10 +19,10 @@ namespace GP
             IService service,
             IInformationGen information)
         {
-         await   SeedRoles(roleManager);
-          await  SeedUsers(userManager);
+            SeedRoles(roleManager);
+            SeedUsers(userManager);
 
-            if (!category.GetAll().Any())
+            if (!category.GetAll().ToList().Any())
             {
               
                 var cat1 = new Category
@@ -46,10 +46,10 @@ namespace GP
                     ImagePath = "/images/house.jpg",
                 };
            
-                await  category.InsertCategory(cat1);
-                await category.InsertCategory(cat2);
-                await category.InsertCategory(cat3);
-                await category.InsertCategory(cat4);
+                 category.InsertCategory(cat1);
+                 category.InsertCategory(cat2);
+                 category.InsertCategory(cat3);
+                 category.InsertCategory(cat4);
             }
             if (!type.GetAll().Any())
             {
@@ -64,8 +64,8 @@ namespace GP
                     ImagePath = "/images/house.jpg"
                 };
 
-               await type.InsertType(type1);
-               await type.InsertType(type2);
+                type.InsertType(type1);
+                type.InsertType(type2);
             }
             if(information.GetOne() is  null)
             {
@@ -77,7 +77,7 @@ namespace GP
                    UrlInstegrame = "http://instagram.com/",
                    UrlTwitter= "https://twitter.com/"
                 };
-               await information.InsertInformationGen(info);
+                information.InsertInformationGen(info);
             }
 
         }

@@ -63,7 +63,7 @@ namespace GP.Areas.Identity.Pages.Account
             [Display(Name = "Last Name")]
             public string LastName { get; set; }
             [Required(ErrorMessage = "هذا الحقل مطلوب ")]
-            [DataType(DataType.EmailAddress)]
+            [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "يرجى إدخال الإيميل بشكل صحيح")]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }

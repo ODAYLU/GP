@@ -6,8 +6,8 @@ Connection.start()
 Connection.on("receiveNotification", function (Not) {
     
     var text = "";
-    
-  
+
+    $("#IsNull").attr("hidden", true);
         if (Not.type == "action") {
             text += `<li><a class="dropdown-item" href="/Estate/Index">${Not.text}</a></li>`;
         } else if (Not.type == "comment") {
@@ -53,7 +53,7 @@ $(document).ready(function () {
                     }
                 }
             } else {
-                text = `<li><a class="dropdown-item disabled" href="#">لا يوجد اشعارات جديدة</a></li>`;
+                text = `<li id ="IsNull"><a class="dropdown-item disabled" href="#">لا يوجد اشعارات جديدة</a></li>`;
             }
            
             $("#btnNotification").children("span").text(`${data.length}`);
