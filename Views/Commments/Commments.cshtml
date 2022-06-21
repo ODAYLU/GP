@@ -4,13 +4,26 @@
     ViewData["ActivePage"] = ManageNavPages.IndexComment; 
     ViewData["Title"] = "التعليقات";
 }
-
-@{
+  <style>
+      .rou{
+        border-bottom-left-radius: 40px;
+        border-top-left-radius: 40px;
+        border-top-right-radius: 40px;
+        border-bottom-right-radius: 0px;
+      }
+      .se{
+        background-color: rgb(189, 182, 182);
+      }
+      .se1{
+        background-color: rgb(206, 221, 221);
+      }
+    </style>
+ @{
     Layout = "/Areas/Identity/Pages/Account/Manage/_Layout.cshtml";
 }
 <hr />
-@*<link rel="stylesheet" href="~/limonte-sweetalert2/sweetalert2.min.css" />*@
-<link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+
+ <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
 
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -18,44 +31,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div style="margin:10px!important;">
-                <form id="formadd" method="post">
+                
                     <div id="main" class="row">
-                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                        <div class="col-12">
-                            <div class="form-group" hidden>
-                                <label for="edit_name_en" class="my-3">الرقم</label>
-                                <input id="id" asp-for="@Model.Id" class="form-control" placeholder="Id" name="Id" />
-                                <span asp-validation-for="@Model.Id" class="text-danger span"></span>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="form-group">
-                                <div class="col-12">
-                                <img class="img-fluid w-100" id="image" src="" alt="Estate" />
-                                </div>
-                                <div>
-                                    <img id="commenter"  />
-                                <p id="fname"></p>
-                                    
-                                </div>
-@*                                <input id="fname" asp-for="@Model.Body" class="form-control" required name="name" />
-                                <span asp-validation-for="@Model.Body" class="text-danger span"></span>*@
-                            </div>
-                        </div>
-                        <a id="ref" href="#">الردود</a>
-                        <div id="reps">
-                           
-                        </div>
-
 
                     </div>
-
                     <button id="btnClose" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    @*<button id="btnAdd" type="submit" class="btn btn-outline-primary">Add</button>*@
-                    @*<button id="btnEdit" type="submit" class="btn btn-outline-primary">Edit</button> *@
-                </form>
-            </div>
-
+             </div>
         </div>
     </div>
 </div>
@@ -66,6 +47,7 @@
             <th>الرقم</th>
             <th> التعليق </th>
             <th> الحالة </th>
+            <th> التفاصيل </th>
             <th></th>
 
         </tr>
@@ -74,9 +56,7 @@
 
 @section Scripts{
     @(await Html.PartialAsync("_ValidationScriptsPartial"));
-@*<script src="~/assets/bootstrap/bootstrap5.bundle.min.js"></script>
-*@@*<script src="~/assets/bootstrap/jquery-3.1.0.min.js" type="text/javascript"></script>
-<script src="~/assets/bootstrap/ajax_query.min.js"></script>*@
+ 
 <script src="~/SweetAlert/sweetalert2@11.js"> </script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
@@ -116,7 +96,11 @@
                  },
                  {"data":"isActive","name":"IsActive","autowidth": true},
                 {
-                   "render": function (data, type, row) { return '<a href="#" class="btn btn-secendry" onclick=DeleteCustomer(' + row.id + '); > تعديل الحالة </a>' },
+                   "render": function (data, type, row) { return '<a href="#" class="btn btn-danger" onclick=DeleteCustomer(' + row.id + '); > تعديل الحالة </a>' },
+                   "orderable": false
+                }, 
+                {
+                    "render": function (data, type, row) { return `<a href="#" onclick=Details(${row.id})  class="btn btn-success"   > التفاصيل </a>` },
                    "orderable": false
                 },
             ],
@@ -137,6 +121,7 @@
            dataType: "json",
                success: function (datab)
                {
+                   
                    var text="";
                    var gg="";
                    var com="";
@@ -147,35 +132,43 @@
                    else{
                        es="data:image/jpeg;base64," + btoa(atob(`${datab.com.appUser.profilePicture}`));
                    }
-                   com+=`<div class="row">
-                   <img class="w-100"src="/images/Estate/${datab.estate.main_photo}"/>
-                       </div>
-        <div class="row">
-            <div class="col-1">
-                <img src="${es}"  class=" rounded-circle mt-6 me-2" width="70" height="70" />
-            </div>
-            <div class="col-4" >
-                <div class=" bg-secondary round p-4 mb-5">
-                    <h2>${data[0].body}</h2>
-            </div>
-               
-            <div class="row">
-                <div class="d-flex flex-row justify-content-around">
-                    <div class="d-inline">
-                        <a href="#" id="lnk" style="font-size: 22;">الردود </a>
-                    </div>
+                   com+=`
+                   <img class="img-fluid  "  src="/images/Estate/${datab.estate.main_photo}" >
+                 <div class="container mt-5 m-auto">
+                <h3 class="text-center mb-5">التعليقات</h3>
+                <div class="row">
+                  <div class="col-2">
+                    <img class="img-fluid mt-5 "  src="${es}" width="70">
+                  </div>
+                  <div class="col-6 se1 p-3 text-end text-white  rou">
+                       ${data[0].body}
+                  </div>
+
+                  <div id="togl"class="col-4 text-center text-success mt-5">
+                <a>  <p class="fw-bold" id="lnk">عرض الردود<i id="ico" class="bi bi-arrow-90deg-down"></i></p></a>   
+                  </div>
+                  <div id="lo"class="col-4 text-center text-success mt-5  ">
+                <a>  <p class="fw-bold" id="hiderep">اخفاء الردود<i id="ico" class="bi bi-arrow-90deg-down"></i></p></a>   
+                  </div>
                 </div>
-            </div>
-            <div id="rowling"class="row">
-            </div>
-            </div>
-        </div>
-</div>`;
+              </div>
+              <div  id="rowling"></div>
+ `;
+ 
 $("#main").html(com);
+ var btnshow=document.getElementById("togl");
+                        btnshow.classList.toggle("d-block");
+                        var btnhide=document.getElementById("hiderep");
+                        btnhide.classList.toggle("d-none");
                
                     var replys=datab.reply.length;
                     console.log(replys);
                     $('#lnk').on("click",function(){
+                        var btnshow=document.getElementById("togl");
+                        btnshow.classList.toggle("d-none");
+                        var btnhide=document.getElementById("hiderep");
+                        btnhide.classList.toggle("d-block");
+
                         if(replys>0){
                       for(var i=0;i<replys;i++){
                           if(datab.reply[i].appUser.profilePicture==null){
@@ -184,10 +177,24 @@ $("#main").html(com);
                           else{
                           gg="data:image/jpeg;base64," + btoa(atob(`${datab.reply[i].appUser.profilePicture}`));
                           }
-                          text+=` <div>
-                                <img class="rounded-circle mt-6 me-2" width="70" height="70" src="${gg}"/>
-                                <p>${datab.reply[i].body}</p>
-                            </div>`;
+                          text+=`
+                          <div id="sec"class="container mt-4 mb-5 me-5  ">
+                <div class="row">
+                  <div class="col-2">
+                    <img class="img-fluid mt-5 "  src="${gg}" width="70">
+                  </div>
+                  <div class="col-6 se  p-3 text-end text-white  rou">
+                      ${datab.reply[i].body}
+                  </div>
+
+                  
+
+                </div>
+
+              </div>
+
+                          
+                        `;
                           $("#rowling").html(text);
                       }
                     }
@@ -210,13 +217,6 @@ $("#main").html(com);
            myModal.hide();
            $("#rowling").html="";
       })
-    function EditItem(data) {
-        $(".span").text("");
-        $("#btnAdd").hide();
-        $("#btnEdit").show();
-        $("#id").val(data.id);
-        $("#fname").val(data.name);
-    }
     function DeleteCustomer(Id)
           {
             Swal.fire({
@@ -252,77 +252,8 @@ $("#main").html(com);
                 }
             })
         }
-    $("#Add").on("click", function () {
-        $("#btnAdd").show();
-        $("#btnEdit").hide();
-        $("input").val("");
-        $(".span").text("");
-    });
-    $("#btnAdd").on("click", function () {
-
-
-        if ($("#fname").val() != "") {
-            var nameEdit = $("#fname").val();
-            for (var i = 0; i < nameEdit.length; i++) {
-                nameEdit = nameEdit.replace(" ", "_");
-            }
-            $("#fname").val(nameEdit);
-            var data = new FormData($("#formadd").get(0));
-
-            $.ajax({
-                method: 'Post',
-                url: '/Commments/Create',
-                data: data,
-                processData: false,
-                contentType: false,
-                success: function () {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'Item has been added successfully',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    $("#btnClose").click();
-                    var Table = $("#Cities").DataTable();
-                    Table.draw();
-                }
-            });
-        }
-    });
-    $("#formadd").on("submit", function (e) {
-        e.preventDefault();
-    })
-    $("#btnEdit").on("click", function () {
-        if ($("#fname").val() != "") {
-            var nameEdit = $("#fname").val();
-            for (var i = 0; i < nameEdit.length; i++) {
-                nameEdit = nameEdit.replace(" ", "_");
-            }
-            $("#fname").val(nameEdit);
-            var data = new FormData($("#formadd").get(0));
-
-            $.ajax({
-                method: 'Post',
-                url: '/Admin/City/Edit',
-                data: data,
-                processData: false,
-                contentType: false,
-                success: function () {
-                    $("#btnClose").click();
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'تم التعديل بنجاح',
-                        showConfirmButton: false,
-                        timer: 1500
-                    })
-                    var Table = $("#Cities").DataTable();
-                    Table.draw();
-                }
-            });
-        }
-    })
+    
+ 
 
 </script>
 }
