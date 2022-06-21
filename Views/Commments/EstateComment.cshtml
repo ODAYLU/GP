@@ -23,12 +23,6 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
         <style>
       
 
-        html, body {
-            height: 100%;
-            width: 100%;
-            padding: 0;
-            margin: 0;
-        }
             .loginPlac {
                 display: flex !important;
                 justify-content: center !important;
@@ -66,10 +60,6 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
 
 
-
-        </style>
-
-          <style>
     .swiper-slide {
       text-align: center;
       font-size: 18px;
@@ -117,17 +107,17 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
     }
 
     .swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 300px;
-      object-fit: cover;
-    }
+        display: block;
+        width: 100%;
+        object-fit: contain;
+        height:400px;
+
+}
 
     .swiper-free-mode>.swiper-wrapper img {
       transition-timing-function: ease-out;
       margin: 0 auto;
       height: 100px;
-      object-fit: cover;
       background-size: cover;
       background-position: center;
     }
@@ -145,7 +135,12 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                 <div  class="col-12 p-0">
                     <a id="EPic"  class="image-thumbnail home" href="#lightbox_1">
                         <img src="~/images/Estate/@Model.Main_photo" class="img-fluid" style=" height: 600px; width: 100%;">
-                        <div class="bottomimgright p-3">اضغط لمشاهدة جميع الصور</div>
+                         @{
+            
+                            if(@photosPaths.Count>0){
+                               <div class="bottomimgright p-3">اضغط لمشاهدة جميع الصور</div>
+                            }
+                        }
                     </a>
                 </div>
              @*   <div class="col-12 col-md-3 d-flex d-none d-md-block gallery">
@@ -184,13 +179,13 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
 
          @{
             
-            if(@photosPaths.Count>2){
+            if(@photosPaths.Count>0){
 
                 for (int k= 0;k < @photosPaths.Count;k++)
                 {
-                                 <div class="swiper-slide">
-                                    <img src="~/images/Estate/@photosPaths[k].ImagePath" />
-                                 </div>
+                    <div class="swiper-slide">
+                        <img src="~/images/Estate/@photosPaths[k].ImagePath" />
+                    </div>
                 }
             }
            

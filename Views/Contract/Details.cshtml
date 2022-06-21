@@ -24,7 +24,7 @@
       <h3>تفاصيل وثيقة العقد </h3><hr />
     </div>
     <div class="container-fluid">
-      <div class="row">
+      <div class="row" style="text-align:center;">
           <div class="col-12 col-md-6">
               <p>@Html.DisplayNameFor(model => model.SallerName) : <b>@Html.DisplayFor(model => model.SallerName)</b></p>
               <p>@Html.DisplayNameFor(model => model.BuyerName) : <b>@Html.DisplayFor(model => model.BuyerName)</b></p>
@@ -46,7 +46,16 @@
               <b>@Html.DisplayFor(model => model.Description)</b>
           </div>
            <div class="col-12  text-center">
-               @Html.DisplayNameFor(model => model.OnDate):@Html.DisplayFor(model => model.OnDate) - @Html.DisplayNameFor(model => model.up_to_date): @Html.DisplayFor(model => model.up_to_date)
+             <p>  @Html.DisplayNameFor(model => model.OnDate):@Html.DisplayFor(model => model.OnDate)</p>
+            @{
+                if (Model.Type == "إيجار")
+                {
+                    <p> @Html.DisplayNameFor(model => model.up_to_date)  @Html.DisplayFor(model => model.up_to_date)</p>
+
+                }
+            }
+               
+               
           </div>
        <lottie-player src="https://assets10.lottiefiles.com/private_files/lf30_0mqvd6ao.json" background="transparent"
           speed="1" style="width: 300px; height: 300px;" class="mx-auto" loop autoplay></lottie-player>
