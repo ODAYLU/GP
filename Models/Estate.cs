@@ -1,6 +1,4 @@
 ﻿using GP.Data;
-using GP.Models.ViewModels;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -25,24 +23,32 @@ namespace GP.Models
         [Required(ErrorMessage = "الرجاء تحديد الموقع على الخريطة")]
         [DisplayName("المحور السيني ")]
         public string Latitude { get; set; }
-        [Required(ErrorMessage ="الحقل مطلوب")]
+        [Required(ErrorMessage = "الحقل مطلوب")]
         [DisplayName("عنوان بسيط للعقار")]
+        [StringLength(15, ErrorMessage = "يحتوي على 5 إلى 15 حرف", MinimumLength = 5)]
+
         public string name { get; set; }
         [Required(ErrorMessage = "الرجاء ادخال الوصف لتعزيز عقارك")]
+        [StringLength(50000, ErrorMessage = "يحتوي على الأقل 200 حرف", MinimumLength = 200)]
         [DisplayName("وصف العقار ")]
         public string description { get; set; }
         [Required(ErrorMessage = "الحقل مطلوب")]
         [DisplayName("اسم المالك ")]
         public string name_owner { get; set; }
+
         [Required(ErrorMessage = "الحقل مطلوب")]
         [DisplayName("مساحة العقار ")]
+        [Range(1, int.MaxValue, ErrorMessage = "غير صالح")]
         public double? space { get; set; }
 
         public int Likes { get; set; }
 
         [DisplayName("سعر العقار ")]
         [Required(ErrorMessage = "الحقل مطلوب")]
+        [Range(1, int.MaxValue, ErrorMessage = "غير صالح")]
         public double? price { get; set; }
+        [RegularExpression(@"^([0-9]{3}[0-9]{3}[0-9]{4})$", ErrorMessage = "  رقم الهاتف غير صالح على الأقل 10 أرقام")]
+
         [Required(ErrorMessage = "الحقل مطلوب")]
         [DisplayName("رقم هاتف المالك")]
         public double? phone_num { get; set; }
@@ -52,9 +58,10 @@ namespace GP.Models
         [NotMapped]
         public string[] list { get; set; }
 
-        public bool is_active { get; set; } 
+        public bool is_active { get; set; }
         public bool publish { get; set; }
         public bool is_spacial { get; set; }
+
 
         public bool IsBlock { get; set; }
 
@@ -140,7 +147,7 @@ namespace GP.Models
                     return DbCRUD.fail;
             }
         }
-     
+
 
         public async Task<Estate> GetOne(long id) => await _context
                 .TEstates
@@ -155,7 +162,7 @@ namespace GP.Models
               .AsNoTracking()
                .Include(c => c.Currency).Include(x => x.Category).Include(x => x.State).Include(x => x.Type).Include(x => x.Users).Include(x => x.City)
                .SingleOrDefault(c => c.Id == id);
-        
+
         public async Task<DbCRUD> InsertEstate(Estate estate)
         {
             try
@@ -196,12 +203,12 @@ namespace GP.Models
             }
         }
 
-        public  IQueryable<Estate> GetAllQuiers() =>  _context
+        public IQueryable<Estate> GetAllQuiers() => _context
                 .TEstates
                 .AsNoTracking()
                 .Include(c => c.Currency).Include(x => x.Category).Include(x => x.State).Include(x => x.Type).Include(x => x.Users).Include(x => x.City)
                 .AsQueryable();
-    
+
     }
-    
+
 }

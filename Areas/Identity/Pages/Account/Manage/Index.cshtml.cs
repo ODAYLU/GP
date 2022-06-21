@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using GP.Models;
+﻿using GP.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace GP.Areas.Identity.Pages.Account.Manage
 {
-    [Authorize(Roles ="Owner")]
+    [Authorize(Roles = "Owner")]
     public partial class IndexModel : PageModel
     {
         private readonly UserManager<AppUser> _userManager;
@@ -29,7 +27,7 @@ namespace GP.Areas.Identity.Pages.Account.Manage
             _userManager = userManager;
             _signInManager = signInManager;
 
-            _logger = logger;   
+            _logger = logger;
         }
 
         public string Username { get; set; }
@@ -48,10 +46,10 @@ namespace GP.Areas.Identity.Pages.Account.Manage
         {
             [RegularExpression(@"^([0-9]{3}[0-9]{3}[0-9]{4})$", ErrorMessage = "  رقم الهاتف غير صالح على الأقل 10 أرقام")]
             [Display(Name = "رقم التواصل")]
-           // [Required(ErrorMessage = "الحقل مطلوب")]
+            // [Required(ErrorMessage = "الحقل مطلوب")]
             public string PhoneNumber { get; set; }
             // [RegularExpression(@"^(\+[0-9]{3}-[0-9]{3}-[0-9]{6})$", ErrorMessage = "  (+رقم الوتساب  غير صالح (000-000-000000")]
-            [RegularExpression(@"^([0-9]{3}-[0-9]{3}-[0-9]{6})$", ErrorMessage = "  (+رقم الوتساب  غير صالح (000-000-000000")]
+            [RegularExpression(@"^([0-9]{3}-[0-9]{3}-[0-9]{6})$", ErrorMessage = "  (رقم الوتساب  غير صالح (000-000-000000")]
             [Display(Name = "رقم الوتس آب")]
             // [Required(ErrorMessage = "الحقل مطلوب")]
             public string ContactNumber { get; set; }
@@ -61,6 +59,8 @@ namespace GP.Areas.Identity.Pages.Account.Manage
             [Display(Name = "الاسم الثاني ")]
             // [Required(ErrorMessage = "الحقل مطلوب")]
             public string lastName { get; set; }
+            [StringLength(50000, ErrorMessage = "يحتوي على الاقل 100 حرف", MinimumLength = 100)]
+
             //  [Required(ErrorMessage ="الحقل مطلوب")]
             [Display(Name = " الوصف")]
 
@@ -98,19 +98,20 @@ namespace GP.Areas.Identity.Pages.Account.Manage
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var userNow =  await _userManager.GetUserAsync(User);
+            var userNow = await _userManager.GetUserAsync(User);
 
-            Username = userName;
+            Username = userNow.Email;
 
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
-                fristName= userNow.FirstName, lastName= userNow.LastName,
-                description=userNow.decription,
-                face=userNow.facebook,
-                insta= userNow.instigram,
-                twitter=userNow.twitter,
-                ContactNumber= userNow.ContactNumber
+                fristName = userNow.FirstName,
+                lastName = userNow.LastName,
+                description = userNow.decription,
+                face = userNow.facebook,
+                insta = userNow.instigram,
+                twitter = userNow.twitter,
+                ContactNumber = userNow.ContactNumber
             };
         }
 
@@ -149,10 +150,10 @@ namespace GP.Areas.Identity.Pages.Account.Manage
 
             user.FirstName = Input.fristName;
             user.LastName = Input.lastName;
-            user.decription=Input.description;
+            user.decription = Input.description;
 
             user.facebook = Input.face;
-            user.twitter=Input.twitter;
+            user.twitter = Input.twitter;
             user.instigram = Input.insta;
             user.ContactNumber = Input.ContactNumber;
 
@@ -162,7 +163,7 @@ namespace GP.Areas.Identity.Pages.Account.Manage
 
 
 
-        
+
 
             if (Input.PhoneNumber != phoneNumber)
             {
@@ -181,7 +182,7 @@ namespace GP.Areas.Identity.Pages.Account.Manage
                     await file.CopyToAsync(datastrem);
                     user.ProfilePicture = datastrem.ToArray();
                 }
-                
+
 
             }
 
@@ -196,9 +197,9 @@ namespace GP.Areas.Identity.Pages.Account.Manage
 
 
 
-   
 
-    
-       
+
+
+
     }
 }
