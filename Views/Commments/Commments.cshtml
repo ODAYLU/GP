@@ -30,8 +30,8 @@
                         </div>
                         <div class="col-12">
                             <div class="form-group">
-                                <div>
-                                <img style="max-width:200px;max-height:200px;" id="image" src="" alt="Estate" />
+                                <div class="col-12">
+                                <img class="img-fluid w-100" id="image" src="" alt="Estate" />
                                 </div>
                                 <div>
                                     <img id="commenter"  />
@@ -116,7 +116,7 @@
                  },
                  {"data":"isActive","name":"IsActive","autowidth": true},
                 {
-                   "render": function (data, type, row) { return '<a href="#" class="btn btn-outline-danger" onclick=DeleteCustomer(' + row.id + '); > تعديل الحالة </a>' },
+                   "render": function (data, type, row) { return '<a href="#" class="btn btn-secendry" onclick=DeleteCustomer(' + row.id + '); > تعديل الحالة </a>' },
                    "orderable": false
                 },
             ],

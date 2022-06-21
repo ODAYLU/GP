@@ -28,11 +28,14 @@
 </head>
 @*style="overflow-x: hidden;"
 *@
-<body dir="rtl" >
+<body dir="rtl">
 
 
 @{
-    
+        @inject IInformationGen info;
+
+        var infoGetone = info.GetOne();
+
     if (User.Identity.IsAuthenticated)
     {
         @inject UserManager<AppUser> _maneger
@@ -382,21 +385,22 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text_color fs-6" href="#">
+            <a class="nav-link text_color fs-6" href="@infoGetone.UrlFacebook ??= "#"">
               <span class="px-1">web Amlake</span>
               <i class="bi bi-facebook"></i>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link fs-6" href="#">
-              <span class="px-1">05998833020</span>
-              <i class="bi bi-whatsapp"></i>
+            <a class="nav-link fs-6" href="@infoGetone.UrlInstegrame??= "#"">
+             
+              <i class="bi bi-instagram"></i>
+
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link fs-6" href="#">
-              <span class="px-1">Amlake@gmail.com</span>
-              <i class="bi bi-envelope-fill"></i>
+            <a class="nav-link fs-6" href="@infoGetone.UrlTwitter ??= "#"">
+            
+            <i class="bi bi-twitter"></i>       
             </a>
           </li>
         </ul>

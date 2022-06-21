@@ -10,13 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GP.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-<<<<<<<< HEAD:Migrations/20220621065506_DV.Designer.cs
-    [Migration("20220621065506_DV")]
-    partial class DV
-========
-    [Migration("20220621062830_Addtabl1")]
-    partial class Addtabl1
->>>>>>>> a82d45dad4c300e6c79dd6bac94f1aa97efece95:Migrations/20220621062830_Addtabl1.Designer.cs
+    [Migration("20220621053547_Addtable")]
+    partial class Addtable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -482,9 +477,11 @@ namespace GP.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UrlFacebook")

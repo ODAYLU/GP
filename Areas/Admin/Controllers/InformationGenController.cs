@@ -28,7 +28,7 @@ namespace GP.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveInformation(InformationGen informatiom)
         {
-            if (!ModelState.IsValid) return BadRequest();
+            //if (!ModelState.IsValid) return BadRequest();
             await information.UpdateInformationGen(informatiom);
             return RedirectToAction(nameof(Index));
         }
