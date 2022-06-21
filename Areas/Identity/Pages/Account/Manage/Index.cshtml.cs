@@ -59,9 +59,9 @@ namespace GP.Areas.Identity.Pages.Account.Manage
             [Display(Name = "الاسم الثاني ")]
             // [Required(ErrorMessage = "الحقل مطلوب")]
             public string lastName { get; set; }
-            [StringLength(50000, ErrorMessage = "يحتوي على الاقل 100 حرف", MinimumLength = 100)]
+            [StringLength(50000, ErrorMessage = "يحتوي على الاقل 50 حرف", MinimumLength = 50)]
 
-            //  [Required(ErrorMessage ="الحقل مطلوب")]
+            [Required(ErrorMessage = "الحقل مطلوب")]
             [Display(Name = " الوصف")]
 
             public string description { get; set; }
@@ -100,7 +100,7 @@ namespace GP.Areas.Identity.Pages.Account.Manage
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var userNow = await _userManager.GetUserAsync(User);
 
-            Username = userNow.Email;
+            Username = userName;
 
             Input = new InputModel
             {
