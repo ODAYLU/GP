@@ -31,6 +31,7 @@
 	 display: flex;
 	 justify-content: space-around;
 	 padding: 10px;
+	 flex-direction:column;
 }
  .card-form .form-body .ro input[type="text"] , .card-form .form-body .ro textarea[type="text"] {
 	 appearance: none;
@@ -211,8 +212,8 @@
           <div class="form-title " style="border-style: ridge ;"> استبيان العملاء</div>
           <div class="form-body mt-4">
             <div class="ro">
-              <textarea  type="text" asp-for="Body" class="rounded-3 p-4" placeholder=" اكتب تعليقك هنا... "  style="height: 200px;"></textarea>
-	<span asp-validation-for="Body"></span>
+              <textarea  type="text" asp-for="Body" class="d-block rounded-3 p-4" placeholder=" اكتب تعليقك هنا... "  style="height: 200px;"></textarea>
+         	<span class="text-danger d-flex justify-content-evenly"   asp-validation-for="Body"></span>
 		  
 		  </div>
             <div class="ro">
@@ -271,6 +272,9 @@
 
 
 @section Scripts{
+
+	            <partial name="_ValidationScriptsPartial" />
+
   <script>
     $(document).on({
 	mouseover: function(event) {
@@ -305,6 +309,5 @@ $(document).on('click', '.dropdown', function() {
 });
 
   </script>
-          <script src="~/js/Login/lottie-player.js"></script>
 
 		}

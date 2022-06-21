@@ -48,7 +48,7 @@
             </div>
         </p>
 
-        <p class="fs-4"><strong>- @Html.DisplayFor(model => model.name)   </strong> <sub><span>@Html.DisplayFor(model => model.Type.type)</span>  <span class="ml-3">@Html.DisplayFor(model => model.Category.category)</span></sub></p>
+        <p class="fs-4"><strong>- @Html.DisplayFor(model => model.name)   </strong> <sub><span class="me-3" >@Html.DisplayFor(model => model.Type.type)</span>  <span> - @Html.DisplayFor(model => model.Category.category)</span></sub></p>
     
         <div> 
 
@@ -68,7 +68,7 @@
             <div class="d-flex justify-content-around">
                 <p class="px-3"><span>@Html.DisplayNameFor(model => model.Longitude): </span><strong id="Long">@Html.DisplayFor(model => model.Longitude)</strong></p>
                 <p class="px-3"><span>@Html.DisplayNameFor(model => model.Latitude): </span><strong id="Lat">@Html.DisplayFor(model => model.Latitude)</strong></p>
-            </div>
+            </div> 
             <div id="map" style="width: 100%; height: 450px; margin:12px 0;"></div>
         </p>
 
