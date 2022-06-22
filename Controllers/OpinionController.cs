@@ -39,6 +39,10 @@ namespace GP.Controllers
                 {
                     return View(nameof(Index));
                 }
+                if (!ModelState.IsValid)
+                {
+                    return View(nameof(Index));
+                }
                 opinion.Rating = Convert.ToInt32(radio1);
                 opinion.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 await services.InsertOpinion(opinion);

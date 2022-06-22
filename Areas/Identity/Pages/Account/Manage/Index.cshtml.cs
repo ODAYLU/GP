@@ -117,6 +117,9 @@ namespace GP.Areas.Identity.Pages.Account.Manage
 
         public async Task<IActionResult> OnGetAsync()
         {
+            GP.Models.Toast.ShowTost = false;
+
+
 
             SeedData.IsPserosalPhoto = true;
             var user = await _userManager.GetUserAsync(User);

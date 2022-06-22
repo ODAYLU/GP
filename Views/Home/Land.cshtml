@@ -331,7 +331,7 @@ function Next() {
 
                 }
             }
-            if (estate.pages >= num) {
+            if (num >= estate.pages) {
                 pages += ` <li  class="page-item "disabled ><span onclick="Next()" class="page-link">Next</span></li>`;
             } else {
                 pages += ` <li  class="page-item" ><span onclick="Next()" class="page-link">Next</span></li>`;
