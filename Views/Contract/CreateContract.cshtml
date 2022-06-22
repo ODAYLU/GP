@@ -106,7 +106,7 @@
 
                                 if(up_to_date==null){
                                     
-                                  if (BuyerName == '' || Buyerphone_num == '' || Description == '') {
+                                  if (BuyerName == '' || Buyerphone_num == '' || Description == ''|| Description.length <200 || Buyerphone_num.length < 10) {
                  Swal.fire({
                   icon: 'error',
                   title: 'خطأ...',
@@ -122,7 +122,7 @@
                                 else{
 
                                     
-                                  if (BuyerName == '' || Buyerphone_num == '' || Description == ''||up_to_date.value== '') {
+                                  if (BuyerName == '' || Buyerphone_num == '' || Description == ''||up_to_date.value== ''|| Description.length <200 || Buyerphone_num.length < 10) {
                  Swal.fire({
                   icon: 'error',
                   title: 'خطأ...',
@@ -154,7 +154,7 @@ const swalWithBootstrapButtons = Swal.mixin({
 
 swalWithBootstrapButtons.fire({
   
-  title: ' هل انت متأكد من كتابة العقد العقار  ؟ ',
+  title: ' هل انت متأكد من كتابة عقد العقار ؟ ',
   text: "لن تتمكن من حذفه أو التعديل عليه   ",
   icon: 'warning',
   showCancelButton: true,
