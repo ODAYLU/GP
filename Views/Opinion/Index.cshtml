@@ -241,11 +241,11 @@
         <form class="text-center" method="post" asp-action="Create">
           <div class="form-title "  > استبيان العملاء</div>
           <div class="form-body mt-4">
-            <div class="ro">
-              <textarea  type="text" asp-for="Body" class="rounded-3  fce" placeholder=" اكتب تعليقك هنا... "  style="height: 200px;"></textarea>
+          
+              <textarea  type="text" asp-for="Body" class="rounded-3 fce" placeholder=" اكتب تعليقك هنا... "  style="height: 200px;"></textarea>
 	<span asp-validation-for="Body"></span>
 		  
-		  </div>
+		 
             <div class="ro">
               
 <div class="wrap">
@@ -253,7 +253,6 @@
       <div class="stars">
           <label class="rate">
               <input type="radio" name="radio1" id="star1" value="1" />
-              <div class="face"></div>
               <i class="far fa-star star one-star"></i>
           </label>
           <label class="rate">
