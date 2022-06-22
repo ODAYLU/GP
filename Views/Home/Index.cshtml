@@ -62,7 +62,7 @@
               <div class="col-lg-2 col-md-6 col-12 d-flex flex-column  mx-auto">
                 <h5>التصنيف </h5>
                 <select name="Category" class="form-selectt" asp-items="categories" aria-label="Default select example">
-                  <option >اختر تصنيف العقار</option>
+                  <option >اختر تصنيف </option>
                 </select>
               </div>
               <div class="col-lg-2 col-md-6 col-12 d-flex flex-column  mx-auto">
@@ -486,7 +486,13 @@
 
 
 
-
+      <style>
+      .swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
+            bottom: 85px;
+            left: 0;
+            width: 100%;
+        }
+        </style>
 
 
      <section class="py-5 ">
@@ -501,7 +507,7 @@
                   for (var i = 0; i < @opinions.Count(); i++)
                   {
                                            <div class="swiper-slide">
-                                                <div class="col-6 ">
+                                                <div class="col-12 col-md-8 ">
                                                   <div class="testimonial">
                                                    <p>@opinions[i].Body</p>
                                                   </div>
