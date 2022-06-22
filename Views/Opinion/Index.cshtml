@@ -7,7 +7,8 @@
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'>
   <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.1/awesome-bootstrap-checkbox.min.css'>
 <style>
-  .card-form {
+	
+ /* .card-form {
 	 width: 500px;
 	 border-radius: 10px;
 
@@ -54,20 +55,10 @@
    align-items: center;
   
 }
-    .subst {
-        display: inline-block;
-        height: 40px;
-        text-align: center;
-        border-radius: 20px;
-        border: none;
-        padding: 10px 40px;
-        background: #42ADB6;
-        margin-right: 10px;
-        font-size: 14px;
-    }
+    
  .card-form .form-footer span {
 	 margin-left: 8px;
-}
+}*/
 /* /////////////////////////// */
 .rate-us {
 	cursor: pointer;
@@ -165,6 +156,33 @@
 	display: inline-block;
 }
 
+.subst {
+        display: inline-block;
+        height: 40px;
+        text-align: center;
+        border-radius: 20px;
+        border: none;
+        padding: 10px 40px;
+        background: #42ADB6;
+        margin-right: 10px;
+        font-size: 14px;
+		margin-top:2rem;
+    }
+	.fce{
+	appearance: none;
+	/* width: 100%; 
+	 margin: 0 15px;*/
+	 
+	 padding: 5px 15px;
+	/* border-radius: 5px;*/
+	 outline: none;
+	 border: none;
+	 background: #e8ebed;
+	 color: #576366;
+	 font-size: 14px;
+
+	}
+
  
 </style>
 
@@ -172,46 +190,58 @@
 
  
 
-  <div id="about" style="margin-top: 5rem ; margin-bottom: 5rem;">
-    <h1  class="text-center ">  <span class="  pe-2 " style="border-right: 3px solid #42ADB6 "> عن أملاك </span></h1>
-    <div  class="container " >
-   
+ 
+
+    <div  class="container" >
+		<div class="row">
+			<h1  class="text-center  mb-3" >  <span class="pe-2 " style="border-right: 3px solid #42ADB6 "> عن أملاك </span></h1>
+		</div>
+       
         <div class="row  align-items-center">
     
-            <div class="col-xxl-7  ">
+            <div class="col-md-6">
               
                 <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_1ixgi8rs.json"
-                background="transparent" speed="2" style="width: 800px; height: 800px;" loop  class="img-fluid "
+                background="transparent" speed="2" style="width: 600px; height: 400px;" loop  class="img-fluid "
                 autoplay></lottie-player>
     
             </div>
-            <div class="col-xxl-5" >
+
+
+            <div class="col-md-6" >
                 
-    <p style="font-size: 30px;   text-indent: 50px ;text-align: justify; letter-spacing: 3px;">
+    <p style="font-size: 25px;   text-align: justify; ">
         <span class="fs-1 fst-italic" style="color: #42ADB6;">أملاك</span> يوفر معلومات حديثة وموثوقة تجعل العثور على العقار الذى تحلم به بسهولة وسرعة. يقدم معلومات عن العقارات السكنية والتجارية وتأجير العقارات في جميع أنحاء فلسطين أولاً..
     
     اذا كنت قد بدأت للتو في البحث أو على استعداد لإجراء عملية شراء فإنه يتم تحديث أملاك يومياً لضمان إمكانية الوصول إلى أحدث قوائم العقارات وأكثرها دقة.
     
     </p>
-    
-    
+    </div>
     
             </div>
          
         </div>
     
-    </div>
-</div>
-<h1  class="text-center ">  <span class="   pe-2 " style="border-right: 3px solid #42ADB6 "> آراء العملاء </span></h1>
-<div class="container" style=" margin-bottom:10rem !important ; margin-top: 5rem !important;">
+  
+
+
+
+
+
+
+
+
+
+<div class="container" style=" margin-bottom:5rem !important ; margin-top: 3rem !important;">
+	<div class="row"> <h1  class="text-center ">  <span class="   pe-2 " style="border-right: 3px solid #42ADB6 "> آراء العملاء </span></h1></div>
   <div class="row align-items-center justify-content-center  mx-auto ">
-    <div class="col-lg-6 col-12 ">
+    <div class="col ">
       <div class="card-form mx-auto">
-        <form class="signup" method="post" asp-action="Create">
-          <div class="form-title " style="border-style: ridge ;"> استبيان العملاء</div>
+        <form class="text-center" method="post" asp-action="Create">
+          <div class="form-title "  > استبيان العملاء</div>
           <div class="form-body mt-4">
             <div class="ro">
-              <textarea  type="text" asp-for="Body" class="rounded-3 p-4" placeholder=" اكتب تعليقك هنا... "  style="height: 200px;"></textarea>
+              <textarea  type="text" asp-for="Body" class="rounded-3  fce" placeholder=" اكتب تعليقك هنا... "  style="height: 200px;"></textarea>
 	<span asp-validation-for="Body"></span>
 		  
 		  </div>
@@ -221,7 +251,7 @@
   <div class="rate-us">
       <div class="stars">
           <label class="rate">
-              <input type="radio" name="radio1" id="star1" value="1">
+              <input type="radio" name="radio1" id="star1" value="1" />
               <div class="face"></div>
               <i class="far fa-star star one-star"></i>
           </label>
@@ -259,9 +289,9 @@
         </form>
       </div>
     </div>
-    <div class="col-lg-6 col-12">
+    <div class="col">
       <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_05bmkwnh.json"
-      background="transparent" speed="2" style="width: 800px; height: 800px;" loop  class="img-fluid "
+      background="transparent" speed="2" style="width: 600px; height: 600px;" loop  class="img-fluid "
       autoplay></lottie-player>
 
     </div>
