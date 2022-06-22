@@ -273,13 +273,19 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
             <div class="col-12 col-md-9 ">
                 <div class="pe-xl-5">
 
-                        <p class="fs-2 ">عنوان العقار</p>
+                       <div class="d-flex justify-content-between">
+                            <p class="fs-2 ">@Model.name</p>
+                             <p class="fs-2 text-danger">@Model.Id #</p>
+                       </div>
                         <p><i class="bi bi-geo-alt-fill"></i>@Model.State.name _ @Model.City.name</p>
                         <div class="d-flex justify-content-between align-items-center fs-5">
-                            <p><i class="bi bi-building"></i> نوع العقار: @Model.Category.category </p>
+                            <p><i class="bi bi-building"></i> تصنيف  العقار: @Model.Category.category </p>
+
                             <p><i class="bi bi-aspect-ratio"></i> مساحة العقار : @Model.space م </p>
                             <p><i class="bi bi-cash"></i> سعر العقار :@Model.price $</p>
                         </div>
+                           <p class="fs-5"><i class="bi bi-building"></i> نوع  العقار: @Model.Type.type </p>
+
                         <div class="d-flex align-items-center flex-wrap">
                             <p class="fs-5">خدمات العقار :</p>
                             <ul class=" d-flex px-0 nav">
@@ -297,6 +303,7 @@ IList<PhotoEstate> photosPaths =  _photoEstate.GetAllByEstate(Model.Id);
                                
                             </ul>
                         </div>
+
 
                         <div class="pt-5">
                             <p class="fs-5 fw-bold">تفاصيل العقار</p>
