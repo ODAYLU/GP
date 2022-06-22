@@ -43,7 +43,7 @@ namespace GP.Areas.Identity.Pages.Account.Manage
             //   [Required(ErrorMessage = "الحقل مطلوب")]
             public string PhoneNumber { get; set; }
 
-            [RegularExpression(@"^(\+[0-9]{3}-[0-9]{3}-[0-9]{6})$", ErrorMessage = "  (رقم الوتساب  غير صالح (000-000-000000")]
+            [RegularExpression(@"^([0-9]{3}-[0-9]{3}-[0-9]{6})$", ErrorMessage = "  (رقم الوتساب  غير صالح (000-000-000000")]
             [Display(Name = "رقم الوتس آب")]
             //  [Required(ErrorMessage = "الحقل مطلوب")]
             public string ContactNumber { get; set; }
