@@ -29,7 +29,12 @@ namespace GP.Controllers
             x.is_active &&
             x.publish &&
             !x.IsBlock);
+            
             var data = await estates.Skip(pageNumber * 20).Take(20).ToListAsync();
+            if(data.Count() == 0)
+            {
+                data = await estates.Skip((pageNumber-1) * 20).Take(20).ToListAsync();
+            }
             decimal total = estates.Count();
             decimal totalDecimal = total / 20;
             int pages = (int)Math.Ceiling(totalDecimal);
@@ -46,6 +51,10 @@ namespace GP.Controllers
             x.publish &&
             !x.IsBlock);
             var data = await estates.Skip(pageNumber * 20).Take(20).ToListAsync();
+            if(data.Count() == 0)
+            {
+                data = await estates.Skip((pageNumber-1) * 20).Take(20).ToListAsync();
+            }
             decimal total = estates.Count();
             decimal totalDecimal = total / 20;
             int pages = (int)Math.Ceiling(totalDecimal);
@@ -62,6 +71,10 @@ namespace GP.Controllers
             x.publish &&
             !x.IsBlock);
             var data = await estates.Skip(pageNumber * 20).Take(20).ToListAsync();
+            if (data.Count() == 0)
+            {
+                data = await estates.Skip((pageNumber - 1) * 20).Take(20).ToListAsync();
+            }
             decimal total = estates.Count();
             decimal totalDecimal = total / 20;
             int pages = (int)Math.Ceiling(totalDecimal);
@@ -78,6 +91,10 @@ namespace GP.Controllers
             x.publish &&
             !x.IsBlock);
             var data = await estates.Skip(pageNumber * 20).Take(20).ToListAsync();
+            if (data.Count() == 0)
+            {
+                data = await estates.Skip((pageNumber - 1) * 20).Take(20).ToListAsync();
+            }
             decimal total = estates.Count();
             decimal totalDecimal = total / 20;
             int pages = (int)Math.Ceiling(totalDecimal);

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace GP.Controllers
@@ -15,12 +16,18 @@ namespace GP.Controllers
         private readonly UserManager<AppUser> _user;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IEstate _estates;
-        public UsersProfilesController(IEstate estates, ApplicationDbContext context, IWebHostEnvironment webHostEnvironment, UserManager<AppUser> user)
+        private readonly IlikedEstates ilikedEstates;
+        public UsersProfilesController(IEstate estates, 
+            ApplicationDbContext context,
+            IWebHostEnvironment webHostEnvironment,
+            UserManager<AppUser> user,
+            IlikedEstates ilikedEstates)
         {
             _estates = estates;
             _context = context;
             _webHostEnvironment = webHostEnvironment;
             _user = user;
+            this.ilikedEstates = ilikedEstates;
         }
         [HttpGet]
         public IActionResult Index()
@@ -34,6 +41,7 @@ namespace GP.Controllers
         {
             AppUser user = await _user.FindByIdAsync(id);
             var IsOwner = await _user.IsInRoleAsync(user, "Owner");
+            ViewBag.LikesEstate = ilikedEstates.GetAll().Where(x => x.IdUser == User.FindFirstValue(ClaimTypes.NameIdentifier)).Select(z => z.IdEstate).ToList();
             if (IsOwner)
             {
                 ViewData["flag"] = true;
