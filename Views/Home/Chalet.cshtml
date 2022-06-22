@@ -172,7 +172,7 @@ $(document).ready(function() {
                         <div class="bottomright">${estate.data[i].type.type}</div>
                     </div>
                     <div class="content">
-                        <a class="titleral" href="">
+                        <a class="titleral" href="/Commments/EstateComment/${estate.data[i].id}">
                             <h3> ${estate.data[i].name} </h3>
                         </a>
                         <p class="pt-2"><i class="bi bi-geo-alt"></i>${estate.data[i].state.name} - ${estate.data[i].city.name}</p>
@@ -262,7 +262,7 @@ function GetDataPage(z,el) {
                         <div class="bottomright">${estate.data[i].type.type}</div>
                     </div>
                     <div class="content">
-                        <a class="titleral" href="">
+                        <a class="titleral" href="/Commments/EstateComment/${estate.data[i].id}">
                             <h3> ${estate.data[i].name} </h3>
                         </a>
                         <p class="pt-2"><i class="bi bi-geo-alt"></i>${estate.data[i].state.name} - ${estate.data[i].city.name}</p>
@@ -273,7 +273,7 @@ function GetDataPage(z,el) {
                                 <img class="img-fluid text-right rounded-circle" style="width: 50px;height: 50px;"
                                     src="${userPhoto}">
                                 <div class="pe-3">
-                                    <a href="" class="mb-0 titleral">
+                                    <a href="/UsersProfiles/GetProfile/${estate.data[i].users.id}" class="mb-0 titleral">
                                         مالك العقار: ${estate.data[i].users.firstName} ${estate.data[i].users.lastName}
                                     </a>
                                     <p class="mb-0 text-secondary">تاريخ الاضاقة : ${estate.data[i].onDate}</p>
@@ -366,7 +366,7 @@ function Next() {
                         <div class="bottomright">${estate.data[i].type.type}</div>
                     </div>
                     <div class="content">
-                        <a class="titleral" href="">
+                        <a class="titleral" href="/Commments/EstateComment/${estate.data[i].id}">
                             <h3> ${estate.data[i].name} </h3>
                         </a>
                         <p class="pt-2"><i class="bi bi-geo-alt"></i>${estate.data[i].state.name} - ${estate.data[i].city.name}</p>
@@ -377,7 +377,7 @@ function Next() {
                                 <img class="img-fluid text-right rounded-circle" style="width: 50px;height: 50px;"
                                     src="${userPhoto}">
                                 <div class="pe-3">
-                                    <a href="" class="mb-0 titleral">
+                                    <a href="/UsersProfiles/GetProfile/${estate.data[i].users.id}" class="mb-0 titleral">
                                         مالك العقار: ${estate.data[i].users.firstName} ${estate.data[i].users.lastName}
                                     </a>
                                     <p class="mb-0 text-secondary">تاريخ الاضاقة : ${estate.data[i].onDate}</p>
@@ -470,11 +470,11 @@ function Previous () {
                     text += `<article class="download-card">
 
                     <div class="download-card__icon-box">
-                        <img src="${estate.data[i].main_photo}" class="img-fluid" />
+                        <img src="/images/Estate/${estate.data[i].main_photo}" class="img-fluid" />
                         <div class="bottomright">${estate.data[i].type.type}</div>
                     </div>
                     <div class="content">
-                        <a class="titleral" href="">
+                        <a class="titleral" href="/Commments/EstateComment/${estate.data[i].id}">
                             <h3> ${estate.data[i].name} </h3>
                         </a>
                         <p class="pt-2"><i class="bi bi-geo-alt"></i>${estate.data[i].state.name} - ${estate.data[i].city.name}</p>
@@ -485,7 +485,7 @@ function Previous () {
                                 <img class="img-fluid text-right rounded-circle" style="width: 50px;height: 50px;"
                                     src="${userPhoto}">
                                 <div class="pe-3">
-                                    <a href="" class="mb-0 titleral">
+                                    <a href="/UsersProfiles/GetProfile/${estate.data[i].users.id}" class="mb-0 titleral">
                                         مالك العقار: ${estate.data[i].users.firstName} ${estate.data[i].users.lastName}
                                     </a>
                                     <p class="mb-0 text-secondary">تاريخ الاضاقة : ${estate.data[i].onDate}</p>

@@ -87,7 +87,7 @@ namespace GP.Controllers
                             (Category == 0 ? true : x.categoryID == Category) &&
                             (State == 0 ? true : x.StateID == State) &&
                             (City == 0 ? true : x.CityID == City) &&
-                            x.is_active && x.publish
+                            x.is_active && x.publish && !x.IsBlock
                             ).ToPagedList(pageNumber, pageSize);
             var Categ = _category.GetOne(Category).Result;
             if (Categ is not null)
